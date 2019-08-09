@@ -22,7 +22,7 @@ public interface ICustomerService {
 	//取得所有客户列表
 	public List<CustomerModel> getListByAll() throws Exception;
 	//取得客户单个对象，
-	public CustomerModel getByCustomerNo(int customerNo) throws Exception;
+	public CustomerModel getByCustomerNo(int customerno) throws Exception;
 	//取得所有客户列表,分页模式
 	public List<CustomerModel> getListByAllWithPage(@Param("start") int start,@Param("rows") int rows) throws Exception;
 	//取得客户的个数

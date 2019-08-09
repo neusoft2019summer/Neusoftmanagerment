@@ -14,13 +14,13 @@ public interface IRoomService {
 	//增加
 	public void add(RoomModel room) throws Exception;
 	//修改
-	public void modift(RoomModel room) throws Exception;
+	public void modify(RoomModel room) throws Exception;
 	//删除
 	public void delete(RoomModel room) throws Exception;
 	//取得所有客户列表
 	public List<RoomModel> getListByAll() throws Exception;
 	//取得客户单个对象，
-	public RoomModel getByCustomerNo(int roomNo) throws Exception;
+	public RoomModel getByRoomNo(int roomno) throws Exception;
 	//取得所有客户列表,分页模式
 	public List<RoomModel> getListByAllWithPage(@Param("start") int start,@Param("rows") int rows) throws Exception;
 	//取得客户的个数

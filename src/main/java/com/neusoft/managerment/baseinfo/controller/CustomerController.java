@@ -24,29 +24,29 @@ public class CustomerController {
 	@PostMapping("/add")
 	public ResultMessage<CustomerModel> add(CustomerModel customer) throws Exception {
 		customerService.add(customer);
-		return new ResultMessage<CustomerModel>("OK","增加部门成功");
+		return new ResultMessage<CustomerModel>("OK","增加客户成功");
 	}
 	//修改客户
 	@PostMapping("/modify")
 	public ResultMessage<CustomerModel> modify(CustomerModel customer) throws Exception {
 		customerService.modify(customer);
-		return new ResultMessage<CustomerModel>("OK","修改部门成功");
+		return new ResultMessage<CustomerModel>("OK","修改客户成功");
 	}
 	//删除客户
 	@PostMapping("/delete")
 	public ResultMessage<CustomerModel> delete(CustomerModel customer) throws Exception {
 		customerService.delete(customer);
-		return new ResultMessage<CustomerModel>("OK","删除部门成功");
+		return new ResultMessage<CustomerModel>("OK","删除客户成功");
 	}
 	//取得指定的客户
 	@GetMapping("/get")
-	public CustomerModel getByCustomerNo(int customerNo) throws Exception{
-		return customerService.getByCustomerNo(customerNo);
+	public CustomerModel getByCustomerNo(int customerno) throws Exception{
+		return customerService.getByCustomerNo(customerno);
 	}
 	//取得所有客户列表，有分页
 	@GetMapping(value="/list/all/page")
 	public ResultMessage<CustomerModel> getListByAllWitPage(@RequestParam(required = false,defaultValue ="10") int rows,@RequestParam(required = false,defaultValue = "1") int page) throws Exception{
-		ResultMessage<CustomerModel> result=new ResultMessage<CustomerModel>("OK","取得部门列表分页模式成功");
+		ResultMessage<CustomerModel> result=new ResultMessage<CustomerModel>("OK","取得客户列表分页模式成功");
 		result.setCount(customerService.getCountByAll());
 		result.setPageCount(customerService.getPagaCountByAll(rows));
 		result.setList(customerService.getListByAllWithPage(rows, page));
