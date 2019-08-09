@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.promis.security.mapper.ICustomerMapper">
+
+  <cache/>
+
+  <resultMap id="CustomerResultMap" type="Customer">
+    <id property="customerno" column="CUSTOMERNO"/>
+    <result property="typeno" column="TYPENO"/>
+    <result property="ccode" column="CCODE"/>
+    <result property="cname" column="CNAME"/>
+    <result property="contact" column="CONTACT"/>
+    <result property="cardcode" column="CARDCODE"/>
+    <result property="mobile" column="MOBILE"/>
+    <result property="tel" column="TEL"/>
+    <result property="fax" column="FAX"/>
+    <result property="qq" column="QQ"/>
+    <result property="weixin" column="WEIXIN"/>
+    <result property="feestartdate" column="FEESTARTDATE"/>
+    <result property="feeenddate" column="FEEENDDATE"/>
+    <result property="cstatus" column="CSTATUS"/>
+  </resultMap>
+
+  <insert id="create"  parameterType="Customer" flushCache="true">
+   insert into Customer (CUSTOMERNO,TYPENO,CCODE,CNAME,CONTACT,CARDCODE,MOBILE,TEL,FAX,QQ,WEIXIN,FEESTARTDATE,FEEENDDATE,CSTATUS)
+   values (#{customerno},#{typeno},#{ccode},#{cname},#{contact},#{cardcode},#{mobile},
+   #{tel},#{fax},#{qq},#{weixin},#{feestartdate},#{feeenddate},#{cstatus})
+  </insert>
+  
+  <update id="update" flushCache="true">
+   update Customer set TYPENO=#{typeno},CCODE=#{ccode},CNAME=#{cname},
+   CONTACT=#{contact},CARDCODE=#{cardcode},MOBILE=#{mobile},TEL=#{tel},FAX=#{fax},QQ=#{qq},
+   WEIXIN=#{weixin},FEESTARTDATE=#{feestartdate},FEEENDDATE=#{feeenddate},CSTATUS=#{cstatus}
+   where CUSTOMERNO=#{customerno}
+  </update>
+  
+  <delete id="delete" flushCache="true">
+   delete from Customer where CUSTOMERNO=#{customerno}
+  </delete>
+  
+  <select id="selectListByAll" resultMap="CustomerResultMap">
+   select * from Customer
+  </select>
+  
+  <select id="selectListByAllWithPage" resultMap="CustomerResultMap">
+   select * from Customer limit #{start},#{rows}
+  </select>
+  
+  <select id="selectByCustomerNo" resultMap="CustomerResultMap" >
+  select * from Customer  where CUSTOMERNO=#{customerno}
+  </select>
+  
+  <!-- 取得客户的个数，使用IFNULL函数判断count函数结果是否为null, 为null返回0 -->
+  <select id="selectCountByAll" resultType="int">
+   select IFNULL(count(CUSTOMERNO), 0) from Customer
+  </select>
+  
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

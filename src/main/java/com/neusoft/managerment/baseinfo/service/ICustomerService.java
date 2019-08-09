@@ -28,5 +28,5 @@ public interface ICustomerService {
 	//取得客户的个数
 	public int getCountByAll() throws Exception;
 	//取得客户页数
-	public int getPagaCountByAll(int rows) throws Exception;
+	public int getPageCountByAll(int rows) throws Exception;
 }

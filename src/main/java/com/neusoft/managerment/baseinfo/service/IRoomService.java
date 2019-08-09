@@ -17,14 +17,14 @@ public interface IRoomService {
 	public void modify(RoomModel room) throws Exception;
 	//删除
 	public void delete(RoomModel room) throws Exception;
-	//取得所有客户列表
+	//取得所有房间列表
 	public List<RoomModel> getListByAll() throws Exception;
-	//取得客户单个对象，
+	//取得房间单个对象，
 	public RoomModel getByRoomNo(int roomno) throws Exception;
-	//取得所有客户列表,分页模式
+	//取得所有房间列表,分页模式
 	public List<RoomModel> getListByAllWithPage(@Param("start") int start,@Param("rows") int rows) throws Exception;
-	//取得客户的个数
+	//取得房间的个数
 	public int getCountByAll() throws Exception;
-	//取得客户页数
-	public int getPagaCountByAll(int rows) throws Exception;
+	//取得房间页数
+	public int getPageCountByAll(int rows) throws Exception;
 }

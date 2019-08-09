@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.promis.security.mapper.IRoomMapper">
+
+  <cache/>
+
+  <resultMap id="RoomResultMap" type="Room">
+    <id property="roomNo" column="ROOMNO"/>
+    <result property="housetypeno" column="HOUSETYPENO"/>
+    <result property="buildingno" column="BUILDINGNO"/>
+    <result property="departmentcode" column="DEPARTMENTCODE"/>
+    <result property="floor" column="FLOOR"/>
+    <result property="roomcode" column="ROOMCODE"/>
+    <result property="buildingarea" column="BUILDINGAREA"/>
+    <result property="feearea" column="FEEAREA"/>
+    <result property="roomstatus" column="ROOMSTATUS"/>
+    <result property="roomtype" column="ROOMTYPE"/>
+  </resultMap>
+
+  <insert id="create"  parameterType="Room" flushCache="true">
+   insert into Room (ROOMNO,HOUSETYPENO,BUILDINGNO,DEPARTMENTCODE,FLOOR,ROOMCODE,BUILDINGAREA,FEEAREA,ROOMSTATUS,ROOMTYPE)
+   values (#{roomno},#{housetypeno},#{buildingno},#{departmentcode},#{floor},#{roomcode},#{buildingarea},
+   #{feearea},#{roomstatus},#{roomtype})
+  </insert>
+  
+  <update id="update" flushCache="true">
+   update Room set HOUSETYPENO=#{housetypeno},BUILDINGNO=#{buildingno},DEPARTMENTCODE=#{departmentcode},
+   FLOOR=#{floor},ROOMCODE=#{roomcode},BUILDINGAREA=#{buildingarea},
+   FEEAREA=#{feearea},ROOMSTATUS=#{roomstatus},ROOMTYPE=#{roomtype}
+   where ROOMNO=#{roomno}
+  </update>
+  
+  <delete id="delete" flushCache="true">
+   delete from Room where ROOMNO=#{roomno}
+  </delete>
+  
+  <select id="selectListByAll" resultMap="RoomResultMap">
+   select * from Room
+  </select>
+  
+  
+  <select id="selectByRoomNo" resultMap="RoomResultMap" >
+  select * from Room  where ROOMNO=#{roomno}
+  </select>
+
+  <select id="selectListByAllWithPage" resultMap="RoomResultMap">
+   select * from Room limit #{start},#{rows}
+  </select>
+  
+  <!-- 取得房间的个数，使用IFNULL函数判断count函数结果是否为null, 为null返回0 -->
+  <select id="selectCountByAll" resultType="int">
+   select IFNULL(count(ROOMNO), 0) from Room
+  </select>
+  
+</mapper>

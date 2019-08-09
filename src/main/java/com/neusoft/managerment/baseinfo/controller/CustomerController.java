@@ -1,21 +1,23 @@
 package com.neusoft.managerment.baseinfo.controller;
-
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
+import org.springframework.web.bind.annotation.RestController;
 import com.neusoft.managerment.baseinfo.model.CustomerModel;
 import com.neusoft.managerment.baseinfo.service.ICustomerService;
 import com.neusoft.managerment.message.ResultMessage;
 
-/*
- * 模块：客户管理
- * Controller层：客户控制器Controller类
- * @Author: 陈思颖
+/**
+ *    模块：基础信息  表：客户 Customer
+ *    author : 陈思颖
+ *    version: 1.0
  */
+//客户的控制类
+@RestController
+@RequestMapping("/customer")
 public class CustomerController {
 	@Autowired
 	private ICustomerService customerService=null;
@@ -48,7 +50,7 @@ public class CustomerController {
 	public ResultMessage<CustomerModel> getListByAllWitPage(@RequestParam(required = false,defaultValue ="10") int rows,@RequestParam(required = false,defaultValue = "1") int page) throws Exception{
 		ResultMessage<CustomerModel> result=new ResultMessage<CustomerModel>("OK","取得客户列表分页模式成功");
 		result.setCount(customerService.getCountByAll());
-		result.setPageCount(customerService.getPagaCountByAll(rows));
+		result.setPageCount(customerService.getPageCountByAll(rows));
 		result.setList(customerService.getListByAllWithPage(rows, page));
 		result.setPage(page);
 		result.setRows(rows);

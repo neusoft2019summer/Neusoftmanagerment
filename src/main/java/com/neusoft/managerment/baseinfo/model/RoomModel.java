@@ -14,7 +14,7 @@ import lombok.Data;
 public class RoomModel {
 
 	private int roomno = 0;
-	private int housetyoeno = 0;
+	private int housetypeno = 0;
 	private int buildingno = 0;
 	private String departmentcode = null;
 	private String floor = null;

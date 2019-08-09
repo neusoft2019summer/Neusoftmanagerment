@@ -4,18 +4,9 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-
-
     url: jdbc:mysql://rm-wz9jfvwe87pjs867ino.mysql.rds.aliyuncs.com:3306/managerment?serverTimezone=GMT%2B8
-
     username: root
-    password: Wuye2019
-
-  profiles:
-    active:
-    - server1
-    
-    
+    password: Wuye2019 
 
 mybatis:
 

@@ -1,5 +1,7 @@
 package com.neusoft.managerment.office.mapper;
 
+import org.apache.ibatis.annotations.Mapper;
+
 import com.neusoft.managerment.office.model.NewsModel;
 
 //新闻的Mapper层接口
