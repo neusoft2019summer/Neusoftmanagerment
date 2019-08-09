@@ -16,7 +16,7 @@ public interface ICustomerService {
 	//增加
 	public void add(CustomerModel customer) throws Exception;
 	//修改
-	public void modift(CustomerModel customer) throws Exception;
+	public void modify(CustomerModel customer) throws Exception;
 	//删除
 	public void delete(CustomerModel customer) throws Exception;
 	//取得所有客户列表
