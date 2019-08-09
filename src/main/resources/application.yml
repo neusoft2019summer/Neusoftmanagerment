@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/busmis?serverTimezone=GMT%2B8 
+    username: root
+    password: 123456
+  profiles:
+    active:
+    - server1
+    
+    
+mybatis:
+  type-aliases-package: com.xiaozhang.busmis.security.model
+  mapper-locations:
+  - classpath*:/mappers/**/*.xml
+
+ 
