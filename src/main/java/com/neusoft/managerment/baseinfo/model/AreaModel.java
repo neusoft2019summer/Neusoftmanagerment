@@ -1,25 +1,28 @@
 package com.neusoft.managerment.baseinfo.model;
 
+import java.io.Serializable;
+import java.math.BigDecimal;
+
 import org.apache.ibatis.type.Alias;
 
 import lombok.Data;
 
 /**
- *    author : 张梓琪
+ *    模块：基础信息   表：小区 Area
+ *    author : 吕淑兰
  *    version: 1.0
- *    系统基础信息模块的小区Model
  */
 @Alias("area")
 @Data
-public class AreaModel {
-
-	private int areano = 0;
-	private String areaname = null;
-	private String aaddress = null;
-	private String developer = null;
-	private double totalbuidingarea = 0;
-	private double titaluserarea = 0;
-	private int totalhome = 0;
-	private int titalhouse = 0;
-	private int totalpack = 0;
+public class AreaModel implements Serializable {
+	private int no=0;
+	private String name=null;
+	private String address=null;
+	private String developer=null;
+	private BigDecimal buildingarea=null;
+	private BigDecimal usearea=null;
+	private BigDecimal packarea=null;
+	private int home=0;
+	private int house=0;
+	private int pack=0;
 }

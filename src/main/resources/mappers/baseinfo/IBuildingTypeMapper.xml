@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.managerment.baseinfo.mapper.IBuildingTypeMapper">
+
+  <cache/>
+  
+  <resultMap id="BuildTypeResultMap" type="buildingtype">
+  	<id property="no" column="TYPENO" />
+  	<result property="name" column="TYPENAME" />
+  </resultMap>
+  
+  <insert id="create" keyProperty="no" keyColumn="TYPENO" useGeneratedKeys="true" flushCache="true">
+  	insert into BuildingType (TYPENAME) values (#{name})
+  </insert>
+  
+  <update id="update" flushCache="true">
+  	update BuildingType set TYPENAME=#{name} where TYPENO=#{no} 
+  </update>
+  
+  <delete id="delete" flushCache="true">
+  	delete from BuildingType where TYPENO=#{no} 
+  </delete>
+  
+  <!-- 查询建筑类型的信息 -->
+  <select id="selectBuildTypeListByAll" resultMap="BuildTypeResultMap" >
+  	select * from BuildingType 
+  	
+  </select>
+  
+   <!-- 取得指定建筑类型的信息 -->
+  <select id="selectBuildTypeByNo" resultMap="BuildTypeResultMap" >
+  	select * from BuildingType where TYPENO=#{no} 
+ 	
+  </select>
+  
+</mapper>

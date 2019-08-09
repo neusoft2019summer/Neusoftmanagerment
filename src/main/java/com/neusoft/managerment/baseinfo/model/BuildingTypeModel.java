@@ -1,19 +1,22 @@
 package com.neusoft.managerment.baseinfo.model;
 
+import java.io.Serializable;
+
 import org.apache.ibatis.type.Alias;
 
 import lombok.Data;
 /**
- *    author : 张梓琪
+ *    模块：基础信息  表：建筑类型 BuildingType
+ *    author : 吕淑兰
  *    version: 1.0
  */
-//系统基础信息模块建筑model类
+
 @Alias("buildingtype")
 @Data
-public class BuildingTypeModel {
+public class BuildingTypeModel implements Serializable {
 
-	private int typeno = 0;
-	private String typename=null;
+	private int no=0;
+	private String name=null;
 	
 	
 }

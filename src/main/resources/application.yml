@@ -1,17 +1,17 @@
+server:
+  port: 8100
+
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/busmis?serverTimezone=GMT%2B8 
+    url: jdbc:mysql://rm-wz9jfvwe87pjs867ino.mysql.rds.aliyuncs.com:3306/managerment?serverTimezone=GMT%2B8
     username: root
-    password: 123456
-  profiles:
-    active:
-    - server1
-    
-    
+    password: Wuye2019
 mybatis:
-  type-aliases-package: com.xiaozhang.busmis.security.model
-  mapper-locations:
-  - classpath*:/mappers/**/*.xml
+  mapper-locations:  
+  - classpath*:/mappers/**/*.xml 
+  type-aliases-package: com.neusoft.managerment.baseinfo.model
+                        com.neusoft.managerment.feeinfo.model
+
 
  

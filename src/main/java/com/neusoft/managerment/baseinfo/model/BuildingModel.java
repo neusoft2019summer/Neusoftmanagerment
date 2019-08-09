@@ -1,23 +1,26 @@
 package com.neusoft.managerment.baseinfo.model;
 
+import java.io.Serializable;
+
 import org.apache.ibatis.type.Alias;
 
 import lombok.Data;
 
 /**
- *    author : 张梓琪
+ *    模块：基础信息  表：楼宇  Building
+ *    author : 吕淑兰
  *    version: 1.0
  */
 @Alias("building")
 @Data
-public class BuildingModel {
-	private int buildingno = 0;
-	private int areano = 0;
-	private String bcode = null;
-	private String baddress = null;
-	private int buildingtypeno = 0;
-	private String direction = null;
-	private int totalhome = 0;
-	private int totalhouse = 0;
+public class BuildingModel implements Serializable {
+	private int no=0;
+	private AreaModel area=null;
+	private String code=null;
+	private String address=null;
+	private BuildingTypeModel buildType=null;
+	private String direction=null;
+	private int home=0;
+	private int house=0;
 
 }
