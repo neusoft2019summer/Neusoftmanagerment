@@ -7,9 +7,9 @@ import org.apache.ibatis.type.Alias;
 import lombok.Data;
 
 /**
- *    author : 张梓琪
+ *    author : 丘嘉茹
  *    version: 1.0
- *    系统基础信息模块的员工信息Model
+ *    人事管理信息模块的员工档案管理信息Model
  */
 @Alias("Employees")
 @Data
