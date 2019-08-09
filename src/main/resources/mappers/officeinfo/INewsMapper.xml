@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 新闻的Mapper接口Mapping映射 --> 
+<mapper namespace="com.neusoft.managerment.office.mapper.INewsMapper">
+  
+  <cache/>
+  <resultMap id="NewsResultMap" type="NewsModel">
+      <id property="id" column="UserID"/>
+      <result property="password" column="USERPASSWORD"/>
+      <result property="name" column="UserName"/>
+      <result property="age" column="AGE"/>
+      <result property="joinDate" column="JOINDATE"/>
+      <result property="status" column="STATUS"/>
+      
+  </resultMap>
