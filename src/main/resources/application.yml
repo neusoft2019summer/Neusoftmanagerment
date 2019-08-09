@@ -1,15 +1,24 @@
+server:
+  port: 8100
+
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://rm-wz9jfvwe87pjs867ino.mysql.rds.aliyuncs.com:3306/busmis?serverTimezone=GMT%2B8 
+
+
+    url: jdbc:mysql://rm-wz9jfvwe87pjs867ino.mysql.rds.aliyuncs.com:3306/managerment?serverTimezone=GMT%2B8
+
     username: root
     password: Wuye2019
+
   profiles:
     active:
     - server1
     
     
+
 mybatis:
+
   type-aliases-package: com.Neusoft.managerment.admin.model
                         com.Neusoft.managerment.baseinfo.model
                         com.Neusoft.managerment.config.model
@@ -19,5 +28,9 @@ mybatis:
                          
   mapper-locations:
   - classpath*:/mappers/**/*.xml
+ 
+
+
+
 
  

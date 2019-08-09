@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.managerment.baseinfo.mapper.IBuildingMapper">
+
+  <cache/>
+  
+  <resultMap id="BuildResultMap" type="building">
+  	<id property="no" column="BuildingNo" />
+  	<result property="code" column="BCODE" />
+  	<result property="address" column="BAddress" />
+  	<result property="direction" column="Direction" />
+  	<result property="home" column="TotalHome" />
+  	<result property="house" column="TotalHouse " />
+  	
+  </resultMap>
+  
+  <!-- association 取外键FK -->
+  <!-- 使用内嵌式ResultMap的关联模块的结果映射 -->
+  <resultMap id="BuildResultMapWithBuildType" type="building" extends="BuildResultMap" >
+  	<association property="buildType"  resultMap="com.neusoft.managerment.baseinfo.mapper.IBuildingTypeMapper.BuildTypeResultMap" />
+  </resultMap>
+  
+  <resultMap id="BuildResultMapWithArea" type="building" extends="BuildResultMap" >
+  	<association property="area"  resultMap="com.neusoft.managerment.baseinfo.mapper.IAreaMapper.AreaResultMap" />
+  </resultMap>
+  
+  <resultMap id="BuildResultMapWithAreaAndBuildType" type="building" extends="BuildResultMap" >
+  	<association property="area"  resultMap="com.neusoft.managerment.baseinfo.mapper.IAreaMapper.AreaResultMap" />
+  	<association property="buildType"  resultMap="com.neusoft.managerment.baseinfo.mapper.IBuildingTypeMapper.BuildTypeResultMap" />
+  </resultMap>
+  
+  <insert id="create" keyProperty="no" keyColumn="BuildingNo" useGeneratedKeys="true" flushCache="true">
+  	insert into Building (AreaNo,BCODE,BAddress,BuildingTypeNo,Direction,TotalHome,TotalHouse) 
+  	values (#{area.no},#{code},#{address},#{buildType.no},#{direction},#{home},#{house})
+  </insert>
+  
+  <update id="update" flushCache="true">
+  	update Building set AreaNo=#{area.no},BCODE=#{code},BAddress=#{address},BuildingTypeNo=#{buildType.no},
+  	Direction=#{direction},TotalHome=#{home},TotalHouse=#{house} where BuildingNo=#{no} 
+  </update>
+  
+  <delete id="delete" flushCache="true">
+  	delete from Building where BuildingNo=#{no} 
+  </delete>
+  
+  <!-- 查询楼宇的信息 -->
+  <select id="selectBuildListByAll" resultMap="BuildResultMap" >
+  	select * from Building 
+  	
+  </select>
+  
+  <!-- 查询楼宇的信息,关联Area-->
+  <select id="selectBuildListByAllWithArea" resultMap="BuildResultMapWithArea" >
+  	select b.*,a.* from Building b inner join Area a on b.AreaNo=a.AREANO
+  </select>
+  
+  <!-- 查询楼宇的信息,关联BuildingType -->
+  <select id="selectBuildListByAllWithBuildType" resultMap="BuildResultMapWithBuildType" >
+  	select a.*,b.* from Building a inner join BuildingType b on a.BuildingTypeNo=b.TYPENO	
+  </select>
+  
+  <!-- 查询楼宇的信息,关联Area和BuildingType -->
+  <select id="selectBuildListByAllWithAreaAndBuildType" resultMap="BuildResultMapWithAreaAndBuildType" >
+  	select a.*,b.*,c.* from Building a inner join BuildingType b on a.BuildingTypeNo=b.TYPENO inner join Area c on a.AreaNo=c.AREANO
+  </select>
+  
+  <!-- 取得指定小区的楼宇列表,参数:areaNo -->
+  <select id="selectBuildListByArea" resultMap="BuildResultMap" >
+  	select * from Building where AreaNo=#{areaNo} 	
+  </select>
+  
+  <!-- 取得指定建筑类型的楼宇列表,参数:buildTypeNo -->
+  <select id="selectBuildListByBuildType" resultMap="BuildResultMap" >
+  	select * from Building where BuildingTypeNo=#{buildTypeNo}
+  </select>
+  
+   <!-- 取得指定楼宇的信息-->
+  <select id="selectBuildByNo" resultMap="BuildResultMapWithAreaAndBuildType" >
+  	select * from Building where BuildingNo=#{no} 
+ 	
+  </select>
+  
+</mapper>

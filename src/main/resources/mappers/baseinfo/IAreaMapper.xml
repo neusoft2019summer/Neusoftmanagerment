@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.managerment.baseinfo.mapper.IAreaMapper">
+
+  <cache/>
+  
+  <resultMap id="AreaResultMap" type="area">
+  	<id property="no" column="AREANO" />
+  	<result property="name" column="AREANAME" />
+  	<result property="address" column="AAddress" />
+  	<result property="developer" column="Developer" />
+  	<result property="buildingarea" column="TotalBuildingArea" />
+  	<result property="usearea" column="TotalUseArea" />
+  	<result property="packarea" column="TotalPackArea" />
+  	<result property="home" column="TotalHome" />
+  	<result property="house" column="TotalHouse" />
+  	<result property="pack" column="TotalPack" />
+  </resultMap>
+  
+  <insert id="create" keyProperty="no" keyColumn="AREANO" useGeneratedKeys="true" flushCache="true">
+  	insert into Area (AREANAME,AAddress,Developer,TotalBuildingArea,TotalUseArea,TotalPackArea,TotalHome,TotalHouse,TotalPack) 
+  	values (#{name},#{address},#{developer},#{buildingarea},#{usearea},#{packarea},#{home},#{house},#{pack})
+  </insert>
+  
+  <update id="update" flushCache="true">
+  	update Area set AREANAME=#{name},AAddress=#{address},Developer=#{developer},TotalBuildingArea=#{buildingarea},TotalUseArea=#{usearea},
+  	TotalPackArea=#{packarea},TotalHome=#{home},TotalHouse=#{house},TotalPack=#{pack} where AREANO=#{no} 
+  </update>
+  
+  <delete id="delete" flushCache="true">
+  	delete from Area where AREANO=#{no} 
+  </delete>
+  
+  <!-- 查询小区的信息 -->
+  <select id="selectAreaListByAll" resultMap="AreaResultMap" >
+  	select * from Area 
+  	
+  </select>
+  
+   <!-- 取得指定小区的信息 -->
+  <select id="selectAreaByNo" resultMap="AreaResultMap" >
+  	select * from Area where AREANO=#{no} 
+ 	
+  </select>
+  
+</mapper>
