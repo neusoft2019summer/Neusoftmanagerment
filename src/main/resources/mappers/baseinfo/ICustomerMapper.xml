@@ -23,7 +23,16 @@
     <result property="cstatus" column="CSTATUS"/>
   </resultMap>
 
-  <insert id="create"  parameterType="Customer" flushCache="true">
+  <!-- 关联的客户类型的ResultMap -->
+  <resultMap  id="CustomerWithCustomerTypeResultMap" type="Customer" extends="CustomerResultMap">
+  	<association property="typeno" resultMap="com.neusoft.managerment.baseinfo.mapper.ICustomerTypeMapper.CustomerTypeResultMap"></association>
+  </resultMap>
+
+
+
+
+
+  <insert id="create"  keyProperty="customerno"   keyColumn="CUSTOMERNO" useGeneratedKeys="true"  flushCache="true">
    insert into Customer (CUSTOMERNO,TYPENO,CCODE,CNAME,CONTACT,CARDCODE,MOBILE,TEL,FAX,QQ,WEIXIN,FEESTARTDATE,FEEENDDATE,CSTATUS)
    values (#{customerno},#{typeno},#{ccode},#{cname},#{contact},#{cardcode},#{mobile},
    #{tel},#{fax},#{qq},#{weixin},#{feestartdate},#{feeenddate},#{cstatus})

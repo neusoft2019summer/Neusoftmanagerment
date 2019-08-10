@@ -1,4 +1,6 @@
-server:
+
+
+server: 
   port: 8100
 
 spring:
@@ -8,19 +10,18 @@ spring:
     username: root
     password: Wuye2019 
 
-mybatis:
 
-  type-aliases-package: com.Neusoft.managerment.admin.model
-                        com.Neusoft.managerment.baseinfo.model
-                        com.Neusoft.managerment.config.model
-                        com.Neusoft.managerment.customersever.model
-                        com.Neusoft.managerment.feeinfo.model
-                        com.Neusoft.managerment.office.model
+mybatis: 
+  type-aliases-package: com.neusoft.managerment.admin.model
+                        com.neusoft.managerment.baseinfo.model
+                        com.neusoft.managerment.config.model
+                        com.neusoft.managerment.customersever.model
+                        com.neusoft.managerment.feeinfo.model
+                        com.neusoft.managerment.office.model
                          
   mapper-locations:
   - classpath*:/mappers/**/*.xml
  
-
 
 
 

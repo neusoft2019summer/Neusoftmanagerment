@@ -19,7 +19,17 @@
     <result property="roomtype" column="ROOMTYPE"/>
   </resultMap>
 
-  <insert id="create"  parameterType="Room" flushCache="true">
+  <!-- 关联的户型的ResultMap -->
+  <resultMap  id="RoomWithHouseTypeResultMap" type="Room" extends="RoomResultMap">
+  	<association property="typeno" resultMap="com.neusoft.managerment.baseinfo.mapper.IHouseTypeMapper.HouseTypeResultMap"></association>
+  </resultMap>
+
+  <!-- 关联的楼宇的ResultMap -->
+  <resultMap  id="RoomWithBuildingResultMap" type="Room" extends="RoomResultMap">
+  	<association property="buildingno" resultMap="com.neusoft.managerment.baseinfo.mapper.IBuildingMapper.BuildingResultMap"></association>
+  </resultMap>
+
+  <insert id="create"  keyProperty="roomno"   keyColumn="ROOMNO" useGeneratedKeys="true" flushCache="true">
    insert into Room (ROOMNO,HOUSETYPENO,BUILDINGNO,DEPARTMENTCODE,FLOOR,ROOMCODE,BUILDINGAREA,FEEAREA,ROOMSTATUS,ROOMTYPE)
    values (#{roomno},#{housetypeno},#{buildingno},#{departmentcode},#{floor},#{roomcode},#{buildingarea},
    #{feearea},#{roomstatus},#{roomtype})
