@@ -1,5 +1,6 @@
 package com.neusoft.managerment.baseinfo.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import org.apache.ibatis.type.Alias;
@@ -13,14 +14,14 @@ import lombok.Data;
  */
 @Alias("Customer")
 @Data
-public class CustomerModel {
+public class CustomerModel implements Serializable {
 
 	private int customerno = 0;
 	private int typeno = 0;
 	private String ccode = null;
 	private String cname = null;
 	private String contact = null;
-	private String carcode = null;
+	private String cardcode = null;
 	private String mobile = null;
 	private String tel = null;
 	private String fax = null;

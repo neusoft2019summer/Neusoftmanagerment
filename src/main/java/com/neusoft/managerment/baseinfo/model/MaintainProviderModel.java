@@ -1,5 +1,6 @@
 package com.neusoft.managerment.baseinfo.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import org.apache.ibatis.type.Alias;
@@ -13,7 +14,7 @@ import lombok.Data;
  */
 @Alias("MaintainProvider")
 @Data
-public class MaintainProviderModel {
+public class MaintainProviderModel implements Serializable {
 	private int providerno = 0;
 	private String pname = null;
 	private String pcontact = null;

@@ -1,5 +1,6 @@
 package com.neusoft.managerment.baseinfo.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import org.apache.ibatis.type.Alias;
@@ -13,7 +14,7 @@ import lombok.Data;
  */
 @Alias("parkcustomer")
 @Data
-public class ParkCustomerModel {
+public class ParkCustomerModel implements Serializable {
 	private int pcno = 0;
 	private int parkno = 0;
 	private int customerno = 0;

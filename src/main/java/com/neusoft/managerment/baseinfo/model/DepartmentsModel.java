@@ -1,5 +1,7 @@
 package com.neusoft.managerment.baseinfo.model;
 
+import java.io.Serializable;
+
 import org.apache.ibatis.type.Alias;
 
 import lombok.Data;
@@ -11,7 +13,7 @@ import lombok.Data;
  */
 @Alias("Departments")
 @Data
-public class DepartmentsModel {
+public class DepartmentsModel implements Serializable {
 	private int deptno = 0;
 	private String deptname = null;
 	private String ddesc = null;

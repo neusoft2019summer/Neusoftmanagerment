@@ -1,5 +1,7 @@
 package com.neusoft.managerment.baseinfo.model;
 
+import java.io.Serializable;
+
 import org.apache.ibatis.type.Alias;
 
 import lombok.Data;
@@ -11,7 +13,7 @@ import lombok.Data;
  */
 @Alias("service")
 @Data
-public class ServiceModel {
+public class ServiceModel implements Serializable {
 
 	private int spno = 0;
 	private int typeno = 0;

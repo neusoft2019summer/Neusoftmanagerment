@@ -2,12 +2,12 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.neusoft.promis.security.mapper.IRoomMapper">
+<mapper namespace="com.neusoft.managerment.baseinfo.mapper.IRoomMapper">
 
   <cache/>
 
   <resultMap id="RoomResultMap" type="Room">
-    <id property="roomNo" column="ROOMNO"/>
+    <id property="roomno" column="ROOMNO"/>
     <result property="housetypeno" column="HOUSETYPENO"/>
     <result property="buildingno" column="BUILDINGNO"/>
     <result property="departmentcode" column="DEPARTMENTCODE"/>

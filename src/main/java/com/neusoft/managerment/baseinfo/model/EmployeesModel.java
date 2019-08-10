@@ -1,5 +1,6 @@
 package com.neusoft.managerment.baseinfo.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import org.apache.ibatis.type.Alias;
@@ -13,7 +14,7 @@ import lombok.Data;
  */
 @Alias("Employees")
 @Data
-public class EmployeesModel {
+public class EmployeesModel implements Serializable {
 
 	private String empid = null;
 	private int deptno = 0;

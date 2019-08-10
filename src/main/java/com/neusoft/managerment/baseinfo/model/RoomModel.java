@@ -1,5 +1,7 @@
 package com.neusoft.managerment.baseinfo.model;
 
+import java.io.Serializable;
+
 import org.apache.ibatis.type.Alias;
 
 import lombok.Data;
@@ -11,7 +13,7 @@ import lombok.Data;
  */
 @Alias("room")
 @Data
-public class RoomModel {
+public class RoomModel implements Serializable {
 
 	private int roomno = 0;
 	private int housetypeno = 0;
