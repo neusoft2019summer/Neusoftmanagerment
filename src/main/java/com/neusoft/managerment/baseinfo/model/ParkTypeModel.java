@@ -1,22 +1,23 @@
 package com.neusoft.managerment.baseinfo.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import org.apache.ibatis.type.Alias;
 
 import lombok.Data;
 
 /**
- *    author : 张梓琪
- *    version: 1.0
- *    系统基础信息模块的车位类型Model
+ *   模块：基础信息  表：车位类型 ParkType
+ *   车位类型的Model类
+ * @Author: 吕淑兰
  */
-@Alias("parktype")
+@Alias("ParkType")
 @Data
 public class ParkTypeModel implements Serializable {
 
-	private int typeno = 0;
-	private String typename = null;
-	private int unitprice = 0;
-	private String unit = null;
+	private int no = 0; //类型编号
+	private String name = null; //类型名称
+	private BigDecimal price = null; //单价
+	private String unit = null; //单位(天/月/年)
 }

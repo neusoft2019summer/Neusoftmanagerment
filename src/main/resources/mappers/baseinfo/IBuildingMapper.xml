@@ -12,20 +12,20 @@
   	<result property="address" column="BAddress" />
   	<result property="direction" column="Direction" />
   	<result property="home" column="TotalHome" />
-  	<result property="house" column="TotalHouse " />
+  	<result property="house" column="TotalHouse" />
   	
   </resultMap>
   
-  <!-- association 取外键FK -->
-  <!-- 使用内嵌式ResultMap的关联模块的结果映射 -->
+  <!-- association 对一关系 -->
+  <!-- 使用内嵌式ResultMap的关联建筑类型的结果映射 -->
   <resultMap id="BuildResultMapWithBuildType" type="building" extends="BuildResultMap" >
   	<association property="buildType"  resultMap="com.neusoft.managerment.baseinfo.mapper.IBuildingTypeMapper.BuildTypeResultMap" />
   </resultMap>
-  
+  <!-- 使用内嵌式ResultMap的关联小区的结果映射 -->
   <resultMap id="BuildResultMapWithArea" type="building" extends="BuildResultMap" >
   	<association property="area"  resultMap="com.neusoft.managerment.baseinfo.mapper.IAreaMapper.AreaResultMap" />
   </resultMap>
-  
+  <!-- 使用内嵌式ResultMap的关联小区和建筑类型的结果映射 -->
   <resultMap id="BuildResultMapWithAreaAndBuildType" type="building" extends="BuildResultMap" >
   	<association property="area"  resultMap="com.neusoft.managerment.baseinfo.mapper.IAreaMapper.AreaResultMap" />
   	<association property="buildType"  resultMap="com.neusoft.managerment.baseinfo.mapper.IBuildingTypeMapper.BuildTypeResultMap" />
@@ -46,18 +46,18 @@
   </delete>
   
   <!-- 查询楼宇的信息 -->
-  <select id="selectBuildListByAll" resultMap="BuildResultMap" >
+  <select id="selectBuildListByAll" resultMap="BuildResultMapWithAreaAndBuildType" >
   	select * from Building 
   	
   </select>
   
   <!-- 查询楼宇的信息,关联Area-->
-  <select id="selectBuildListByAllWithArea" resultMap="BuildResultMapWithArea" >
+  <select id="selectBuildListByAllWithArea" resultMap="BuildResultMapWithAreaAndBuildType" >
   	select b.*,a.* from Building b inner join Area a on b.AreaNo=a.AREANO
   </select>
   
   <!-- 查询楼宇的信息,关联BuildingType -->
-  <select id="selectBuildListByAllWithBuildType" resultMap="BuildResultMapWithBuildType" >
+  <select id="selectBuildListByAllWithBuildType" resultMap="BuildResultMapWithAreaAndBuildType" >
   	select a.*,b.* from Building a inner join BuildingType b on a.BuildingTypeNo=b.TYPENO	
   </select>
   
@@ -67,19 +67,28 @@
   </select>
   
   <!-- 取得指定小区的楼宇列表,参数:areaNo -->
-  <select id="selectBuildListByArea" resultMap="BuildResultMap" >
+  <select id="selectBuildListByArea" resultMap="BuildResultMapWithAreaAndBuildType" >
   	select * from Building where AreaNo=#{areaNo} 	
   </select>
   
   <!-- 取得指定建筑类型的楼宇列表,参数:buildTypeNo -->
-  <select id="selectBuildListByBuildType" resultMap="BuildResultMap" >
+  <select id="selectBuildListByBuildType" resultMap="BuildResultMapWithAreaAndBuildType" >
   	select * from Building where BuildingTypeNo=#{buildTypeNo}
   </select>
   
    <!-- 取得指定楼宇的信息-->
   <select id="selectBuildByNo" resultMap="BuildResultMapWithAreaAndBuildType" >
-  	select * from Building where BuildingNo=#{no} 
- 	
+  	select * from Building where BuildingNo=#{no} 	
+  </select>
+  
+  <!-- 取得所有楼宇列表,分页模式 -->
+  <select id="selectListByAllWithPage" resultMap="BuildResultMap">
+   select * from Building limit #{start},#{rows}
+  </select>
+  
+  <!-- 取得楼宇的个数，使用IFNULL函数判断count函数结果是否为null, 为null返回0 -->
+  <select id="selectCountByAll" resultType="int">
+   select IFNULL(count(BuildingNo), 0) from Building
   </select>
   
 </mapper>

@@ -8,19 +8,19 @@ import lombok.Data;
 
 /**
  *    模块：基础信息  表：楼宇  Building
- *    author : 吕淑兰
- *    version: 1.0
+ *    楼宇的Model类
+ * @Author: 吕淑兰
  */
 @Alias("building")
 @Data
 public class BuildingModel implements Serializable {
-	private int no=0;
-	private AreaModel area=null;
-	private String code=null;
-	private String address=null;
-	private BuildingTypeModel buildType=null;
-	private String direction=null;
-	private int home=0;
-	private int house=0;
-
+	private int no=0; //序号
+	private AreaModel area=null; //小区序号
+	private String code=null; //楼号
+	private String address=null; //楼宇地址
+	private BuildingTypeModel buildType=null; //楼宇结构编号
+	private String direction=null;  //楼宇朝向
+	private int home=0; //居民数
+	private int house=0; //公建数
+		
 }

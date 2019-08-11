@@ -1,18 +1,20 @@
 package com.neusoft.managerment.feeinfo.model;
 
+import java.io.Serializable;
+
 import org.apache.ibatis.type.Alias;
 
 import lombok.Data;
 
 /**
- *    author : 张梓琪
- *    version: 1.0
- *    系统基础信息模块的收费类型Model
+ *    模块：收费   表：收费类型  FeeType
+ *    收费类型的Model类
+ * @Author: 吕淑兰
  */
 @Alias("FeeType")
 @Data
-public class FeeTypeModel {
+public class FeeTypeModel implements Serializable {
 
-	private int typeno = 0;
-	private String typename = null;
+	private int no = 0; //类型编号
+	private String name = null; //类型名称
 }

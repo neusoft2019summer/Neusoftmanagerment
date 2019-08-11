@@ -22,17 +22,25 @@
   <delete id="delete" flushCache="true">
   	delete from BuildingType where TYPENO=#{no} 
   </delete>
-  
+    
   <!-- 查询建筑类型的信息 -->
   <select id="selectBuildTypeListByAll" resultMap="BuildTypeResultMap" >
-  	select * from BuildingType 
-  	
+  	select * from BuildingType 	
   </select>
   
    <!-- 取得指定建筑类型的信息 -->
   <select id="selectBuildTypeByNo" resultMap="BuildTypeResultMap" >
-  	select * from BuildingType where TYPENO=#{no} 
- 	
+  	select * from BuildingType where TYPENO=#{no} 	
+  </select>
+  
+  <!-- 取得所有建筑类型列表,分页模式 -->
+  <select id="selectListByAllWithPage" resultMap="BuildTypeResultMap">
+   select * from BuildingType limit #{start},#{rows}
+  </select>
+  
+  <!-- 取得建筑类型的个数，使用IFNULL函数判断count函数结果是否为null, 为null返回0 -->
+  <select id="selectCountByAll" resultType="int">
+   select IFNULL(count(TYPENO), 0) from BuildingType
   </select>
   
 </mapper>

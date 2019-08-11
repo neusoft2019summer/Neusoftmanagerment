@@ -1,5 +1,6 @@
 package com.neusoft.managerment.feeinfo.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import org.apache.ibatis.type.Alias;
@@ -15,7 +16,7 @@ import lombok.Data;
  */
 @Alias("ServiceFee")
 @Data
-public class ServiceFeeModel {
+public class ServiceFeeModel implements Serializable {
 
 	private int feeno = 0;
 	private int spno = 0;

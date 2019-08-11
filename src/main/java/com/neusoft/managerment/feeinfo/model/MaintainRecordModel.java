@@ -1,5 +1,6 @@
 package com.neusoft.managerment.feeinfo.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import org.apache.ibatis.type.Alias;
@@ -15,7 +16,7 @@ import lombok.Data;
  */
 @Alias("MaintainRecord")
 @Data
-public class MaintainRecordModel {
+public class MaintainRecordModel implements Serializable {
 	private int recordno = 0;
 	private int mytypeno = 0;
 	private int roomno = 0;

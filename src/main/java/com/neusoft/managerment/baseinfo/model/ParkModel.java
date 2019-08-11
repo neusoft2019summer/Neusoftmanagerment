@@ -1,28 +1,31 @@
 package com.neusoft.managerment.baseinfo.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.text.Bidi;
 
 import org.apache.ibatis.type.Alias;
 
 import lombok.Data;
 
 /**
- *    author : 张梓琪
- *    version: 1.0
- *    系统基础信息模块的车位Model
+ *   模块：基础信息  表：车位 Park
+ *   车位的Model类
+ * @Author: 吕淑兰
  */
 @Alias("park")
 @Data
 public class ParkModel implements Serializable {
 
-	private int parkno = 0;
-	private int typeno = 0;
-	private String parkcode = null;
-	private int buildingno = 0;
-	private String location = null;
-	private int area = 0;
-	private String parkstatus = null;
-	private int rentprice = 0;
-	private String rentunit = null;
-	private String feestatus = null;
+	private int no = 0; //车位序号
+	private ParkTypeModel parkType=null; //类型编号
+	private String code = null; //车位编码
+	private BuildingModel building=null; //楼号
+	private String location = null; //位置
+	private BigDecimal area = null; //面积
+	private String parkstatus = null; //是否关联客户(Y/N)
+	private BigDecimal rentprice = null; //出租价格
+	private String rentunit = null; //租赁单位(天,月,季,年)
+	private String feestatus = null; //收费状态:Y收费,N:不收费
+	
 }

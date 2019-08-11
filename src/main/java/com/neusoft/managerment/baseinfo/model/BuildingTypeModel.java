@@ -6,17 +6,17 @@ import org.apache.ibatis.type.Alias;
 
 import lombok.Data;
 /**
- *    模块：基础信息  表：建筑类型 BuildingType
- *    author : 吕淑兰
- *    version: 1.0
+ *   模块：基础信息  表：建筑类型 BuildingType
+ *   建筑类型的Model类
+ * @Author: 吕淑兰
  */
 
 @Alias("buildingtype")
 @Data
 public class BuildingTypeModel implements Serializable {
 
-	private int no=0;
-	private String name=null;
+	private int no=0; //类型编号
+	private String name=null; //类型名称
 	
 	
 }

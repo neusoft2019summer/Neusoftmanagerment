@@ -3,94 +3,102 @@ package com.neusoft.managerment.baseinfo.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.neusoft.managerment.baseinfo.model.AreaModel;
 import com.neusoft.managerment.baseinfo.model.BuildingModel;
 import com.neusoft.managerment.baseinfo.service.IAreaService;
 import com.neusoft.managerment.baseinfo.service.IBuildingService;
 import com.neusoft.managerment.baseinfo.service.IBuildingTypeService;
+import com.neusoft.managerment.message.ResultMessage;
 /**
- *    模块：基础信息  表：楼宇  Building
- *    author : 吕淑兰
- *    version: 1.0
+ *   模块：baseinfo 基础信息
+ *   楼宇控制层Controller
+ * @Author: 吕淑兰
  */
-//楼宇的控制类
+
 @RestController
-@RequestMapping("/build")
+@RequestMapping(value="/build")
 public class BuildingController {
 	@Autowired
 	private IBuildingService bs=null;
 	
-	//查询楼宇的信息
-	@RequestMapping("/list")
+	//增加楼宇
+	@PostMapping(value="/add")
+	public ResultMessage<BuildingModel> add(BuildingModel buildModel) throws Exception {
+		bs.add(buildModel);
+		return new ResultMessage<BuildingModel>("OK","增加楼宇成功");
+	}
+	//修改楼宇
+	@PostMapping(value="/modify")
+	public ResultMessage<BuildingModel> update(BuildingModel buildModel) throws Exception {
+		bs.modify(buildModel);
+		return new ResultMessage<BuildingModel>("OK","修改楼宇成功");
+	}
+	//删除楼宇
+	@PostMapping(value="/delete")
+	public ResultMessage<BuildingModel> delete(BuildingModel buildModel) throws Exception {
+		bs.delete(buildModel);
+		return new ResultMessage<BuildingModel>("OK","删除楼宇成功");
+	}
+	
+	//取得所有楼宇列表
+	@GetMapping(value="/list/all")
 	public List<BuildingModel> getBuildListByAll() throws Exception{
 		return bs.getBuildListByAll();
 	}
-	
+	//取得所有楼宇列表，有分页
+	@GetMapping(value="/list/all/page")
+	public ResultMessage<BuildingModel> getListByAllWitPage(@RequestParam(required = false,defaultValue ="2") int rows,@RequestParam(required = false,defaultValue = "1") int page) throws Exception{
+		ResultMessage<BuildingModel> result=new ResultMessage<BuildingModel>("OK","取得楼宇列表分页模式成功");
+		result.setCount(bs.getCountByAll());
+		result.setPageCount(bs.getPagaCountByAll(rows));
+		result.setList(bs.getListByAllWithPage(rows, page));
+		result.setPage(page);
+		result.setRows(rows);
+		
+		return result;
+	}
 	//查询楼宇的信息,关联Area
-	@RequestMapping(path="/list2",method= {RequestMethod.POST,RequestMethod.GET})
+	@GetMapping(value="/list/all/witharea")
 	public List<BuildingModel> getBuildListByAllWithArea() throws Exception {
 		return bs.getBuildListByAllWithArea();
 	}
 	
 	//查询楼宇的信息,关联BuildingType
-	@RequestMapping(path="/list3",method= {RequestMethod.POST,RequestMethod.GET})
+	@GetMapping(value="/list/all/withbuildtype")
 	public List<BuildingModel> getBuildListByAllWithBuildType() throws Exception{
 		return bs.getBuildListByAllWithBuildType();
 	}
 	
 	//查询楼宇的信息,关联Area和BuildingType
-	@RequestMapping(path="/list4",method= {RequestMethod.POST,RequestMethod.GET})
+	@GetMapping(value="/list/all/withareaandbuildtype")
 	public List<BuildingModel> getBuildListByAllWithAreaAndBuildType() throws Exception {
 		return bs.getBuildListByAllWithAreaAndBuildType();
 	}
 	
 	//取得指定小区的楼宇列表,参数:areaNo 
-	@RequestMapping(path="/list5",method= {RequestMethod.POST,RequestMethod.GET})
+	@GetMapping(value="/list/area")
 	public List<BuildingModel> getBuildListByArea(int areaNo) throws Exception {
 		return bs.getBuildListByArea(areaNo);
 	}
 	//取得指定建筑类型的楼宇列表,参数:buildTypeNo 
-	@RequestMapping(path="/list6",method= {RequestMethod.POST,RequestMethod.GET})
+	@GetMapping(value="/list/buildtype")
 	public List<BuildingModel> getBuildListByBuildType(int buildTypeNo) throws Exception {
 		return bs.getBuildListByBuildType(buildTypeNo);
 	}
-	
+		
 	//取得指定楼宇的信息
-	@RequestMapping(path="/get/{bno}",method= {RequestMethod.POST,RequestMethod.GET})	
-	public BuildingModel getBuildByNo(@PathVariable int bno) throws Exception{
-		return bs.getBuildByNo(bno);
-	}
-	
-	//取得指定楼宇的信息
-	@RequestMapping(path="/get1",method= {RequestMethod.POST,RequestMethod.GET})	
+	@GetMapping("/get")
 	public BuildingModel getBuildByNo1(int bno) throws Exception{
 		return bs.getBuildByNo(bno);
 	}
-	
-	
-	@PostMapping(value="/add")
-	public String add(BuildingModel buildModel) throws Exception {
-		bs.add(buildModel);
-		System.out.println("add");
-		return "OK";
-	}
-	
-	@PostMapping(value="/delete")
-	public String delete(BuildingModel buildModel) throws Exception {
-		bs.delete(buildModel);
-		System.out.println("delete");
-		return "OK";
-	}
-	@PostMapping(value="/update")
-	public String update(BuildingModel buildModel) throws Exception {
-		bs.modify(buildModel);
-		System.out.println("update");
-		return "OK";
-	}
+
 }
 

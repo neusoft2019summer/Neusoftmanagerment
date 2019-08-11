@@ -1,5 +1,6 @@
 package com.neusoft.managerment.feeinfo.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import org.apache.ibatis.type.Alias;
@@ -13,7 +14,7 @@ import lombok.Data;
  */
 @Alias("PayType")
 @Data
-public class PayTypeModel {
+public class PayTypeModel implements Serializable {
 	private int typeno = 0;
 	private String typename = null;
 

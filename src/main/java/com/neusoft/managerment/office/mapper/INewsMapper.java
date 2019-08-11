@@ -5,7 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.neusoft.managerment.office.model.NewsModel;
 
 //新闻的Mapper层接口
-//@Mapper
+@Mapper
 public interface INewsMapper {
 	//c  增添方法
 	public void create(NewsModel newsmodel) throws Exception;

@@ -7,10 +7,10 @@ import com.neusoft.managerment.baseinfo.model.BuildingModel;
 
 /**
  *    模块：基础信息  表：楼宇  Building
- *    author : 吕淑兰
- *    version: 1.0
+ *   楼宇业务层接口
+ * @Author:吕淑兰
  */
-//楼宇的业务接口
+
 public interface IBuildingService {
 	//增加
 	public void add(BuildingModel buildModel) throws Exception;
@@ -32,4 +32,11 @@ public interface IBuildingService {
 	public List<BuildingModel> getBuildListByBuildType(int buildTypeNo) throws Exception;
 	//取得指定楼宇的信息
 	public BuildingModel getBuildByNo(int no) throws Exception;
+	//取得所有楼宇列表,分页模式
+	public List<BuildingModel> getListByAllWithPage(int rows,int page) throws Exception;
+	//取得楼宇的个数
+	public int getCountByAll() throws Exception;
+	//取得楼宇页数
+	public int getPagaCountByAll(int rows) throws Exception;
+	
 }

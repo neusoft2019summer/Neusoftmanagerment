@@ -1,5 +1,6 @@
 package com.neusoft.managerment.feeinfo.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import org.apache.ibatis.type.Alias;
@@ -13,7 +14,7 @@ import lombok.Data;
  */
 @Alias("RoomFee")
 @Data
-public class RoomFeeModel {
+public class RoomFeeModel implements Serializable {
 	private int roomfeeno = 0;
 	private String feeyear = null;
 	private String feemonth = null;

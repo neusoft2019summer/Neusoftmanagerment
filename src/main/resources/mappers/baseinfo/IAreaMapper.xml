@@ -13,20 +13,20 @@
   	<result property="developer" column="Developer" />
   	<result property="buildingarea" column="TotalBuildingArea" />
   	<result property="usearea" column="TotalUseArea" />
-  	<result property="packarea" column="TotalPackArea" />
+  	<result property="parkarea" column="TotalParkArea" />
   	<result property="home" column="TotalHome" />
   	<result property="house" column="TotalHouse" />
-  	<result property="pack" column="TotalPack" />
+  	<result property="park" column="TotalPark" />
   </resultMap>
   
   <insert id="create" keyProperty="no" keyColumn="AREANO" useGeneratedKeys="true" flushCache="true">
-  	insert into Area (AREANAME,AAddress,Developer,TotalBuildingArea,TotalUseArea,TotalPackArea,TotalHome,TotalHouse,TotalPack) 
-  	values (#{name},#{address},#{developer},#{buildingarea},#{usearea},#{packarea},#{home},#{house},#{pack})
+  	insert into Area (AREANAME,AAddress,Developer,TotalBuildingArea,TotalUseArea,TotalParkArea,TotalHome,TotalHouse,TotalPack) 
+  	values (#{name},#{address},#{developer},#{buildingarea},#{usearea},#{packarea},#{home},#{house},#{park})
   </insert>
   
   <update id="update" flushCache="true">
   	update Area set AREANAME=#{name},AAddress=#{address},Developer=#{developer},TotalBuildingArea=#{buildingarea},TotalUseArea=#{usearea},
-  	TotalPackArea=#{packarea},TotalHome=#{home},TotalHouse=#{house},TotalPack=#{pack} where AREANO=#{no} 
+  	TotalPackArea=#{packarea},TotalHome=#{home},TotalHouse=#{house},TotalPark=#{park} where AREANO=#{no} 
   </update>
   
   <delete id="delete" flushCache="true">
@@ -36,13 +36,21 @@
   <!-- 查询小区的信息 -->
   <select id="selectAreaListByAll" resultMap="AreaResultMap" >
   	select * from Area 
-  	
   </select>
   
    <!-- 取得指定小区的信息 -->
   <select id="selectAreaByNo" resultMap="AreaResultMap" >
   	select * from Area where AREANO=#{no} 
- 	
+  </select>
+  
+  <!-- 取得所有小区列表,分页模式 -->
+  <select id="selectListByAllWithPage" resultMap="AreaResultMap">
+   select * from Area limit #{start},#{rows}
+  </select>
+  
+  <!-- 取得小区的个数，使用IFNULL函数判断count函数结果是否为null, 为null返回0 -->
+  <select id="selectCountByAll" resultType="int">
+   select IFNULL(count(AREANO), 0) from Area
   </select>
   
 </mapper>
