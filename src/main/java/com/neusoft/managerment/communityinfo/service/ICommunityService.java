@@ -3,7 +3,7 @@ package com.neusoft.managerment.communityinfo.service;
 import com.neusoft.managerment.communityinfo.model.CommunityActiveModel;
 
 /*
-  * 社区业务层接口
+  * 社区业务层接口 
  * @Author: 张梓琪
  */
 public interface ICommunityService {
