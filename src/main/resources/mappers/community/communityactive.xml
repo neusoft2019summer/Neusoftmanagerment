@@ -1,1 +1,46 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 新闻的Mapper接口Mapping映射 --> 
+
+<!--
+    author : 张梓琪
+    version: 1.0
+    系统基础信息的新闻的MAPPER.XML
+  -->
+<mapper namespace="com.neusoft.managerment.office.mapper.INewsMapper">
+  
+  <cache/>
+  <resultMap id="NewsResultMap" type="NewsModel">
+     <id property="newsno" column="NEWSNO"/>
+      <result property="newstype" column="NEWSTYPE"/>
+      <result property="newstime" column="NEWSTIME"/>
+      <result property="newscontent" column="NEWSCONTENT"/> 
+  </resultMap>
+  
+  <insert id="create"  parameterType="NewsModel" flushCache="true">
+   insert into officenews (NEWSNO,NEWSTYPE,NEWSTIME,NEWSCONTENT)
+   values (#{newsno},#{newstype},#{newstime},#{newscontent})
+  
+  </insert>
+  
+  <update id="update" flushCache="true">
+   update officenews set NEWSTIME=#{newstime},NEWSTYPE=#{newstype},NEWSCONTENT=#{newscontent}
+   where NEWSNO=#{newsno}
+  </update>
+  
+  <delete id="delete" flushCache="true">
+   delete from OFFICENEWS where  NEWSNO=#{newsno}
+  </delete>
+  
+  <select id="selectListByAll" resultMap="NewsResultMap">
+   select * from officenews
+  
+  </select>
+  <select id="selectListType" resultMap="NewsResultMap">
+   select * from officenews where NEWSTYPE=#{newstype}
+  
+  </select>
+  
+  </mapper>

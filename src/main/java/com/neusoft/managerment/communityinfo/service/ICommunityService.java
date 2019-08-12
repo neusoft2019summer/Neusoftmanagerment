@@ -1,5 +1,7 @@
 package com.neusoft.managerment.communityinfo.service;
 
+import java.util.List;
+
 import com.neusoft.managerment.communityinfo.model.CommunityActiveModel;
 
 /*
@@ -14,7 +16,10 @@ public interface ICommunityService {
 	public void modify(CommunityActiveModel com) throws Exception;
 	//删除
 	public void delete(CommunityActiveModel com) throws Exception;
-	//取得活动的单个对象
-	//
+	//取得活动同类型的对象
+	public CommunityActiveModel getListByType(String type)throws Exception;
+	//取得所有活动列表 
+	public List<CommunityActiveModel> getListByAll() throws Exception;
+	
 
 }
