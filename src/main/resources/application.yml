@@ -23,6 +23,9 @@ mybatis:
   - classpath*:/mappers/**/*.xml
  
 
-
+logging:
+  level:
+    com.neusoft.managerment.office.mapper: debug
+    
 
  

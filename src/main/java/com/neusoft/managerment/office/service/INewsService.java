@@ -17,8 +17,8 @@ public interface INewsService {
 	//修改新闻
 	public void modifynews(NewsModel newsmodel) throws Exception;
 	//查询新闻
-	public List<NewsModel> searchnewsbyall() throws Exception;
-	public NewsModel searchnewsbytype()throws Exception;
+	public List<NewsModel> getnewsbyall() throws Exception;
+	public List<NewsModel> getnewsbytype(String newstype)throws Exception;
 	 
 
 }
