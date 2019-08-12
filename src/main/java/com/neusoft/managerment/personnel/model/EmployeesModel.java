@@ -1,4 +1,4 @@
-package com.neusoft.managerment.baseinfo.model;
+package com.neusoft.managerment.personnel.model;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -17,7 +17,7 @@ import lombok.Data;
 public class EmployeesModel implements Serializable {
 
 	private String empid = null;
-	private int deptno = 0;
+	private DepartmentsModel deptno = null;
 	private String empname = null;
 	private String sex = null;
 	private int age = 0;

@@ -1,12 +1,13 @@
-package com.neusoft.managerment.baseinfo.mapper;
+package com.neusoft.managerment.personnel.mapper;
 
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import com.neusoft.managerment.baseinfo.model.DepartmentsModel;
-import com.neusoft.managerment.baseinfo.model.EmployeesModel;
+import com.neusoft.managerment.personnel.model.EmployeesModel;
+
+
 
 
 
@@ -26,7 +27,7 @@ public interface IEmployeesMapper {
 	//删除
 	public void delete(EmployeesModel empModel) throws Exception;
 	//查询员工档案信息
-	public List<EmployeesModel> selectListByAll() throws Exception;
+	public List<EmployeesModel> selectEmpListByAll() throws Exception;
 	public List<EmployeesModel> selectEmpListByAllWithPage(@Param("start") int start,@Param("rows") int rows) throws Exception;
 	//返回指定员工的信息
 	public EmployeesModel selectEmpByID(int id) throws Exception;

@@ -1,4 +1,4 @@
-package com.neusoft.managerment.baseinfo.service.impl;
+package com.neusoft.managerment.personnel.service.impl;
 
 import java.util.List;
 
@@ -6,10 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.neusoft.managerment.baseinfo.mapper.ICustomerMapper;
-import com.neusoft.managerment.baseinfo.mapper.IEmployeesMapper;
-import com.neusoft.managerment.baseinfo.model.EmployeesModel;
-import com.neusoft.managerment.baseinfo.service.IEmployeesService;
+import com.neusoft.managerment.personnel.mapper.IEmployeesMapper;
+import com.neusoft.managerment.personnel.model.EmployeesModel;
+import com.neusoft.managerment.personnel.service.IEmployeesService;
+
+
 @Service("employeesService")
 @Transactional(rollbackFor=Exception.class)
 public class EmployeesServiceImpl implements IEmployeesService {
@@ -66,9 +67,9 @@ public class EmployeesServiceImpl implements IEmployeesService {
 	}
 
 	@Override
-	public List<EmployeesModel> getListByAll() throws Exception {
+	public List<EmployeesModel> getEmpListByAll() throws Exception {
 		// TODO Auto-generated method stub
-		return employeesMapper.selectListByAll();
+		return employeesMapper.selectEmpListByAll();
 	}
 	}
 

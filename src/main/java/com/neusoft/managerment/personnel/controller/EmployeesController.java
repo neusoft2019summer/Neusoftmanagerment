@@ -1,4 +1,4 @@
-package com.neusoft.managerment.baseinfo.controller;
+package com.neusoft.managerment.personnel.controller;
 
 import java.util.List;
 
@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
-import com.neusoft.managerment.baseinfo.model.EmployeesModel;
-import com.neusoft.managerment.baseinfo.service.IEmployeesService;
 import com.neusoft.managerment.message.ResultMessage;
+import com.neusoft.managerment.personnel.model.EmployeesModel;
+import com.neusoft.managerment.personnel.service.IEmployeesService;
 
 @RestController
 @RequestMapping("employees")
@@ -46,8 +46,8 @@ public class EmployeesController {
 	@GetMapping(value="/list/all/page")
 	public ResultMessage<EmployeesModel> getListByAllWitPage(@RequestParam(required = false,defaultValue ="10") int rows,@RequestParam(required = false,defaultValue = "1") int page) throws Exception{
 		ResultMessage<EmployeesModel> result=new ResultMessage<EmployeesModel>("OK","取得客户列表分页模式成功");
-		//result.setCount(EmployeesModel.getCountByAll());
-		//result.setPageCount(EmployeesModel.getPageCountByAll(rows));
+		result.setCount(employeesService.getCountByAll());
+		result.setPageCount(employeesService.getPageCountByAll(rows));
 		result.setList(employeesService.getEmpListByAllWithPage(rows, page));
 		result.setPage(page);
 		result.setRows(rows);
@@ -58,6 +58,6 @@ public class EmployeesController {
 	//取得所有客户列表，无分页
 	@GetMapping(value="/list/all")
 	public List<EmployeesModel> getListByAll() throws Exception{
-		return employeesService.getListByAll();
+		return employeesService.getEmpListByAll();
 	}
 }
