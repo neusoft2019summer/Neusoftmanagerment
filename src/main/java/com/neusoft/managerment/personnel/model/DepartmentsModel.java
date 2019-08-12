@@ -1,4 +1,4 @@
-package com.neusoft.managerment.baseinfo.model;
+package com.neusoft.managerment.personnel.model;
 
 import java.io.Serializable;
 
