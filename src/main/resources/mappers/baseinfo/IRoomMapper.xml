@@ -115,7 +115,7 @@
   
   <!-- 根据楼宇序号取得此序号的房间 -->
   <select id="selectListByBuildingNo" resultMap="RoomWithBuildingResultMap">
-   select RoomNo,BuildingNo from Room  where BuildingNo=#{Building.buildingno}
+   select RoomNo from Room  where BuildingNo=#{Building.buildingno}
   </select>
   
 </mapper>
