@@ -64,5 +64,68 @@ public class RoomController {
 	public List<RoomModel> getListByAll() throws Exception{
 		return roomService.getListByAll();
 	}
+	
+	//取得所有房间列表,有外键，无分页
+	@GetMapping(value="/list/allfk")
+	public List<RoomModel> getListByAllWithFK() throws Exception{
+		return roomService.getListByAllWithFK();
+	}
+	
+	//取得房间的个数
+	//取得房间页数
+	
+	
+	//取得所有房间列表,关联AreaNo
+	@GetMapping("/get/areano")
+	public List<RoomModel> getListByAllWithAreaNo() throws Exception{
+		return roomService.getListByAllWithAreaNo();
+	}
+	
+	//取得所有房间列表,关联BuildingTypeNo
+	@GetMapping("/get/buildingtypeno")
+	public List<RoomModel> getListByAllWithBuildingTypeNo() throws Exception{
+		return roomService.getListByAllWithBuildingTypeNo();
+	}
+	
+	//取得所有房间列表,关联TypeNo
+	@GetMapping("/get/housetypeno")
+	public List<RoomModel> getListByAllWithHouseTypeNo() throws Exception{
+		return roomService.getListByAllWithHouseTypeNo();
+	}
+	
+	//取得所有房间列表,关联BuildingNo
+	@GetMapping("/get/buildingno")
+	public List<RoomModel> getListByAllWithBuildingNo() throws Exception{
+		return roomService.getListByAllWithBuildingNo();
+	}
+	
+	/*
+	//取得所有房间列表,关联TypeNo和BuildingNo
+	@GetMapping("/getwithtypenoandbuildingno")
+	public List<RoomModel> getListByAllWithTypeNoAndBuildingNo() throws Exception{
+		return roomService.getListByAllWithTypeNoAndBuildingNo();
+	}
+	*/
+	
+	//根据类型编号取得此户型的房间
+	@GetMapping("/get/byhousetypeno")
+	public RoomModel getListByHouseTypeNo(int housetypeno) throws Exception{
+		return roomService.getListByHouseTypeNo(housetypeno);
+	}
+	
+	//根据楼宇序号取得此序号的房间
+	@GetMapping("/get/bybuildingno")
+	public RoomModel getListByBuildingNo(int buildingno) throws Exception{
+		return roomService.getListByBuildingNo(buildingno);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
 

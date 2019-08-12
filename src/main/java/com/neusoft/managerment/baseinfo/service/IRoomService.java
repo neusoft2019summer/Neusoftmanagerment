@@ -19,6 +19,9 @@ public interface IRoomService {
 	public void delete(RoomModel room) throws Exception;
 	//取得所有房间列表
 	public List<RoomModel> getListByAll() throws Exception;
+	
+	public List<RoomModel> getListByAllWithFK() throws Exception;
+	
 	//取得房间单个对象，
 	public RoomModel getByRoomNo(int roomno) throws Exception;
 	//取得所有房间列表,分页模式
@@ -27,4 +30,19 @@ public interface IRoomService {
 	public int getCountByAll() throws Exception;
 	//取得房间页数
 	public int getPageCountByAll(int rows) throws Exception;
+	//取得所有房间列表,关联AreaNo
+	public List<RoomModel> getListByAllWithAreaNo() throws Exception;
+	//取得所有房间列表,关联BuildingTypeNo
+	public List<RoomModel> getListByAllWithBuildingTypeNo() throws Exception;
+	//取得所有房间列表,关联HouseTypeNo
+	public List<RoomModel> getListByAllWithHouseTypeNo() throws Exception;
+	//取得所有房间列表,关联BuildingNo
+	public List<RoomModel> getListByAllWithBuildingNo() throws Exception;
+	//取得所有房间列表,关联TypeNo和BuildingNo
+	//public List<RoomModel> getListByAllWithTypeNoAndBuildingNo() throws Exception;
+	//根据类型编号取得此户型的房间
+	public RoomModel getListByHouseTypeNo(int housetypeno) throws Exception;
+	//根据楼宇序号取得此序号的房间
+	public RoomModel getListByBuildingNo(int buildingno) throws Exception;
+
 }

@@ -45,6 +45,12 @@ public class RoomServiceImpl implements IRoomService {
 		
 		return roomMapper.selectListByAll();
 	}
+	
+	@Override
+	public List<RoomModel> getListByAllWithFK() throws Exception {
+		
+		return roomMapper.selectListByAllwithFK();
+	}
 
 	@Override
 	public RoomModel getByRoomNo(int roomno) throws Exception {
@@ -76,5 +82,52 @@ public class RoomServiceImpl implements IRoomService {
 		}
 		return pageCount;
 	}
+
+	@Override
+	public List<RoomModel> getListByAllWithAreaNo() throws Exception {
+		
+		return roomMapper.selectListByAllWithAreaNo();
+	}
+
+	@Override
+	public List<RoomModel> getListByAllWithBuildingTypeNo() throws Exception {
+		
+		return roomMapper.selectListByAllWithBuildingTypeNo();
+	}
+	
+	@Override
+	public List<RoomModel> getListByAllWithHouseTypeNo() throws Exception {
+		
+		return roomMapper.selectListByAllWithHouseTypeNo();
+	}
+
+	@Override
+	public List<RoomModel> getListByAllWithBuildingNo() throws Exception {
+		
+		return roomMapper.selectListByAllWithBuildingNo();
+	}
+	
+	/*
+	@Override
+	public List<RoomModel> getListByAllWithTypeNoAndBuildingNo() throws Exception {
+		
+		return roomMapper.selectListByAllWithTypeNoAndBuildingNo();
+	}
+	*/
+
+	
+	@Override
+	public RoomModel getListByHouseTypeNo(int housetypeno) throws Exception {
+		
+		return roomMapper.selectListByHouseTypeNo(housetypeno);
+	}
+
+	@Override
+	public RoomModel getListByBuildingNo(int buildingno) throws Exception {
+		
+		return roomMapper.selectListByBuildingNo(buildingno);
+	}
+
+
 
 }

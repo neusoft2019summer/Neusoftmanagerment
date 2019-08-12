@@ -14,7 +14,7 @@ import com.neusoft.managerment.office.service.INewsService;
 //新闻的业务实现类
 @Service("newsservice")
 public class NewsServiceImpl implements INewsService  {
-	
+	/*
 	private SqlSessionFactory sessionfactory = null;
 	@Autowired
 	private INewsMapper newsmapper = null;
@@ -51,6 +51,6 @@ public class NewsServiceImpl implements INewsService  {
 		return null;
 	}
 
-	
+	*/
 
 }
