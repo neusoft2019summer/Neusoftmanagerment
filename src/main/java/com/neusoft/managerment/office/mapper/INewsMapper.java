@@ -1,5 +1,7 @@
 package com.neusoft.managerment.office.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.neusoft.managerment.office.model.NewsModel;
@@ -13,7 +15,10 @@ public interface INewsMapper {
 	public void update(NewsModel newsmodel) throws Exception;
 	//d  删除方法
 	public void delete(NewsModel newsmodel) throws Exception;
-	//r  查找
-	public void select(NewsModel newsmodel) throws Exception;
+	
+	//R  查询 取得列表 只取的新闻
+	public List<NewsModel> selectListByAll() throws Exception;
+	public List<NewsModel> selectListType(String newstype) throws Exception;
+	
 
 }

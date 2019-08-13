@@ -3,10 +3,10 @@ package com.neusoft.managerment.office.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import org.apache.ibatis.type.Alias;
-
-
+import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
 
@@ -20,6 +20,7 @@ import lombok.Data;
 public class NewsModel implements Serializable {
 	private String newsno = null;
 	private String newstype = null;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date newstime = null;
 	private String newscontent = null;
 	

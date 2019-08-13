@@ -8,8 +8,6 @@
 
   <resultMap id="RoomResultMap" type="Room">
     <id property="roomno" column="ROOMNO"/>
-    <result property="housetypeno" column="HOUSETYPENO"/>
-    <result property="buildingno" column="BUILDINGNO"/>
     <result property="departmentcode" column="DEPARTMENTCODE"/>
     <result property="floor" column="FLOOR"/>
     <result property="roomcode" column="ROOMCODE"/>
@@ -19,26 +17,44 @@
     <result property="roomtype" column="ROOMTYPE"/>
   </resultMap>
 
+  <!-- 关联的小区的ResultMap -->
+  <resultMap  id="RoomWithAreaResultMap" type="Room" extends="RoomResultMap">
+  	<association property="area" resultMap="com.neusoft.managerment.baseinfo.mapper.IAreaMapper.AreaResultMap"></association>
+  </resultMap>
+
+  <!-- 关联的建筑类型的ResultMap -->
+  <resultMap  id="RoomWithBuildingTypeResultMap" type="Room" extends="RoomResultMap">
+  	<association property="buildingtype" resultMap="com.neusoft.managerment.baseinfo.mapper.IBuildingTypeMapper.BuildTypeResultMap"></association>
+  </resultMap>
+
   <!-- 关联的户型的ResultMap -->
   <resultMap  id="RoomWithHouseTypeResultMap" type="Room" extends="RoomResultMap">
-  	<association property="typeno" resultMap="com.neusoft.managerment.baseinfo.mapper.IHouseTypeMapper.HouseTypeResultMap"></association>
+  	<association property="housetype" resultMap="com.neusoft.managerment.baseinfo.mapper.IHouseTypeMapper.HouseTypeResultMap"></association>
   </resultMap>
 
   <!-- 关联的楼宇的ResultMap -->
   <resultMap  id="RoomWithBuildingResultMap" type="Room" extends="RoomResultMap">
-  	<association property="buildingno" resultMap="com.neusoft.managerment.baseinfo.mapper.IBuildingMapper.BuildingResultMap"></association>
+  	<association property="building" resultMap="com.neusoft.managerment.baseinfo.mapper.IBuildingMapper.BuildResultMap"></association>
+  </resultMap>
+  
+  <!-- 关联的外键的ResultMap -->
+  <resultMap  id="RoomWithFKResultMap" type="Room" extends="RoomResultMap">
+	<association property="area" resultMap="com.neusoft.managerment.baseinfo.mapper.IAreaMapper.AreaResultMap"></association>
+    <association property="buildingtype" resultMap="com.neusoft.managerment.baseinfo.mapper.IBuildingTypeMapper.BuildTypeResultMap"></association>
+    <!--<association property="housetype" resultMap="com.neusoft.managerment.baseinfo.mapper.IHouseTypeMapper.HouseTypeResultMap"></association>-->
+  	<association property="building" resultMap="com.neusoft.managerment.baseinfo.mapper.IBuildingMapper.BuildResultMap"></association>
   </resultMap>
 
   <insert id="create"  keyProperty="roomno"   keyColumn="ROOMNO" useGeneratedKeys="true" flushCache="true">
-   insert into Room (ROOMNO,HOUSETYPENO,BUILDINGNO,DEPARTMENTCODE,FLOOR,ROOMCODE,BUILDINGAREA,FEEAREA,ROOMSTATUS,ROOMTYPE)
-   values (#{roomno},#{housetypeno},#{buildingno},#{departmentcode},#{floor},#{roomcode},#{buildingarea},
-   #{feearea},#{roomstatus},#{roomtype})
+   insert into Room (AREANO,BUILDINGTYPENO,HOUSETYPENO,BUILDINGNO,DEPARTMENTCODE,FLOOR,ROOMCODE,BUILDINGAREA,FEEAREA,ROOMSTATUS,ROOMTYPE)
+   values (#{Area.areano},#{BuildingType.buildingtypeno},#{HouseType.housetypeno},#{Building.buildingno},#{departmentcode},#{floor},
+   #{roomcode},#{buildingarea},#{feearea},#{roomstatus},#{roomtype})
   </insert>
   
   <update id="update" flushCache="true">
-   update Room set HOUSETYPENO=#{housetypeno},BUILDINGNO=#{buildingno},DEPARTMENTCODE=#{departmentcode},
-   FLOOR=#{floor},ROOMCODE=#{roomcode},BUILDINGAREA=#{buildingarea},
-   FEEAREA=#{feearea},ROOMSTATUS=#{roomstatus},ROOMTYPE=#{roomtype}
+   update Room set AREANO=#{Area.areano},BUILDINGTYPENO=#{BuildingType.buildingtypeno},HOUSETYPENO=#{HouseType.housetypeno},
+   BUILDINGNO=#{Building.buildingno},DEPARTMENTCODE=#{departmentcode},FLOOR=#{floor},ROOMCODE=#{roomcode},
+   BUILDINGAREA=#{buildingarea},FEEAREA=#{feearea},ROOMSTATUS=#{roomstatus},ROOMTYPE=#{roomtype}
    where ROOMNO=#{roomno}
   </update>
   
@@ -50,6 +66,9 @@
    select * from Room
   </select>
   
+  <select id="selectListByAllwithFK" resultMap="RoomWithFKResultMap">
+   select * from Room
+  </select>
   
   <select id="selectByRoomNo" resultMap="RoomResultMap" >
   select * from Room  where ROOMNO=#{roomno}
@@ -62,6 +81,41 @@
   <!-- 取得房间的个数，使用IFNULL函数判断count函数结果是否为null, 为null返回0 -->
   <select id="selectCountByAll" resultType="int">
    select IFNULL(count(ROOMNO), 0) from Room
+  </select>
+  
+  <!-- 取得所有房间列表,关联AreaNo-->
+  <select id="selectListByAllWithAreaNo" resultMap="RoomWithAreaResultMap" >
+  	select a.*,b.* from Room a inner join Area b on a.AreaNo=b.AreaNo
+  </select>
+  
+    <!-- 取得所有房间列表,关联BuildingTypeNo-->
+  <select id="selectListByAllWithBuildingTypeNo" resultMap="RoomWithBuildingTypeResultMap" >
+  	select a.*,c.* from Room a inner join BuildingType c on a.BuildingTypeNo=c.TypeNo
+  </select>
+  
+    <!-- 取得所有房间列表,关联HouseTypeNo
+  <select id="selectListByAllWithHouseTypeNo" resultMap="RoomWithHouseTypeResultMap" >
+  	select a.*,d.* from Room a inner join HouseType d on a.HouseTypeNo=d.TypeNo
+  </select>-->
+  
+  <!-- 取得所有房间列表,关联BuildingNo-->
+  <select id="selectListByAllWithBuildingNo" resultMap="RoomWithBuildingResultMap" >
+  	select a.*,e.* from Room a inner join Building e on a.BuildingNo=e.BuildingNo	
+  </select>
+  
+  <!-- 取得所有房间列表,关联TypeNo和BuildingNo
+  <select id="selectListByAllWithTypeNoAndBuildingNo" resultMap="RoomWithHouseTypeAndBuildingResultMap" >
+  	select a.*,b.*,c.* from Room a inner join HouseType b on a.HouseTypeNo=b.TypeNo inner join Building c on a.BuildingNo=c.BuildingNo
+  </select> -->
+  
+  <!-- 根据类型编号取得此户型的房间 -->
+  <select id="selectListByHouseTypeNo" resultMap="RoomWithHouseTypeResultMap">
+   select * from Room where HouseTypeNo=#{housetypeno}
+  </select>
+  
+  <!-- 根据楼宇序号取得此序号的房间 -->
+  <select id="selectListByBuildingNo" resultMap="RoomWithBuildingResultMap">
+   select RoomNo from Room  where BuildingNo=#{Building.buildingno}
   </select>
   
 </mapper>

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import org.apache.ibatis.type.Alias;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
 
@@ -12,22 +13,19 @@ import lombok.Data;
  *    version: 1.0
  *    系统基础信息模块的客户Model
  */
-@Alias("Customer")
+@Alias("customer")
 @Data
 public class CustomerModel implements Serializable {
 
 	private int customerno = 0;
-	private int typeno = 0;
+	private CustomerTypeModel customertype = null;
 	private String ccode = null;
 	private String cname = null;
-	private String contact = null;
 	private String cardcode = null;
 	private String mobile = null;
-	private String tel = null;
-	private String fax = null;
-	private String qq = null;
-	private String weixin = null;
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date feestartdate = null;
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date feeenddate = null;
 	private String cstatus = null;
 	

@@ -10,7 +10,6 @@ spring:
     username: root
     password: Wuye2019 
 
-
 mybatis: 
   type-aliases-package: com.neusoft.managerment.admin.model
                         com.neusoft.managerment.baseinfo.model
@@ -23,6 +22,9 @@ mybatis:
   - classpath*:/mappers/**/*.xml
  
 
-
+logging:
+  level:
+    com.neusoft.managerment.office.mapper: debug
+    
 
  

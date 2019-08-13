@@ -39,18 +39,18 @@ public class NewsServiceImpl implements INewsService  {
 		
 	}
 
-	@Override
-	public List<NewsModel> searchnewsbyall() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public NewsModel searchnewsbytype() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	
 
+	@Override
+	public List<NewsModel> getnewsbyall() throws Exception {
+		return newsmapper.selectListByAll();
+	}
+
+	@Override
+	public List<NewsModel> getnewsbytype(String newstype) throws Exception {
+		List<NewsModel> list = newsmapper.selectListType(newstype);
+		return list;
+		
+	}
 }
+
