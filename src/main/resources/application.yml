@@ -18,7 +18,6 @@ mybatis:
                         com.neusoft.managerment.feeinfo.model
                         com.neusoft.managerment.office.model
                         com.neusoft.managerment.communityinfo.model  
-                        com.neusoft.managerment.personnel.model
   mapper-locations:
   - classpath*:/mappers/**/*.xml
  
