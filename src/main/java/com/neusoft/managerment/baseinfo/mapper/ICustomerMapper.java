@@ -32,4 +32,6 @@ public interface ICustomerMapper {
 	public int selectCountByAll() throws Exception;
 	//取得客户页数
 	public int selectPageCountByAll(int rows) throws Exception;
+	public List<CustomerModel> selectListByAllWithCustomerType(@Param("start") int start,@Param("rows") int rows) throws Exception;
+
 }

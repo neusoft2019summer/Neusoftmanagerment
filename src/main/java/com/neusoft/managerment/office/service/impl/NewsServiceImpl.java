@@ -52,8 +52,5 @@ public class NewsServiceImpl implements INewsService  {
 		return list;
 		
 	}
-
-	
-	
-
 }
+

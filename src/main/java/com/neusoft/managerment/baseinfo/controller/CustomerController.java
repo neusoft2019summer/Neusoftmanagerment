@@ -63,4 +63,28 @@ public class CustomerController {
 	public List<CustomerModel> getListByAll() throws Exception{
 		return customerService.getListByAll();
 	}
+	
+	@GetMapping(value="/list/all/customertype")
+	public ResultMessage<CustomerModel> getListByAllWithCustomerType(@RequestParam(required = false,defaultValue ="10") int rows,@RequestParam(required = false,defaultValue = "1") int page) throws Exception{
+		ResultMessage<CustomerModel> result=new ResultMessage<CustomerModel>("OK","取得客户列表分页模式成功");
+		result.setCount(customerService.getCountByAll());
+		result.setPageCount(customerService.getPageCountByAll(rows));
+		result.setList(customerService.getListByAllWithCustomerType(rows, page));
+		result.setPage(page);
+		result.setRows(rows);
+		
+		return result;	
+	}
+
+	/*
+	//检查此客户能否被删除
+	@GetMapping(value="/checkDelete")
+	public ResultMessage<CustomerModel> checkForDelete(int no) throws Exception{
+		ResultMessage<CustomerModel> result=new ResultMessage<CustomerModel>("OK","此部门可以删除");
+		if(!customerService.checkCanDelete(no)) {
+			result.setStatus("NO");
+			result.setMessage("此客户不能删除");
+		}
+		return result;
+	}*/
 }
