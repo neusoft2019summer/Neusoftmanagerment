@@ -8,7 +8,6 @@
 
   <resultMap id="EmployeesResultMap" type="Employees">
     <id property="id" column="EMPID"/>
-    <result property="deptno" column="DEPTNO"/>
     <result property="empname" column="EMPNAME"/>
     <result property="joindate" column="JOINDATE"/>
     <result property="sex" column="SEX"/>
