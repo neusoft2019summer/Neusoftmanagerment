@@ -42,7 +42,7 @@
    select * from Customer
   </select>
   
-  <select id="selectListByAllWithPage" resultMap="CustomerResultMap">
+  <select id="selectListByAllWithPage" resultMap="CustomerWithCustomerTypeResultMap">
    select * from Customer limit #{start},#{rows}
   </select>
   
