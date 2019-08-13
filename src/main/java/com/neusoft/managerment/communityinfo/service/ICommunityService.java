@@ -17,7 +17,7 @@ public interface ICommunityService {
 	//删除
 	public void delete(CommunityActiveModel com) throws Exception;
 	//取得活动同类型的对象
-	public CommunityActiveModel getListByType(String type)throws Exception;
+	public List<CommunityActiveModel> getListByType(String type)throws Exception;
 	//取得所有活动列表 
 	public List<CommunityActiveModel> getListByAll() throws Exception;
 	

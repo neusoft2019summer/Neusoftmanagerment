@@ -2,12 +2,15 @@ package com.neusoft.managerment.communityinfo.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
+
 import com.neusoft.managerment.communityinfo.model.CommunityActiveModel;
 
 /*
  * 社区活动的DAO层Mapper接口
  * @Author: 张梓琪
  */
+@Mapper
 public interface ICommunityMapper {
 	//增加
 	public void insert(CommunityActiveModel con) throws Exception;
