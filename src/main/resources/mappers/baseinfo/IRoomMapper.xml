@@ -24,7 +24,7 @@
 
   <!-- 关联的建筑类型的ResultMap -->
   <resultMap  id="RoomWithBuildingTypeResultMap" type="Room" extends="RoomResultMap">
-  	<association property="buildingtype" resultMap="com.neusoft.managerment.baseinfo.mapper.IBuildingTypeMapper.BuildTypeResultMap"></association>
+  	<association property="buildingtype" resultMap="com.neusoft.managerment.baseinfo.mapper.IBuildingTypeMapper.BuildingTypeResultMap"></association>
   </resultMap>
 
   <!-- 关联的户型的ResultMap -->
@@ -34,15 +34,15 @@
 
   <!-- 关联的楼宇的ResultMap -->
   <resultMap  id="RoomWithBuildingResultMap" type="Room" extends="RoomResultMap">
-  	<association property="building" resultMap="com.neusoft.managerment.baseinfo.mapper.IBuildingMapper.BuildResultMap"></association>
+  	<association property="building" resultMap="com.neusoft.managerment.baseinfo.mapper.IBuildingMapper.BuildingResultMap"></association>
   </resultMap>
   
   <!-- 关联的外键的ResultMap -->
   <resultMap  id="RoomWithFKResultMap" type="Room" extends="RoomResultMap">
 	<association property="area" resultMap="com.neusoft.managerment.baseinfo.mapper.IAreaMapper.AreaResultMap"></association>
-    <association property="buildingtype" resultMap="com.neusoft.managerment.baseinfo.mapper.IBuildingTypeMapper.BuildTypeResultMap"></association>
+    <association property="buildingtype" resultMap="com.neusoft.managerment.baseinfo.mapper.IBuildingTypeMapper.BuildingTypeResultMap"></association>
     <!--<association property="housetype" resultMap="com.neusoft.managerment.baseinfo.mapper.IHouseTypeMapper.HouseTypeResultMap"></association>-->
-  	<association property="building" resultMap="com.neusoft.managerment.baseinfo.mapper.IBuildingMapper.BuildResultMap"></association>
+  	<association property="building" resultMap="com.neusoft.managerment.baseinfo.mapper.IBuildingMapper.BuildingResultMap"></association>
   </resultMap>
 
   <insert id="create"  keyProperty="roomno"   keyColumn="ROOMNO" useGeneratedKeys="true" flushCache="true">
@@ -63,10 +63,6 @@
   </delete>
   
   <select id="selectListByAll" resultMap="RoomResultMap">
-   select * from Room
-  </select>
-  
-  <select id="selectListByAllwithFK" resultMap="RoomWithFKResultMap">
    select * from Room
   </select>
   
@@ -93,20 +89,33 @@
   	select a.*,c.* from Room a inner join BuildingType c on a.BuildingTypeNo=c.TypeNo
   </select>
   
-    <!-- 取得所有房间列表,关联HouseTypeNo
+    <!-- 取得所有房间列表,关联HouseTypeNo -->
   <select id="selectListByAllWithHouseTypeNo" resultMap="RoomWithHouseTypeResultMap" >
   	select a.*,d.* from Room a inner join HouseType d on a.HouseTypeNo=d.TypeNo
-  </select>-->
+  </select>
   
   <!-- 取得所有房间列表,关联BuildingNo-->
   <select id="selectListByAllWithBuildingNo" resultMap="RoomWithBuildingResultMap" >
   	select a.*,e.* from Room a inner join Building e on a.BuildingNo=e.BuildingNo	
   </select>
   
-  <!-- 取得所有房间列表,关联TypeNo和BuildingNo
-  <select id="selectListByAllWithTypeNoAndBuildingNo" resultMap="RoomWithHouseTypeAndBuildingResultMap" >
-  	select a.*,b.*,c.* from Room a inner join HouseType b on a.HouseTypeNo=b.TypeNo inner join Building c on a.BuildingNo=c.BuildingNo
-  </select> -->
+  <!-- 取得所有房间列表,关联AreaNo,BuildingTypeNo,HouseTypeNo,BuildingNo-->
+  <select id="selectListByAllwithFK" resultMap="RoomWithFKResultMap">
+   select a.*,b.*,c.*,d.*,e.* from Room a inner join Area b on a.AreaNo=b.AREANO 
+                                          inner join BuildingType c on a.BuildingTypeNo=c.TypeNo 
+                                          inner join HouseType d on a.HouseTypeNo=d.TypeNo 
+                                          inner join Building e on a.BuildingNo=e.BuildingNo
+  </select>
+  
+  <!-- 根据编号取得此小区类型的房间 -->
+  <select id="selectListByAreaNo" resultMap="RoomWithHouseTypeResultMap">
+   select * from Room where AreaNo=#{areano}
+  </select>
+  
+  <!-- 根据类型编号取得此建筑类型的房间 -->
+  <select id="selectListByBuildingTypeNo" resultMap="RoomWithHouseTypeResultMap">
+   select * from Room where BuildingTypeNo=#{buildingtypeno}
+  </select>
   
   <!-- 根据类型编号取得此户型的房间 -->
   <select id="selectListByHouseTypeNo" resultMap="RoomWithHouseTypeResultMap">
