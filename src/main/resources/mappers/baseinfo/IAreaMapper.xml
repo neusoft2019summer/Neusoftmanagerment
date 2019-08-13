@@ -20,13 +20,13 @@
   </resultMap>
   
   <insert id="create" keyProperty="no" keyColumn="AREANO" useGeneratedKeys="true" flushCache="true">
-  	insert into Area (AREANAME,AAddress,Developer,TotalBuildingArea,TotalUseArea,TotalParkArea,TotalHome,TotalHouse,TotalPack) 
-  	values (#{name},#{address},#{developer},#{buildingarea},#{usearea},#{packarea},#{home},#{house},#{park})
+  	insert into Area (AREANAME,AAddress,Developer,TotalBuildingArea,TotalUseArea,TotalParkArea,TotalHome,TotalHouse,TotalPark) 
+  	values (#{name},#{address},#{developer},#{buildingarea},#{usearea},#{parkarea},#{home},#{house},#{park})
   </insert>
   
   <update id="update" flushCache="true">
   	update Area set AREANAME=#{name},AAddress=#{address},Developer=#{developer},TotalBuildingArea=#{buildingarea},TotalUseArea=#{usearea},
-  	TotalPackArea=#{packarea},TotalHome=#{home},TotalHouse=#{house},TotalPark=#{park} where AREANO=#{no} 
+  	TotalParkArea=#{parkarea},TotalHome=#{home},TotalHouse=#{house},TotalPark=#{park} where AREANO=#{no} 
   </update>
   
   <delete id="delete" flushCache="true">
@@ -51,6 +51,71 @@
   <!-- 取得小区的个数，使用IFNULL函数判断count函数结果是否为null, 为null返回0 -->
   <select id="selectCountByAll" resultType="int">
    select IFNULL(count(AREANO), 0) from Area
+  </select>
+  
+  <!-- 根据综合检索条件取得小区列表 -->
+  <select id="selectListByConditionWithPage" resultMap="AreaResultMap">
+   select * from Area 
+  <where>
+     <if test="no!=0">
+      and AREANO=#{no}
+     </if>
+     <if test="developer!=null and developer!=''">
+     and Developer=#{developer}
+     </if>
+     <if test="minbuildingarea!=0">
+     and TotalBuildingArea &gt;=#{minbuildingarea}
+     </if>
+     <if test="maxbuildingarea!=0">
+     and TotalBuildingArea &lt;=#{maxbuildingarea}
+     </if>
+     <if test="minhome!=0">
+     and TotalHome &gt;=#{minhome}
+     </if>
+      <if test="maxhome!=0">
+     and TotalHome &lt;=#{maxhome}
+     </if>
+      <if test="minhouse!=0">
+     and TotalHouse &gt;=#{minhouse}
+     </if>
+      <if test="maxhouse!=0">
+     and TotalHouse &lt;=#{maxhouse}
+     </if>
+     
+  </where>
+    limit #{start},#{rows}
+  </select>
+  
+  <!-- 根据综合检索条件取得小区个数 -->
+  <select id="selectCountByCondition" resultType="int">
+  select IFNULL(count(AREANO), 0) from Area 
+  <where>
+     <if test="no!=0">
+      and AREANO=#{no}
+     </if>
+     <if test="developer!=null and developer!=''">
+     and Developer=#{developer}
+     </if>
+     <if test="minbuildingarea!=0">
+     and TotalBuildingArea &gt;=#{minbuildingarea}
+     </if>
+     <if test="maxbuildingarea!=0">
+     and TotalBuildingArea &lt;=#{maxbuildingarea}
+     </if>
+     <if test="minhome!=0">
+     and TotalHome &gt;=#{minhome}
+     </if>
+      <if test="maxhome!=0">
+     and TotalHome &lt;=#{maxhome}
+     </if>
+      <if test="minhouse!=0">
+     and TotalHouse &gt;=#{minhouse}
+     </if>
+      <if test="maxhouse!=0">
+     and TotalHouse &lt;=#{maxhouse}
+     </if>
+  </where>
+   
   </select>
   
 </mapper>

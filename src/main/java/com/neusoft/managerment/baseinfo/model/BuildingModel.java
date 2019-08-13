@@ -11,14 +11,14 @@ import lombok.Data;
  *    楼宇的Model类
  * @Author: 吕淑兰
  */
-@Alias("building")
+@Alias("Building")
 @Data
 public class BuildingModel implements Serializable {
 	private int no=0; //序号
 	private AreaModel area=null; //小区序号
 	private String code=null; //楼号
 	private String address=null; //楼宇地址
-	private BuildingTypeModel buildType=null; //楼宇结构编号
+	private BuildingTypeModel buildingtype=null; //楼宇结构编号
 	private String direction=null;  //楼宇朝向
 	private int home=0; //居民数
 	private int house=0; //公建数

@@ -1,6 +1,10 @@
 package com.neusoft.managerment.baseinfo.service;
 
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
 
 import com.neusoft.managerment.baseinfo.model.AreaModel;
 
@@ -28,4 +32,10 @@ public interface IAreaService {
 	public int getCountByAll() throws Exception;
 	//取得小区页数
 	public int getPagaCountByAll(int rows) throws Exception;
+	//根据综合检索条件取得小区列表
+	public List<AreaModel> getListByConditionWithPage(int no,String developer,BigDecimal minbuildingarea,BigDecimal maxbuildingarea,int minhome,int maxhome,int minhouse,int maxhouse, int rows,int page) throws Exception;
+	//根据综合检索条件取得小区个数
+	public int getCountByCondition(int no,String developer,BigDecimal minbuildingarea,BigDecimal maxbuildingarea,int minhome,int maxhome,int minhouse,int maxhouse) throws Exception;
+	//根据综合检索条件取得小区显示的页数
+	public int getPageCountByConditionWithPage(int no,String developer,BigDecimal minbuildingarea,BigDecimal maxbuildingarea,int minhome,int maxhome,int minhouse,int maxhouse,int rows) throws Exception;
 }

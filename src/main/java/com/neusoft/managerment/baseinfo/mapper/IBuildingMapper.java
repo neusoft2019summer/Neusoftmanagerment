@@ -21,23 +21,25 @@ public interface IBuildingMapper {
 	public void update(BuildingModel buildModel) throws Exception;
 	//删除
 	public void delete(BuildingModel buildModel) throws Exception;
-	//查询楼宇的信息
-	public List<BuildingModel> selectBuildListByAll() throws Exception;
-	//查询楼宇的信息,关联Area
-	public List<BuildingModel> selectBuildListByAllWithArea() throws Exception;
-	//查询楼宇的信息,关联BuildingType
-	public List<BuildingModel> selectBuildListByAllWithBuildType() throws Exception;
-	//查询楼宇的信息,关联Area和BuildingType
-	public List<BuildingModel> selectBuildListByAllWithAreaAndBuildType() throws Exception;
+	//取得所有楼宇列表
+	public List<BuildingModel> selectListByAll() throws Exception;
+	//取得所有楼宇列表,关联Area,分页模式
+	public List<BuildingModel> selectListByAllWithArea() throws Exception;
+	//取得所有楼宇列表,关联BuildingType,分页模式
+	public List<BuildingModel> selectListByAllWithBuildType() throws Exception;
+	//取得所有楼宇列表,关联Area和BuildingType
+	public List<BuildingModel> selectListByAllWithAreaAndBuildType() throws Exception;
+	//取得所有楼宇列表,关联Area和BuildingType,分页模式
+	public List<BuildingModel> selectListByAllWithAreaAndBuildTypeWithPage(@Param("start") int start,@Param("rows") int rows) throws Exception;
 	//取得指定小区的楼宇列表,参数:areaNo 
-	public List<BuildingModel> selectBuildListByArea(int areaNo) throws Exception;
+	public List<BuildingModel> selectListByArea(int areaNo) throws Exception;
 	//取得指定建筑类型的楼宇列表,参数:buildTypeNo 
-	public List<BuildingModel> selectBuildListByBuildType(int buildTypeNo) throws Exception;
+	public List<BuildingModel> selectListByBuildType(int buildTypeNo) throws Exception;
 	//取得指定楼宇的信息
-	public BuildingModel selectBuildByNo(int no) throws Exception;
-	//取得所有部门列表,分页模式
+	public BuildingModel selectByNo(int no) throws Exception;
+	//取得所有楼宇列表,分页模式
 	public List<BuildingModel> selectListByAllWithPage(@Param("start") int start,@Param("rows") int rows) throws Exception;
-	//取得部门的个数
+	//取得楼宇的个数
 	public int selectCountByAll() throws Exception;
 
 }

@@ -42,51 +42,51 @@ public class BuildingServiceImpl implements IBuildingService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<BuildingModel> getBuildListByAll() throws Exception {
+	public List<BuildingModel> getListByAll() throws Exception {
 		
-		return buildMapper.selectBuildListByAll();
+		return buildMapper.selectListByAll();
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<BuildingModel> getBuildListByAllWithArea() throws Exception {
+	public List<BuildingModel> getListByAllWithArea() throws Exception {
 		
-		return buildMapper.selectBuildListByAllWithArea();
+		return buildMapper.selectListByAllWithArea();
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<BuildingModel> getBuildListByAllWithBuildType() throws Exception {
+	public List<BuildingModel> getListByAllWithBuildType() throws Exception {
 		
-		return buildMapper.selectBuildListByAllWithBuildType();
+		return buildMapper.selectListByAllWithBuildType();
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<BuildingModel> getBuildListByAllWithAreaAndBuildType() throws Exception {
+	public List<BuildingModel> getListByAllWithAreaAndBuildType() throws Exception {
 		
-		return buildMapper.selectBuildListByAllWithAreaAndBuildType();
+		return buildMapper.selectListByAllWithAreaAndBuildType();
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<BuildingModel> getBuildListByArea(int areaNo) throws Exception {
+	public List<BuildingModel> getListByArea(int areaNo) throws Exception {
 		
-		return buildMapper.selectBuildListByArea(areaNo);
+		return buildMapper.selectListByArea(areaNo);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<BuildingModel> getBuildListByBuildType(int buildTypeNo) throws Exception {
+	public List<BuildingModel> getListByBuildType(int buildTypeNo) throws Exception {
 		
-		return buildMapper.selectBuildListByBuildType(buildTypeNo);
+		return buildMapper.selectListByBuildType(buildTypeNo);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public BuildingModel getBuildByNo(int no) throws Exception {
+	public BuildingModel getByNo(int no) throws Exception {
 		
-		return buildMapper.selectBuildByNo(no);
+		return buildMapper.selectByNo(no);
 	}
 
 	@Override
@@ -103,7 +103,7 @@ public class BuildingServiceImpl implements IBuildingService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public int getPagaCountByAll(int rows) throws Exception {
+	public int getPageCountByAll(int rows) throws Exception {
 		int pageCount=0;
 		int count=this.getCountByAll();
 		if(count%rows==0) {
@@ -113,6 +113,13 @@ public class BuildingServiceImpl implements IBuildingService {
 			pageCount=count/rows+1;
 		}
 		return pageCount;
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<BuildingModel> getListByAllWithAreaAndBuildTypeWithPage(int rows,int page) throws Exception {
+		
+		return buildMapper.selectListByAllWithAreaAndBuildTypeWithPage(rows*(page-1), rows);
 	}
 
 }

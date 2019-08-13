@@ -19,10 +19,12 @@
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
+  <!-- jquery UI CSS -->
+  <link rel="stylesheet" href="dist/jqueryui/jquery-ui.min.css">
+  <!-- 引入Bootstrap3-dialog -->
+  <link rel="stylesheet" href="dist/bootstrap3-dialog/css/bootstrap-dialog.min.css">
   
   <script type="text/javascript" src="dist/jquery/jquery-3.4.1.min.js"></script>
-  <!-- jQuery 3 -->
-  <script src="bower_components/jquery/dist/jquery.min.js"></script>
   <!-- Bootstrap 3.3.7 -->
   <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
   <!-- FastClick -->
@@ -36,12 +38,14 @@
   <script src="plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
   <!-- SlimScroll -->
   <script src="bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-  <!-- ChartJS -->
-  <script src="bower_components/chart.js/Chart.js"></script>
-  <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-  <script src="dist/js/pages/dashboard2.js"></script>
-  <!-- AdminLTE for demo purposes -->
-  <script src="dist/js/demo.js"></script>
+  
+  <!-- jquery UI JS -->
+  <script type="text/javascript" src="dist/jqueryui/jquery-ui.min.js"></script>
+  <!-- JQuery Form Plugin -->
+  <script type="text/javascript" src="dist/jqueryform/jquery.form.min.js"></script>
+  <!-- 引入Bootstrap3-dialog -->
+  <script src="dist/bootstrap3-dialog/js/bootstrap-dialog.min.js"></script>
+  
   <script type="text/javascript" src="js/index.js"></script>
  </head>
  
@@ -119,6 +123,8 @@
             <li><a href="area/main.html"><i class="fa fa-circle-o"></i>小区管理</a></li>
           	<li><a href="buildingType/main.html"><i class="fa fa-circle-o"></i>建筑类型管理</a></li>
             <li><a href="building/main.html"><i class="fa fa-circle-o"></i>楼宇管理</a></li>
+            <li><a href="parkType/main.html"><i class="fa fa-circle-o"></i>车位类型管理</a></li>
+            <li><a href="park/main.html"><i class="fa fa-circle-o"></i>车位管理</a></li>
           </ul>
         </li>
         
@@ -145,8 +151,7 @@
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h1>系统主页<small>系统导航</small>
-      </h1>
+      <h1><span id="mainpagetille"></span></h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i>主页</a></li>
         <li class="active">仪表盘</li>
