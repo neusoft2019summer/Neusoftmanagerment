@@ -78,12 +78,12 @@ public class AreaController {
 	
 	//按检索条件取得小区列表
 	@GetMapping(value="/list/condition/page")
-	public ResultMessage<AreaModel> getListByConditionWithPage(@RequestParam(required = false,defaultValue ="0") int no,@RequestParam(required = false,defaultValue ="") String developer,@RequestParam(required = false,defaultValue ="0") BigDecimal minbuildingarea,@RequestParam(required = false,defaultValue ="0") BigDecimal maxbuildingarea,@RequestParam(required = false,defaultValue ="0") int minhome,@RequestParam(required = false,defaultValue ="0") int maxhome,@RequestParam(required = false,defaultValue ="0") int minhouse,@RequestParam(required = false,defaultValue ="0") int maxhouse, @RequestParam(required = false,defaultValue ="5") int rows,@RequestParam(required = false,defaultValue ="1") int page) throws Exception {
+	public ResultMessage<AreaModel> getListByConditionWithPage(@RequestParam(required = false,defaultValue ="") String name,@RequestParam(required = false,defaultValue ="") String developer,@RequestParam(required = false,defaultValue ="0") BigDecimal minbuildingarea,@RequestParam(required = false,defaultValue ="0") BigDecimal maxbuildingarea,@RequestParam(required = false,defaultValue ="0") int minhome,@RequestParam(required = false,defaultValue ="0") int maxhome,@RequestParam(required = false,defaultValue ="0") int minhouse,@RequestParam(required = false,defaultValue ="0") int maxhouse, @RequestParam(required = false,defaultValue ="5") int rows,@RequestParam(required = false,defaultValue ="1") int page) throws Exception {
 	
 		ResultMessage<AreaModel> result=new ResultMessage<AreaModel>("OK","取得员工列表分页成功");
-		result.setCount(areas.getCountByCondition(no, developer, minbuildingarea, maxbuildingarea, minhome, maxhome, minhouse, maxhouse));
-		result.setPageCount(areas.getPageCountByConditionWithPage(no, developer, minbuildingarea, maxbuildingarea, minhome, maxhome, minhouse, maxhouse, rows));
-		result.setList(areas.getListByConditionWithPage(no, developer, minbuildingarea, maxbuildingarea, minhome, maxhome, minhouse, maxhouse, rows, page));
+		result.setCount(areas.getCountByCondition(name, developer, minbuildingarea, maxbuildingarea, minhome, maxhome, minhouse, maxhouse));
+		result.setPageCount(areas.getPageCountByConditionWithPage(name, developer, minbuildingarea, maxbuildingarea, minhome, maxhome, minhouse, maxhouse, rows));
+		result.setList(areas.getListByConditionWithPage(name, developer, minbuildingarea, maxbuildingarea, minhome, maxhome, minhouse, maxhouse, rows, page));
 		result.setPage(page);
 		result.setRows(rows);
 		

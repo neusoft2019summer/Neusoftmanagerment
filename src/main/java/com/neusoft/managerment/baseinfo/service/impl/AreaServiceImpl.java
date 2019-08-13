@@ -82,25 +82,25 @@ public class AreaServiceImpl implements IAreaService {
 	}
 
 	@Override
-	public List<AreaModel> getListByConditionWithPage(int no, String developer, BigDecimal minbuildingarea,
+	public List<AreaModel> getListByConditionWithPage(String name, String developer, BigDecimal minbuildingarea,
 			BigDecimal maxbuildingarea, int minhome, int maxhome, int minhouse, int maxhouse, int rows, int page)
 			throws Exception {
-		return areaMapper.selectListByConditionWithPage(no, developer, minbuildingarea, maxbuildingarea, minhome, maxhome, minhouse, maxhouse, rows*(page-1), rows);
+		return areaMapper.selectListByConditionWithPage(name, developer, minbuildingarea, maxbuildingarea, minhome, maxhome, minhouse, maxhouse, rows*(page-1), rows);
 	}
 
 	@Override
-	public int getCountByCondition(int no, String developer, BigDecimal minbuildingarea, BigDecimal maxbuildingarea,
+	public int getCountByCondition(String name, String developer, BigDecimal minbuildingarea, BigDecimal maxbuildingarea,
 			int minhome, int maxhome, int minhouse, int maxhouse) throws Exception {
-		return areaMapper.selectCountByCondition(no, developer, minbuildingarea, maxbuildingarea, minhome, maxhome, minhouse, maxhouse);
+		return areaMapper.selectCountByCondition(name, developer, minbuildingarea, maxbuildingarea, minhome, maxhome, minhouse, maxhouse);
 	}
 
 	@Override
-	public int getPageCountByConditionWithPage(int no, String developer,
+	public int getPageCountByConditionWithPage(String name, String developer,
 			BigDecimal minbuildingarea, BigDecimal maxbuildingarea, int minhome, int maxhome, int minhouse,
 			int maxhouse, int rows) throws Exception {
 
 		int pageCount=0;
-		int count=this.getCountByCondition(no, developer, minbuildingarea, maxbuildingarea, minhome, maxhome, minhouse, maxhouse);
+		int count=this.getCountByCondition(name, developer, minbuildingarea, maxbuildingarea, minhome, maxhome, minhouse, maxhouse);
 		if(count%rows==0) {
 			pageCount=count/rows;
 		}

@@ -33,10 +33,10 @@ public interface IAreaService {
 	//取得小区页数
 	public int getPagaCountByAll(int rows) throws Exception;
 	//根据综合检索条件取得小区列表
-	public List<AreaModel> getListByConditionWithPage(int no,String developer,BigDecimal minbuildingarea,BigDecimal maxbuildingarea,int minhome,int maxhome,int minhouse,int maxhouse, int rows,int page) throws Exception;
+	public List<AreaModel> getListByConditionWithPage(String name,String developer,BigDecimal minbuildingarea,BigDecimal maxbuildingarea,int minhome,int maxhome,int minhouse,int maxhouse, int rows,int page) throws Exception;
 	//根据综合检索条件取得小区个数
-	public int getCountByCondition(int no,String developer,BigDecimal minbuildingarea,BigDecimal maxbuildingarea,int minhome,int maxhome,int minhouse,int maxhouse) throws Exception;
+	public int getCountByCondition(String name,String developer,BigDecimal minbuildingarea,BigDecimal maxbuildingarea,int minhome,int maxhome,int minhouse,int maxhouse) throws Exception;
 	//根据综合检索条件取得小区显示的页数
-	public int getPageCountByConditionWithPage(int no,String developer,BigDecimal minbuildingarea,BigDecimal maxbuildingarea,int minhome,int maxhome,int minhouse,int maxhouse,int rows) throws Exception;
+	public int getPageCountByConditionWithPage(String name,String developer,BigDecimal minbuildingarea,BigDecimal maxbuildingarea,int minhome,int maxhome,int minhouse,int maxhouse,int rows) throws Exception;
 
 }

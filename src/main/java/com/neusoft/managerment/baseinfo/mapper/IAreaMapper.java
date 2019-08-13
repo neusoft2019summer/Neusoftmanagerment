@@ -32,7 +32,7 @@ public interface IAreaMapper {
 	//取得小区的个数
 	public int selectCountByAll() throws Exception;
 	//根据综合检索条件取得小区列表
-	public List<AreaModel> selectListByConditionWithPage(@Param("no") int no,@Param("developer") String developer,@Param("minbuildingarea") BigDecimal minbuildingarea,@Param("maxbuildingarea") BigDecimal maxbuildingarea,@Param("minhome") int minhome,@Param("maxhome") int maxhome,@Param("minhouse") int minhouse,@Param("maxhouse") int maxhouse, @Param("start") int start,@Param("rows") int rows) throws Exception;
+	public List<AreaModel> selectListByConditionWithPage(@Param("name") String name,@Param("developer") String developer,@Param("minbuildingarea") BigDecimal minbuildingarea,@Param("maxbuildingarea") BigDecimal maxbuildingarea,@Param("minhome") int minhome,@Param("maxhome") int maxhome,@Param("minhouse") int minhouse,@Param("maxhouse") int maxhouse, @Param("start") int start,@Param("rows") int rows) throws Exception;
 	//根据综合检索条件取得小区个数
-	public int selectCountByCondition(@Param("no") int no,@Param("developer") String developer,@Param("minbuildingarea") BigDecimal minbuildingarea,@Param("maxbuildingarea") BigDecimal maxbuildingarea,@Param("minhome") int minhome,@Param("maxhome") int maxhome,@Param("minhouse") int minhouse,@Param("maxhouse") int maxhouse) throws Exception;
+	public int selectCountByCondition(@Param("name") String name,@Param("developer") String developer,@Param("minbuildingarea") BigDecimal minbuildingarea,@Param("maxbuildingarea") BigDecimal maxbuildingarea,@Param("minhome") int minhome,@Param("maxhome") int maxhome,@Param("minhouse") int minhouse,@Param("maxhouse") int maxhouse) throws Exception;
 }

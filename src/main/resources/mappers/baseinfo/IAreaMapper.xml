@@ -57,8 +57,8 @@
   <select id="selectListByConditionWithPage" resultMap="AreaResultMap">
    select * from Area 
   <where>
-     <if test="no!=0">
-      and AREANO=#{no}
+     <if test="name!=null and name!=''">
+      and AREANAME=#{name}
      </if>
      <if test="developer!=null and developer!=''">
      and Developer=#{developer}
@@ -90,8 +90,8 @@
   <select id="selectCountByCondition" resultType="int">
   select IFNULL(count(AREANO), 0) from Area 
   <where>
-     <if test="no!=0">
-      and AREANO=#{no}
+     <if test="name!=null and name!=''">
+      and AREANAME=#{name}
      </if>
      <if test="developer!=null and developer!=''">
      and Developer=#{developer}

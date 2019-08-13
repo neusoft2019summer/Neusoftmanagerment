@@ -5,45 +5,53 @@
       <div class="box">
         <div class="box-header">
           <div class="row">
-             <div class="col-md-6"> <h3 class="box-title">小区管理</h3></div>
-             <div class="col-md-6 text-right">
-             	<a href="#" id="AreaModifyLink" class="btn btn-info">修改</a> 
-            	<a href="#" id="AreaDeleteLink" class="btn btn-info">删除</a>
-             	<a href="#" id="AreaViewLink" class="btn btn-info">详细</a>
-              </div>
-          </div>
+             <div class="col-md-11">
+	             <form class="form-inline" role="form">
+				  <div class="form-group">
+				    <label  for="name">小区</label>
+				    <select id="AreaSelection" class="form-control">
+				       <option value="0">所有</option>
+				    </select>
+				  </div>
+				  <div class="form-group">
+				    <label  for="name">开发商</label>
+				    <select id="DeveloperSelection" class="form-control">
+				       <option value="0">所有</option>
+				    </select>
+				  </div>
+				  <div class="form-group">
+				    <label  for="name">总建筑面积</label>
+				           从<input type="text" class="form-control" id="minbuildingarea" size="5" />
+				           至 <input type="text" class="form-control" id="maxbuildingarea" size="5" />
+				  </div>
+				  
+				  <div class="form-group">
+				    <label  for="name">总居民数</label>
+				           从<input type="text" class="form-control" id="minhome" size="5" />
+				           至 <input type="text" class="form-control" id="maxhome" size="5" />
+				  </div>
+				  <div class="form-group">
+				    <label  for="name">总公建数</label>
+				           从<input type="text" class="form-control" id="minhouse" size="5" />
+				           至 <input type="text" class="form-control" id="maxhouse" size="5" />
+				  </div>
+				  <div class="form-group">
+				   <a href="#" class="btn btn-default" id="AreaSearchButton">检索</a>
+				  </div>
+				</form>
+             </div>
+             <div class="col-md-3 text-right">
+              <a href="#" id="AreaModifyLink" class="btn btn-info">修改</a> 
+              <a href="#" id="AreaDeleteLink" class="btn btn-info">删除</a>
+              <a href="#" id="AreaViewLink" class="btn btn-info">详细</a>
+             </div>
+          	 
          
-        </div>
+          </div>
         <!-- /.box-header -->
       <div class="box-body" id="areamaincontent">
-        <table id="AreaTable" class="table table-bordered table-hover">
-		  <thead>
-		  <tr>
-		    <th>小区名称</th>
-		    <th>小区地址</th>
-		    <th>开发商</th>
-		    <th>总建筑面积</th>
-		    <th>总使用面积</th>
-		    <th>车位面积</th>
-		    <th>总居民数</th>
-		    <th>总公建数</th>
-		    <th>车位数</th>
-		  </tr>
-		  </thead>
-		  <tbody>
-		</table>
-		<div class="row">
-		   <div class="col-md-6 text-left">
-		   小区个数:<span id="count"></span>   页数:<span id="pagecount"></span>
-		   </div>
-		   <div class="col-md-6 text-right" id="page_nav">
-		   <a href="top" class="btn btn-info">首页</a> 
-		   <a href="pre" class="btn btn-info">上页</a>
-		   <a href="next" class="btn btn-info">下页</a>
-		   <a href="last" class="btn btn-info">末页</a>
-		   </div>
-		</div>
-       
+        <table id="AreaGrid"></table>
+    	<div id="AreaGridPager"></div>       
       </div>
       <!-- /.box-body -->
     </div>
