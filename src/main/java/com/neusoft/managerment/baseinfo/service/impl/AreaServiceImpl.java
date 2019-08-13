@@ -79,5 +79,13 @@ public class AreaServiceImpl implements IAreaService {
 		}
 		return pageCount;
 	}
+
+	@Override
+	public boolean checkCanDelete(int no) throws Exception {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	
 	
 }

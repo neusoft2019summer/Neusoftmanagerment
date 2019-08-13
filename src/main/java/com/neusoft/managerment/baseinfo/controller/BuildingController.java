@@ -11,9 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.neusoft.managerment.baseinfo.model.AreaModel;
 import com.neusoft.managerment.baseinfo.model.BuildingModel;
-import com.neusoft.managerment.baseinfo.service.IAreaService;
 import com.neusoft.managerment.baseinfo.service.IBuildingService;
 import com.neusoft.managerment.baseinfo.service.IBuildingTypeService;
 import com.neusoft.managerment.message.ResultMessage;
@@ -24,7 +22,7 @@ import com.neusoft.managerment.message.ResultMessage;
  */
 
 @RestController
-@RequestMapping(value="/build")
+@RequestMapping(value="/building")
 public class BuildingController {
 	@Autowired
 	private IBuildingService bs=null;
@@ -50,15 +48,15 @@ public class BuildingController {
 	
 	//取得所有楼宇列表
 	@GetMapping(value="/list/all")
-	public List<BuildingModel> getBuildListByAll() throws Exception{
-		return bs.getBuildListByAll();
+	public List<BuildingModel> getListByAll() throws Exception{
+		return bs.getListByAll();
 	}
 	//取得所有楼宇列表，有分页
 	@GetMapping(value="/list/all/page")
 	public ResultMessage<BuildingModel> getListByAllWitPage(@RequestParam(required = false,defaultValue ="2") int rows,@RequestParam(required = false,defaultValue = "1") int page) throws Exception{
 		ResultMessage<BuildingModel> result=new ResultMessage<BuildingModel>("OK","取得楼宇列表分页模式成功");
 		result.setCount(bs.getCountByAll());
-		result.setPageCount(bs.getPagaCountByAll(rows));
+		result.setPageCount(bs.getPageCountByAll(rows));
 		result.setList(bs.getListByAllWithPage(rows, page));
 		result.setPage(page);
 		result.setRows(rows);
@@ -67,37 +65,37 @@ public class BuildingController {
 	}
 	//查询楼宇的信息,关联Area
 	@GetMapping(value="/list/all/witharea")
-	public List<BuildingModel> getBuildListByAllWithArea() throws Exception {
-		return bs.getBuildListByAllWithArea();
+	public List<BuildingModel> getListByAllWithArea() throws Exception {
+		return bs.getListByAllWithArea();
 	}
 	
 	//查询楼宇的信息,关联BuildingType
 	@GetMapping(value="/list/all/withbuildtype")
-	public List<BuildingModel> getBuildListByAllWithBuildType() throws Exception{
-		return bs.getBuildListByAllWithBuildType();
+	public List<BuildingModel> getListByAllWithBuildType() throws Exception{
+		return bs.getListByAllWithBuildType();
 	}
 	
 	//查询楼宇的信息,关联Area和BuildingType
 	@GetMapping(value="/list/all/withareaandbuildtype")
-	public List<BuildingModel> getBuildListByAllWithAreaAndBuildType() throws Exception {
-		return bs.getBuildListByAllWithAreaAndBuildType();
+	public List<BuildingModel> getListByAllWithAreaAndBuildType() throws Exception {
+		return bs.getListByAllWithAreaAndBuildType();
 	}
 	
 	//取得指定小区的楼宇列表,参数:areaNo 
 	@GetMapping(value="/list/area")
-	public List<BuildingModel> getBuildListByArea(int areaNo) throws Exception {
-		return bs.getBuildListByArea(areaNo);
+	public List<BuildingModel> getListByArea(int areaNo) throws Exception {
+		return bs.getListByArea(areaNo);
 	}
 	//取得指定建筑类型的楼宇列表,参数:buildTypeNo 
 	@GetMapping(value="/list/buildtype")
-	public List<BuildingModel> getBuildListByBuildType(int buildTypeNo) throws Exception {
-		return bs.getBuildListByBuildType(buildTypeNo);
+	public List<BuildingModel> getListByBuildType(int buildTypeNo) throws Exception {
+		return bs.getListByBuildType(buildTypeNo);
 	}
 		
 	//取得指定楼宇的信息
 	@GetMapping("/get")
-	public BuildingModel getBuildByNo1(int bno) throws Exception{
-		return bs.getBuildByNo(bno);
+	public BuildingModel getByNo(int no) throws Exception{
+		return bs.getByNo(no);
 	}
 
 }

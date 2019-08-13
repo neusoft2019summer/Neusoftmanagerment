@@ -20,13 +20,13 @@
   </resultMap>
   
   <insert id="create" keyProperty="no" keyColumn="AREANO" useGeneratedKeys="true" flushCache="true">
-  	insert into Area (AREANAME,AAddress,Developer,TotalBuildingArea,TotalUseArea,TotalParkArea,TotalHome,TotalHouse,TotalPack) 
-  	values (#{name},#{address},#{developer},#{buildingarea},#{usearea},#{packarea},#{home},#{house},#{park})
+  	insert into Area (AREANAME,AAddress,Developer,TotalBuildingArea,TotalUseArea,TotalParkArea,TotalHome,TotalHouse,TotalPark) 
+  	values (#{name},#{address},#{developer},#{buildingarea},#{usearea},#{parkarea},#{home},#{house},#{park})
   </insert>
   
   <update id="update" flushCache="true">
   	update Area set AREANAME=#{name},AAddress=#{address},Developer=#{developer},TotalBuildingArea=#{buildingarea},TotalUseArea=#{usearea},
-  	TotalPackArea=#{packarea},TotalHome=#{home},TotalHouse=#{house},TotalPark=#{park} where AREANO=#{no} 
+  	TotalParkArea=#{parkarea},TotalHome=#{home},TotalHouse=#{house},TotalPark=#{park} where AREANO=#{no} 
   </update>
   
   <delete id="delete" flushCache="true">

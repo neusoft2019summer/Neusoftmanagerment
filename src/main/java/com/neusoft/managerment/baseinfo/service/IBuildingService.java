@@ -19,24 +19,24 @@ public interface IBuildingService {
 	//删除
 	public void delete(BuildingModel buildModel) throws Exception;
 	//查询楼宇的信息
-	public List<BuildingModel> getBuildListByAll() throws Exception;
+	public List<BuildingModel> getListByAll() throws Exception;
 	//查询楼宇的信息,关联Area
-	public List<BuildingModel> getBuildListByAllWithArea() throws Exception;
+	public List<BuildingModel> getListByAllWithArea() throws Exception;
 	//查询楼宇的信息,关联BuildingType
-	public List<BuildingModel> getBuildListByAllWithBuildType() throws Exception;
+	public List<BuildingModel> getListByAllWithBuildType() throws Exception;
 	//查询楼宇的信息,关联Area和BuildingType
-	public List<BuildingModel> getBuildListByAllWithAreaAndBuildType() throws Exception;
+	public List<BuildingModel> getListByAllWithAreaAndBuildType() throws Exception;
 	//取得指定小区的楼宇列表,参数:areaNo 
-	public List<BuildingModel> getBuildListByArea(int areaNo) throws Exception;
+	public List<BuildingModel> getListByArea(int areaNo) throws Exception;
 	//取得指定建筑类型的楼宇列表,参数:buildTypeNo 
-	public List<BuildingModel> getBuildListByBuildType(int buildTypeNo) throws Exception;
+	public List<BuildingModel> getListByBuildType(int buildTypeNo) throws Exception;
 	//取得指定楼宇的信息
-	public BuildingModel getBuildByNo(int no) throws Exception;
+	public BuildingModel getByNo(int no) throws Exception;
 	//取得所有楼宇列表,分页模式
 	public List<BuildingModel> getListByAllWithPage(int rows,int page) throws Exception;
 	//取得楼宇的个数
 	public int getCountByAll() throws Exception;
 	//取得楼宇页数
-	public int getPagaCountByAll(int rows) throws Exception;
+	public int getPageCountByAll(int rows) throws Exception;
 	
 }

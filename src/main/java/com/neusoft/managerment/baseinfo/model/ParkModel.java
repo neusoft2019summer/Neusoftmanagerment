@@ -2,7 +2,6 @@ package com.neusoft.managerment.baseinfo.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.text.Bidi;
 
 import org.apache.ibatis.type.Alias;
 

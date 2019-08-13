@@ -49,8 +49,10 @@ public class AreaController {
 
 	//取得指定的小区
 	@GetMapping("/get")
-	public AreaModel getArea(int areano) throws Exception{
-		return areas.getAreaByNo(areano);
+	public ResultMessage<AreaModel> getByNo(int no) throws Exception{
+		ResultMessage<AreaModel> result=new ResultMessage<AreaModel>("OK","取得小区成功");
+		result.setModel(areas.getAreaByNo(no));
+		return result;
 	}
 	
 	//取得所有小区列表，有分页
@@ -72,4 +74,14 @@ public class AreaController {
 		return areas.getAreaListByAll();
 	}
 
+	//检查此部门能否被删除
+	@GetMapping(value="/checkDelete")
+	public ResultMessage<AreaModel> checkForDelete(int no) throws Exception{
+		ResultMessage<AreaModel> result=new ResultMessage<AreaModel>("OK","此部门可以删除");
+		if(!areas.checkCanDelete(no)) {
+			result.setStatus("NO");
+			result.setMessage("此部门不能删除");
+		}
+		return result;
+	}
 }

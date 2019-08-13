@@ -6,7 +6,7 @@
 
   <cache/>
   
-  <resultMap id="BuildTypeResultMap" type="buildingtype">
+  <resultMap id="BuildingTypeResultMap" type="buildingtype">
   	<id property="no" column="TYPENO" />
   	<result property="name" column="TYPENAME" />
   </resultMap>
@@ -24,17 +24,17 @@
   </delete>
     
   <!-- 查询建筑类型的信息 -->
-  <select id="selectBuildTypeListByAll" resultMap="BuildTypeResultMap" >
+  <select id="selectBuildTypeListByAll" resultMap="BuildingTypeResultMap" >
   	select * from BuildingType 	
   </select>
   
    <!-- 取得指定建筑类型的信息 -->
-  <select id="selectBuildTypeByNo" resultMap="BuildTypeResultMap" >
+  <select id="selectBuildTypeByNo" resultMap="BuildingTypeResultMap" >
   	select * from BuildingType where TYPENO=#{no} 	
   </select>
   
   <!-- 取得所有建筑类型列表,分页模式 -->
-  <select id="selectListByAllWithPage" resultMap="BuildTypeResultMap">
+  <select id="selectListByAllWithPage" resultMap="BuildingTypeResultMap">
    select * from BuildingType limit #{start},#{rows}
   </select>
   

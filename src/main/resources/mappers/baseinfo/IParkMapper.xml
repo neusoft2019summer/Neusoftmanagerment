@@ -24,12 +24,12 @@
   </resultMap>
   <!-- 使用内嵌式ResultMap的关联楼宇的结果映射 -->
   <resultMap id="ParkResultMapWithBuilding" type="park" extends="ParkResultMap" >
-  	<association property="building"  resultMap="com.neusoft.managerment.baseinfo.mapper.IBuildingMapper.BuildResultMap" />
+  	<association property="building"  resultMap="com.neusoft.managerment.baseinfo.mapper.IBuildingMapper.BuildingResultMap" />
   </resultMap>
   <!-- 使用内嵌式ResultMap的关联车位类型和楼宇的结果映射 -->
   <resultMap id="ParkResultMapWithParkTypeAndBuilding" type="park" extends="ParkResultMap" >
   	<association property="parkType"  resultMap="com.neusoft.managerment.baseinfo.mapper.IParkTypeMapper.ParkTypeResultMap" />
-  	<association property="building"  resultMap="com.neusoft.managerment.baseinfo.mapper.IBuildingMapper.BuildResultMap" />
+  	<association property="building"  resultMap="com.neusoft.managerment.baseinfo.mapper.IBuildingMapper.BuildingResultMap" />
   </resultMap>
   
   <!-- 增加车位 -->
@@ -86,7 +86,7 @@
   
   <!-- 取得所有车位列表,分页模式 -->
   <select id="selectListByAllWithPage" resultMap="ParkResultMapWithParkTypeAndBuilding">
-   select * from Park limit #{start},#{rows}
+   select * from Park limit #{start},#{rows} 
   </select>
   
   <!-- 取得车位的个数，使用IFNULL函数判断count函数结果是否为null, 为null返回0 -->

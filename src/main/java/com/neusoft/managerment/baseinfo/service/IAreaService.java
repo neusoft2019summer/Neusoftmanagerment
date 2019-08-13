@@ -28,4 +28,6 @@ public interface IAreaService {
 	public int getCountByAll() throws Exception;
 	//取得小区页数
 	public int getPagaCountByAll(int rows) throws Exception;
+	//检查部门能否被删除
+	public boolean checkCanDelete(int no) throws Exception;
 }
