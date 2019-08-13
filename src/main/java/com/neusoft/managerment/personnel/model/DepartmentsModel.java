@@ -1,6 +1,7 @@
 package com.neusoft.managerment.personnel.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.apache.ibatis.type.Alias;
 
@@ -17,5 +18,5 @@ public class DepartmentsModel implements Serializable {
 	private int deptno = 0;
 	private String deptname = null;
 	private String ddesc = null;
-
+	private List<EmployeesModel> employees=null;
 }

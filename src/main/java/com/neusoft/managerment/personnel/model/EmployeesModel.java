@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import org.apache.ibatis.type.Alias;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
 
@@ -21,6 +22,7 @@ public class EmployeesModel implements Serializable {
 	private String empname = null;
 	private String sex = null;
 	private int age = 0;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date joindate = null;
 	private String job = null;
 	private String mobile = null;
