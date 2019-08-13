@@ -239,6 +239,7 @@ $(function(){
 					$( "div#AreaDialogArea" ).dialog( "destroy" );
 					$("div#AreaDialogArea").html("");
 				});
+				
 			});
 			
 		}
