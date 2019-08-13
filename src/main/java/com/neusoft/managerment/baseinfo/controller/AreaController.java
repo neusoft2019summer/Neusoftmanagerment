@@ -1,8 +1,11 @@
 package com.neusoft.managerment.baseinfo.controller;
 
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,7 +18,6 @@ import com.neusoft.managerment.baseinfo.model.AreaModel;
 import com.neusoft.managerment.baseinfo.service.IAreaService;
 import com.neusoft.managerment.feeinfo.model.FeeTypeModel;
 import com.neusoft.managerment.message.ResultMessage;
-
 /**
  *    模块：baseinfo 基础信息  
  *    小区控制层Controller
@@ -73,15 +75,19 @@ public class AreaController {
 	public List<AreaModel> getAreaListByAll() throws Exception{
 		return areas.getAreaListByAll();
 	}
-
-	//检查此部门能否被删除
-	@GetMapping(value="/checkDelete")
-	public ResultMessage<AreaModel> checkForDelete(int no) throws Exception{
-		ResultMessage<AreaModel> result=new ResultMessage<AreaModel>("OK","此部门可以删除");
-		if(!areas.checkCanDelete(no)) {
-			result.setStatus("NO");
-			result.setMessage("此部门不能删除");
-		}
+	
+	//按检索条件取得小区列表
+	@GetMapping(value="/list/condition/page")
+	public ResultMessage<AreaModel> getListByConditionWithPage(@RequestParam(required = false,defaultValue ="") String name,@RequestParam(required = false,defaultValue ="") String developer,@RequestParam(required = false,defaultValue ="0") BigDecimal minbuildingarea,@RequestParam(required = false,defaultValue ="0") BigDecimal maxbuildingarea,@RequestParam(required = false,defaultValue ="0") int minhome,@RequestParam(required = false,defaultValue ="0") int maxhome,@RequestParam(required = false,defaultValue ="0") int minhouse,@RequestParam(required = false,defaultValue ="0") int maxhouse, @RequestParam(required = false,defaultValue ="5") int rows,@RequestParam(required = false,defaultValue ="1") int page) throws Exception {
+	
+		ResultMessage<AreaModel> result=new ResultMessage<AreaModel>("OK","取得员工列表分页成功");
+		result.setCount(areas.getCountByCondition(name, developer, minbuildingarea, maxbuildingarea, minhome, maxhome, minhouse, maxhouse));
+		result.setPageCount(areas.getPageCountByConditionWithPage(name, developer, minbuildingarea, maxbuildingarea, minhome, maxhome, minhouse, maxhouse, rows));
+		result.setList(areas.getListByConditionWithPage(name, developer, minbuildingarea, maxbuildingarea, minhome, maxhome, minhouse, maxhouse, rows, page));
+		result.setPage(page);
+		result.setRows(rows);
+		
 		return result;
 	}
+
 }

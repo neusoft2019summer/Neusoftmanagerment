@@ -115,4 +115,11 @@ public class BuildingServiceImpl implements IBuildingService {
 		return pageCount;
 	}
 
+	@Override
+	@Transactional(readOnly = true)
+	public List<BuildingModel> getListByAllWithAreaAndBuildTypeWithPage(int rows,int page) throws Exception {
+		
+		return buildMapper.selectListByAllWithAreaAndBuildTypeWithPage(rows*(page-1), rows);
+	}
+
 }

@@ -23,12 +23,15 @@ public interface IBuildingMapper {
 	public void delete(BuildingModel buildModel) throws Exception;
 	//取得所有楼宇列表
 	public List<BuildingModel> selectListByAll() throws Exception;
-	//取得所有楼宇列表,关联Area
+	//取得所有楼宇列表,关联Area,分页模式
 	public List<BuildingModel> selectListByAllWithArea() throws Exception;
-	//取得所有楼宇列表,关联BuildingType
+	//取得所有楼宇列表,关联BuildingType,分页模式
 	public List<BuildingModel> selectListByAllWithBuildType() throws Exception;
 	//取得所有楼宇列表,关联Area和BuildingType
 	public List<BuildingModel> selectListByAllWithAreaAndBuildType() throws Exception;
+	//取得所有楼宇列表,关联Area和BuildingType,分页模式
+	public List<BuildingModel> selectListByAllWithAreaAndBuildTypeWithPage(@Param("start") int start,@Param("rows") int rows) throws Exception;
+
 	//取得指定小区的楼宇列表,参数:areaNo 
 	public List<BuildingModel> selectListByArea(int areaNo) throws Exception;
 	//取得指定建筑类型的楼宇列表,参数:buildTypeNo 

@@ -54,6 +54,12 @@
   	select * from Building 	
   </select>
   
+
+   <!-- 取得所有楼宇列表,分页模式 -->
+  <select id="selectListByAllWithPage" resultMap="BuildingResultMapWithAreaAndBuildingType">
+   select a.*,b.*,c.* from Building a inner join Area b on a.AreaNo=b.AREANO inner join BuildingType c on a.BuildingTypeNo=c.TYPENO limit #{start},#{rows} 
+  </select>
+  
   <!-- 取得所有楼宇列表,关联Area-->
   <select id="selectListByAllWithArea" resultMap="BuildingResultMapWithAreaAndBuildingType" >
   	select a.*,b.* from Building a inner join Area b on a.AreaNo=b.AREANO
@@ -69,6 +75,11 @@
   	select a.*,b.*,c.* from Building a inner join Area b on a.AreaNo=b.AREANO inner join BuildingType c on a.BuildingTypeNo=c.TYPENO 
   </select>
   
+  <!-- 取得所有楼宇列表,关联Area和BuildingType.分页模式 -->
+  <select id="selectListByAllWithAreaAndBuildTypeWithPage" resultMap="BuildingResultMapWithAreaAndBuildingType" >
+  	select a.*,b.*,c.* from Building a inner join Area b on a.AreaNo=b.AREANO 
+  	inner join BuildingType c on a.BuildingTypeNo=c.TYPENO limit #{start},#{rows}
+  </select>
   <!-- 取得指定小区的楼宇列表,参数:areaNo -->
   <select id="selectListByBuildingType" resultMap="BuildingResultMapWithAreaAndBuildingType" >
   	select * from Building where AreaNo=#{areaNo} 	
@@ -82,11 +93,6 @@
    <!-- 取得指定楼宇的信息 -->
   <select id="selectByNo" resultMap="BuildingResultMapWithAreaAndBuildingType" >
   	select * from Building where BuildingTypeNo=#{buildTypeNo} 	
-  </select>
-  
-  <!-- 取得所有楼宇列表,分页模式 -->
-  <select id="selectListByAllWithPage" resultMap="BuildingResultMapWithAreaAndBuildingType">
-   select * from Building limit #{start},#{rows} 
   </select>
   
   <!-- 取得楼宇的个数，使用IFNULL函数判断count函数结果是否为null, 为null返回0 -->

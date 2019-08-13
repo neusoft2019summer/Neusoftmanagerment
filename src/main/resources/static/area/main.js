@@ -4,14 +4,103 @@
  * 
  */
 $(function(){
-	var rows=5;
-	var page=1;
-	var pageCount=0;
-	var areaNo=0;//选择的小区编号
+	var no=0;
+	var name=null;
+	var developer=null;
+	var minbuildingarea=0;
+	var maxbuildingarea=0;
+	var minhome=0;
+	var maxhome=0;
+	var minhouse=0;
+	var maxhouse=0;
+	//var areaNo=0;//选择的小区编号
 	
 	//设置系统页面标题
 	$("span#mainpagetille").html("小区管理");
+	//显示小区列表
+	$("table#AreaGrid").jqGrid({
+		url: 'area/list/condition/page',
+		datatype: "json",
+		colModel: [
+			{ label: '小区名称', name: 'name', width: 60 },
+			{ label: '小区地址', name: 'address', width: 60 },
+			{ label: '开发商', name: 'developer', width: 60 },
+			{ label: '总建筑面积', name: 'buildingarea', width: 60 },
+			{ label: '总使用面积', name: 'usearea', width: 60},
+			{ label: '车位面积', name: 'parkarea', width: 60 },
+			{ label: '总居民数', name: 'home', width: 60 },  
+			{ label: '总公建数', name: 'house', width: 60 },
+			{ label: '车位数', name: 'park', width: 60 } 
+		],
+		caption:"小区列表",
+		viewrecords: true, 
+		autowidth: true,
+		height: 300,
+		rowNum: 5,
+		rowList:[5,6,7,8,9,10],
+		jsonReader : { 
+		      root: "list", 
+		      page: "page", 
+		      total: "pageCount", 
+		      records: "count", 
+		      repeatitems: true, 
+		      id: "no"},
+		pager: "#AreaGridPager",
+		multiselect:false,
+		onSelectRow:function(ano){
+			no=aid;
+		}
+		
+	});
+	//取得小区列表，填充小区下拉框
+	$.getJSON("area/list/all",function(areaList){
+		if(areaList){
+			$.each(areaList,function(index,am){
+				$("select#AreaSelection").append("<option value='"+am.no+"'>"+am.name+"</option>");
+			});
+		}
+	});
+	//取得开发商列表，填充开发商下拉框
+	$.getJSON("area/list/all",function(developerList){
+		if(developerList){
+			$.each(developerList,function(index,dm){
+				$("select#DeveloperSelection").append("<option value='"+dm.no+"'>"+dm.developer+"</option>");
+			});
+		}
+	});
+	//设置检索参数，更新jQGrid的列表显示
+	function reloadAreaList()
+	{
+		$("table#AreaGrid").jqGrid('setGridParam',{postData:{name:name,developer:developer,minbuildingarea:minbuildingarea,maxbuildingarea:maxbuildingarea,minhome:minhome,maxhome:maxhome,minhouse:minhouse,maxhouse:maxhouse}}).trigger("reloadGrid");
+		
+	}
+	
+	//定义小区下拉框的更新事件的处理
+	$("select#AreaSelection").off().on("change",function(){
+		name=$("select#AreaSelection").val();
+		reloadAreaList();
+	});
+	
+	//点击检索事件处理
+	$("a#AreaSearchButton").on("click",function(){
+		name=$("select#AreaSelection").val();
+		developer=$("select#DeveloperSelection").val();
+		minbuildingarea=$("input#minbuildingarea").val();
+		maxbuildingarea=$("input#maxbuildingarea").val();
+		minhome=$("input#minhome").val();
+		maxhome=$("input#maxhome").val();
+		minhouse=$("input#minhouse").val();
+		maxhouse=$("input#maxhouse").val();
+		
+		reloadAreaList();
+	});
+	
+	
+});
+
+/*
 	function getListInfo(){
+
 		
 		//操作列表的方法
 		//取得小区的列表，分页模式
@@ -24,9 +113,15 @@ $(function(){
 			//显示列表
 			$("table#AreaTable tbody").html("");
 			for(var i=0;i<data.list.length;i++){
-				var tr="<tr id='"+data.list[i].no+"'><td>"+data.list[i].no+"</td><td>"+data.list[i].name+"</td><td>"+data.list[i].address+
-				"</td><td>"+data.list[i].developer+"</td><td>"+data.list[i].buildingarea+"</td><td>"+data.list[i].usearea+
-				"</td><td>"+data.list[i].parkarea+"</td><td>"+data.list[i].home+"</td><td>"+data.list[i].house+"</td><td>"+data.list[i].park+"</td></tr>";
+				var tr="<tr id='"+data.list[i].no+"'><td>"+data.list[i].name+
+				"</td><td>"+data.list[i].address+
+				"</td><td>"+data.list[i].developer+
+				"</td><td>"+data.list[i].buildingarea+
+				"</td><td>"+data.list[i].usearea+
+				"</td><td>"+data.list[i].parkarea+
+				"</td><td>"+data.list[i].home+
+				"</td><td>"+data.list[i].house+
+				"</td><td>"+data.list[i].park+"</td></tr>";
 				$("table#AreaTable tbody").append(tr);
 			}
 			//定义表格行的点击时间，取得选择的小区编号
@@ -239,10 +334,11 @@ $(function(){
 					$( "div#AreaDialogArea" ).dialog( "destroy" );
 					$("div#AreaDialogArea").html("");
 				});
-				
+
 			});
 			
 		}
 	});
 	
 });
+*/

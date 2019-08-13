@@ -81,6 +81,19 @@ public class BuildingController {
 		return bs.getListByAllWithAreaAndBuildType();
 	}
 	
+	//取得所有楼宇列表,关联Area和BuildingType.分页模式
+	@GetMapping(value="/list/all/withareaandbuildtypewithpage")
+	public ResultMessage<BuildingModel> getListByAllWithAreaAndBuildTypeWithPage(@RequestParam(required = false,defaultValue ="5") int rows,@RequestParam(required = false,defaultValue = "1") int page) throws Exception{
+		ResultMessage<BuildingModel> result=new ResultMessage<BuildingModel>("OK","取得楼宇列表分页模式成功");
+		result.setCount(bs.getCountByAll());
+		result.setPageCount(bs.getPageCountByAll(rows));
+		result.setList(bs.getListByAllWithAreaAndBuildTypeWithPage(rows, page));
+		result.setPage(page);
+		result.setRows(rows);
+		
+		return result;
+	}
+	
 	//取得指定小区的楼宇列表,参数:areaNo 
 	@GetMapping(value="/list/area")
 	public List<BuildingModel> getListByArea(int areaNo) throws Exception {
