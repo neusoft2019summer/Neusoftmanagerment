@@ -23,7 +23,7 @@ $(function(){
 				$("table#CustomerTable tbody").html("");
 				for(var i=0;i<data.list.length;i++){
 					var tr="<tr><td>"+data.list[i].customerno+
-						   "</td><td>"+data.list[i].customertype+
+						   "</td><td>"+data.list[i].customertype.typeno+
 						   "</td><td>"+data.list[i].ccode+
 						   "</td><td>"+data.list[i].cname+
 					       "</td><td>"+data.list[i].cardcode+

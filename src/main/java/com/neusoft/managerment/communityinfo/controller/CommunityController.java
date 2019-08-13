@@ -25,26 +25,22 @@ public class CommunityController {
 		return new ResultMessage<CommunityActiveModel>("ok","增加成功");
 	}
 	
-	//删除新闻
+	//删除活動
 		@RequestMapping(value="/delete")
 		public ResultMessage<CommunityActiveModel> delete(CommunityActiveModel com) throws Exception{
 			
 			communityservice.delete(com);
 			return new ResultMessage<CommunityActiveModel>("ok","删除成功");
 		}
-		//查询所有新闻
+		//查询所有活動
 		@RequestMapping(value="/tolist")
 		public List<CommunityActiveModel> listbyall(CommunityActiveModel com) throws Exception{
-					
-			
 			return communityservice.getListByAll();
 		}
-		//查询所有新闻
+		//查询指定類型活動
 		@RequestMapping(value="/tolistbytype")
-		public List<CommunityActiveModel> listbytype(String type) throws Exception{
-							
-					
-			return communityservice.getListByType(type);
+		public List<CommunityActiveModel> listbyplace(String place) throws Exception{
+			return communityservice.getListByplace(place);
 				}
 
 }

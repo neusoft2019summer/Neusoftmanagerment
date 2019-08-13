@@ -1,5 +1,6 @@
 package com.neusoft.managerment.communityinfo.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,13 +29,13 @@ public class CommunityServiceimpl implements ICommunityService {
 
 	@Override
 	public void modify(CommunityActiveModel com) throws Exception {
-		// TODO Auto-generated method stub
+		communityMapper.update(com);
 		
 	}
 
 	@Override
 	public void delete(CommunityActiveModel com) throws Exception {
-		// TODO Auto-generated method stub
+		communityMapper.delete(com);
 		
 	}
 
@@ -42,12 +43,19 @@ public class CommunityServiceimpl implements ICommunityService {
 
 	@Override
 	public List<CommunityActiveModel> getListByAll() throws Exception {
+		return communityMapper.selectListByAll();
+	}
+
+	
+
+	@Override
+	public List<CommunityActiveModel> getListByplace(String type) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<CommunityActiveModel> getListByType(String type) throws Exception {
+	public List<CommunityActiveModel> getListBytime(Date actdate) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}

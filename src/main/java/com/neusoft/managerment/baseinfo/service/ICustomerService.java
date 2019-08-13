@@ -18,7 +18,7 @@ public interface ICustomerService {
 	public void delete(CustomerModel customer) throws Exception;
 	//取得所有客户列表
 	public List<CustomerModel> getListByAll() throws Exception;
-	//取得客户单个对象，
+	//取得单个客户对象，
 	public CustomerModel getByCustomerNo(int customerno) throws Exception;
 	//取得所有客户列表,分页模式
 	public List<CustomerModel> getListByAllWithPage(int rows,int page) throws Exception;
