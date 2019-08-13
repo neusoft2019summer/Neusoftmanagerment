@@ -22,8 +22,7 @@ $(function(){
 			//显示列表
 			$("table#BuildingTable tbody").html("");
 			for(var i=0;i<data.list.length;i++){
-				var tr="<tr id='"+data.list[i].no+"'><td>"
-				+"</td><td>"+data.list[i].area.no
+				var tr="<tr id='"+data.list[i].no+"'><td>"+data.list[i].area.no
 				+"</td><td>"+data.list[i].code
 				+"</td><td>"+data.list[i].address
 				+"</td><td>"+data.list[i].buildingtype.no

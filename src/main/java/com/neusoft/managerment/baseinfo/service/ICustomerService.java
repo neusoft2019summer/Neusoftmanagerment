@@ -1,9 +1,6 @@
 package com.neusoft.managerment.baseinfo.service;
 
 import java.util.List;
-
-import org.apache.ibatis.annotations.Param;
-
 import com.neusoft.managerment.baseinfo.model.CustomerModel;
 
 
@@ -21,12 +18,15 @@ public interface ICustomerService {
 	public void delete(CustomerModel customer) throws Exception;
 	//取得所有客户列表
 	public List<CustomerModel> getListByAll() throws Exception;
-	//取得客户单个对象，
+	//取得单个客户对象，
 	public CustomerModel getByCustomerNo(int customerno) throws Exception;
 	//取得所有客户列表,分页模式
-	public List<CustomerModel> getListByAllWithPage(@Param("start") int start,@Param("rows") int rows) throws Exception;
+	public List<CustomerModel> getListByAllWithPage(int rows,int page) throws Exception;
 	//取得客户的个数
 	public int getCountByAll() throws Exception;
 	//取得客户页数
 	public int getPageCountByAll(int rows) throws Exception;
+	public List<CustomerModel> getListByAllWithCustomerType(int rows,int page) throws Exception;
+	//检查客户能否被删除
+	//public boolean checkCanDelete(int no) throws Exception;
 }

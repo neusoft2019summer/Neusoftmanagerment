@@ -8,16 +8,10 @@
 
   <resultMap id="CustomerResultMap" type="Customer">
     <id property="customerno" column="CUSTOMERNO"/>
-    <result property="typeno" column="TYPENO"/>
     <result property="ccode" column="CCODE"/>
     <result property="cname" column="CNAME"/>
-    <result property="contact" column="CONTACT"/>
     <result property="cardcode" column="CARDCODE"/>
     <result property="mobile" column="MOBILE"/>
-    <result property="tel" column="TEL"/>
-    <result property="fax" column="FAX"/>
-    <result property="qq" column="QQ"/>
-    <result property="weixin" column="WEIXIN"/>
     <result property="feestartdate" column="FEESTARTDATE"/>
     <result property="feeenddate" column="FEEENDDATE"/>
     <result property="cstatus" column="CSTATUS"/>
@@ -25,19 +19,18 @@
 
   <!-- 关联的客户类型的ResultMap -->
   <resultMap  id="CustomerWithCustomerTypeResultMap" type="Customer" extends="CustomerResultMap">
-  	<association property="typeno" resultMap="com.neusoft.managerment.baseinfo.mapper.ICustomerTypeMapper.CustomerTypeResultMap"></association>
+  	<association property="customertype" resultMap="com.neusoft.managerment.baseinfo.mapper.ICustomerTypeMapper.CustomerTypeResultMap"></association>
   </resultMap>
 
   <insert id="create"  keyProperty="customerno"   keyColumn="CUSTOMERNO" useGeneratedKeys="true"  flushCache="true">
-   insert into Customer (CUSTOMERNO,TYPENO,CCODE,CNAME,CONTACT,CARDCODE,MOBILE,TEL,FAX,QQ,WEIXIN,FEESTARTDATE,FEEENDDATE,CSTATUS)
-   values (#{customerno},#{typeno},#{ccode},#{cname},#{contact},#{cardcode},#{mobile},
-   #{tel},#{fax},#{qq},#{weixin},#{feestartdate},#{feeenddate},#{cstatus})
+   insert into Customer (TYPENO,CCODE,CNAME,CARDCODE,MOBILE,FEESTARTDATE,FEEENDDATE,CSTATUS)
+   values (#{CustomerType.typeno},#{ccode},#{cname},#{cardcode},#{mobile},
+   #{feestartdate},#{feeenddate},#{cstatus})
   </insert>
   
   <update id="update" flushCache="true">
-   update Customer set TYPENO=#{typeno},CCODE=#{ccode},CNAME=#{cname},
-   CONTACT=#{contact},CARDCODE=#{cardcode},MOBILE=#{mobile},TEL=#{tel},FAX=#{fax},QQ=#{qq},
-   WEIXIN=#{weixin},FEESTARTDATE=#{feestartdate},FEEENDDATE=#{feeenddate},CSTATUS=#{cstatus}
+   update Customer set TYPENO=#{CustomerType.typeno},CCODE=#{ccode},CNAME=#{cname},
+   CARDCODE=#{cardcode},MOBILE=#{mobile},FEESTARTDATE=#{feestartdate},FEEENDDATE=#{feeenddate},CSTATUS=#{cstatus}
    where CUSTOMERNO=#{customerno}
   </update>
   
@@ -49,7 +42,7 @@
    select * from Customer
   </select>
   
-  <select id="selectListByAllWithPage" resultMap="CustomerResultMap">
+  <select id="selectListByAllWithPage" resultMap="CustomerWithCustomerTypeResultMap">
    select * from Customer limit #{start},#{rows}
   </select>
   
@@ -61,6 +54,12 @@
   <select id="selectCountByAll" resultType="int">
    select IFNULL(count(CUSTOMERNO), 0) from Customer
   </select>
+  
+  <!-- 查询所有客户列表，关联CustomerType -->
+  <select id="selectListByAllWithCustomerType" resultMap="CustomerWithCustomerTypeResultMap">
+   select a.*,b.* from Customer a inner join CustomerType b on a.TypeNo=b.TypeNo
+  </select>
+  
   
 </mapper>
 

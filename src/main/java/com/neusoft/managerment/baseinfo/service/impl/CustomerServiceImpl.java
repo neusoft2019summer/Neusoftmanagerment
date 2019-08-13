@@ -77,4 +77,13 @@ public class CustomerServiceImpl implements ICustomerService {
 		return pageCount;
 	}
 
+
+	@Override
+	public List<CustomerModel> getListByAllWithCustomerType(int rows, int page) throws Exception {
+		
+		return customerMapper.selectListByAllWithCustomerType(rows*(page-1), rows);
+	}
+
+
+
 }

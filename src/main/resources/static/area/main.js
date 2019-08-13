@@ -24,9 +24,15 @@ $(function(){
 			//显示列表
 			$("table#AreaTable tbody").html("");
 			for(var i=0;i<data.list.length;i++){
-				var tr="<tr id='"+data.list[i].no+"'><td>"data.list[i].name+"</td><td>"+data.list[i].address+
-				"</td><td>"+data.list[i].developer+"</td><td>"+data.list[i].buildingarea+"</td><td>"+data.list[i].usearea+
-				"</td><td>"+data.list[i].parkarea+"</td><td>"+data.list[i].home+"</td><td>"+data.list[i].house+"</td><td>"+data.list[i].park+"</td></tr>";
+				var tr="<tr id='"+data.list[i].no+"'><td>"+data.list[i].name+
+				"</td><td>"+data.list[i].address+
+				"</td><td>"+data.list[i].developer+
+				"</td><td>"+data.list[i].buildingarea+
+				"</td><td>"+data.list[i].usearea+
+				"</td><td>"+data.list[i].parkarea+
+				"</td><td>"+data.list[i].home+
+				"</td><td>"+data.list[i].house+
+				"</td><td>"+data.list[i].park+"</td></tr>";
 				$("table#AreaTable tbody").append(tr);
 			}
 			//定义表格行的点击时间，取得选择的小区编号
@@ -239,6 +245,7 @@ $(function(){
 					$( "div#AreaDialogArea" ).dialog( "destroy" );
 					$("div#AreaDialogArea").html("");
 				});
+
 			});
 			
 		}

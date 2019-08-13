@@ -31,6 +31,7 @@ public interface IBuildingMapper {
 	public List<BuildingModel> selectListByAllWithAreaAndBuildType() throws Exception;
 	//取得所有楼宇列表,关联Area和BuildingType,分页模式
 	public List<BuildingModel> selectListByAllWithAreaAndBuildTypeWithPage(@Param("start") int start,@Param("rows") int rows) throws Exception;
+
 	//取得指定小区的楼宇列表,参数:areaNo 
 	public List<BuildingModel> selectListByArea(int areaNo) throws Exception;
 	//取得指定建筑类型的楼宇列表,参数:buildTypeNo 

@@ -1,6 +1,7 @@
 package com.neusoft.managerment.baseinfo.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import org.apache.ibatis.type.Alias;
 
@@ -16,13 +17,15 @@ import lombok.Data;
 public class RoomModel implements Serializable {
 
 	private int roomno = 0;
-	private int housetypeno = 0;
-	private int buildingno = 0;
+	private AreaModel area = null;
+	private BuildingTypeModel buildingtype = null;
+	private HouseTypeModel housetype = null;
+	private BuildingModel building = null;
 	private String departmentcode = null;
 	private String floor = null;
 	private String roomcode = null;
-	private int buildingarea = 0;
-	private int feearea = 0;
+	private BigDecimal buildingarea = null;
+	private BigDecimal feearea = null;
 	private String roomstatus = null;
 	private String roomtype = null;
 	

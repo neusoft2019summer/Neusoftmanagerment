@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 新闻的Mapper接口Mapping映射 --> 
+
+<!--
+    author : 张梓琪
+    version: 1.0
+    系统基础信息的社区活动的MAPPER.XML
+  -->
+<mapper namespace="com.neusoft.managerment.communityinfo.mapper.ICommunityMapper">
+  
+  <cache/>
+  <resultMap id="ActResultMap" type="Active">
+     <id property="activeno" column="ACTIVENO"/>
+      <result property="activeplace" column="ACTIVEPLACE"/>
+      <result property="activetime" column="ACTIVETIME"/>
+      <result property="activecontent" column="ACTIVECONENT"/> 
+  </resultMap>
+  
+  <insert id="create"  parameterType="Active" flushCache="true">
+   insert into community (ACTIVENO,ACTIVEPLACE,ACTIVETIME,ACTIVECONTENT)
+   values (#{activeno},#{activeplace},#{activetime},#{activecontent})
+  
+  </insert>
+  
+  <!-- <update id="update" flushCache="true">
+   update community set ACTIVEPLACE=#{activeplace},ACTIVETIME=#{activetime},ACTIVECONTENT=#{activecontent}
+   where ACTIVENO=#{activeno}
+  </update> -->
+  <!--查询指定活动  -->
+  <delete id="delete" flushCache="true">
+  delete from community where  ACTIVENO=#{activeno}
+  </delete>
+  <!--查询所有活动  -->
+  <select id="selectListByAll" resultMap="ActResultMap">
+   select * from community
+  
+  </select>
+  <!--查询指定地点的活动  -->
+  <select id="selectListByPlace" resultMap="ActResultMap">
+    select * from community where ACTIVEPLACE=#{activeplace}
+  </select>
+  <!--查询指定时间的活动  
+  <select id="selectListByTime" resultMap="ActResultMap">
+    select * from community where ACTIVETIME=#{activetime}
+  </select>-->
+  <update id="update" flushCache="true">
+   update community set ACTIVETIME=#{activetime},ACTIVEPLACE=#{activeplace},ACTIVECONTENT=#{activecontent} where ACTIVENO=#{activeno}
+  </update>
+  </mapper>

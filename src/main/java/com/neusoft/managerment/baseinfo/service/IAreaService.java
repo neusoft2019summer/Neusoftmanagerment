@@ -38,4 +38,5 @@ public interface IAreaService {
 	public int getCountByCondition(int no,String developer,BigDecimal minbuildingarea,BigDecimal maxbuildingarea,int minhome,int maxhome,int minhouse,int maxhouse) throws Exception;
 	//根据综合检索条件取得小区显示的页数
 	public int getPageCountByConditionWithPage(int no,String developer,BigDecimal minbuildingarea,BigDecimal maxbuildingarea,int minhome,int maxhome,int minhouse,int maxhouse,int rows) throws Exception;
+
 }
