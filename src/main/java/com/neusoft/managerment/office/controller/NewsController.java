@@ -49,5 +49,13 @@ public class NewsController {
 		newservice.relesenews(newsmodel);
 		return new ResultMessage<NewsModel>("OK","增加新闻成功");		
 	}
+	
+	//修改
+		@RequestMapping(value="/modify")
+		public ResultMessage<NewsModel> modify(NewsModel newsmodel) throws Exception{
+			
+			newservice.modifynews(newsmodel);
+			return new ResultMessage<NewsModel>("OK","修改新闻成功");		
+		}
 
 }

@@ -18,9 +18,12 @@ public interface ICommunityService {
 	//删除
 	public void delete(CommunityActiveModel com) throws Exception;
 	//取得活动同地方的对象
-	public List<CommunityActiveModel> getListByplace(String type)throws Exception;
-	//取得活动同時間类型的对象
-    public List<CommunityActiveModel> getListBytime(Date actdate)throws Exception;
+	public List<CommunityActiveModel> getListByplace(String activeplace)throws Exception;
+
+	/*
+	 * //取得活动同時間类型的对象 public List<CommunityActiveModel> getListBytime(Date
+	 * activetime)throws Exception;
+	 */
 	//取得所有活动列表 
 	public List<CommunityActiveModel> getListByAll() throws Exception;
 	

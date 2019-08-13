@@ -14,33 +14,39 @@
   <cache/>
   <resultMap id="ActResultMap" type="Active">
      <id property="activeno" column="ACTIVENO"/>
-      <result property="activetype" column="ACTIVETYPE"/>
-      <result property="activetime" column="ACTIVEPLACE"/>
+      <result property="activeplace" column="ACTIVEPLACE"/>
+      <result property="activetime" column="ACTIVETIME"/>
       <result property="activecontent" column="ACTIVECONENT"/> 
   </resultMap>
   
   <insert id="create"  parameterType="Active" flushCache="true">
-   insert into community (ACTIVENO,ACTIVETYPE,ACTIVETIME,ACTIVECONTENT)
+   insert into community (ACTIVENO,ACTIVEPLACE,ACTIVETIME,ACTIVECONTENT)
    values (#{activeno},#{activeplace},#{activetime},#{activecontent})
   
   </insert>
   
-  <update id="update" flushCache="true">
-   update community set ACTIVETIME=#{activetime},ACTIVESTYPE=#{activetype},ACTIVECONTENT=#{activecontent}
+  <!-- <update id="update" flushCache="true">
+   update community set ACTIVEPLACE=#{activeplace},ACTIVETIME=#{activetime},ACTIVECONTENT=#{activecontent}
    where ACTIVENO=#{activeno}
-  </update>
-  
+  </update> -->
+  <!--查询指定活动  -->
   <delete id="delete" flushCache="true">
-   delete from community where  ACTIVENO=#{activeno}
+  delete from community where  ACTIVENO=#{activeno}
   </delete>
-  
+  <!--查询所有活动  -->
   <select id="selectListByAll" resultMap="ActResultMap">
    select * from community
   
   </select>
-  <select id="selectListType" resultMap="ActResultMap">
-   select * from community where ACTIVESTYPE=#{activetype}
-  
+  <!--查询指定地点的活动  -->
+  <select id="selectListByPlace" resultMap="ActResultMap">
+    select * from community where ACTIVEPLACE=#{activeplace}
   </select>
-  
+  <!--查询指定时间的活动  
+  <select id="selectListByTime" resultMap="ActResultMap">
+    select * from community where ACTIVETIME=#{activetime}
+  </select>-->
+  <update id="update" flushCache="true">
+   update community set ACTIVETIME=#{activetime},ACTIVEPLACE=#{activeplace},ACTIVECONTENT=#{activecontent} where ACTIVENO=#{activeno}
+  </update>
   </mapper>

@@ -15,10 +15,10 @@ import lombok.Data;
 @Alias("Active")
 @Data
 public class CommunityActiveModel implements Serializable {
-	private String communityno = null;
-	private String place = null;
-	private String communitycontent = null;
+	private String activeno = null;
+	private String activeplace = null;
+	private String activecontent = null;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date date = null;
+	private Date activetime = null;
 
 }

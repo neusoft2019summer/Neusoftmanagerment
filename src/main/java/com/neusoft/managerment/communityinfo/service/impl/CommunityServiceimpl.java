@@ -3,6 +3,7 @@ package com.neusoft.managerment.communityinfo.service.impl;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,7 @@ import com.neusoft.managerment.communityinfo.service.ICommunityService;
  */
 @Service("actservice")
 public class CommunityServiceimpl implements ICommunityService {
+	private SqlSessionFactory sessionfactory = null;
 	@Autowired
 	private ICommunityMapper communityMapper = null;
 	
@@ -23,7 +25,7 @@ public class CommunityServiceimpl implements ICommunityService {
 
 	@Override
 	public void add(CommunityActiveModel com) throws Exception {
-		communityMapper.insert(com);
+		communityMapper.create(com);
 		
 	}
 
@@ -49,15 +51,15 @@ public class CommunityServiceimpl implements ICommunityService {
 	
 
 	@Override
-	public List<CommunityActiveModel> getListByplace(String type) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public List<CommunityActiveModel> getListByplace(String activeplace) throws Exception {
+		List <CommunityActiveModel> list = communityMapper.selectListByPlace(activeplace);
+		return list;
 	}
 
-	@Override
-	public List<CommunityActiveModel> getListBytime(Date actdate) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	/*
+	 * @Override public List<CommunityActiveModel> getListBytime(Date activetime)
+	 * throws Exception { List <CommunityActiveModel> list =
+	 * communityMapper.selectListByTime(activetime); return list; }
+	 */
 
 }
