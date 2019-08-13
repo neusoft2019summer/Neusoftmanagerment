@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.managerment.personnel.mapper.IEmployeesMapper">
+
+  <cache/>
+
+  <resultMap id="EmployeesResultMap" type="Employees">
+    <id property="id" column="EMPID"/>
+    <result property="empname" column="EMPNAME"/>
+    <result property="joindate" column="JOINDATE"/>
+    <result property="sex" column="SEX"/>
+    <result property="age" column="AGE"/>
+    <result property="mobible" column="MOBIBLE"/>
+    <result property="tel" column="TEL"/>
+    <result property="qq" column="QQ"/>
+    <result property="wx" column="WX"/>
+  </resultMap>
+
+
+	 <!-- 关联的部门的ResultMap -->
+  <resultMap  id="EmployeesWithDepartmentsResultMap" type="Employees" extends="EmployeesResultMap">
+  	<association property="departments" resultMap="com.neusoft.managerment.personnel.mapper.IDepartmentsMapper.DepartmentsMapper"></association>
+  </resultMap>
+
+  <insert id="create"  keyProperty="id"   keyColumn="EMPID" useGeneratedKeys="true"  flushCache="true">
+   insert into employees (EMPID,DEPTNO,EMPNAME,JOINDATE,SEX,MOBIBLE,TEL,QQ,WX)
+   values (#{id},#{deptno},#{empname},#{joindate},#{sex},#{age},#{mobible},
+   #{tel},#{qq},#{wx})
+  </insert>
+  
+  <update id="update" flushCache="true">
+   update employees set DEPTNO=#{deptno},EMPNAME=#{empname},JOINDATE=#{joindate},SEX=#{sex},AGE=#{age},MOBILE=#{mobile},TEL=#{tel},QQ=#{qq},
+   WX=#{wx} where EMPID=#{id}
+  </update>
+  
+  <delete id="delete" flushCache="true">
+   delete from employees where EMPID=#{id}
+  </delete>
+  
+  <select id="selectEmpListByAll" resultMap="EmployeesWithDepartmentsResultMap">
+   select a.*,b.* from employees a inner join departments b on a.DEPTNO=b.DEPTNO
+  </select>
+  
+  <select id="selectEmpListByAllWithPage" resultMap="EmployeesWithDepartmentsResultMap">
+   select a.*,b.* from employees a inner join departments b on a.DEPTNO=b.DEPTNO limit #{start},#{rows}
+  </select>
+   <!-- 根据综合检索条件取得员工列表，取得关联的部门,分页模式 -->
+  <select id="selectListByConditionWithDepartmentNo" resultMap="EmployeeWithDepartmentResultMap">
+  select a.*,b.* from employees a inner join departments b on a.DEPTNO=b.DEPTNO
+  <where>
+     <if test="departmentNo!=0">
+      and a.DEPTNO=#{departmentNo}
+     </if>
+     <if test="sex!=null and sex!=''">
+     and a.EMPSEX=#{sex}
+     </if>
+     <if test="startJoinDate!=null">
+     and a.JOINDATE  &gt;=#{startJoinDate}
+     </if>
+     <if test="endJoinDate!=null">
+     and a.JOINDATE &lt;=#{endJoinDate}
+     </if>
+  </where>
+    limit #{start},#{rows}
+  </select>
+  <select id="selectEmpByID" resultMap="EmployeesResultMap" >
+  select a.*,b.* from employees a inner join departments b on a.DEPTNO=b.DEPTNO  where EMPID=#{id}
+  </select>
+  
+  <select id="selectCountByAll" resultType="int">
+   select IFNULL(count(EMPID), 0) from employees
+    <where>
+     <if test="departmentNo!=0">
+      and a.DEPTNO=#{departmentNo}
+     </if>
+     <if test="sex!=null and sex!=''">
+     and a.EMPSEX=#{sex}
+     </if>
+     <if test="startJoinDate!=null">
+     and a.JOINDATE  &gt;=#{startJoinDate}
+     </if>
+     <if test="endJoinDate!=null">
+     and a.JOINDATE &lt;=#{endJoinDate}
+     </if>
+  </where>
+  </select>
+  
+</mapper>

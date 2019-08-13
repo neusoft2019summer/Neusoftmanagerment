@@ -10,8 +10,7 @@
     系统基础信息的新闻的MAPPER.XML
   -->
 <mapper namespace="com.neusoft.managerment.office.mapper.INewsMapper">
-  
-  <cache/>
+ <!--  <cache/>
   <resultMap id="NewsResultMap" type="NewsModel">
      <id property="newsno" column="NEWSNO"/>
       <result property="newstype" column="NEWSTYPE"/>
@@ -41,6 +40,6 @@
   <select id="selectListType" resultMap="NewsResultMap">
    select * from officenews where NEWSTYPE=#{newstype}
   
-  </select>
+  </select> -->
   
   </mapper>
