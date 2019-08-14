@@ -10,7 +10,7 @@ import com.neusoft.managerment.feeinfo.service.IMaintainRecordService;
 /*
  * 
  * 维护维修业务层接口的实现类
- * @Author: 吕海东
+ * @Author: 张梓琪
  */
 @Service
 

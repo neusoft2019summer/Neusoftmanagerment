@@ -4,7 +4,7 @@ import com.neusoft.managerment.feeinfo.model.MaintainRecordModel;
 
 /*
  * 维修报修业务层接口
- * @Author: 吕海东
+ * @Author: 张梓琪
  */
 public interface IMaintainRecordService {
 

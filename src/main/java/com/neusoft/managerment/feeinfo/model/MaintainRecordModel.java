@@ -13,7 +13,7 @@ import lombok.Data;
 /**
  *    author : 张梓琪
  *    version: 1.0
- *    系统基础信息模块的小区Model
+ *    系统基础信息模块的小区Model 
  */
 @Alias("MaintainRecord")
 @Data

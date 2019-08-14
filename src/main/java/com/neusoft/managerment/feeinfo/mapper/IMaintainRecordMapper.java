@@ -12,7 +12,7 @@ import com.neusoft.managerment.feeinfo.model.MaintainRecordModel;
 @Mapper
 public interface IMaintainRecordMapper {
 	
-	//增添维修报修1
+	//增添维修报修1 
 	public void insert(MaintainRecordModel maintainrecord) throws Exception;
 	//修改v
 	public void update(MaintainRecordModel maintainrecord) throws Exception;
