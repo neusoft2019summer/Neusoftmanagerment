@@ -39,5 +39,8 @@ public interface ICustomerMapper {
 			@Param("mobile") String mobile, @Param("feestartdate") Date feestartdate, @Param("feeenddate") Date feeenddate,@Param("cstatus") String cstatus) throws Exception;
 	//7  取得客户的页数
 	public int selectPageCountByAll(int rows);
-	
+	//8  根据综合检索条件取得客户页数 
+	public int selectPageCountByConditionWithPage(int typeno, String ccode, String cname, String cardcode, String mobile,
+			Date feestartdate, Date feeenddate, String cstatus, int rows) throws Exception;
+
 }

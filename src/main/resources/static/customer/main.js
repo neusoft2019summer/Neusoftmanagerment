@@ -21,7 +21,7 @@ $(function(){
 	
 	//显示客户列表
 	$("table#CustomerGrid").jqGrid({
-		url: 'customer/list/condition/page',
+		url: 'customer/list/all/page',
 		datatype: "json",
 		colModel: [
 			{ label: '客户类型', name: 'customertype.typeno', width: 50 },
@@ -31,7 +31,7 @@ $(function(){
 			{ label: '手机号码', name: 'mobile', width: 70},
 			{ label: '收费开始日期', name: 'feestartdate', width: 70 },
 			{ label: '收费截止日期', name: 'feeenddate', width: 70 }  ,
-			{ label: '客户状态', name: 'status', width: 70 } 
+			{ label: '客户状态', name: 'cstatus', width: 70 } 
 		],
 		viewrecords: true, 
 		autowidth: true,
@@ -46,7 +46,7 @@ $(function(){
 		      repeatitems: true, 
 		      id: "id"},
 		pager: "#CustomerGridPager"
-		
+
 	});
 	
 	//取得客户列表，填充部门下拉框

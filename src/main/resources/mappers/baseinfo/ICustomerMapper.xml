@@ -73,16 +73,16 @@
      and CardCode=#{cardcode}
      </if>
      <if test="mobile!=null">
-     and MOBILE=#{mobile}
+     and Mobile=#{mobile}
      </if>
      <if test="feestartdate!=null">
-     and FEESTARTDATE=#{feestartdate}
+     and FeeStartTDate=#{feestartdate}
      </if>
      <if test="feeenddate!=null">
-     and FEEENDDATE=#{feeenddate}
+     and FeeEndDate=#{feeenddate}
      </if>
      <if test="cstatus!=null">
-     and CSTATUS=#{cstatus}
+     and Cstatus=#{cstatus}
      </if>
   </where> 
   </select>

@@ -93,7 +93,7 @@ public class CustomerController {
 	ResultMessage<CustomerModel> result=new ResultMessage<CustomerModel>("OK","检索取得员工列表分页成功");
 	result.setCount(customerService.getCountByCondition(typeno, ccode, cname, cardcode, mobile, feestartdate, feeenddate, cstatus));
 	result.setPageCount(customerService.getPageCountByConditionWithPage(typeno, ccode, cname, cardcode, mobile, feestartdate, feeenddate, cstatus, rows));
-	result.setList(customerService.getListByAllWithCustomerTypeWithPage(rows, page));
+	result.setList(customerService.getListByConditionWithPage(typeno, ccode, cname, cardcode, mobile, feestartdate, feeenddate, cstatus, rows, page));
 	result.setPage(page);
 	result.setRows(rows);
 	
