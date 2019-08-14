@@ -1,6 +1,10 @@
 package com.neusoft.managerment.baseinfo.service;
 
+import java.util.Date;
 import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.neusoft.managerment.baseinfo.model.CustomerModel;
 
 
@@ -16,17 +20,24 @@ public interface ICustomerService {
 	public void modify(CustomerModel customer) throws Exception;
 	//删除
 	public void delete(CustomerModel customer) throws Exception;
-	//取得所有客户列表
+	//1 取得所有客户列表,无关联客户类型
 	public List<CustomerModel> getListByAll() throws Exception;
-	//取得单个客户对象，
+	//2 取得所有客户列表,关联客户类型,分页模式
+	public List<CustomerModel> getListByAllWithCustomerTypeWithPage(int rows,int page) throws Exception;
+	//3 取得指定客户对象
 	public CustomerModel getByCustomerNo(int customerno) throws Exception;
-	//取得所有客户列表,分页模式
-	public List<CustomerModel> getListByAllWithPage(int rows,int page) throws Exception;
-	//取得客户的个数
+	//4 取得客户的个数
 	public int getCountByAll() throws Exception;
-	//取得客户页数
+	//5 根据综合检索条件取得客户列表
+	public List<CustomerModel> getListByConditionWithPage(int typeno, String ccode,  String cname, String cardcode,
+			 String mobile,  Date feestartdate,  Date feeenddate, String cstatus, int rows,int page) throws Exception;
+	//6 根据综合检索条件取得客户个数 
+	public int getCountByCondition(int typeno, String ccode,  String cname, String cardcode,
+			 String mobile,  Date feestartdate,  Date feeenddate, String cstatus) throws Exception;
+	//7 取得客户的页数
 	public int getPageCountByAll(int rows) throws Exception;
-	public List<CustomerModel> getListByAllWithCustomerType(int rows,int page) throws Exception;
-	//检查客户能否被删除
-	//public boolean checkCanDelete(int no) throws Exception;
+	//8  根据综合检索条件取得客户页数 
+	public int getPageCountByConditionWithPage(int typeno, String ccode, String cname, String cardcode, String mobile,
+			Date feestartdate, Date feeenddate, String cstatus, int rows) throws Exception;
+	
 }
