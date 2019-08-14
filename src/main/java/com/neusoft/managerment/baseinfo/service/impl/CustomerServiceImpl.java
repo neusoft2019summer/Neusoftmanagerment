@@ -67,17 +67,15 @@ public class CustomerServiceImpl implements ICustomerService {
 	}
 
 	@Override
-	public List<CustomerModel> getListByConditionWithPage(int typeno, String ccode, String cname, String cardcode,
-			String mobile, Date feestartdate, Date feeenddate, String cstatus, int rows, int page) throws Exception {
+	public List<CustomerModel> getListByConditionWithPage(int typeno, String ccode, String cname, Date feestartdate, Date feeenddate,  int rows, int page) throws Exception {
 		
-		return customerMapper.selectListByConditionWithPage(typeno, ccode, cname, cardcode, mobile, feestartdate, feeenddate, cstatus, rows*(page-1), rows);
+		return customerMapper.selectListByConditionWithPage(typeno, ccode, cname, feestartdate, feeenddate,  rows*(page-1), rows);
 	}
 
 	@Override
-	public int getCountByCondition(int typeno, String ccode, String cname, String cardcode,
-			String mobile, Date feestartdate, Date feeenddate, String cstatus) throws Exception {
+	public int getCountByCondition(int typeno, String ccode, String cname, Date feestartdate, Date feeenddate) throws Exception {
 		
-		return customerMapper.selectCountByCondition(typeno, ccode, cname, cardcode, mobile, feestartdate, feeenddate, cstatus);
+		return customerMapper.selectCountByCondition(typeno, ccode, cname, feestartdate, feeenddate);
 	}
 
 	@Override
@@ -94,11 +92,10 @@ public class CustomerServiceImpl implements ICustomerService {
 	}
 
 	@Override
-	public int getPageCountByConditionWithPage(int typeno, String ccode, String cname, String cardcode,
-			String mobile, Date feestartdate, Date feeenddate, String cstatus, int rows) throws Exception {
+	public int getPageCountByConditionWithPage(int typeno, String ccode, String cname, Date feestartdate, Date feeenddate, int rows) throws Exception {
 
 		int pageCount=0;
-		int count=this.getCountByCondition(typeno, ccode, cname, cardcode, mobile, feestartdate, feeenddate, cstatus);
+		int count=this.getCountByCondition(typeno, ccode, cname,feestartdate, feeenddate);
 		if(count%rows==0) {
 			pageCount=count/rows;
 		}

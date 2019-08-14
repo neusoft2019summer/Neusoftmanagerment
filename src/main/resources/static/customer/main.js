@@ -24,7 +24,7 @@ $(function(){
 		url: 'customer/list/all/page',
 		datatype: "json",
 		colModel: [
-			{ label: '客户类型', name: 'customertype.typeno', width: 50 },
+			{ label: '客户类型', name: 'customertype.typename', width: 50 },
 			{ label: '客户编码', name: 'ccode', width: 50 },
 			{ label: '客户姓名', name: 'cname', width: 70 },
 			{ label: '身份证号', name: 'cardcode', width: 70 },
@@ -33,10 +33,11 @@ $(function(){
 			{ label: '收费截止日期', name: 'feeenddate', width: 70 }  ,
 			{ label: '客户状态', name: 'cstatus', width: 70 } 
 		],
+		caption:"客户列表",
 		viewrecords: true, 
 		autowidth: true,
 		height: 300,
-		rowNum: 20,
+		rowNum: 10,
 		rowList:[10,20,30],
 		jsonReader : { 
 		      root: "list", 
@@ -44,25 +45,28 @@ $(function(){
 		      total: "pageCount", 
 		      records: "count", 
 		      repeatitems: true, 
-		      id: "id"},
-		pager: "#CustomerGridPager"
-
+		      id: "customerno"},
+		pager: "#CustomerGridPager",
+		multiselect:false,
+		onSelectRow:function(cno){
+			customerno=cno;
+		}
 	});
 	
 	//取得客户列表，填充部门下拉框
 	$.getJSON("customer/list/all",function(customerList){
 		if(customerList){
 			$.each(customerList,function(index,dm){
-				$("select#DepartmentSelection").append("<option value='"+dm.no+"'>"+dm.name+"</option>");
+				$("select#CustomerSelection").append("<option value='"+dm.no+"'>"+dm.name+"</option>");
 			});
 		}
 	});
 	
-	//取得角色列表，填充角色下拉框
-	$.getJSON("role/list/all",function(roleList){
-		if(roleList){
-			$.each(roleList,function(index,rm){
-				$("select#RoleSelection").append("<option value='"+rm.no+"'>"+rm.name+"</option>");
+	//取得客户列表，填充客户类型下拉框
+	$.getJSON("customer/list/all",function(customerList){
+		if(customerList){
+			$.each(customerList,function(index,cm){
+				$("select#TypeNameSelection").append("<option value='"+cm.no+"'>"+cm.typename+"</option>");
 			});
 		}
 	});
@@ -77,12 +81,11 @@ $(function(){
 	
 	//点击检索事件处理
 	$("a#CustomerSearchButton").on("click",function(){
-		typeno=$("input[name='typeno']:checked").val();
+		typeno=$("input[name='typename']:checked").val();
 		cname=$("input#CnameSelection").val();
-		cardcode=$("input#CardCodeSelection").val();
+		cardcode=$("input#CcodeSelection").val();
 		
-		
-		reloadCustomerList();
+	reloadCustomerList();
 	});
 	
 	
