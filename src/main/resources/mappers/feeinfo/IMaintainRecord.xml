@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<!-- 维修报修的Mapper接口Mapping映射 -->
+<!-- 维修报修的Mapper接口Mapping映射 --> 
 
 <!-- author : 张梓琪 version: 1.0 物业日常业务管理模块的维修报修的MAPPER.XML -->
 <mapper
