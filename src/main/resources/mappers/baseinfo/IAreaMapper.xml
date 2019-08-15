@@ -53,20 +53,25 @@
    select IFNULL(count(AREANO), 0) from Area
   </select>
   
+  <!-- 取得开发商列表 -->
+  <select id="selectListByDeveloper" resultMap="AreaResultMap">
+   select distinct Developer from area
+  </select>  
+  
   <!-- 根据综合检索条件取得小区列表 -->
   <select id="selectListByConditionWithPage" resultMap="AreaResultMap">
    select * from Area 
   <where>
      <if test="name!=null and name!=''">
-      and AREANAME=#{name}
+      and AREANAME like #{name}
      </if>
      <if test="developer!=null and developer!=''">
-     and Developer=#{developer}
+     and Developer like #{developer}
      </if>
-     <if test="minbuildingarea!=0">
+     <if test="minbuildingarea!=null and minbuildingarea!=''">
      and TotalBuildingArea &gt;=#{minbuildingarea}
      </if>
-     <if test="maxbuildingarea!=0">
+     <if test="maxbuildingarea!=null and maxbuildingarea!=''">
      and TotalBuildingArea &lt;=#{maxbuildingarea}
      </if>
      <if test="minhome!=0">
@@ -91,15 +96,15 @@
   select IFNULL(count(AREANO), 0) from Area 
   <where>
      <if test="name!=null and name!=''">
-      and AREANAME=#{name}
+      and AREANAME like #{name}
      </if>
      <if test="developer!=null and developer!=''">
-     and Developer=#{developer}
+     and Developer like #{developer}
      </if>
-     <if test="minbuildingarea!=0">
+     <if test="minbuildingarea!=null and minbuildingarea!=''">
      and TotalBuildingArea &gt;=#{minbuildingarea}
      </if>
-     <if test="maxbuildingarea!=0">
+     <if test="maxbuildingarea!=null and maxbuildingarea!=''">
      and TotalBuildingArea &lt;=#{maxbuildingarea}
      </if>
      <if test="minhome!=0">

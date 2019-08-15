@@ -82,9 +82,17 @@ public class AreaServiceImpl implements IAreaService {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<AreaModel> getListByConditionWithPage(String name, String developer, BigDecimal minbuildingarea,
 			BigDecimal maxbuildingarea, int minhome, int maxhome, int minhouse, int maxhouse, int rows, int page)
 			throws Exception {
+		
+		if(name!=null&&name.trim().length()>0) {
+			name="%"+name+"%";
+		}
+		if(developer!=null&&developer.trim().length()>0) {
+			developer="%"+developer+"%";
+		}
 		return areaMapper.selectListByConditionWithPage(name, developer, minbuildingarea, maxbuildingarea, minhome, maxhome, minhouse, maxhouse, rows*(page-1), rows);
 	}
 
@@ -108,6 +116,11 @@ public class AreaServiceImpl implements IAreaService {
 			pageCount=count/rows+1;
 		}
 		return pageCount;
+	}
+
+	@Override
+	public List<AreaModel> getListByDeveloper() throws Exception {
+		return areaMapper.selectListByDeveloper();
 	}
 
 
