@@ -3,7 +3,11 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.neusoft.managerment.personnel.mapper.IDepartmentsMapper">
-
+<!-- /**
+ *    author : 丘嘉茹
+ *    version: 1.0
+ *    人事管理信息模块的部门管理信息
+ */ -->
   <cache/>
   <resultMap id="DepartmentsResultMap" type="Departments">
     <id property="deptno" column="DEPTNO"/>
@@ -15,11 +19,11 @@
   	 <collection property="employees" resultMap="com.neusoft.managerment.personnel.mapper.IEmployeesMapper.EmployeesResultMap"></collection>
   </resultMap>
   <insert id="create"  keyProperty="deptno"   keyColumn="DEPTNO" useGeneratedKeys="true"  flushCache="true">
-   insert into Departments (DEPTNAME,DDESC) values (#{deptname},#{ddesc})
+   insert into Departments (DEPTNO,DEPTNAME,DDESC) values (#{deptno},#{deptname},#{ddesc})
   </insert>
   
   <update id="update"  flushCache="true">
-   update Departments set DEPTNAME=#{deptname},DDESC=#{ddesc}) where  DEPTNO=#{deptno}
+   update Departments set DEPTNAME=#{deptname},DDESC=#{ddesc} where  DEPTNO=#{deptno}
   </update>
   
   <delete id="delete" flushCache="true">
@@ -35,7 +39,7 @@
    select * from Departments limit #{start},#{rows}
   </select>
   
-  <select id="getDeptByNo" resultMap="DepartmentsResultMap">
+  <select id="selectDeptByNo" resultMap="DepartmentsResultMap">
    select * from Departments where DEPTNO=#{deptno}
   </select>
   

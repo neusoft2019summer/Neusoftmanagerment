@@ -24,7 +24,7 @@ public class EmployeesModel implements Serializable {
 	private Date joindate = null;
 	private String sex = null;
 	private int age = 0;
-	private String mobible = null;
+	private String mobile = null;
 	private String tel = null;
 	private String qq = null;
 	private String wx = null;

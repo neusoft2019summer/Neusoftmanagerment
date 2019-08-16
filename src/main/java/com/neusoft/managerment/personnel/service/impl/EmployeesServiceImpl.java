@@ -10,7 +10,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.neusoft.managerment.personnel.mapper.IEmployeesMapper;
 import com.neusoft.managerment.personnel.model.EmployeesModel;
 import com.neusoft.managerment.personnel.service.IEmployeesService;
-
+/**
+ *    author : 丘嘉茹
+ *    version: 1.0
+ *    人事管理信息模块的员工档案管理信息实现类
+ */
 
 @Service("employeesService")
 @Transactional(rollbackFor=Exception.class)

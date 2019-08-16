@@ -29,7 +29,7 @@ public interface IDepartmentsMapper {
 	//查询部门信息,不取员工，分页
 	public List<DepartmentsModel> selectDeptListByAllWithPage(@Param("start") int start,@Param("rows") int rows) throws Exception;
 	//返回指定部门的信息，同时取得关联的员工列表
-	public DepartmentsModel selectDeptByNo(int no) throws Exception;
+	public DepartmentsModel selectDeptByNo(int deptno) throws Exception;
 	//取得个数
 	public int selectCountByAll() throws Exception;
 }

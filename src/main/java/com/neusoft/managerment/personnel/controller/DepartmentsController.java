@@ -13,7 +13,11 @@ import com.neusoft.managerment.message.ResultMessage;
 import com.neusoft.managerment.personnel.model.DepartmentsModel;
 import com.neusoft.managerment.personnel.service.IDepartmentsService;
 
-
+/**
+ *    author : 丘嘉茹
+ *    version: 1.0
+ *    人事管理信息模块的部门管理信息controller
+ */
 @RestController
 @RequestMapping("departments")
 public class DepartmentsController {
@@ -37,7 +41,7 @@ public class DepartmentsController {
 		departmentsService.delete(departments);
 		return new ResultMessage<DepartmentsModel>("OK","删除部门信息成功");
 	}
-	//取得指定的员工信息
+	//取得指定的
 	@GetMapping("/get")
 	public ResultMessage<DepartmentsModel> getDeptByNo(int deptno) throws Exception{
 		ResultMessage<DepartmentsModel> result=new ResultMessage<DepartmentsModel>("OK","取得部门成功");

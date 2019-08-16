@@ -15,7 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.neusoft.managerment.message.ResultMessage;
 import com.neusoft.managerment.personnel.model.EmployeesModel;
 import com.neusoft.managerment.personnel.service.IEmployeesService;
-
+/**
+ *    author : 丘嘉茹
+ *    version: 1.0
+ *    人事管理信息模块的员工档案管理信息
+ */
 
 @RestController
 @RequestMapping("employees")

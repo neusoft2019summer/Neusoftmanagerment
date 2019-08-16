@@ -1,5 +1,9 @@
 package com.neusoft.managerment.personnel.service.impl;
-
+/**
+ *    author : 丘嘉茹
+ *    version: 1.0
+ *    人事管理信息模块的部门管理信息实现类
+ */
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,9 +58,9 @@ public class DepartmentsServiceImpl implements IDepartmentsService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public DepartmentsModel getDeptByNo(int no) throws Exception {
+	public DepartmentsModel getDeptByNo(int deptno) throws Exception {
 		// TODO Auto-generated method stub
-		return departmentsMapper.selectDeptByNo(no);
+		return departmentsMapper.selectDeptByNo(deptno);
 	}
 
 	@Override

@@ -6,7 +6,11 @@ import org.apache.ibatis.annotations.Param;
 
 import com.neusoft.managerment.personnel.model.DepartmentsModel;
 
-
+/**
+ *    author : 丘嘉茹
+ *    version: 1.0
+ *    人事管理信息模块的部门管理信息
+ */
 
 
 public interface IDepartmentsService {
@@ -20,7 +24,7 @@ public interface IDepartmentsService {
 	public List<DepartmentsModel> getDeptListByAll() throws Exception;
 	public List<DepartmentsModel> getDeptListByAllWithPage(@Param("start") int start,@Param("rows") int rows) throws Exception;
 	//返回指定部门的信息
-	public DepartmentsModel getDeptByNo(int no) throws Exception;
+	public DepartmentsModel getDeptByNo(int deptno) throws Exception;
 	//取得个数
 	public int getCountByAll() throws Exception;
 
