@@ -59,5 +59,25 @@ public class NewsServiceImpl implements INewsService  {
 	public List<NewsModel> getListByAllWithPage(int rows, int page) throws Exception {
 		return newsmapper.selectListByAllWithPage(rows*(page-1), rows);
 	}
+
+	@Override
+	public int getcountbyall() throws Exception {
+		return newsmapper.selectcountbyall();
+	}
+
+	@Override
+	public int getPageCountByAll(int rows) throws Exception {
+		int pageCount=0;
+		int count=this.getcountbyall();
+		if(count%rows==0) {
+			pageCount=count/rows;
+		}
+		else {
+			pageCount=count/rows+1;
+		}
+		return pageCount;
+	}
+
+	
 }
 

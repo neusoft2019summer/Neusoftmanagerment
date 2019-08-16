@@ -65,6 +65,10 @@ public class NewsController {
 	public ResultMessage<NewsModel> getListByAllWitPage(@RequestParam(required = false,defaultValue ="4") int rows,@RequestParam(required = false,defaultValue = "1") int page) throws Exception{
 		ResultMessage<NewsModel> result=new ResultMessage<NewsModel>("OK","新闻列表分页模式成功");	
 		result.setList(newservice.getListByAllWithPage(rows, page));
+		result.setCount(newservice.getcountbyall());
+		result.setPageCount(newservice.getPageCountByAll(rows));
+		result.setPage(page);
+		result.setRows(rows);
 		return result;
 		}
 

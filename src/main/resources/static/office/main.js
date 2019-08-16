@@ -3,12 +3,13 @@ $(function(){
 	var rows=2;
 	var page=1;
 	var pageCount=0; 
-
+	
+	function getListInfo(){
 	//嵌入列表页面
-	$("div#newscontent").load("office/list.html",function(){
+		$("div#newscontent").load("office/list.html",function(){
 		//操作列表的方法 
 		//取得新闻的列表，分页模式
-		function getListInfo(){
+		
 			$.getJSON("news/list/all/page",{page:page,rows:rows},function(data){
 				//显示个数和页数
 				$("span#count").html(data.count);
@@ -17,7 +18,7 @@ $(function(){
 				//显示列表
 				$("table#NewsTypeTable tbody").html("");
 				for(var i=0;i<data.list.length;i++){
-					var tr="<tr><td>"+data.list[i].newsno+"</td><td>"+data.list[i].newstype+"</td><td>"+data.list[i].newstime+"</td><td>"+data.list[i].newscontent+"</td></tr>";
+					var tr="<tr><td>"+data.list[i].newsno+"</td><td>"+data.list[i].newstype+"</td><td>"+data.list[i].newscontent+"</td><td>"+data.list[i].newstime+"</td></tr>";
 					$("table#NewsTypeTable tbody").append(tr);
 				}
 		
@@ -25,7 +26,7 @@ $(function(){
 		}
 		
 		//定义分页导航链接处理事件
-		$("div#page_nav a").on("click",function(event){
+			$("div#page_nav a").on("click",function(event){
 			  var action=$(this).attr("href");
 			  event.preventDefault();
 			  switch(action){
