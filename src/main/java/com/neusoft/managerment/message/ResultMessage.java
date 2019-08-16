@@ -2,6 +2,9 @@ package com.neusoft.managerment.message;
 
 import java.io.Serializable;
 import java.util.List;
+
+import com.neusoft.managerment.baseinfo.model.CustomerModel;
+
 import lombok.Data;
 /*
  * 模块：公共基础工具类，

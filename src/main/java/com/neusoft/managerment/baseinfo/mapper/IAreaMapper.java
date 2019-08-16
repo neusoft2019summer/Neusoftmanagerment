@@ -1,5 +1,7 @@
 package com.neusoft.managerment.baseinfo.mapper;
 
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -29,4 +31,28 @@ public interface IAreaMapper {
 	public List<AreaModel> selectListByAllWithPage(@Param("start") int start,@Param("rows") int rows) throws Exception;
 	//取得小区的个数
 	public int selectCountByAll() throws Exception;
+	//取得开发商列表
+	public List<AreaModel> selectListByDeveloper() throws Exception;
+	//根据综合检索条件取得小区列表
+	public List<AreaModel> selectListByConditionWithPage(
+			@Param("name") String name,
+			@Param("developer") String developer,
+			@Param("minbuildingarea") BigDecimal minbuildingarea,
+			@Param("maxbuildingarea") BigDecimal maxbuildingarea,
+			@Param("minhome") int minhome,
+			@Param("maxhome") int maxhome,
+			@Param("minhouse") int minhouse,
+			@Param("maxhouse") int maxhouse, 
+			@Param("start") int start,
+			@Param("rows") int rows) throws Exception;
+	//根据综合检索条件取得小区个数
+	public int selectCountByCondition(
+			@Param("name") String name,
+			@Param("developer") String developer,
+			@Param("minbuildingarea") BigDecimal minbuildingarea,
+			@Param("maxbuildingarea") BigDecimal maxbuildingarea,
+			@Param("minhome") int minhome,
+			@Param("maxhome") int maxhome,
+			@Param("minhouse") int minhouse,
+			@Param("maxhouse") int maxhouse) throws Exception;
 }

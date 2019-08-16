@@ -4,7 +4,7 @@
  * 
  */
 $(function(){
-	var rows=5;
+	var rows=10;
 	var page=1;
 	var pageCount=0;
 	var buildingNo=0;//选择的楼宇编号
@@ -22,7 +22,13 @@ $(function(){
 			//显示列表
 			$("table#BuildingTable tbody").html("");
 			for(var i=0;i<data.list.length;i++){
-				var tr="<tr id='"+data.list[i].no+"'><td>"+data.list[i].no+"</td><td>"+data.list[i].area.no+"</td><td>"+data.list[i].code+"</td><td>"+data.list[i].address+"</td><td>"+data.list[i].buildingtype+"</td><td>"+data.list[i].direction+"</td><td>"+data.list[i].home+"</td><td>"+data.list[i].house+"</td></tr>";
+				var tr="<tr id='"+data.list[i].no+"'><td>"+data.list[i].area.no
+				+"</td><td>"+data.list[i].code
+				+"</td><td>"+data.list[i].address
+				+"</td><td>"+data.list[i].buildingtype.no
+				+"</td><td>"+data.list[i].direction
+				+"</td><td>"+data.list[i].home
+				+"</td><td>"+data.list[i].house+"</td></tr>";
 				$("table#BuildingTable tbody").append(tr);
 			}
 			//定义表格行的点击时间，取得选择的楼宇编号

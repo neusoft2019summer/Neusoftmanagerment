@@ -1,5 +1,6 @@
 package com.neusoft.managerment.baseinfo.controller;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.neusoft.managerment.baseinfo.model.AreaModel;
 import com.neusoft.managerment.baseinfo.model.BuildingModel;
 import com.neusoft.managerment.baseinfo.service.IBuildingService;
 import com.neusoft.managerment.baseinfo.service.IBuildingTypeService;
@@ -81,6 +83,19 @@ public class BuildingController {
 		return bs.getListByAllWithAreaAndBuildType();
 	}
 	
+	//取得所有楼宇列表,关联Area和BuildingType.分页模式
+	@GetMapping(value="/list/all/withareaandbuildtypewithpage")
+	public ResultMessage<BuildingModel> getListByAllWithAreaAndBuildTypeWithPage(@RequestParam(required = false,defaultValue ="5") int rows,@RequestParam(required = false,defaultValue = "1") int page) throws Exception{
+		ResultMessage<BuildingModel> result=new ResultMessage<BuildingModel>("OK","取得楼宇列表分页模式成功");
+		result.setCount(bs.getCountByAll());
+		result.setPageCount(bs.getPageCountByAll(rows));
+		result.setList(bs.getListByAllWithAreaAndBuildTypeWithPage(rows, page));
+		result.setPage(page);
+		result.setRows(rows);
+		
+		return result;
+	}
+	
 	//取得指定小区的楼宇列表,参数:areaNo 
 	@GetMapping(value="/list/area")
 	public List<BuildingModel> getListByArea(int areaNo) throws Exception {
@@ -98,5 +113,28 @@ public class BuildingController {
 		return bs.getByNo(no);
 	}
 
+	//按检索条件取得楼宇列表
+	@GetMapping(value="/list/condition/page")
+	public ResultMessage<BuildingModel> getListByConditionWithAreaAndBuildTypeWithPage(
+			@RequestParam(required = false,defaultValue ="0") int areaNo,
+			@RequestParam(required = false,defaultValue ="0") int buildingtypeNo,
+			@RequestParam(required = false,defaultValue ="") String code,
+			@RequestParam(required = false,defaultValue ="") String direction,
+			@RequestParam(required = false,defaultValue ="0") int minhome,
+			@RequestParam(required = false,defaultValue ="0") int maxhome,
+			@RequestParam(required = false,defaultValue ="0") int minhouse,
+			@RequestParam(required = false,defaultValue ="0") int maxhouse, 
+			@RequestParam(required = false,defaultValue ="5") int rows, 
+			@RequestParam(required = false,defaultValue ="1") int page) throws Exception {
+	
+		ResultMessage<BuildingModel> result=new ResultMessage<BuildingModel>("OK","取得员工列表分页成功");
+		result.setCount(bs.getCountByCondition(areaNo, buildingtypeNo, code, direction, minhome, maxhome, minhouse, maxhouse));
+		result.setPageCount(bs.getPageByConditionWithPage(areaNo, buildingtypeNo, code, direction, minhome, maxhome, minhouse, maxhouse, rows));
+		result.setList(bs.getListByConditionWithAreaAndBuildTypeWithPage(areaNo, buildingtypeNo, code, direction, minhome, maxhome, minhouse, maxhouse, rows, page));
+		result.setPage(page);
+		result.setRows(rows);
+		
+		return result;
+	}
 }
 

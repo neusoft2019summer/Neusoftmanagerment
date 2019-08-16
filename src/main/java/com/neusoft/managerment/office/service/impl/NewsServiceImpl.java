@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.neusoft.managerment.office.mapper.INewsMapper;
 import com.neusoft.managerment.office.model.NewsModel;
@@ -51,6 +52,12 @@ public class NewsServiceImpl implements INewsService  {
 		List<NewsModel> list = newsmapper.selectListType(newstype);
 		return list;
 		
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<NewsModel> getListByAllWithPage(int rows, int page) throws Exception {
+		return newsmapper.selectListByAllWithPage(rows*(page-1), rows);
 	}
 }
 

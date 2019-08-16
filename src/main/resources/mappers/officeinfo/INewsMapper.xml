@@ -39,7 +39,12 @@
   </select>
   <select id="selectListType" resultMap="NewsResultMap">
    select * from officenews where NEWSTYPE=#{newstype}
+  </select>
   
-  </select> -->
+  <!-- 取得所有新闻列表,分页模式 -->
+  <select id="selectListByAllWithPage" resultMap="NewsResultMap">
+   select * from officenews limit #{start},#{rows}
+  </select>
+
   
   </mapper>

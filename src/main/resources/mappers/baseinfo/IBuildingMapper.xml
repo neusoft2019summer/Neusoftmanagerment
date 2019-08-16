@@ -54,6 +54,11 @@
   	select * from Building 	
   </select>
   
+   <!-- 取得所有楼宇列表,分页模式 -->
+  <select id="selectListByAllWithPage" resultMap="BuildingResultMapWithAreaAndBuildingType">
+   select a.*,b.*,c.* from Building a inner join Area b on a.AreaNo=b.AREANO inner join BuildingType c on a.BuildingTypeNo=c.TYPENO limit #{start},#{rows} 
+  </select>
+  
   <!-- 取得所有楼宇列表,关联Area-->
   <select id="selectListByAllWithArea" resultMap="BuildingResultMapWithAreaAndBuildingType" >
   	select a.*,b.* from Building a inner join Area b on a.AreaNo=b.AREANO
@@ -69,6 +74,11 @@
   	select a.*,b.*,c.* from Building a inner join Area b on a.AreaNo=b.AREANO inner join BuildingType c on a.BuildingTypeNo=c.TYPENO 
   </select>
   
+  <!-- 取得所有楼宇列表,关联Area和BuildingType.分页模式 -->
+  <select id="selectListByAllWithAreaAndBuildTypeWithPage" resultMap="BuildingResultMapWithAreaAndBuildingType" >
+  	select a.*,b.*,c.* from Building a inner join Area b on a.AreaNo=b.AREANO 
+  	inner join BuildingType c on a.BuildingTypeNo=c.TYPENO limit #{start},#{rows}
+  </select>
   <!-- 取得指定小区的楼宇列表,参数:areaNo -->
   <select id="selectListByBuildingType" resultMap="BuildingResultMapWithAreaAndBuildingType" >
   	select * from Building where AreaNo=#{areaNo} 	
@@ -81,17 +91,81 @@
   
    <!-- 取得指定楼宇的信息 -->
   <select id="selectByNo" resultMap="BuildingResultMapWithAreaAndBuildingType" >
-  	select * from Building where BuildingTypeNo=#{buildTypeNo} 	
-  </select>
-  
-  <!-- 取得所有楼宇列表,分页模式 -->
-  <select id="selectListByAllWithPage" resultMap="BuildingResultMapWithAreaAndBuildingType">
-   select * from Building limit #{start},#{rows} 
+  	select a.*,b.*,c.* from Building a inner join Area b on a.AreaNo=b.AREANO 
+  	inner join BuildingType c on a.BuildingTypeNo=c.TYPENO where BuildingNo=#{no} 	
   </select>
   
   <!-- 取得楼宇的个数，使用IFNULL函数判断count函数结果是否为null, 为null返回0 -->
   <select id="selectCountByAll" resultType="int">
    select IFNULL(count(BuildingNo), 0) from Building
+  </select>
+  
+  <!-- 根据综合检索条件取得楼宇列表,关联Area和BuildingType,分页模式 -->
+  <select id="selectListByConditionWithAreaAndBuildTypeWithPage" resultMap="BuildingResultMapWithAreaAndBuildingType">
+   	select a.*,b.*,c.* from Building a inner join Area b on a.AreaNo=b.AREANO 
+  	inner join BuildingType c on a.BuildingTypeNo=c.TYPENO
+  <where>
+     <if test="areaNo!=0">
+      and a.AreaNo=#{areaNo}
+     </if>
+     <if test="buildingtypeNo!=0">
+     and a.BuildingTypeNo=#{buildingtypeNo}
+     </if>
+     <if test="code!=null and code!=''">
+     and a.BCODE=#{code}
+     </if>
+     <if test="direction!=null and direction!=''">
+     and a.Direction=#{direction}
+     </if>
+     <if test="minhome!=0">
+     and a.TotalHome &gt;=#{minhome}
+     </if>
+      <if test="maxhome!=0">
+     and a.TotalHome &lt;=#{maxhome}
+     </if>
+      <if test="minhouse!=0">
+     and a.TotalHouse &gt;=#{minhouse}
+     </if>
+      <if test="maxhouse!=0">
+     and a.TotalHouse &lt;=#{maxhouse}
+     </if>
+     
+  </where>
+    limit #{start},#{rows}
+ 
+  </select>
+  
+  <!-- 根据综合检索条件取得楼宇个数-->
+  <select id="selectCountByCondition" resultType="int">
+   select IFNULL(count(BuildingNo), 0) from Building 
+  <where>
+     <if test="areaNo!=0">
+      and AreaNo=#{areaNo}
+     </if>
+     <if test="buildingtypeNo!=0">
+     and BuildingTypeNo=#{buildingtypeNo}
+     </if>
+     <if test="code!=null and code!=''">
+     and BCODE=#{code}
+     </if>
+     <if test="direction!=null and direction!=''">
+     and Direction=#{direction}
+     </if>
+     <if test="minhome!=0">
+     and TotalHome &gt;=#{minhome}
+     </if>
+      <if test="maxhome!=0">
+     and TotalHome &lt;=#{maxhome}
+     </if>
+      <if test="minhouse!=0">
+     and TotalHouse &gt;=#{minhouse}
+     </if>
+      <if test="maxhouse!=0">
+     and TotalHouse &lt;=#{maxhouse}
+     </if>
+     
+  </where>
+   
   </select>
   
 </mapper>
