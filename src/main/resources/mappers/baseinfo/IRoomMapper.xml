@@ -47,13 +47,13 @@
 
   <insert id="create"  keyProperty="roomno"   keyColumn="ROOMNO" useGeneratedKeys="true" flushCache="true">
    insert into Room (AREANO,BUILDINGTYPENO,HOUSETYPENO,BUILDINGNO,DEPARTMENTCODE,FLOOR,ROOMCODE,BUILDINGAREA,FEEAREA,ROOMSTATUS,ROOMTYPE)
-   values (#{Area.areano},#{BuildingType.buildingtypeno},#{HouseType.housetypeno},#{Building.buildingno},#{departmentcode},#{floor},
+   values (#{area.areano},#{buildingtype.buildingtypeno},#{housetype.housetypeno},#{building.buildingno},#{departmentcode},#{floor},
    #{roomcode},#{buildingarea},#{feearea},#{roomstatus},#{roomtype})
   </insert>
   
   <update id="update" flushCache="true">
-   update Room set AREANO=#{Area.areano},BUILDINGTYPENO=#{BuildingType.buildingtypeno},HOUSETYPENO=#{HouseType.housetypeno},
-   BUILDINGNO=#{Building.buildingno},DEPARTMENTCODE=#{departmentcode},FLOOR=#{floor},ROOMCODE=#{roomcode},
+   update Room set AREANO=#{area.areano},BUILDINGTYPENO=#{buildingtype.buildingtypeno},HOUSETYPENO=#{housetype.housetypeno},
+   BUILDINGNO=#{building.buildingno},DEPARTMENTCODE=#{departmentcode},FLOOR=#{floor},ROOMCODE=#{roomcode},
    BUILDINGAREA=#{buildingarea},FEEAREA=#{feearea},ROOMSTATUS=#{roomstatus},ROOMTYPE=#{roomtype}
    where ROOMNO=#{roomno}
   </update>
