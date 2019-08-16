@@ -46,5 +46,12 @@
    select * from officenews limit #{start},#{rows}
   </select>
 
+  <!-- 取得新闻的个数，使用IFNULL函数判断count函数结果是否为null, 为null返回0 -->
+  <select id="selectcountbyall" resultType="int">
+  select IFNULL(count(NEWSNO),0) FROM OFFICENEWS
+  </select>
+
+
   
+
   </mapper>
