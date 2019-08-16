@@ -62,56 +62,43 @@
   <select id="selectListByConditionWithPage" resultMap="CustomerWithCustomerTypeResultMap">
   select a.*,b.* from Customer a inner join CustomerType b on a.TypeNo=b.TypeNo
   <where>
-     <if test="typeno!=0">
-      and TypeNo=#{typeno}
+     <if test="typeno!=null and typeno!='' ">
+      and b.TYPENAME in (select typename from CustomerType  where TypeNo=#{typeno})
      </if>
-     <if test="cname!=null">
-     <!--  and EMPID in (select EMPID from oa_employeeRole where RNO=#{roleNo})-->
-      and Cname=#{cname}
+     <if test="cname!=null and cname!=''">
+      and a.CNAME=#{cname}
      </if>
-     <if test="cardcode!=null">
-     and CardCode=#{cardcode}
+     <if test="ccode!=null and ccode!=''" >
+     and a.CCODE=#{ccode}
      </if>
-     <if test="mobile!=null">
-     and MOBILE=#{mobile}
+     <if test="feestartdate!=null and feestartdate!=''">
+     and a.FEESTARTDATE &gt;=#{feestartdate}
      </if>
-     <if test="feestartdate!=null">
-     and FEESTARTDATE=#{feestartdate}
-     </if>
-     <if test="feeenddate!=null">
-     and FEEENDDATE=#{feeenddate}
-     </if>
-     <if test="cstatus!=null">
-     and CSTATUS=#{cstatus}
+     <if test="feeenddate!=null and feeenddate!=''" >
+     and a.FEEENDDATE &lt;=#{feeenddate}
      </if>
   </where> 
+  limit #{start},#{rows}
   </select>
 
   <!-- 6 根据综合检索条件取得客户个数 -->
   <select id="selectCountByCondition" resultType="int">
-  select IFNULL(count(CUSTOMERNO), 0) from Customer 
+  select IFNULL(count(CUSTOMERNO), 0) from Customer a inner join CustomerType b on a.TYPENO=b.TYPENO
   <where>
-     <if test="typeno!=0">
-      and TypeNo=#{typeno}
+     <if test="typeno!=null and typeno!='' ">
+      and b.TYPENAME in (select typename from CustomerType  where TYPENO=#{typeno})
      </if>
-     <if test="cname!=null">
-     <!--  and EMPID in (select EMPID from oa_employeeRole where RNO=#{roleNo})-->
-      and Cname=#{cname}
+     <if test="cname!=null and cname!=''">
+      and a.CNAME=#{cname}
      </if>
-     <if test="cardcode!=null">
-     and CardCode=#{cardcode}
-     </if>
-     <if test="mobile!=null">
-     and MOBILE=#{mobile}
+     <if test="ccode!=null and ccode!=''" >
+     and a.CCODE=#{ccode}
      </if>
      <if test="feestartdate!=null">
-     and FEESTARTDATE=#{feestartdate}
+     and FEESTARTDATE &gt;=#{feestartdate}
      </if>
      <if test="feeenddate!=null">
-     and FEEENDDATE=#{feeenddate}
-     </if>
-     <if test="cstatus!=null">
-     and CSTATUS=#{cstatus}
+     and FEEENDDATE &lt;=#{feeenddate}
      </if>
   </where>  
   </select> 

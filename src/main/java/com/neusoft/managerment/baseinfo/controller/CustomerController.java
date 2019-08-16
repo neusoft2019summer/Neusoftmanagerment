@@ -1,6 +1,6 @@
 package com.neusoft.managerment.baseinfo.controller;
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -78,22 +78,19 @@ public class CustomerController {
 	@GetMapping(value="/list/condition/page")
 	public ResultMessage<CustomerModel> getListByConditionWithPage(
 		@RequestParam(required = false,defaultValue ="0") int typeno,
-		@RequestParam(required = false,defaultValue ="null") String ccode,
-		@RequestParam(required = false,defaultValue ="null") String cname,
-		@RequestParam(required = false,defaultValue ="null") String cardcode,
-		@RequestParam(required = false,defaultValue ="null") String mobile,
+		@RequestParam(required = false,defaultValue ="") String ccode,
+		@RequestParam(required = false,defaultValue ="") String cname,
 		@DateTimeFormat(pattern = "yyyy-MM-dd") 
-		@RequestParam(required = false) Date feestartdate,
+		@RequestParam(required = false,defaultValue ="") Date feestartdate,
 		@DateTimeFormat(pattern = "yyyy-MM-dd") 
-		@RequestParam(required = false) Date feeenddate, 
-		@RequestParam(required = false,defaultValue ="null") String cstatus,
-		@RequestParam(required = false,defaultValue ="10") int rows,
+		@RequestParam(required = false,defaultValue ="") Date feeenddate, 
+		@RequestParam(required = false,defaultValue ="8") int rows,
 		@RequestParam(required = false,defaultValue = "1") int page) 
 				throws Exception{
 	ResultMessage<CustomerModel> result=new ResultMessage<CustomerModel>("OK","检索取得员工列表分页成功");
-	result.setCount(customerService.getCountByCondition(typeno, ccode, cname, cardcode, mobile, feestartdate, feeenddate, cstatus));
-	result.setPageCount(customerService.getPageCountByConditionWithPage(typeno, ccode, cname, cardcode, mobile, feestartdate, feeenddate, cstatus, rows));
-	result.setList(customerService.getListByAllWithCustomerTypeWithPage(rows, page));
+	result.setCount(customerService.getCountByCondition(typeno, ccode, cname, feestartdate, feeenddate));
+	result.setPageCount(customerService.getPageCountByConditionWithPage(typeno, ccode, cname, feestartdate, feeenddate,  rows));
+	result.setList(customerService.getListByConditionWithPage(typeno, ccode, cname,  feestartdate, feeenddate, rows, page));
 	result.setPage(page);
 	result.setRows(rows);
 	

@@ -5,8 +5,6 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-
-import com.neusoft.managerment.baseinfo.model.BuildingTypeModel;
 import com.neusoft.managerment.baseinfo.model.CustomerModel;
 
 /**
@@ -32,12 +30,25 @@ public interface ICustomerMapper {
 	//4 取得客户的个数
 	public int selectCountByAll() throws Exception;
 	//5 根据综合检索条件取得客户列表
-	public List<CustomerModel> selectListByConditionWithPage(@Param("typeno") int typeno, @Param("ccode") String ccode, @Param("cname") String cname, @Param("cardcode") String cardcode,
-			@Param("mobile") String mobile, @Param("feestartdate") Date feestartdate, @Param("feeenddate") Date feeenddate,@Param("cstatus") String cstatus, @Param("start") int start,@Param("rows") int rows) throws Exception;
+	public List<CustomerModel> selectListByConditionWithPage(
+			@Param("typeno") int typeno, 
+			@Param("ccode") String ccode, 
+			@Param("cname") String cname,
+			@Param("feestartdate") Date feestartdate, 
+			@Param("feeenddate") Date feeenddate,
+			@Param("start") int start,
+			@Param("rows") int rows) throws Exception;
 	//6 根据综合检索条件取得客户个数 
-	public int selectCountByCondition(@Param("typeno") int typeno, @Param("ccode") String ccode, @Param("cname") String cname, @Param("cardcode") String cardcode,
-			@Param("mobile") String mobile, @Param("feestartdate") Date feestartdate, @Param("feeenddate") Date feeenddate,@Param("cstatus") String cstatus) throws Exception;
+	public int selectCountByCondition(
+			@Param("typeno") int typeno, 
+			@Param("ccode") String ccode, 
+			@Param("cname") String cname, 
+			@Param("feestartdate") Date feestartdate, 
+			@Param("feeenddate") Date feeenddate) throws Exception;
 	//7  取得客户的页数
 	public int selectPageCountByAll(int rows);
-	
+	//8  根据综合检索条件取得客户页数 
+	public int selectPageCountByConditionWithPage(int typeno, String ccode, String cname, 
+			Date feestartdate, Date feeenddate, int rows) throws Exception;
+
 }

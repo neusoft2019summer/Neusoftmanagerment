@@ -2,9 +2,6 @@ package com.neusoft.managerment.baseinfo.service;
 
 import java.util.Date;
 import java.util.List;
-
-import org.apache.ibatis.annotations.Param;
-
 import com.neusoft.managerment.baseinfo.model.CustomerModel;
 
 
@@ -29,15 +26,15 @@ public interface ICustomerService {
 	//4 取得客户的个数
 	public int getCountByAll() throws Exception;
 	//5 根据综合检索条件取得客户列表
-	public List<CustomerModel> getListByConditionWithPage(int typeno, String ccode,  String cname, String cardcode,
-			 String mobile,  Date feestartdate,  Date feeenddate, String cstatus, int rows,int page) throws Exception;
+	public List<CustomerModel> getListByConditionWithPage(int typeno, String ccode,  String cname, 
+			 Date feestartdate,  Date feeenddate, int rows,int page) throws Exception;
 	//6 根据综合检索条件取得客户个数 
-	public int getCountByCondition(int typeno, String ccode,  String cname, String cardcode,
-			 String mobile,  Date feestartdate,  Date feeenddate, String cstatus) throws Exception;
+	public int getCountByCondition(int typeno, String ccode,  String cname, 
+			 Date feestartdate,  Date feeenddate) throws Exception;
 	//7 取得客户的页数
 	public int getPageCountByAll(int rows) throws Exception;
 	//8  根据综合检索条件取得客户页数 
-	public int getPageCountByConditionWithPage(int typeno, String ccode, String cname, String cardcode, String mobile,
-			Date feestartdate, Date feeenddate, String cstatus, int rows) throws Exception;
+	public int getPageCountByConditionWithPage(int typeno, String ccode, String cname,
+			Date feestartdate, Date feeenddate, int rows) throws Exception;
 	
 }
