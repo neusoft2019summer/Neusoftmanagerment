@@ -14,13 +14,14 @@ import lombok.Data;
 @Alias("FeeItem")
 @Data
 public class FeeItemModel implements Serializable {
-	private int itemno = 0;
-	private String itemcode = null;
-	private String itemname = null;
-	private String itemunit = null;
-	private int feetypeno = 0;
-	private String feecycle = null;
-	private String itemstatus = null;
-	private String itemdesc = null;
+	private int no = 0;// 收费项目序号
+	private String code = null; // 收费项目编码
+	private String name = null; // 收费项目名称
+	private String unit = null; // 收费单位(米,户，人，车)
+	private FeeTypeModel feetype = null; // 收费类型
+	//private String FeePayType = null; // 计费方式(年，月，日,次)
+	private String cycle = null; // 是否周期性(Y/N)
+	private String status = null; // 是否收费(Y/N)
+	private String desc = null; // 收费项目说明
 
 }

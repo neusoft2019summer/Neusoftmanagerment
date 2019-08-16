@@ -10,8 +10,7 @@
     系统基础信息的新闻的MAPPER.XML
   -->
 <mapper namespace="com.neusoft.managerment.office.mapper.INewsMapper">
-  
-  <cache/>
+ <cache/>
   <resultMap id="NewsResultMap" type="NewsModel">
      <id property="newsno" column="NEWSNO"/>
       <result property="newstype" column="NEWSTYPE"/>
@@ -40,14 +39,19 @@
   </select>
   <select id="selectListType" resultMap="NewsResultMap">
    select * from officenews where NEWSTYPE=#{newstype}
-  
   </select>
+  
   <!-- 取得所有新闻列表,分页模式 -->
   <select id="selectListByAllWithPage" resultMap="NewsResultMap">
    select * from officenews limit #{start},#{rows}
   </select>
+
   <!-- 取得新闻的个数，使用IFNULL函数判断count函数结果是否为null, 为null返回0 -->
   <select id="selectcountbyall" resultType="int">
   select IFNULL(count(NEWSNO),0) FROM OFFICENEWS
   </select>
+
+
+  
+
   </mapper>

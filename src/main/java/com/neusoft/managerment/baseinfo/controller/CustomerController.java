@@ -84,7 +84,7 @@ public class CustomerController {
 		@RequestParam(required = false,defaultValue ="") Date feestartdate,
 		@DateTimeFormat(pattern = "yyyy-MM-dd") 
 		@RequestParam(required = false,defaultValue ="") Date feeenddate, 
-		@RequestParam(required = false,defaultValue ="8") int rows,
+		@RequestParam(required = false,defaultValue ="20") int rows,
 		@RequestParam(required = false,defaultValue = "1") int page) 
 				throws Exception{
 	ResultMessage<CustomerModel> result=new ResultMessage<CustomerModel>("OK","检索取得员工列表分页成功");

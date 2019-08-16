@@ -7,8 +7,8 @@ $(function(){
 	var no=0;
 	var name=null;
 	var developer=null;
-	var minbuildingarea=0;
-	var maxbuildingarea=0;
+	var minbuildingarea=null;
+	var maxbuildingarea=null;
 	var minhome=0;
 	var maxhome=0;
 	var minhouse=0;
@@ -22,18 +22,18 @@ $(function(){
 		url: 'area/list/condition/page',
 		datatype: "json",
 		colModel: [
-			{ label: '小区名称', name: 'name', width: 60 },
-			{ label: '小区地址', name: 'address', width: 60 },
-			{ label: '开发商', name: 'developer', width: 60 },
-			{ label: '总建筑面积', name: 'buildingarea', width: 60 },
-			{ label: '总使用面积', name: 'usearea', width: 60},
-			{ label: '车位面积', name: 'parkarea', width: 60 },
-			{ label: '总居民数', name: 'home', width: 60 },  
-			{ label: '总公建数', name: 'house', width: 60 },
-			{ label: '车位数', name: 'park', width: 60 } 
+			{ label: '小区名称', name: 'name', width: 50 },
+			{ label: '小区地址', name: 'address', width: 50 },
+			{ label: '开发商', name: 'developer', width: 50 },
+			{ label: '总建筑面积', name: 'buildingarea', width: 50 },
+			{ label: '总使用面积', name: 'usearea', width: 50},
+			{ label: '车位面积', name: 'parkarea', width: 50 },
+			{ label: '总居民数', name: 'home', width: 50 },  
+			{ label: '总公建数', name: 'house', width: 50 },
+			{ label: '车位数', name: 'park', width: 50 } 
 		],
 		caption:"小区列表",
-		viewrecords: true, 
+		viewrecords: true, //显示总记录数
 		autowidth: true,
 		height: 300,
 		rowNum: 5,
@@ -48,7 +48,7 @@ $(function(){
 		pager: "#AreaGridPager",
 		multiselect:false,
 		onSelectRow:function(ano){
-			no=aid;
+			no=ano;
 		}
 		
 	});
@@ -56,28 +56,64 @@ $(function(){
 	$.getJSON("area/list/all",function(areaList){
 		if(areaList){
 			$.each(areaList,function(index,am){
-				$("select#AreaSelection").append("<option value='"+am.no+"'>"+am.name+"</option>");
+				$("select#AreaSelection").append("<option value='"+am.name+"'>"+am.name+"</option>");
 			});
 		}
 	});
 	//取得开发商列表，填充开发商下拉框
-	$.getJSON("area/list/all",function(developerList){
+	$.getJSON("area/list/developer",function(developerList){
 		if(developerList){
 			$.each(developerList,function(index,dm){
-				$("select#DeveloperSelection").append("<option value='"+dm.no+"'>"+dm.developer+"</option>");
+				$("select#DeveloperSelection").append("<option value='"+dm.developer+"'>"+dm.developer+"</option>");
 			});
 		}
 	});
 	//设置检索参数，更新jQGrid的列表显示
 	function reloadAreaList()
 	{
-		$("table#AreaGrid").jqGrid('setGridParam',{postData:{name:name,developer:developer,minbuildingarea:minbuildingarea,maxbuildingarea:maxbuildingarea,minhome:minhome,maxhome:maxhome,minhouse:minhouse,maxhouse:maxhouse}}).trigger("reloadGrid");
+		$("table#AreaGrid").jqGrid('setGridParam',{postData:{name:name,
+			developer:developer,minbuildingarea:minbuildingarea,
+			maxbuildingarea:maxbuildingarea,minhome:minhome,
+			maxhome:maxhome,minhouse:minhouse,maxhouse:maxhouse
+			}}).trigger("reloadGrid");
 		
 	}
 	
 	//定义小区下拉框的更新事件的处理
 	$("select#AreaSelection").off().on("change",function(){
 		name=$("select#AreaSelection").val();
+		reloadAreaList();
+	});
+	//定义开发商下拉框的更新事件的处理
+	$("select#DeveloperSelection").off().on("change",function(){
+		developer=$("select#DeveloperSelection").val();
+		reloadAreaList();
+	});
+	//定义总建筑面积的更新事件的处理
+	$("input#minbuildingarea").off().on("change",function(){
+		minbuildingarea=$("input#minbuildingarea").val();
+		reloadAreaList();
+	});
+	$("input#maxbuildingarea").off().on("change",function(){
+		maxbuildingarea=$("input#maxbuildingarea").val();
+		reloadAreaList();
+	});
+	//定义总居民数的更新事件的处理
+	$("input#minhome").off().on("change",function(){
+		minhome=$("input#minhome").val();
+		reloadAreaList();
+	});
+	$("input#maxhome").off().on("change",function(){
+		maxhome=$("input#maxhome").val();
+		reloadAreaList();
+	});
+	//定义总公建数的更新事件的处理
+	$("input#minhouse").off().on("change",function(){
+		minhouse=$("input#minhouse").val();
+		reloadAreaList();
+	});
+	$("input#maxhouse").off().on("change",function(){
+		maxhouse=$("input#maxhouse").val();
 		reloadAreaList();
 	});
 	
@@ -96,7 +132,246 @@ $(function(){
 	});
 	
 	
+	//===========================增加小区处理================================================
+	$("a#AreaAddLink").off().on("click",function(){
+		$("div#AreaDialogArea").load("area/add.html",function(){
+			//验证提交数据
+			$("form#AreaAddForm").validate({
+				rules: {
+					name: {
+						required: true
+					},
+					address: {
+						required: true
+					},
+					developer: {
+						required: true
+					},
+					buildingarea: {
+						required: true,
+						min:0
+					},
+					usearea: {
+						required: true,
+						min:0
+					},
+					
+					parkarea: {
+						required: true,
+						min:0
+					},
+					home: {
+						required: true
+					},
+					house: {
+						required: true
+					},
+					park: {
+						required: true
+					}
+				},
+				message:{
+					name: {
+						required: "小区名称为空"
+					},
+					address: {
+						required: "小区地址为空"
+					},
+					developer: {
+						required: "开发商为空"
+					},
+					buildingarea: {
+						number: "总建筑面积必须是数值",
+				    	range: "大于0"
+					},
+					usearea: {
+						number: "总使用面积必须是数值",
+				    	range: "小于总建筑面积"
+					},
+					
+					parkarea: {
+						number: "车位面积必须是数值",
+				    	range: "小于总建筑面积"
+					},
+					home: {
+						number: "总居民数必须是数值",
+				    	range: "大于等于0"
+					},
+					house: {
+						number: "总公建数必须是数值",
+				    	range: "大于等于0"
+					},
+					park: {
+						number: "车位数必须是数值",
+				    	range: "大于等于0"
+					}
+				}
+			});
+			//增加小区的弹窗
+			$("div#AreaDialogArea").dialog({
+				title:"增加小区",
+				width:900
+			});
+			
+			//拦截增加提交表单
+			$("form#AreaAddForm").ajaxForm(function(result){
+				if(result.status=="OK"){
+					reloadAreaList(); //更新小区列表
+				}
+				//alert(result.message);
+				//BootstrapDialog.alert(result.message);
+				BootstrapDialog.show({
+		            title: '小区操作信息',
+		            message:result.message,
+		            buttons: [{
+		                label: '确定',
+		                action: function(dialog) {
+		                    dialog.close();
+		                }
+		            }]
+		        });
+				$("div#AreaDialogArea" ).dialog( "close" );
+				$("div#AreaDialogArea" ).dialog( "destroy" );
+				$("div#AreaDialogArea").html("");
+				
+			});
+			
+			//点击取消按钮处理
+			$("input[value='取消']").on("click",function(){
+				$("div#AreaDialogArea" ).dialog( "close" );
+				$("div#AreaDialogArea" ).dialog( "destroy" );
+				$("div#AreaDialogArea").html("");
+			});
+		});
+	});
+	
+	/*
+	//===============================修改小区处理=============================
+	$("a#AreaModifyLink").off().on("click",function(){
+		
+		if(no==0){
+			BootstrapDialog.show({
+	            title: '小区操作信息',
+	            message:"请选择要修改的小区",
+            	buttons: [{
+	                label: '确定',
+	                action: function(dialog) {
+	                    dialog.close();
+	                }
+	            }]
+	        });
+		}
+		else{
+			$("div#AreaDialogArea").load("area/modify.html",function(){
+				//取得选择的小区
+				$.getJSON("area/get",{no:no},function(index,area){
+					if(area){
+						$("input[name='no']").val(areaNo);
+						$("input[name='name']").val(area.name);
+						$("input[name='address']").val(area.address);
+						$("input[name='developer']").val(area.developer);
+						$("input[name='buildingarea']").val(area.buildingarea);
+						$("input[name='usearea']").val(area.usearea);
+						$("input[name='parkarea']").val(area.parkarea);
+						$("input[name='home']").val(area.home);
+						$("input[name='house']").val(area.house);
+						$("input[name='park']").val(area.park);
+						
+					}
+				});
+				//弹出Dialog
+				$("div#AreaDialogArea" ).dialog({
+					title:"小区修改",
+					width:800
+				});
+				$("form#AreaModifyForm").ajaxForm(function(result){
+					if(result.status=="OK"){
+						reloadAreaList(); //更新小区列表
+					}
+					//alert(result.message);
+					//BootstrapDialog.alert(result.message);
+					BootstrapDialog.show({
+			            title: '小区操作信息',
+			            message:result.message,
+			            buttons: [{
+			                label: '确定',
+			                action: function(dialog) {
+			                    dialog.close();
+			                }
+			            }]
+			        });
+					$("div#AreaDialogArea" ).dialog( "close" );
+					$("div#AreaDialogArea" ).dialog( "destroy" );
+					$("div#AreaDialogArea").html("");
+					
+				});
+
+			});
+			
+		}
+	});
+
+*/
+	//===============================删除小区处理=====================================
+
+
+
+	//================================查看小区处理====================================
+
+	$("a#AreaViewLink").off().on("click",function(event){
+		
+		if(no==0){
+			BootstrapDialog.show({
+	            title: '小区操作信息',
+	            message:"请选择要查看的小区",
+            	buttons: [{
+	                label: '确定',
+	                action: function(dialog) {
+	                    dialog.close();
+	                }
+	            }]
+	        });
+		}
+		else{
+			$("div#AreaDialogArea").load("area/view.html",function(){
+				//取得选择的小区
+				$.getJSON("area/get",{no:no},function(area){
+					if(area){
+						$("span#no").html(no);
+						$("span#name").html(name);
+						$("span#address").html(area.address);
+						$("span#developer").html(area.developer);
+						$("span#buildingarea").html(area.buildingarea);
+						$("span#usearea").html(area.usearea);
+						$("span#parkarea").html(area.parkarea);
+						$("span#home").html(area.home);
+						$("span#house").html(area.house);
+						$("span#park").html(area.park);
+						
+					}
+				});
+				//弹出Dialog
+				$("div#AreaDialogArea" ).dialog({
+					title:"小区详细",
+					width:800
+				});
+				//点击取消按钮处理
+				$("input[value='关闭']").on("click",function(){
+					$("div#AreaDialogArea" ).dialog( "close" );
+					$("div#AreaDialogArea" ).dialog( "destroy" );
+					$("div#AreaDialogArea").html("");
+				});
+
+			});
+			
+		}
+	});
+	
+
 });
+
+
+
 
 /*
 	function getListInfo(){

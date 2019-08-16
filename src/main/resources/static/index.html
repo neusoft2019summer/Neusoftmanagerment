@@ -23,7 +23,6 @@
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
-  
   <!-- 引入Bootstrap3-dialog -->
   <link rel="stylesheet" href="dist/bootstrap3-dialog/css/bootstrap-dialog.min.css">
   
@@ -48,10 +47,14 @@
   <script src="dist/bootstrap3-dialog/js/bootstrap-dialog.min.js"></script>
   <!-- JQuery Form Plugin -->
   <script type="text/javascript" src="dist/jqueryform/jquery.form.min.js"></script>
-
   <!-- jQGrid -->
   <script type="text/ecmascript" src="dist/jqgrid/js/i18n/grid.locale-cn.js"></script>
   <script type="text/ecmascript" src="dist/jqgrid/js/jquery.jqGrid.js"></script>
+  <!-- jQuery validate验证框架 -->
+  <script src="dist/jqueryvalidate/jquery.validate.min.js"></script>
+  <script src="dist/jqueryvalidate/additional-methods.min.js"></script>
+  <script src="dist/jqueryvalidate/localization/messages_zh.min.js"></script>
+  <script src="dist/jqueryvalidate/customer_validation.js"></script>
   <script type="text/javascript" src="js/index.js"></script>
   
  </head>
@@ -163,7 +166,34 @@
             <li><a href="buildingType/main.html"><i class="fa fa-circle-o"></i>接收文档员工管理</a></li>
           </ul>
         </li>
+
+        <li class="treeview menu-open">
+          <a href="#">
+            <i class="fa fa-th"></i> <span>人事管理</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="departments/main.html"><i class="fa fa-circle-o"></i>部门管理</a></li>
+          	<li><a href="employees/main.html"><i class="fa fa-circle-o"></i>员工管理</a></li>
+            <li><a href="#"><i class="fa fa-circle-o"></i>员工绩效管理</a></li>
+          </ul>
+        </li>
         
+         <li class="treeview menu-open">
+          <a href="#">
+            <i class="fa fa-book"></i> <span>租赁管理</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="#"><i class="fa fa-circle-o"></i>合同管理</a></li>
+          	<li><a href="#"><i class="fa fa-circle-o"></i>租房管理</a></li>
+          </ul>
+        </li>
+
          <li class="treeview menu-open">
           <a href="#">
             <i class="fa fa-dashboard"></i> <span>办公管理</span>
@@ -176,6 +206,7 @@
           	
           </ul>
         </li>
+
          <li class="treeview menu-open">
           <a href="#">
             <i class="fa fa-dashboard"></i> <span>客户服务</span>
@@ -189,6 +220,9 @@
           </ul>
         </li>
         
+
+        
+
       </ul>
     </section>
     <!-- /.sidebar -->

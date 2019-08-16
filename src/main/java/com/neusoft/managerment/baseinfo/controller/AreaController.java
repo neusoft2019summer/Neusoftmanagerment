@@ -56,10 +56,17 @@ public class AreaController {
 		result.setModel(areas.getAreaByNo(no));
 		return result;
 	}
+	//取得开发商列表
+	@GetMapping("/list/developer")
+	public List<AreaModel> getListByDeveloper() throws Exception {
+		return areas.getListByDeveloper();
+	}
 	
 	//取得所有小区列表，有分页
 	@GetMapping(value="/list/all/page")
-	public ResultMessage<AreaModel> getListByAllWitPage(@RequestParam(required = false,defaultValue ="10") int rows,@RequestParam(required = false,defaultValue = "1") int page) throws Exception{
+	public ResultMessage<AreaModel> getListByAllWitPage(
+			@RequestParam(required = false,defaultValue ="10") int rows,
+			@RequestParam(required = false,defaultValue = "1") int page) throws Exception{
 		ResultMessage<AreaModel> result=new ResultMessage<AreaModel>("OK","取得小区列表分页模式成功");
 		result.setCount(areas.getCountByAll());
 		result.setPageCount(areas.getPagaCountByAll(rows));
@@ -78,9 +85,19 @@ public class AreaController {
 	
 	//按检索条件取得小区列表
 	@GetMapping(value="/list/condition/page")
-	public ResultMessage<AreaModel> getListByConditionWithPage(@RequestParam(required = false,defaultValue ="") String name,@RequestParam(required = false,defaultValue ="") String developer,@RequestParam(required = false,defaultValue ="0") BigDecimal minbuildingarea,@RequestParam(required = false,defaultValue ="0") BigDecimal maxbuildingarea,@RequestParam(required = false,defaultValue ="0") int minhome,@RequestParam(required = false,defaultValue ="0") int maxhome,@RequestParam(required = false,defaultValue ="0") int minhouse,@RequestParam(required = false,defaultValue ="0") int maxhouse, @RequestParam(required = false,defaultValue ="5") int rows,@RequestParam(required = false,defaultValue ="1") int page) throws Exception {
+	public ResultMessage<AreaModel> getListByConditionWithPage(
+			@RequestParam(required = false,defaultValue ="") String name,
+			@RequestParam(required = false,defaultValue ="") String developer,
+			@RequestParam(required = false,defaultValue ="") BigDecimal minbuildingarea,
+			@RequestParam(required = false,defaultValue ="") BigDecimal maxbuildingarea,
+			@RequestParam(required = false,defaultValue ="0") int minhome,
+			@RequestParam(required = false,defaultValue ="0") int maxhome,
+			@RequestParam(required = false,defaultValue ="0") int minhouse,
+			@RequestParam(required = false,defaultValue ="0") int maxhouse, 
+			@RequestParam(required = false,defaultValue ="5") int rows,
+			@RequestParam(required = false,defaultValue ="1") int page) throws Exception {
 	
-		ResultMessage<AreaModel> result=new ResultMessage<AreaModel>("OK","取得员工列表分页成功");
+		ResultMessage<AreaModel> result=new ResultMessage<AreaModel>("OK","取得小区列表分页成功");
 		result.setCount(areas.getCountByCondition(name, developer, minbuildingarea, maxbuildingarea, minhome, maxhome, minhouse, maxhouse));
 		result.setPageCount(areas.getPageCountByConditionWithPage(name, developer, minbuildingarea, maxbuildingarea, minhome, maxhome, minhouse, maxhouse, rows));
 		result.setList(areas.getListByConditionWithPage(name, developer, minbuildingarea, maxbuildingarea, minhome, maxhome, minhouse, maxhouse, rows, page));

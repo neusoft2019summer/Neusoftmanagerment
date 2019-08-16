@@ -49,8 +49,8 @@
   </select>
   
   <!-- 3 取得指定客户的信息 -->
-  <select id="selectByCustomerNo" resultMap="CustomerResultMap" >
-  select * from Customer  where CUSTOMERNO=#{customerno}
+  <select id="selectByCustomerNo" resultMap="CustomerWithCustomerTypeResultMap" >
+  select a.*,b.* from Customer a inner join CustomerType b on a.TypeNo=b.TypeNo where CUSTOMERNO=#{customerno}
   </select>
   
   <!-- 4 取得客户的个数，使用IFNULL函数判断count函数结果是否为null, 为null返回0 -->

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.managerment.personnel.mapper.IDepartmentsMapper">
+<!-- /**
+ *    author : 丘嘉茹
+ *    version: 1.0
+ *    人事管理信息模块的部门管理信息
+ */ -->
+  <cache/>
+  <resultMap id="DepartmentsResultMap" type="Departments">
+    <id property="deptno" column="DEPTNO"/>
+    <result property="deptname" column="DEPTNAME"/>
+    <result property="ddesc" column="DDESC"/>
+  </resultMap>
+   <!--  使用内嵌式ResultMap实现方式的关联属性的结果映射 -->
+  <resultMap id="DepartmentsWithEmployeesResultMap" type="Departments" extends="DepartmentsResultMap">
+  	 <collection property="employees" resultMap="com.neusoft.managerment.personnel.mapper.IEmployeesMapper.EmployeesResultMap"></collection>
+  </resultMap>
+  <insert id="create"  keyProperty="deptno"   keyColumn="DEPTNO" useGeneratedKeys="true"  flushCache="true">
+   insert into Departments (DEPTNO,DEPTNAME,DDESC) values (#{deptno},#{deptname},#{ddesc})
+  </insert>
+  
+  <update id="update"  flushCache="true">
+   update Departments set DEPTNAME=#{deptname},DDESC=#{ddesc} where  DEPTNO=#{deptno}
+  </update>
+  
+  <delete id="delete" flushCache="true">
+  	delete from Departments where DEPTNO=#{deptno} 
+  </delete>
+  
+  <select id="selectDeptListByAll" resultMap="DepartmentsResultMap">
+    select * from Departments
+  </select>
+  
+  
+  <select id="selectDeptListByAllWithPage" resultMap="DepartmentsResultMap">
+   select * from Departments limit #{start},#{rows}
+  </select>
+  
+  <select id="selectDeptByNo" resultMap="DepartmentsResultMap">
+   select * from Departments where DEPTNO=#{deptno}
+  </select>
+  
+  <select id="selectCountByAll" resultType="int">
+   select IFNULL(count(DEPTNO), 0) from Departments
+  </select>
+  
+</mapper> 
