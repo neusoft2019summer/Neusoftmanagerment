@@ -122,4 +122,34 @@ public class BuildingServiceImpl implements IBuildingService {
 		return buildMapper.selectListByAllWithAreaAndBuildTypeWithPage(rows*(page-1), rows);
 	}
 
+	@Override
+	@Transactional(readOnly = true)
+	public List<BuildingModel> getListByConditionWithAreaAndBuildTypeWithPage(int areaNo, int buildingtypeNo,
+			String code, String direction, int minhome, int maxhome, int minhouse, int maxhouse, int rows, int page)
+			throws Exception {
+		return buildMapper.selectListByConditionWithAreaAndBuildTypeWithPage(areaNo, buildingtypeNo, code, direction, minhome, maxhome, minhouse, maxhouse, rows*(page-1), rows);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public int getCountByCondition(int areaNo, int buildingtypeNo, String code, String direction, int minhome,
+			int maxhome, int minhouse, int maxhouse) throws Exception {
+		return buildMapper.selectCountByCondition(areaNo, buildingtypeNo, code, direction, minhome, maxhome, minhouse, maxhouse);
+	}
+
+	@Override
+	public int getPageByConditionWithPage(int areaNo, int buildingtypeNo, String code, String direction, int minhome,
+			int maxhome, int minhouse, int maxhouse, int rows) throws Exception {
+		
+		int pageCount=0;
+		int count=this.getCountByCondition(areaNo, buildingtypeNo, code, direction, minhome, maxhome, minhouse, maxhouse);
+		if(count%rows==0) {
+			pageCount=count/rows;
+		}
+		else {
+			pageCount=count/rows+1;
+		}
+		return pageCount;
+	}
+
 }

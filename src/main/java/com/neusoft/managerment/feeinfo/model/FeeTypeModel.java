@@ -15,6 +15,6 @@ import lombok.Data;
 @Data
 public class FeeTypeModel implements Serializable {
 
-	private int no = 0; //类型编号
-	private String name = null; //类型名称
+	private int no = 0; // 类型编号
+	private String name = null; // 类型名称
 }
