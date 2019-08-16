@@ -47,4 +47,16 @@
    select IFNULL(count(DEPTNO), 0) from Departments
   </select>
   
+   <select id="selectDeptByCondition" resultMap="DepartmentsResultMap">
+  select * from departments 
+  <where>
+     <if test="deptNo!=0">
+      and DEPTNO=#{deptNo}
+     </if>
+     <if test="deptName!=null and deptName!=''">
+     and deptname=#{deptName}
+     </if>
+  </where>
+    limit #{start},#{rows}
+  </select>
 </mapper> 

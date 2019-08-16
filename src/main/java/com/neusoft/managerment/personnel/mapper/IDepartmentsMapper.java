@@ -1,5 +1,6 @@
 package com.neusoft.managerment.personnel.mapper;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -32,4 +33,5 @@ public interface IDepartmentsMapper {
 	public DepartmentsModel selectDeptByNo(int deptno) throws Exception;
 	//取得个数
 	public int selectCountByAll() throws Exception;
+	public List<DepartmentsModel> selectDeptByCondition(@Param("deptNo") int deptNo,@Param("deptName") String deptName, @Param("start") int start,@Param("rows") int rows) throws Exception;
 }

@@ -95,4 +95,10 @@ public class DepartmentsServiceImpl implements IDepartmentsService {
 		return result;
 	}
 
+	@Override
+	public List<DepartmentsModel> getDeptByCondition(int deptNo, String deptName, int rows, int page) throws Exception {
+		// TODO Auto-generated method stub
+		return departmentsMapper.selectDeptByCondition(deptNo,deptName,rows*(page-1), rows);
+	}
+
 }

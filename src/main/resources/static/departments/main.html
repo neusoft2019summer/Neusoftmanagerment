@@ -3,7 +3,55 @@
 <div class="row">
     <div class="col-xs-12">
       <div class="box">
+      
+      <!-- box-header -->
         <div class="box-header">
+          <div class="row">
+             <div class="col-md-9">
+	             <form class="form-inline" role="form">
+				  <div class="form-group">
+				    <label  for="name">部门号</label>
+				    <select id="DeptnoSelection" class="form-control">
+				       <option value="0">所有</option>
+				    </select>
+				  </div>
+				  <div class="form-group">
+				    <label  for="name">部门名称</label>
+				    <select id="DeptnameSelection" class="form-control">
+				       <option value="0">所有</option>
+				    </select>
+				  </div>
+				  <div class="form-group">
+				   <a href="#" class="btn btn-default" id="DeptSearchButton">检索</a>
+				  </div>
+				</form>
+             </div>
+             <div class="col-md-3 text-right">
+             	<a href="#" id="DepartmentsAddLink" class="btn btn-info">增加</a> 
+             	<a href="#" id="DepartmentsModifyLink" class="btn btn-info">修改</a> 
+            	<a href="#" id="DepartmentsDelteLink" class="btn btn-info">删除</a>
+             	<a href="#" id="DepartmentsViewLink" class="btn btn-info">详细</a>
+              </div>
+          </div>
+          
+        </div>
+		<!-- /.box-header -->
+		<div class="box-body">
+		  <table id="DepartmentsGrid"></table>
+		  <div id="DepartmentsGridPager"></div>
+		</div>
+
+		<!-- /.box-body -->
+    </div>
+    <!-- /.box --> 
+  </div>
+  <!-- /.col -->
+</div>
+<!-- /.row -->
+<div id="DepartmentDialogArea">
+    
+</div>
+		<!--         <div class="box-header">
           <div class="row">
              <div class="col-md-6"> <h4 class="box-title">部门列表</h4></div>
              <div class="col-md-6 text-right">
@@ -13,10 +61,9 @@
              	<a href="#" id="DepartmentsViewLink" class="btn btn-info">详细</a>
               </div>
           </div>
-         
-        </div>
-        <!-- /.box-header -->
-      <div class="box-body" id="departmentmaincontent">
+        </div> -->
+		<!-- box-body 使用JQueryUI&form&dialog-->
+       <!--  <div class="box-body" id="departmentmaincontent">
         <table id="DepartmentsTable" class="table table-bordered table-hover">
           <thead>
           <tr>
@@ -41,15 +88,5 @@
 		   </div>
 		</div>
        
-      </div>
+      </div>  -->
       <!-- /.box-body -->
-    </div>
-    <!-- /.box -->
-   
-  </div>
-  <!-- /.col -->
-</div>
-<!-- /.row -->
-<div id="DepartmentDialogArea">
-    
-</div>

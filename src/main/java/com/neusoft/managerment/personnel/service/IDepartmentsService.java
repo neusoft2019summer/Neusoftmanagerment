@@ -27,9 +27,10 @@ public interface IDepartmentsService {
 	public DepartmentsModel getDeptByNo(int deptno) throws Exception;
 	//取得个数
 	public int getCountByAll() throws Exception;
-
+	//筛选
+    public List<DepartmentsModel> getDeptByCondition(int deptNo,String deptName, int rows,int page)throws Exception;
 	//检查部门能否被删
-	public boolean checkCanDelete(int no)throws Exception;
+	public boolean checkCanDelete(int deptno)throws Exception;
 	//取得部门页数
 	public int getPageCountByAll(int rows) throws Exception;
 }

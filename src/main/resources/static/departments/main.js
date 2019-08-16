@@ -4,15 +4,42 @@
  */
 
 $(function(){
-	var rows=10;
+/*	var rows=10;
 	var page=1;
-	var pageCount=0;
-	var departmentNo=0; //选择的部门编号
-	
+	var pageCount=0;*/
+	var deptNo=0; //选择的部门编号
+	var deptName="";
 	//设置系统页面标题
 	$("span#mainpagetille").html("部门管理");
 	//取得部门的列表，分页模式
-	function getListInfo(){
+	$("table#DepartmentsGrid").jqgrid({
+		url:'departments/list/condition/page',
+		datatype:"json",
+		colModel:[
+			{label:'部门编号',name:'deptno'},
+			{label:'部门名称',name:'deptname'},
+			{label:'部门职责',name:'ddesc'}
+		],
+		viewrecords:true,
+		autowidth:true,
+		height:400,
+		rowNum:20,
+		rowList:[10,20,30],
+		jsonReader:{
+			root:"list",
+			page:"page",
+			total:"pageCount",
+			records:"count",
+			id:"deptno"},
+		pager:"div#DepartmentsGridPager",
+		multiselect:false,
+		onSelectRow:function(deptno){
+			deptNo=deptno;
+		}
+	}
+	}
+			)
+	/*function getListInfo(){
 		//调用后台取得部门列表REST API
 		$.getJSON("departments/list/all/page",{page:page,rows:rows},function(data){
 				//显示个数和页数
@@ -80,6 +107,9 @@ $(function(){
 				    },
 				    deptname:{
 				    	required: true
+				    },
+				    ddesc:{
+				    	required: true
 				    }
 				  },
 				  messages:{
@@ -88,7 +118,10 @@ $(function(){
 					    },
 					 deptname:{
 					    	required:"部门名称为空"
-					    }
+					    },
+				     ddesc:{
+				    	required:"部门名称为空"
+				    }
 				 }
 			});
 			//拦截增加表单提交
@@ -182,7 +215,7 @@ $(function(){
 		}
 		else {
 			//先检查此部门能否被删除
-			$.getJSON("departments/checkDelete",{no:departmentNo},function(data){
+			$.getJSON("departments/checkDelete",{deptno:departmentNo},function(data){
 				if(data.status!="OK"){
 					BootstrapDialog.show({
 			            title: '部门操作信息',
@@ -192,7 +225,7 @@ $(function(){
 				else{
 					BootstrapDialog.confirm('确认删除此部门么?', function(result){
 			            if(result) {
-			                $.post("departments/delete",{no:departmentNo},function(result){
+			                $.post("departments/delete",{deptno:departmentNo},function(result){
 			                	if(result.status=="OK"){
 									getListInfo(); 
 								}
@@ -244,4 +277,4 @@ $(function(){
 		}
 	});
 	
-});
+});*/
