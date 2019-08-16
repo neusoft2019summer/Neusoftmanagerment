@@ -1,65 +1,281 @@
 /**
- *  楼宇的前端控制JS
+ *  收费项目的前端控制JS
  * 作者：吕淑兰
  * 
  */
 $(function(){
-	var rows=2;
-	var page=1;
-	var pageCount=0;
+	var itemno=0;
+	var unit=null;
+	var feetypeNo=0;
+	var cycle=null;
+	var status=null;
 
-	//嵌入列表页面
-	$("div#buildingmaincontent").load("building/list.html",function(){
-		//操作列表的方法
-		//取得楼宇的列表，分页模式
-		function getListInfo(){
-			$.getJSON("build/list/all/page",{page:page,rows:rows},function(data){
-				//显示个数和页数
-				$("span#count").html(data.count);
-				$("span#pagecount").html(data.page+"/"+data.pageCount);
-				pageCount=data.pageCount;
-				//显示列表
-				$("table#BuildingTable tbody").html("");
-				for(var i=0;i<data.list.length;i++){
-					var tr="<tr><td>"+data.list[i].no+"</td><td>"+data.list[i].area+"</td><td>"+data.list[i].code+"</td><td>"+data.list[i].address+
-					"</td><td>"+data.list[i].buildType+"</td><td>"+data.list[i].direction+"</td><td>"+data.list[i].home+"</td><td>"+data.list[i].house+"</td></tr>";
-					$("table#BuildingTable tbody").append(tr);
-				}
-		
-			});
+	//设置系统页面标题
+	$("span#mainpagetille").html("收费项目管理");
+	//显示收费项目列表
+	$("table#AreaGrid").jqGrid({
+		url: 'area/list/condition/page',
+		datatype: "json",
+		colModel: [
+			//{ label: '序号', name: 'no', width: 50 },
+			{ label: '收费项目编码', name: 'code', width: 50 },
+			{ label: '收费项目名称', name: 'name', width: 50 },
+			{ label: '收费单位', name: 'unit', width: 50 },
+			{ label: '收费类型', name: 'feetype.no', width: 50 },
+			{ label: '周期性', name: 'cycle', width: 50},
+			{ label: '收费', name: 'status', width: 50 },
+			{ label: '收费项目说明', name: 'desc', width: 50 } 
+		],
+		caption:"收费项目列表",
+		viewrecords: true, //显示总记录数
+		autowidth: true,
+		height: 300,
+		rowNum: 5,
+		rowList:[5,6,7,8,9,10],
+		jsonReader : { 
+		      root: "list", 
+		      page: "page", 
+		      total: "pageCount", 
+		      records: "count", 
+		      repeatitems: true, 
+		      id: "no"},
+		pager: "#AreaGridPager",
+		multiselect:false,
+		onSelectRow:function(ino){
+			itemno=ino;
 		}
 		
-		//定义分页导航链接处理事件
-		$("div#page_nav a").on("click",function(event){
-			  var action=$(this).attr("href");
-			  event.preventDefault();
-			  switch(action){
-			  	case "top":
-			  		page=1;
-			  		getListInfo();
-			  		break;
-			  	case "pre":
-			  		if(page>1){
-			  			page=page-1;
-			  			getListInfo();
-			  		}
-			  		break;
-			  	case "next":
-			  		if(page<pageCount){
-			  			page=page+1;
-			  			getListInfo();
-			  		}
-			  		break;
-			  	case "last":
-			  		page=pageCount;
-			  		getListInfo();
-			  		break;
-			  }
-			  
-			
-		});
-		//初始调用取得分页列表数据
-		getListInfo();
+	});
+	//取得收费项目列表，填充收费单位下拉框
+	$.getJSON("list/condition/page",function(utilList){
+		if(utilList){
+			$.each(utilList,function(index,um){
+				$("select#UtilSelection").append("<option value='"+um.util+"'>"+um.util+"</option>");
+			});
+		}
+	});
+	//取得收费项目列表，填充收费类型下拉框
+	$.getJSON("list/all",function(List){
+		if(List){
+			$.each(List,function(index,dm){
+				$("select#FeeTypeNoSelection").append("<option value='"+dm.no+"'>"+dm.name+"</option>");
+			});
+		}
+	});
+	//设置检索参数，更新jQGrid的列表显示
+	function reloadParkList()
+	{
+		$("table#AreaGrid").jqGrid('setGridParam',{postData:{unit:unit,
+			feetypeNo:feetypeNo,cycle:cycle,status:status}}).trigger("reloadGrid");
+		
+	}
+	
+	//定义收费项目下拉框的更新事件的处理
+	$("select#UtilSelection").off().on("change",function(){
+		util=$("select#UtilSelection").val();
+		reloadParkList();
+	});
+	//定义收费类型下拉框的更新事件的处理
+	$("select#FeeTypeNoSelection").off().on("change",function(){
+		feetypeNo=$("select#FeeTypeNoSelection").val();
+		reloadParkList();
 	});
 	
+	//定义周期性的更新事件的处理
+	$("input[name='cycle']").off().on("change",function(){
+		cycle=$("input[name='cycle']").val();
+		reloadParkList();
+	});
+	//定义收费的更新事件的处理
+	$("input[name='status']").off().on("change",function(){
+		status=$("input[name='status']").val();
+		reloadParkList();
+	});
+
+	
+	//点击检索事件处理
+	$("a#AreaSearchButton").on("click",function(){
+		util=$("select#UtilSelection").val();
+		cycle=$("input[name='cycle']").val();
+		cycle=$("input[name='cycle']").val();
+		status=$("input[name='status']").val();
+		reloadParkList();
+	});
+	
+	
+	//===========================增加收费项目处理================================================
+	$("a#AreaAddLink").off().on("click",function(){
+		$("div#AreaDialogArea").load("area/add.html",function(){
+			//验证提交数据
+			$("form#AreaAddForm").validate({
+				rules: {
+					name: {
+						required: true
+					},
+					address: {
+						required: true
+					},
+					developer: {
+						required: true
+					},
+					buildingarea: {
+						required: true,
+						min:0
+					},
+					usearea: {
+						required: true,
+						min:0
+					},
+					
+					parkarea: {
+						required: true,
+						min:0
+					},
+					home: {
+						required: true
+					},
+					house: {
+						required: true
+					},
+					park: {
+						required: true
+					}
+				},
+				message:{
+					name: {
+						required: "收费项目名称为空"
+					},
+					address: {
+						required: "收费项目地址为空"
+					},
+					developer: {
+						required: "开发商为空"
+					},
+					buildingarea: {
+						number: "总建筑面积必须是数值",
+				    	range: "大于0"
+					},
+					usearea: {
+						number: "总使用面积必须是数值",
+				    	range: "小于总建筑面积"
+					},
+					
+					parkarea: {
+						number: "车位面积必须是数值",
+				    	range: "小于总建筑面积"
+					},
+					home: {
+						number: "总居民数必须是数值",
+				    	range: "大于等于0"
+					},
+					house: {
+						number: "总公建数必须是数值",
+				    	range: "大于等于0"
+					},
+					park: {
+						number: "车位数必须是数值",
+				    	range: "大于等于0"
+					}
+				}
+			});
+			//增加收费项目的弹窗
+			$("div#AreaDialogArea").dialog({
+				title:"增加收费项目",
+				width:900
+			});
+			
+			//拦截增加提交表单
+			$("form#AreaAddForm").ajaxForm(function(result){
+				if(result.status=="OK"){
+					reloadParkList(); //更新收费项目列表
+				}
+				//alert(result.message);
+				//BootstrapDialog.alert(result.message);
+				BootstrapDialog.show({
+		            title: '收费项目操作信息',
+		            message:result.message,
+		            buttons: [{
+		                label: '确定',
+		                action: function(dialog) {
+		                    dialog.close();
+		                }
+		            }]
+		        });
+				$("div#AreaDialogArea" ).dialog( "close" );
+				$("div#AreaDialogArea" ).dialog( "destroy" );
+				$("div#AreaDialogArea").html("");
+				
+			});
+			
+			//点击取消按钮处理
+			$("input[value='取消']").on("click",function(){
+				$("div#AreaDialogArea" ).dialog( "close" );
+				$("div#AreaDialogArea" ).dialog( "destroy" );
+				$("div#AreaDialogArea").html("");
+			});
+		});
+	});
+	
+	
+	//===============================修改收费项目处理=============================
+	
+
+	//===============================删除收费项目处理=====================================
+
+
+
+	//================================查看收费项目处理====================================
+
+	$("a#AreaViewLink").off().on("click",function(){
+		
+		if(areano==0){
+			BootstrapDialog.show({
+	            title: '收费项目操作信息',
+	            message:"请选择要查看的收费项目",
+            	buttons: [{
+	                label: '确定',
+	                action: function(dialog) {
+	                    dialog.close();
+	                }
+	            }]
+	        });
+		}
+		else{
+			$("div#AreaDialogArea").load("area/view.html",function(){
+				//取得选择的收费项目
+				$.getJSON("area/get",{no:areano},function(area){
+					if(area){
+						$("input#no").val(areano);
+						
+						alert(area.name);
+						$("input#name").val(area.name);
+						$("input#address").val(area.address);
+						$("input#developer").val(area.developer);
+						$("input#buildingarea").val(area.buildingarea);
+						$("input#usearea").val(area.usearea);
+						$("input#parkarea").val(area.parkarea);
+						$("input#home").val(area.home);
+						$("input#house").val(area.house);
+						$("input#park").val(area.park);
+						
+					}
+				});
+				//弹出Dialog
+				$("div#AreaDialogArea" ).dialog({
+					title:"收费项目详细",
+					width:800
+				});
+				//点击取消按钮处理
+				$("input[value='关闭']").on("click",function(){
+					$("div#AreaDialogArea" ).dialog( "close" );
+					$("div#AreaDialogArea" ).dialog( "destroy" );
+					$("div#AreaDialogArea").html("");
+				});
+
+			});
+			
+		}
+	});
+	
+
 });

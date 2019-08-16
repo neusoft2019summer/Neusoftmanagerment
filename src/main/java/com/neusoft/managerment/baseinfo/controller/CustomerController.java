@@ -78,13 +78,13 @@ public class CustomerController {
 	@GetMapping(value="/list/condition/page")
 	public ResultMessage<CustomerModel> getListByConditionWithPage(
 		@RequestParam(required = false,defaultValue ="0") int typeno,
-		@RequestParam(required = false,defaultValue ="null") String ccode,
-		@RequestParam(required = false,defaultValue ="null") String cname,
+		@RequestParam(required = false,defaultValue ="") String ccode,
+		@RequestParam(required = false,defaultValue ="") String cname,
 		@DateTimeFormat(pattern = "yyyy-MM-dd") 
 		@RequestParam(required = false,defaultValue ="") Date feestartdate,
 		@DateTimeFormat(pattern = "yyyy-MM-dd") 
 		@RequestParam(required = false,defaultValue ="") Date feeenddate, 
-		@RequestParam(required = false,defaultValue ="8") int rows,
+		@RequestParam(required = false,defaultValue ="20") int rows,
 		@RequestParam(required = false,defaultValue = "1") int page) 
 				throws Exception{
 	ResultMessage<CustomerModel> result=new ResultMessage<CustomerModel>("OK","检索取得员工列表分页成功");

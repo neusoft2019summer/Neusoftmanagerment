@@ -26,32 +26,44 @@
 		<result property="wfee" column="WFEE" />
 		<!-- <result property="providerno" column="PROVIDERNO" /> -->
 		<result property="clientfeeback" column="CLIENTFEEBACK" />
-
-
+	</resultMap>
+	<!--關聯外鍵  -->
+	<resultMap id="MaintainrecordResultMapWithRelation" type="MaintainRecord" extends="MaintainrecordResultMap">
+	   <association property="mtype" resultMap="com.neusoft.managerment.feeinfo.mapper.IM_typeMapper.M_typeResultMap"></association>
+	   <association property="room" resultMap="com.neusoft.managerment.baseinfo.mapper.IRoomMapper.RoomResultMap"></association>
+	   <association property="wemp" resultMap="com.neusoft.managerment.feeinfo.mapper.IWempMapper.WempResultMap"></association>
+	   <association property="provider" resultMap="com.neusoft.managerment.baseinfo.mapper.IMaintainProviderMapper.MaintainproviderResultMap"></association>
+	   
 	</resultMap>
 
-	<insert id="create" parameterType="MaintainRecord" flushCache="true">
-		<!-- insert into maintainrecord (RECORDNO,MTYPENO,ROOMNO,CONTACTNAME,MOBILE,TEL,MDATE,MDESC,WEMPID,WDATE,WTASK,WRESULT,WSTATUS,WFEE,PROVIDERNO,CLIENTFEEBACK)
-		values (#{recordno},#{mtypyno},#{roomno},#{contactname},#{mobile},#{tel},#{mdate},
-		                 #{mdesc},#{wempid},#{wdate},#{wtask},#{wresult},#{wstatus},#{wfee},#{providerno},#{clientfeeback})
- -->
+	 <insert id="insert" keyProperty="recordno"   keyColumn="RECORDNO" useGeneratedKeys="true" flushCache="true">
+		insert into maintainrecord (MTYPENO,ROOMNO,CONTACTNAME,MOBILE,TEL,MDATE,MDESC,WEMPID,WDATE,WTASK,WRESULT,WSTATUS,WFEE,PROVIDERNO,CLIENTFEEBACK)
+		values (#{mtype.mtypeno},#{room.roomno},#{contactname},#{mobile},#{tel},#{mdate},
+		                 #{mdesc},#{wemp.wempid},#{wdate},#{wtask},#{wresult},#{wstatus},#{wfee},#{provider.providerno},#{clientfeeback})
+
 	</insert>
 
 	<update id="update" flushCache="true">
-		
+		update  maintainrecord set MTYPENO=#{mtype.mtypeno},ROOMNO=#{room.roomno},MOBILE=#{mobile},TEL=#{tel},MDATE=#{mdate},MDESC=#{mdesc},
+   WEMPID=#{wemp.wempid},WDATE=#{wdate},WTASK=#{wtask},WRESULT=#{wresult},WSTATUS=#{wstatus},WFEE=#{wfee},
+   PROVIDERNO=#{provider.providerno},CLIENTFEEBACK=#{clientfeeback}
+   where RECORDNO=#{recordno}
 	</update>
 
 	<delete id="delete" flushCache="true">
-		
+		delete from maintainrecord where RECORDNO=#{recordno}
 	</delete>
-
-	<select id="selectListByAll" resultMap="NewsResultMap">
-		
-
+	<!--分页查询维修表单  -->
+	<select id="selectListByAllWithPage" resultMap="MaintainrecordResultMapWithRelation">
+	select * from maintainrecord a inner join m_type b on a.mtypeno=b.mtypeno inner join room c on a.roomno=c.roomno inner join wemp d on a.wempid=d.wempid inner join maintainprovider e on a.providerno=e.providerno
+	limit #{start},#{rows}
 	</select>
-	<select id="selectListType" resultMap="NewsResultMap">
-		
+	<!-- 取得新闻的个数，使用IFNULL函数判断count函数结果是否为null, 为null返回0 -->
+  <select id="selectcountbyall" resultType="int">
+  select IFNULL(count(recordno),0) FROM maintainrecord
+  </select>
+	
 
-	</select>
 
+	
 </mapper>

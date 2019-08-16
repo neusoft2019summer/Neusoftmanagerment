@@ -121,14 +121,17 @@ $(function(){
 		}
 		else {
 			$("div#BuildingDialogArea").load("building/modify.html",function(){
+				
 				//取得选择的楼宇
 				$.getJSON("building/get",{no:buildingNo},function(data){
+					//alert("afsaf");
 					if(data.status=="OK"){
-						$("input[name='no']").val(buildingNo);
-						$("input[name='areaNo']").val(data.model.area.no);
+						alert(data.message);
+						//$("input[name='no']").val(buildingNo);
+						$("input[name='area']").val(data.model.area.no);
 						$("input[name='code']").val(data.model.code);
 						$("input[name='address']").val(data.model.address);
-						$("input[name='buildingTypeNo']").val(data.model.buildingtype.no);
+						$("input[name='buildingtype']").val(data.model.buildingtype.no);
 						$("input[name='direction']").val(data.model.direction);
 						$("input[name='home']").val(data.model.home);
 						$("input[name='house']").val(data.model.house);

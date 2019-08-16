@@ -15,11 +15,11 @@ import lombok.Data;
 @Alias("MaintainProvider")
 @Data
 public class MaintainProviderModel implements Serializable {
-	private int providerno = 0;
-	private String pname = null;
-	private String pcontact = null;
-	private String paddress = null;
-	private String pmobile = null;
-	private String tel = null;
+	private int providerno = 0; //单位序号
+	private String pname = null;//单位名称
+	private String pcontact = null;//联系人
+	private String paddress = null;//单位地址
+	private String pmobile = null;//手机
+	private String tel = null;//固定电话
 	
 }

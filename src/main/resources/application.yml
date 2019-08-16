@@ -13,6 +13,10 @@ spring:
     date-format: yyyy-MM-dd
     time-zone: GMT+8
     
+<<<<<<< HEAD
+=======
+
+>>>>>>> branch 'master' of https://github.com/neusoft2019summer/Neusoftmanagerment.git
 mybatis: 
   mapper-locations:
   - classpath*:/mappers/**/*.xml
