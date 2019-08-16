@@ -78,8 +78,8 @@ public class CustomerController {
 	@GetMapping(value="/list/condition/page")
 	public ResultMessage<CustomerModel> getListByConditionWithPage(
 		@RequestParam(required = false,defaultValue ="0") int typeno,
-		@RequestParam(required = false,defaultValue ="null") String ccode,
-		@RequestParam(required = false,defaultValue ="null") String cname,
+		@RequestParam(required = false,defaultValue ="") String ccode,
+		@RequestParam(required = false,defaultValue ="") String cname,
 		@DateTimeFormat(pattern = "yyyy-MM-dd") 
 		@RequestParam(required = false,defaultValue ="") Date feestartdate,
 		@DateTimeFormat(pattern = "yyyy-MM-dd") 

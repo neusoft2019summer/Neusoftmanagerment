@@ -63,7 +63,7 @@
   select a.*,b.* from Customer a inner join CustomerType b on a.TypeNo=b.TypeNo
   <where>
      <if test="typeno!=null and typeno!='' ">
-      and b.TYPENAME in (select typename from CustomerType c where t.TypeNo=#{typeno})
+      and b.TYPENAME in (select typename from CustomerType  where TypeNo=#{typeno})
      </if>
      <if test="cname!=null and cname!=''">
       and a.CNAME=#{cname}
