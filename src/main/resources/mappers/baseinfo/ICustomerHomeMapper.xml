@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.managerment.baseinfo.mapper.ICustomerHomeMapper">
+
+  <cache/>
+
+  <resultMap id="CustomerHomeResultMap" type="CustomerHome">
+    <id property="chno" column="CHNO"/>
+    <result property="livedate" column="LiveDate"/>
+    <result property="receivedate" column="ReceiveDate"/>
+    <result property="feestartdate" column="FeeStartDate"/>
+    <result property="feeenddate" column="FeeEndDate"/>
+    <result property="humancount" column="HumanCount"/>
+    <result property="chstatus" column="CHStatus"/>
+  </resultMap>
+
+  <!-- 关联的客户序号的ResultMap -->
+  <resultMap  id="CustomerHomeWithCustomerNoResultMap" type="CustomerHome" extends="CustomerHomeResultMap">
+  	<association property="customer" resultMap="com.neusoft.managerment.baseinfo.mapper.ICustomerMapper.CustomerResultMap"></association>
+  </resultMap>
+
+  <!-- 关联的房间编号的ResultMap -->
+  <resultMap  id="CustomerHomeWithRoomNoResultMap" type="CustomerHome" extends="CustomerHomeResultMap">
+  	<association property="room" resultMap="com.neusoft.managerment.baseinfo.mapper.IRoomMapper.RoomResultMap"></association>
+  </resultMap>
+
+  <!-- 关联的居住类型号的ResultMap -->
+  <resultMap  id="CustomerHomeWithLivingTypeNoResultMap" type="CustomerHome" extends="CustomerHomeResultMap">
+  	<association property="livingtype" resultMap="com.neusoft.managerment.baseinfo.mapper.ILivingTypeMapper.LivingTypeResultMap"></association>
+  </resultMap>
+  
+  <!-- 关联的CustomerNo,RoomNo,LivingTypeNo的ResultMap -->
+  <resultMap  id="CustomerHomeWithFKResultMap" type="CustomerHome" extends="CustomerHomeResultMap">
+    <association property="customer" resultMap="com.neusoft.managerment.baseinfo.mapper.ICustomerMapper.CustomerResultMap"></association>
+    <association property="room" resultMap="com.neusoft.managerment.baseinfo.mapper.IRoomMapper.RoomResultMap"></association>
+  	<association property="livingtype" resultMap="com.neusoft.managerment.baseinfo.mapper.ILivingTypeMapper.LivingTypeResultMap"></association>
+  </resultMap>
+
+  <insert id="create"  keyProperty="chno"   keyColumn="CHNO" useGeneratedKeys="true" flushCache="true">
+   insert into CustomerHome (CustomerNo,RoomNo,LivingTypeNo,LiveDate,ReceiveDate,FeeStartDate,FeeEndDate,HumanCount,CHStatus)
+   values (#{customer.customerno},#{room.roomno},#{livingtype.livingtypeno},#{livedate},#{receivedate},#{feestartdate},
+   #{feeenddate},#{humancount},#{chstatus})
+  </insert>
+  
+  <update id="update" flushCache="true">
+   update CustomerHome set CustomerNo=#{customer.customerno},RoomNo=#{room.roomno},LivingTypeNo=#{livingType.livingtypeno},LiveDate=#{livedate},
+   ReceiveDate=#{receivedate},FeeStartDate=#{feestartdate},FeeEndDate=#{feeenddate},HumanCount=#{humancount},CHStatus=#{chstatus},
+   where CHNO=#{chno}
+  </update>
+  
+  <delete id="delete" flushCache="true">
+   delete from CustomerHome where CHNO=#{chno}
+  </delete>
+  
+  <select id="selectListByAll" resultMap="CustomerHomeWithFKResultMap">
+   select * from CustomerHome
+  </select>
+  
+  
+  <select id="selectByCHNO" resultMap="CustomerHomeResultMap" >
+  select * from CustomerHome  where CHNO=#{chno}
+  </select>
+
+  <select id="selectListByAllWithPage" resultMap="CustomerHomeWithFKResultMap">
+   select * from CustomerHome limit #{start},#{rows}
+  </select>
+  
+  <!-- 取得所有客户房间列表,关联CustomerNo-->
+  <select id="selectListByAllWithCustomerNo" resultMap="CustomerHomeWithCustomerNoResultMap" >
+  	select a.*,b.* from CustomerHome a inner join Customer b on a.CustomerNo=b.CustomerNo
+  </select>
+  
+    <!-- 取得所有客户房间列表,关联RoomNo-->
+  <select id="selectListByAllWithRoomNo" resultMap="CustomerHomeWithRoomNoResultMap" >
+  	select a.*,c.* from CustomerHome a inner join Room c on a.RoomNo=c.RoomNo
+  </select>
+  
+    <!-- 取得所有客户房间列表,关联LivingTypeNo-->
+  <select id="selectListByAllWithLivingTypeNo" resultMap="CustomerHomeWithLivingTypeNoResultMap" >
+  	select a.*,d.* from CustomerHome a inner join LivingType d on a.LivingTypeNo=d.TypeNo
+  </select>
+  
+   <!-- 取得所有客户房间列表,关联CustomerNo,RoomNo,LivingTypeNo-->
+  <select id="selectListByAllwithFK" resultMap="CustomerHomeWithFKResultMap">
+   select a.*,b.*,c.*,d.* from Room a inner join Customer b on a.CustomerNo=b.CustomerNo 
+                                      inner join Room c on a.RoomNo=c.RoomNo 
+                                      inner join LivingType d on a.LivingTypeNo=d.LivingTypeNo 
+  </select>
+  
+</mapper> 

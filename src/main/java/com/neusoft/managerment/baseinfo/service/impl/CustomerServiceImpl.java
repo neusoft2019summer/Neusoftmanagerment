@@ -1,5 +1,7 @@
 package com.neusoft.managerment.baseinfo.service.impl;
 
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,15 +49,15 @@ public class CustomerServiceImpl implements ICustomerService {
 	}
 
 	@Override
+	public List<CustomerModel> getListByAllWithCustomerTypeWithPage(int rows, int page) throws Exception {
+		
+		return customerMapper.selectListByAllWithCustomerTypeWithPage(rows*(page-1), rows);
+	}
+	
+	@Override
 	public CustomerModel getByCustomerNo(int customerno) throws Exception {
 		
 		return customerMapper.selectByCustomerNo(customerno);
-	}
-
-	@Override
-	public List<CustomerModel> getListByAllWithPage(int rows, int page) throws Exception {
-		
-		return customerMapper.selectListByAllWithPage(rows*(page-1), rows);
 	}
 
 	@Override
@@ -65,7 +67,19 @@ public class CustomerServiceImpl implements ICustomerService {
 	}
 
 	@Override
-	public int getPageCountByAll(int rows) throws Exception {
+	public List<CustomerModel> getListByConditionWithPage(int typeno, String ccode, String cname, Date feestartdate, Date feeenddate,  int rows, int page) throws Exception {
+		
+		return customerMapper.selectListByConditionWithPage(typeno, ccode, cname, feestartdate, feeenddate,  rows*(page-1), rows);
+	}
+
+	@Override
+	public int getCountByCondition(int typeno, String ccode, String cname, Date feestartdate, Date feeenddate) throws Exception {
+		
+		return customerMapper.selectCountByCondition(typeno, ccode, cname, feestartdate, feeenddate);
+	}
+
+	@Override
+	public int getPageCountByAll(int rows) throws Exception{
 		int pageCount=0;
 		int count=this.getCountByAll();
 		if(count%rows==0) {
@@ -77,11 +91,18 @@ public class CustomerServiceImpl implements ICustomerService {
 		return pageCount;
 	}
 
-
 	@Override
-	public List<CustomerModel> getListByAllWithCustomerType(int rows, int page) throws Exception {
-		
-		return customerMapper.selectListByAllWithCustomerType(rows*(page-1), rows);
+	public int getPageCountByConditionWithPage(int typeno, String ccode, String cname, Date feestartdate, Date feeenddate, int rows) throws Exception {
+
+		int pageCount=0;
+		int count=this.getCountByCondition(typeno, ccode, cname,feestartdate, feeenddate);
+		if(count%rows==0) {
+			pageCount=count/rows;
+		}
+		else {
+			pageCount=count/rows+1;
+		}
+		return pageCount;
 	}
 
 

@@ -6,9 +6,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 
 import com.neusoft.managerment.message.ResultMessage;
 import com.neusoft.managerment.office.model.NewsModel;
@@ -56,6 +58,14 @@ public class NewsController {
 			
 			newservice.modifynews(newsmodel);
 			return new ResultMessage<NewsModel>("OK","修改新闻成功");		
+		}
+		
+	//取得所有收费类型列表，有分页
+	@GetMapping(value="/list/all/page")
+	public ResultMessage<NewsModel> getListByAllWitPage(@RequestParam(required = false,defaultValue ="4") int rows,@RequestParam(required = false,defaultValue = "1") int page) throws Exception{
+		ResultMessage<NewsModel> result=new ResultMessage<NewsModel>("OK","新闻列表分页模式成功");	
+		result.setList(newservice.getListByAllWithPage(rows, page));
+		return result;
 		}
 
 }

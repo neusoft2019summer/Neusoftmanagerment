@@ -24,12 +24,12 @@
 
   <insert id="create"  keyProperty="customerno"   keyColumn="CUSTOMERNO" useGeneratedKeys="true"  flushCache="true">
    insert into Customer (TYPENO,CCODE,CNAME,CARDCODE,MOBILE,FEESTARTDATE,FEEENDDATE,CSTATUS)
-   values (#{CustomerType.typeno},#{ccode},#{cname},#{cardcode},#{mobile},
+   values (#{customertype.typeno},#{ccode},#{cname},#{cardcode},#{mobile},
    #{feestartdate},#{feeenddate},#{cstatus})
   </insert>
   
   <update id="update" flushCache="true">
-   update Customer set TYPENO=#{CustomerType.typeno},CCODE=#{ccode},CNAME=#{cname},
+   update Customer set TYPENO=#{customertype.typeno},CCODE=#{ccode},CNAME=#{cname},
    CARDCODE=#{cardcode},MOBILE=#{mobile},FEESTARTDATE=#{feestartdate},FEEENDDATE=#{feeenddate},CSTATUS=#{cstatus}
    where CUSTOMERNO=#{customerno}
   </update>
@@ -38,28 +38,75 @@
    delete from Customer where CUSTOMERNO=#{customerno}
   </delete>
   
+  <!-- 1 查询客户的信息 ,无关联客户类型-->
   <select id="selectListByAll" resultMap="CustomerResultMap">
    select * from Customer
   </select>
   
-  <select id="selectListByAllWithPage" resultMap="CustomerWithCustomerTypeResultMap">
-   select * from Customer limit #{start},#{rows}
+  <!-- 2 取得所有客户列表,关联客户类型,分页模式 -->
+  <select id="selectListByAllWithCustomerTypeWithPage" resultMap="CustomerWithCustomerTypeResultMap">
+   select a.*,b.* from Customer a inner join CustomerType b on a.TypeNo=b.TypeNo limit #{start},#{rows}
   </select>
   
+  <!-- 3 取得指定客户的信息 -->
   <select id="selectByCustomerNo" resultMap="CustomerResultMap" >
   select * from Customer  where CUSTOMERNO=#{customerno}
   </select>
   
-  <!-- 取得客户的个数，使用IFNULL函数判断count函数结果是否为null, 为null返回0 -->
+  <!-- 4 取得客户的个数，使用IFNULL函数判断count函数结果是否为null, 为null返回0 -->
   <select id="selectCountByAll" resultType="int">
    select IFNULL(count(CUSTOMERNO), 0) from Customer
   </select>
   
-  <!-- 查询所有客户列表，关联CustomerType -->
-  <select id="selectListByAllWithCustomerType" resultMap="CustomerWithCustomerTypeResultMap">
-   select a.*,b.* from Customer a inner join CustomerType b on a.TypeNo=b.TypeNo
+  <!-- 5 根据综合检索条件取得客户列表-->
+  <select id="selectListByConditionWithPage" resultMap="CustomerWithCustomerTypeResultMap">
+  select a.*,b.* from Customer a inner join CustomerType b on a.TypeNo=b.TypeNo
+  <where>
+     <if test="typeno!=null and typeno!='' ">
+      and b.TYPENAME in (select typename from CustomerType  where TypeNo=#{typeno})
+     </if>
+     <if test="cname!=null and cname!=''">
+      and a.CNAME=#{cname}
+     </if>
+     <if test="ccode!=null and ccode!=''" >
+     and a.CCODE=#{ccode}
+     </if>
+     <if test="feestartdate!=null and feestartdate!=''">
+     and a.FEESTARTDATE &gt;=#{feestartdate}
+     </if>
+     <if test="feeenddate!=null and feeenddate!=''" >
+     and a.FEEENDDATE &lt;=#{feeenddate}
+     </if>
+  </where> 
+  limit #{start},#{rows}
   </select>
+
+  <!-- 6 根据综合检索条件取得客户个数 -->
+  <select id="selectCountByCondition" resultType="int">
+  select IFNULL(count(CUSTOMERNO), 0) from Customer a inner join CustomerType b on a.TYPENO=b.TYPENO
+  <where>
+     <if test="typeno!=null and typeno!='' ">
+      and b.TYPENAME in (select typename from CustomerType  where TYPENO=#{typeno})
+     </if>
+     <if test="cname!=null and cname!=''">
+      and a.CNAME=#{cname}
+     </if>
+     <if test="ccode!=null and ccode!=''" >
+     and a.CCODE=#{ccode}
+     </if>
+     <if test="feestartdate!=null">
+     and FEESTARTDATE &gt;=#{feestartdate}
+     </if>
+     <if test="feeenddate!=null">
+     and FEEENDDATE &lt;=#{feeenddate}
+     </if>
+  </where>  
+  </select> 
   
+  <!-- 7 取得客户的页数，使用IFNULL函数判断count函数结果是否为null, 为null返回0 
+  <select id="selectPageCountByAll" resultType="int">
+   select IFNULL(count(CUSTOMERNO), 0) from Customer
+  </select> -->
   
 </mapper>
 
