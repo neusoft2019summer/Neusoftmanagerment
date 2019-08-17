@@ -99,14 +99,6 @@ public class RoomController {
 		return roomService.getListByAllWithBuildingNo();
 	}
 	
-	/*
-	//取得所有房间列表,关联TypeNo和BuildingNo
-	@GetMapping("/getwithtypenoandbuildingno")
-	public List<RoomModel> getListByAllWithTypeNoAndBuildingNo() throws Exception{
-		return roomService.getListByAllWithTypeNoAndBuildingNo();
-	}
-	*/
-	
 	//根据类型编号取得此户型的房间
 	@GetMapping("/get/byhousetypeno")
 	public RoomModel getListByHouseTypeNo(int housetypeno) throws Exception{

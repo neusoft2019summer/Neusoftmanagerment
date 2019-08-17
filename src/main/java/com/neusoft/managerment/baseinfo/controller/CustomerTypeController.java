@@ -18,7 +18,7 @@ import com.neusoft.managerment.message.ResultMessage;
  */
 //客户类型的控制类
 @RestController
-@RequestMapping("/customerType")
+@RequestMapping("/customertype")
 public class CustomerTypeController {
 	@Autowired
 	private ICustomerTypeService customerTypeService=null;

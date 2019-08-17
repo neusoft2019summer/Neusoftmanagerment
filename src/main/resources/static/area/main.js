@@ -22,7 +22,6 @@ $(function(){
 		url: 'area/list/condition/page',
 		datatype: "json",
 		colModel: [
-			//{ label: '序号', name: 'no', width: 50 },
 			{ label: '小区名称', name: 'name', width: 50 },
 			{ label: '小区地址', name: 'address', width: 50 },
 			{ label: '开发商', name: 'developer', width: 50 },
@@ -50,6 +49,7 @@ $(function(){
 		multiselect:false,
 		onSelectRow:function(ano){
 			areano=ano;
+
 		}
 		
 	});
@@ -245,7 +245,6 @@ $(function(){
 			});
 		});
 	});
-	
 	
 	//===============================修改小区处理=============================
 	$("a#AreaModifyLink").off().on("click",function(){

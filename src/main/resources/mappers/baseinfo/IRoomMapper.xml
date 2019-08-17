@@ -41,7 +41,7 @@
   <resultMap  id="RoomWithFKResultMap" type="Room" extends="RoomResultMap">
 	<association property="area" resultMap="com.neusoft.managerment.baseinfo.mapper.IAreaMapper.AreaResultMap"></association>
     <association property="buildingtype" resultMap="com.neusoft.managerment.baseinfo.mapper.IBuildingTypeMapper.BuildingTypeResultMap"></association>
-    <!--<association property="housetype" resultMap="com.neusoft.managerment.baseinfo.mapper.IHouseTypeMapper.HouseTypeResultMap"></association>-->
+    <association property="housetype" resultMap="com.neusoft.managerment.baseinfo.mapper.IHouseTypeMapper.HouseTypeResultMap"></association>
   	<association property="building" resultMap="com.neusoft.managerment.baseinfo.mapper.IBuildingMapper.BuildingResultMap"></association>
   </resultMap>
 
@@ -62,50 +62,105 @@
    delete from Room where ROOMNO=#{roomno}
   </delete>
   
+  <!-- 1 查询房间信息,无关联外键 -->
   <select id="selectListByAll" resultMap="RoomResultMap">
    select * from Room
   </select>
   
-  <select id="selectByRoomNo" resultMap="RoomResultMap" >
-  select * from Room  where ROOMNO=#{roomno}
+  <!-- 2 取得指定房间的信息,包含外表所有-->
+  <select id="selectByRoomNo" resultMap="RoomWithFKResultMap" >
+  select a.*,b.*,c.*,d.*,e.* from Room  a inner join Area b on a.AreaNo=b.AREANO 
+                                          inner join BuildingType c on a.BuildingTypeNo=c.TypeNo 
+                                          inner join HouseType d on a.HouseTypeNo=d.TypeNo 
+                                          inner join Building e on a.BuildingNo=e.BuildingNo
+                                          where ROOMNO=#{roomno}
   </select>
 
+  <!-- 
   <select id="selectListByAllWithPage" resultMap="RoomResultMap">
    select * from Room limit #{start},#{rows}
   </select>
-  
-  <!-- 取得房间的个数，使用IFNULL函数判断count函数结果是否为null, 为null返回0 -->
-  <select id="selectCountByAll" resultType="int">
-   select IFNULL(count(ROOMNO), 0) from Room
-  </select>
-  
-  <!-- 取得所有房间列表,关联AreaNo-->
-  <select id="selectListByAllWithAreaNo" resultMap="RoomWithAreaResultMap" >
-  	select a.*,b.* from Room a inner join Area b on a.AreaNo=b.AreaNo
-  </select>
-  
-    <!-- 取得所有房间列表,关联BuildingTypeNo-->
-  <select id="selectListByAllWithBuildingTypeNo" resultMap="RoomWithBuildingTypeResultMap" >
-  	select a.*,c.* from Room a inner join BuildingType c on a.BuildingTypeNo=c.TypeNo
-  </select>
-  
-    <!-- 取得所有房间列表,关联HouseTypeNo -->
-  <select id="selectListByAllWithHouseTypeNo" resultMap="RoomWithHouseTypeResultMap" >
-  	select a.*,d.* from Room a inner join HouseType d on a.HouseTypeNo=d.TypeNo
-  </select>
-  
-  <!-- 取得所有房间列表,关联BuildingNo-->
-  <select id="selectListByAllWithBuildingNo" resultMap="RoomWithBuildingResultMap" >
-  	select a.*,e.* from Room a inner join Building e on a.BuildingNo=e.BuildingNo	
-  </select>
-  
-  <!-- 取得所有房间列表,关联AreaNo,BuildingTypeNo,HouseTypeNo,BuildingNo-->
+   -->
+   
+  <!-- 3 取得所有房间列表,关联AreaNo,BuildingTypeNo,HouseTypeNo,BuildingNo-->
   <select id="selectListByAllwithFK" resultMap="RoomWithFKResultMap">
    select a.*,b.*,c.*,d.*,e.* from Room a inner join Area b on a.AreaNo=b.AREANO 
                                           inner join BuildingType c on a.BuildingTypeNo=c.TypeNo 
                                           inner join HouseType d on a.HouseTypeNo=d.TypeNo 
                                           inner join Building e on a.BuildingNo=e.BuildingNo
+  </select> 
+  
+  <!-- 4 取得房间的个数 -->
+  <select id="selectCountByAll" resultType="int">
+   select IFNULL(count(ROOMNO), 0) from Room
   </select>
+ 
+  <!-- 5 根据综合检索条件取得房间列表-->
+  <select id="selectListByConditionWithPage" resultMap="RoomWithFKResultMap">
+  select a.*,b.* from Customer a inner join CustomerType b on a.TypeNo=b.TypeNo
+  <where>
+     <if test="typeno!=null and typeno!='' ">
+      and b.TYPENAME in (select typename from CustomerType  where TypeNo=#{typeno})
+     </if>
+     <if test="cname!=null and cname!=''">
+      and a.CNAME=#{cname}
+     </if>
+     <if test="ccode!=null and ccode!=''" >
+     and a.CCODE=#{ccode}
+     </if>
+     <if test="feestartdate!=null and feestartdate!=''">
+     and a.FEESTARTDATE &gt;=#{feestartdate}
+     </if>
+     <if test="feeenddate!=null and feeenddate!=''" >
+     and a.FEEENDDATE &lt;=#{feeenddate}
+     </if>
+  </where> 
+  limit #{start},#{rows}
+  </select>
+
+  <!-- 6 根据综合检索条件取得房间个数 -->
+  <select id="selectCountByCondition" resultType="int">
+  select IFNULL(count(CUSTOMERNO), 0) from Customer a inner join CustomerType b on a.TYPENO=b.TYPENO
+  <where>
+     <if test="typeno!=null and typeno!='' ">
+      and b.TYPENAME in (select typename from CustomerType  where TYPENO=#{typeno})
+     </if>
+     <if test="cname!=null and cname!=''">
+      and a.CNAME=#{cname}
+     </if>
+     <if test="ccode!=null and ccode!=''" >
+     and a.CCODE=#{ccode}
+     </if>
+     <if test="feestartdate!=null">
+     and FEESTARTDATE &gt;=#{feestartdate}
+     </if>
+     <if test="feeenddate!=null">
+     and FEEENDDATE &lt;=#{feeenddate}
+     </if>
+  </where>  
+  </select> 
+  
+  <!--  取得所有房间列表,关联AreaNo-->
+  <select id="selectListByAllWithAreaNo" resultMap="RoomWithAreaResultMap" >
+  	select a.*,b.* from Room a inner join Area b on a.AreaNo=b.AreaNo
+  </select>
+  
+  <!--  取得所有房间列表,关联BuildingTypeNo-->
+  <select id="selectListByAllWithBuildingTypeNo" resultMap="RoomWithBuildingTypeResultMap" >
+  	select a.*,c.* from Room a inner join BuildingType c on a.BuildingTypeNo=c.TypeNo
+  </select>
+  
+  <!--  取得所有房间列表,关联HouseTypeNo -->
+  <select id="selectListByAllWithHouseTypeNo" resultMap="RoomWithHouseTypeResultMap" >
+  	select a.*,d.* from Room a inner join HouseType d on a.HouseTypeNo=d.TypeNo
+  </select>
+  
+  <!--  取得所有房间列表,关联BuildingNo-->
+  <select id="selectListByAllWithBuildingNo" resultMap="RoomWithBuildingResultMap" >
+  	select a.*,e.* from Room a inner join Building e on a.BuildingNo=e.BuildingNo	
+  </select>
+  
+
   
   <!-- 根据编号取得此小区类型的房间 -->
   <select id="selectListByAreaNo" resultMap="RoomWithHouseTypeResultMap">
