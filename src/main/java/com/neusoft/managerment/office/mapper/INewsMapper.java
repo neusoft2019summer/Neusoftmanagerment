@@ -22,11 +22,13 @@ public interface INewsMapper {
 	public List<NewsModel> selectListByAll() throws Exception;
 	public List<NewsModel> selectListType(String newstype) throws Exception;
 	
-	//取得所有新聞车位类型列表,分页模式
+	//取得所有新聞列表,分页模式
    public List<NewsModel> selectListByAllWithPage(@Param("start") int start,@Param("rows") int rows) throws Exception;
    
-   //取得新闻类型个数
+   //取得新闻个数
    public int selectcountbyall() throws Exception;
+   //取得指定新闻
+   public NewsModel selectbyno(int newsno) throws Exception;
    
 	
 

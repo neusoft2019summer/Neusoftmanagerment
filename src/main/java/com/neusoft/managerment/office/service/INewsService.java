@@ -27,6 +27,8 @@ public interface INewsService {
      public int getcountbyall() throws Exception;
     //取得新闻页数
  	public int getPageCountByAll(int rows) throws Exception;
+ 	//取得指定新闻
+ 	public NewsModel getByNo(int newsno)throws Exception;
 	 
 
 }

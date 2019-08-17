@@ -50,8 +50,11 @@
   <select id="selectcountbyall" resultType="int">
   select IFNULL(count(NEWSNO),0) FROM OFFICENEWS
   </select>
+<!--取得指定新闻  -->
 
-
+<select id="selectbyno" resultMap="NewsResultMap">
+select * from officenews where NEWSNO=#{newsno}
+</select>
   
 
   </mapper>

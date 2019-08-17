@@ -3,12 +3,12 @@ $(function(){
 	var rows=2;
 	var page=1;
 	var pageCount=0; 
-
+	function getListInfo(){
 	//嵌入列表页面
 	$("div#maintainrecordcontent").load("maintainrecord/list.html",function(){
 		//操作列表的方法 
 		//取得保修单的列表，分页模式
-		function getListInfo(){
+		
 			$.getJSON("maintainrecord/list/all/page",{page:page,rows:rows},function(data){
 				//显示个数和页数
 				$("span#count").html(data.count);
@@ -29,7 +29,8 @@ $(function(){
 				}
 		
 			});
-		}
+		});
+	}
 		
 		//定义分页导航链接处理事件
 		$("div#page_nav a").on("click",function(event){
@@ -60,8 +61,9 @@ $(function(){
 			  
 			
 		});
-		//初始调用取得分页列表数据
-		getListInfo();
-	});
+		
+	
+       //初始调用取得分页列表数据
+           getListInfo(); 
 	
 });

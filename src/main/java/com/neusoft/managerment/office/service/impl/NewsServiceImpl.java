@@ -78,6 +78,13 @@ public class NewsServiceImpl implements INewsService  {
 		return pageCount;
 	}
 
+	@Override
+	@Transactional(readOnly = true)
+	public NewsModel getByNo(int newsno) throws Exception {
+		
+		return newsmapper.selectbyno(newsno);
+	}
+
 	
 }
 
