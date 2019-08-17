@@ -120,16 +120,19 @@ $(function(){
 			$("form#CustomerAddForm").validate({
 				  rules: {
 				  	  ccode:{
-				  		  required: true
+				  		  required: true,
+				  		  ccode: true
 				  	  },
 					  cname:{
 					      required: true
 					  },
 					  cardcode:{
-					      required: true
+					      required: true,
+					      cardcode: true
 					  },
 					  mobile:{
-					      required: true
+					      required: true,
+					      mobile: true
 					  },
 					  feestartdate:{
 					      required: true
