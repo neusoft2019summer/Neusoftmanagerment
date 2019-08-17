@@ -47,7 +47,7 @@ public class ParkController {
 	
 	//取得所有车位列表
 	@GetMapping(value="/list/all")
-	public List<ParkModel> getBuildListByAll() throws Exception{
+	public List<ParkModel> getListByAll() throws Exception{
 		return ps.getListByAll();
 	}
 	//取得所有车位列表，有分页

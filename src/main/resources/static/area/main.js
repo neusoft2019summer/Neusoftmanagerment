@@ -22,10 +22,6 @@ $(function(){
 		url: 'area/list/condition/page',
 		datatype: "json",
 		colModel: [
-<<<<<<< HEAD
-=======
-			//{ label: '序号', name: 'no', width: 50 },
->>>>>>> branch 'master' of https://github.com/neusoft2019summer/Neusoftmanagerment.git
 			{ label: '小区名称', name: 'name', width: 50 },
 			{ label: '小区地址', name: 'address', width: 50 },
 			{ label: '开发商', name: 'developer', width: 50 },
@@ -52,11 +48,8 @@ $(function(){
 		pager: "#AreaGridPager",
 		multiselect:false,
 		onSelectRow:function(ano){
-<<<<<<< HEAD
-			no=ano;
-=======
 			areano=ano;
->>>>>>> branch 'master' of https://github.com/neusoft2019summer/Neusoftmanagerment.git
+
 		}
 		
 	});
@@ -253,111 +246,6 @@ $(function(){
 		});
 	});
 	
-<<<<<<< HEAD
-	/*
-	//===============================修改小区处理=============================
-	$("a#AreaModifyLink").off().on("click",function(){
-		
-		if(no==0){
-			BootstrapDialog.show({
-	            title: '小区操作信息',
-	            message:"请选择要修改的小区",
-            	buttons: [{
-	                label: '确定',
-	                action: function(dialog) {
-	                    dialog.close();
-	                }
-	            }]
-	        });
-		}
-		else{
-			$("div#AreaDialogArea").load("area/modify.html",function(){
-				//取得选择的小区
-				$.getJSON("area/get",{no:no},function(index,area){
-					if(area){
-						$("input[name='no']").val(areaNo);
-						$("input[name='name']").val(area.name);
-						$("input[name='address']").val(area.address);
-						$("input[name='developer']").val(area.developer);
-						$("input[name='buildingarea']").val(area.buildingarea);
-						$("input[name='usearea']").val(area.usearea);
-						$("input[name='parkarea']").val(area.parkarea);
-						$("input[name='home']").val(area.home);
-						$("input[name='house']").val(area.house);
-						$("input[name='park']").val(area.park);
-						
-					}
-				});
-				//弹出Dialog
-				$("div#AreaDialogArea" ).dialog({
-					title:"小区修改",
-					width:800
-				});
-				$("form#AreaModifyForm").ajaxForm(function(result){
-					if(result.status=="OK"){
-						reloadAreaList(); //更新小区列表
-					}
-					//alert(result.message);
-					//BootstrapDialog.alert(result.message);
-					BootstrapDialog.show({
-			            title: '小区操作信息',
-			            message:result.message,
-			            buttons: [{
-			                label: '确定',
-			                action: function(dialog) {
-			                    dialog.close();
-			                }
-			            }]
-			        });
-					$("div#AreaDialogArea" ).dialog( "close" );
-					$("div#AreaDialogArea" ).dialog( "destroy" );
-					$("div#AreaDialogArea").html("");
-					
-				});
-
-			});
-			
-		}
-	});
-
-*/
-	//===============================删除小区处理=====================================
-
-
-
-	//================================查看小区处理====================================
-
-	$("a#AreaViewLink").off().on("click",function(event){
-		
-		if(no==0){
-			BootstrapDialog.show({
-	            title: '小区操作信息',
-	            message:"请选择要查看的小区",
-            	buttons: [{
-	                label: '确定',
-	                action: function(dialog) {
-	                    dialog.close();
-	                }
-	            }]
-	        });
-		}
-		else{
-			$("div#AreaDialogArea").load("area/view.html",function(){
-				//取得选择的小区
-				$.getJSON("area/get",{no:no},function(area){
-					if(area){
-						$("span#no").html(no);
-						$("span#name").html(name);
-						$("span#address").html(area.address);
-						$("span#developer").html(area.developer);
-						$("span#buildingarea").html(area.buildingarea);
-						$("span#usearea").html(area.usearea);
-						$("span#parkarea").html(area.parkarea);
-						$("span#home").html(area.home);
-						$("span#house").html(area.house);
-						$("span#park").html(area.park);
-=======
-	
 	//===============================修改小区处理=============================
 	$("a#AreaModifyLink").off().on("click",function(){
 		
@@ -507,7 +395,6 @@ $(function(){
 						$("span#home").html(area.model.home);
 						$("span#house").html(area.model.house);
 						$("span#park").html(area.model.park);
->>>>>>> branch 'master' of https://github.com/neusoft2019summer/Neusoftmanagerment.git
 						
 					}
 				});

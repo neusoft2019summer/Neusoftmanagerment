@@ -13,8 +13,8 @@ $(function(){
 	//设置系统页面标题
 	$("span#mainpagetille").html("收费项目管理");
 	//显示收费项目列表
-	$("table#ParkGrid").jqGrid({
-		url: 'park/list/condition/page',
+	$("table#FeeItemGrid").jqGrid({
+		url: 'feeItem/list/condition/page',
 		datatype: "json",
 		colModel: [
 			{ label: '收费项目编码', name: 'code', width: 50 },
@@ -38,7 +38,7 @@ $(function(){
 		      records: "count", 
 		      repeatitems: true, 
 		      id: "no"},
-		pager: "#ParkGridPager",
+		pager: "#FeeItemGridPager",
 		multiselect:false,
 		onSelectRow:function(ino){
 			itemno=ino;
@@ -46,15 +46,15 @@ $(function(){
 		
 	});
 	//取得收费项目列表，填充收费单位下拉框
-	$.getJSON("park/list/all",function(utilList){
-		if(utilList){
-			$.each(utilList,function(index,um){
-				$("select#UtilSelection").append("<option value='"+um.util+"'>"+um.util+"</option>");
+	$.getJSON("feeItem/list/unit",function(unitList){
+		if(unitList){
+			$.each(unitList,function(index,um){
+				$("select#UnitSelection").append("<option value='"+um.unit+"'>"+um.unit+"</option>");
 			});
 		}
 	});
 	//取得收费项目列表，填充收费类型下拉框
-	$.getJSON("parkType/list/all",function(List){
+	$.getJSON("feeType/list/all",function(List){
 		if(List){
 			$.each(List,function(index,dm){
 				$("select#FeeTypeNoSelection").append("<option value='"+dm.no+"'>"+dm.name+"</option>");
@@ -62,131 +62,103 @@ $(function(){
 		}
 	});
 	//设置检索参数，更新jQGrid的列表显示
-	function reloadParkList()
+	function reloadFeeItemList()
 	{
-		$("table#ParkGrid").jqGrid('setGridParam',{postData:{unit:unit,
+		$("table#FeeItemGrid").jqGrid('setGridParam',{postData:{unit:unit,
 			feetypeNo:feetypeNo,cycle:cycle,status:status}}).trigger("reloadGrid");
 		
 	}
 	
 	//定义收费项目下拉框的更新事件的处理
-	$("select#UtilSelection").off().on("change",function(){
-		util=$("select#UtilSelection").val();
-		reloadParkList();
+	$("select#UnitSelection").off().on("change",function(){
+		unit=$("select#UnitSelection").val();
+		reloadFeeItemList();
 	});
 	//定义收费类型下拉框的更新事件的处理
 	$("select#FeeTypeNoSelection").off().on("change",function(){
 		feetypeNo=$("select#FeeTypeNoSelection").val();
-		reloadParkList();
+		reloadFeeItemList();
 	});
 	
 	//定义周期性的更新事件的处理
 	$("input[name='cycle']").off().on("change",function(){
-		cycle=$("input[name='cycle']").val();
-		reloadParkList();
+		cycle=$("input[name='cycle']:checked").val();
+		reloadFeeItemList();
 	});
 	//定义收费的更新事件的处理
-	$("input[name='status']").off().on("change",function(){
-		status=$("input[name='status']").val();
-		reloadParkList();
+	$("input[name='itemStatus']").off().on("change",function(){
+		status=$("input[name='itemStatus']:checked").val();
+		reloadFeeItemList();
 	});
 
 	
 	//点击检索事件处理
-	$("a#ParkSearchButton").on("click",function(){
+	$("a#FeeItemSearchButton").on("click",function(){
 		util=$("select#UtilSelection").val();
-		cycle=$("input[name='cycle']").val();
-		cycle=$("input[name='cycle']").val();
-		status=$("input[name='status']").val();
-		reloadParkList();
+		feetypeNo=$("select#FeeTypeNoSelection").val();
+		cycle=$("input[name='cycle']:checked").val();
+		status=$("input[name='itemStatus']:checked").val();
+		reloadFeeItemList();
 	});
 	
 	
 	//===========================增加收费项目处理================================================
-	$("a#ParkAddLink").off().on("click",function(){
-		$("div#ParkDialogPark").load("Park/add.html",function(){
+	$("a#FeeItemAddLink").off().on("click",function(){
+		$("div#FeeItemDialogArea").load("feeItem/add.html",function(){
 			//验证提交数据
-			$("form#ParkAddForm").validate({
+			$("form#FeeItemAddForm").validate({
 				rules: {
+					code: {
+						required: true
+					},
 					name: {
 						required: true
 					},
-					address: {
+					unit: {
 						required: true
 					},
-					developer: {
+					feetype: {
 						required: true
 					},
-					buildingPark: {
-						required: true,
-						min:0
-					},
-					usePark: {
-						required: true,
-						min:0
-					},
-					
-					parkPark: {
-						required: true,
-						min:0
-					},
-					home: {
+					cycle: {
 						required: true
 					},
-					house: {
-						required: true
-					},
-					park: {
+					status: {
 						required: true
 					}
 				},
 				message:{
+					code: {
+						required: "收费项目编码为空"
+					},
 					name: {
 						required: "收费项目名称为空"
 					},
-					address: {
-						required: "收费项目地址为空"
+					unit: {
+						required: "收费单位为空"
 					},
-					developer: {
-						required: "开发商为空"
+					feetype: {
+						required: "收费类型为空"
 					},
-					buildingPark: {
-						number: "总建筑面积必须是数值",
-				    	range: "大于0"
-					},
-					usePark: {
-						number: "总使用面积必须是数值",
-				    	range: "小于总建筑面积"
+					cycle: {
+						required: "周 期性为空"
 					},
 					
-					parkPark: {
-						number: "车位面积必须是数值",
-				    	range: "小于总建筑面积"
-					},
-					home: {
-						number: "总居民数必须是数值",
-				    	range: "大于等于0"
-					},
-					house: {
-						number: "总公建数必须是数值",
-				    	range: "大于等于0"
-					},
-					park: {
-						number: "车位数必须是数值",
-				    	range: "大于等于0"
+					status: {
+						required: "收费为空"
 					}
 				}
 			});
 			//增加收费项目的弹窗
-			$("div#ParkDialogPark").dialog({
+			$("div#FeeItemDialogArea").dialog({
 				title:"增加收费项目",
 				width:900
 			});
 			
 			//拦截增加提交表单
-			$("form#ParkAddForm").ajaxForm(function(result){
+			$("form#FeeItemAddForm").ajaxForm(function(result){
 				if(result.status=="OK"){
-					reloadParkList(); //更新收费项目列表
+					reloadFeeItemList(); //更新收费项目列表
 				}
 				//alert(result.message);
 				//BootstrapDialog.alert(result.message);
@@ -200,17 +172,17 @@ $(function(){
 		                }
 		            }]
 		        });
-				$("div#ParkDialogPark" ).dialog( "close" );
-				$("div#ParkDialogPark" ).dialog( "destroy" );
-				$("div#ParkDialogPark").html("");
+				$("div#FeeItemDialogFeeItem" ).dialog( "close" );
+				$("div#FeeItemDialogFeeItem" ).dialog( "destroy" );
+				$("div#FeeItemDialogFeeItem").html("");
 				
 			});
 			
 			//点击取消按钮处理
 			$("input[value='取消']").on("click",function(){
-				$("div#ParkDialogPark" ).dialog( "close" );
-				$("div#ParkDialogPark" ).dialog( "destroy" );
-				$("div#ParkDialogPark").html("");
+				$("div#FeeItemDialogFeeItem" ).dialog( "close" );
+				$("div#FeeItemDialogFeeItem" ).dialog( "destroy" );
+				$("div#FeeItemDialogFeeItem").html("");
 			});
 		});
 	});
@@ -225,9 +197,9 @@ $(function(){
 
 	//================================查看收费项目处理====================================
 
-	$("a#ParkViewLink").off().on("click",function(){
+	$("a#FeeItemViewLink").off().on("click",function(){
 		
-		if(Parkno==0){
+		if(itemno==0){
 			BootstrapDialog.show({
 	            title: '收费项目操作信息',
 	            message:"请选择要查看的收费项目",
@@ -240,35 +212,30 @@ $(function(){
 	        });
 		}
 		else{
-			$("div#ParkDialogPark").load("Park/view.html",function(){
+			$("div#FeeItemDialogFeeItem").load("FeeItem/view.html",function(){
 				//取得选择的收费项目
-				$.getJSON("Park/get",{no:Parkno},function(Park){
-					if(Park){
-						$("input#no").val(Parkno);
-						
-						alert(Park.name);
-						$("input#name").val(Park.name);
-						$("input#address").val(Park.address);
-						$("input#developer").val(Park.developer);
-						$("input#buildingPark").val(Park.buildingPark);
-						$("input#usePark").val(Park.usePark);
-						$("input#parkPark").val(Park.parkPark);
-						$("input#home").val(Park.home);
-						$("input#house").val(Park.house);
-						$("input#park").val(Park.park);
+				$.getJSON("feeItem/get",{no:itemno},function(FeeItem){
+					if(FeeItem){
+						$("span#code").val(FeeItem.code);
+						$("span#name").val(FeeItem.name);
+						$("span#unit").val(FeeItem.unit);
+						$("span#feetype").val(FeeItem.feetype.no);
+						$("span#cycle").val(FeeItem.cycle);
+						$("span#status").val(FeeItem.status);
+						$("span#desc").val(FeeItem.desc);
 						
 					}
 				});
 				//弹出Dialog
-				$("div#ParkDialogArea" ).dialog({
+				$("div#FeeItemDialogArea" ).dialog({
 					title:"收费项目详细",
 					width:800
 				});
 				//点击取消按钮处理
 				$("input[value='关闭']").on("click",function(){
-					$("div#ParkDialogArea" ).dialog( "close" );
-					$("div#ParkDialogArea" ).dialog( "destroy" );
-					$("div#ParkDialogArea").html("");
+					$("div#FeeItemDialogArea" ).dialog( "close" );
+					$("div#FeeItemDialogArea" ).dialog( "destroy" );
+					$("div#FeeItemDialogArea").html("");
 				});
 
 			});
