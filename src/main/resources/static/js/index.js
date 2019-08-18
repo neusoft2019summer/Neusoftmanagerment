@@ -1,7 +1,8 @@
 /**
  * 系统主管理JS
  */
-
+$.jgrid.defaults.styleUI = 'Bootstrap';
+var host="http://localhost:8100/";
 $(function(){
 	
 	//点击左面功能菜单处理

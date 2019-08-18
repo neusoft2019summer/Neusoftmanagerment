@@ -211,7 +211,7 @@ $(function(){
 			//增加小区的弹窗
 			$("div#AreaDialogArea").dialog({
 				title:"增加小区",
-				width:900
+				width:600
 			});
 			
 			//拦截增加提交表单
@@ -284,7 +284,7 @@ $(function(){
 				//弹出Dialog
 				$("div#AreaDialogArea" ).dialog({
 					title:"小区修改",
-					width:800
+					width:600
 				});
 				$("form#AreaModifyForm").ajaxForm(function(result){
 					if(result.status=="OK"){

@@ -14,7 +14,7 @@ $(function(){
 	$("span#mainpagetille").html("收费项目管理");
 	//显示收费项目列表
 	$("table#FeeItemGrid").jqGrid({
-		url: 'feeItem/list/condition/page',
+		url: host+'feeItem/list/condition/page',
 		datatype: "json",
 		colModel: [
 			{ label: '收费项目编码', name: 'code', width: 50 },
@@ -104,6 +104,14 @@ $(function(){
 	
 	//===========================增加收费项目处理================================================
 	$("a#FeeItemAddLink").off().on("click",function(){
+		//取得收费项目列表，填充收费类型下拉框
+		$.getJSON(host+"feeType/list/all",function(List){
+			if(List){
+				$.each(List,function(index,feetype){
+					$("select#FeeTypeNoSelection").append("<option value='"+feetype.no+"'>"+feetype.name+"</option>");
+				});
+			}
+		});
 		$("div#FeeItemDialogArea").load("feeItem/add.html",function(){
 			//验证提交数据
 			$("form#FeeItemAddForm").validate({
@@ -143,7 +151,6 @@ $(function(){
 					cycle: {
 						required: "周 期性为空"
 					},
-					
 					status: {
 						required: "收费为空"
 					}
@@ -152,7 +159,7 @@ $(function(){
 			//增加收费项目的弹窗
 			$("div#FeeItemDialogArea").dialog({
 				title:"增加收费项目",
-				width:900
+				width:600
 			});
 			
 			//拦截增加提交表单
@@ -172,26 +179,143 @@ $(function(){
 		                }
 		            }]
 		        });
-				$("div#FeeItemDialogFeeItem" ).dialog( "close" );
-				$("div#FeeItemDialogFeeItem" ).dialog( "destroy" );
-				$("div#FeeItemDialogFeeItem").html("");
+				$("div#FeeItemDialogArea" ).dialog( "close" );
+				$("div#FeeItemDialogArea" ).dialog( "destroy" );
+				$("div#FeeItemDialogArea").html("");
 				
 			});
 			
 			//点击取消按钮处理
 			$("input[value='取消']").on("click",function(){
-				$("div#FeeItemDialogFeeItem" ).dialog( "close" );
-				$("div#FeeItemDialogFeeItem" ).dialog( "destroy" );
-				$("div#FeeItemDialogFeeItem").html("");
+				$("div#FeeItemDialogArea" ).dialog( "close" );
+				$("div#FeeItemDialogArea" ).dialog( "destroy" );
+				$("div#FeeItemDialogArea").html("");
 			});
 		});
 	});
 	
 	
 	//===============================修改收费项目处理=============================
-	
+	$("a#FeeItemModifyLink").off().on("click",function(){
+		//取得收费项目列表，填充收费类型下拉框
+		$.getJSON(host+"feeType/list/all",function(List){
+			if(List){
+				$.each(List,function(index,feetype){
+					$("select#FeeTypeNoSelection").append("<option value='"+feetype.no+"'>"+feetype.name+"</option>");
+				});
+			}
+		});
+		if(itemno==0){
+			BootstrapDialog.show({
+	            title: '收费项目操作信息',
+	            message:"请选择要修改的收费项目",
+            	buttons: [{
+	                label: '确定',
+	                action: function(dialog) {
+	                    dialog.close();
+	                }
+	            }]
+	        });
+		}
+		else{
+			$("div#FeeItemDialogArea").load("feeItem/modify.html",function(){
+				//取得选择的收费项目
+				$.getJSON(host+"feeItem/get",{no:itemno},function(FeeItem){
+					
+					if(FeeItem){
+						//alert(itemno);
+						$("input[name='no']").val(itemno);
+						$("input[name='code']").val(FeeItem.code);
+						$("input[name='name']").val(FeeItem.name);
+						$("input[name='unit']:checked").val(FeeItem.unit);
+						$("select[name='feetype.no']").val(FeeItem.feetype.no);
+						$("input[name='cycle']:checked").val(FeeItem.cycle);
+						$("input[name='status']:checked").val(FeeItem.status);
+						$("input[name='desc']").val(FeeItem.desc);
+						
+					}
+				});
+				//弹出Dialog
+				$("div#FeeItemDialogArea").dialog({
+					title:"收费项目修改",
+					width:600
+				});
+				$("form#FeeItemModifyForm").ajaxForm(function(result){
+					if(result.status=="OK"){
+						reloadFeeItemList(); //更新收费项目列表
+					}
+					//alert(result.message);
+					//BootstrapDialog.alert(result.message);
+					BootstrapDialog.show({
+			            title: '收费项目操作信息',
+			            message:result.message,
+			            buttons: [{
+			                label: '确定',
+			                action: function(dialog) {
+			                    dialog.close();
+			                }
+			            }]
+			        });
+					$("div#FeeItemDialogArea" ).dialog( "close" );
+					$("div#FeeItemDialogArea" ).dialog( "destroy" );
+					$("div#FeeItemDialogArea").html("");
+					
+				});
+				
+				
+				//点击取消按钮处理
+				$("input[value='取消']").on("click",function(){
+					$("div#FeeItemDialogArea" ).dialog( "close" );
+					$("div#FeeItemDialogArea" ).dialog( "destroy" );
+					$("div#FeeItemDialogArea").html("");
+				});
+
+			});
+			
+		}
+	});
+
 
 	//===============================删除收费项目处理=====================================
+
+	$("a#FeeItemDeleteLink").off().on("click",function(){
+		
+		if(itemno==0){
+			BootstrapDialog.show({
+	            title: '收费项目操作信息',
+	            message:"请选择要删除的收费项目",
+	            buttons: [{
+	                label: '确定',
+	                action: function(dialog) {
+	                    dialog.close();
+	                }
+	            }]
+	        });
+		}
+		else {
+			BootstrapDialog.confirm('确认删除此收费项目么?', function(result){
+	            if(result) {
+		            $.post("feeItem/delete",{no:itemno},function(result){
+		            	if(result.status=="OK"){
+		            		reloadFeeItemList(); //更新收费项目列表
+						}
+						BootstrapDialog.show({
+				            title: '收费项目操作信息',
+				            message:result.message,
+				            buttons: [{
+				                label: '确定',
+				                action: function(dialog) {
+				                    dialog.close();
+				                }
+				            }]
+				        });
+		            });
+	            }
+			});
+				
+		}
+	
+	});
 
 
 
@@ -212,29 +336,31 @@ $(function(){
 	        });
 		}
 		else{
-			$("div#FeeItemDialogFeeItem").load("FeeItem/view.html",function(){
+			$("div#FeeItemDialogArea").load("feeItem/view.html",function(){
 				//取得选择的收费项目
-				$.getJSON("feeItem/get",{no:itemno},function(FeeItem){
+				$.getJSON(host+"feeItem/get",{no:itemno},function(FeeItem){
+					
 					if(FeeItem){
-						$("span#code").val(FeeItem.code);
-						$("span#name").val(FeeItem.name);
-						$("span#unit").val(FeeItem.unit);
-						$("span#feetype").val(FeeItem.feetype.no);
-						$("span#cycle").val(FeeItem.cycle);
-						$("span#status").val(FeeItem.status);
-						$("span#desc").val(FeeItem.desc);
+						//alert(itemno);
+						$("span#code").html(FeeItem.code);
+						$("span#name").html(FeeItem.name);
+						$("span#unit").html(FeeItem.unit);
+						$("span#feetype").html(FeeItem.feetype.no);
+						$("span#cycle").html(FeeItem.cycle);
+						$("span#status").html(FeeItem.status);
+						$("span#desc").html(FeeItem.desc);
 						
 					}
 				});
 				//弹出Dialog
-				$("div#FeeItemDialogArea" ).dialog({
+				$("div#FeeItemDialogArea").dialog({
 					title:"收费项目详细",
-					width:800
+					width:600
 				});
 				//点击取消按钮处理
 				$("input[value='关闭']").on("click",function(){
-					$("div#FeeItemDialogArea" ).dialog( "close" );
-					$("div#FeeItemDialogArea" ).dialog( "destroy" );
+					$("div#FeeItemDialogArea").dialog( "close" );
+					$("div#FeeItemDialogArea").dialog( "destroy" );
 					$("div#FeeItemDialogArea").html("");
 				});
 
