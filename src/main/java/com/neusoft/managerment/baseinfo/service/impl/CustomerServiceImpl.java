@@ -5,8 +5,10 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 
 import com.neusoft.managerment.baseinfo.mapper.ICustomerMapper;
 import com.neusoft.managerment.baseinfo.model.CustomerModel;
@@ -23,6 +25,12 @@ import com.neusoft.managerment.baseinfo.service.ICustomerService;
 public class CustomerServiceImpl implements ICustomerService {
 	@Autowired
 	private ICustomerMapper customerMapper=null;
+	
+	@Autowired
+	private RestTemplate rest = null;
+	
+	@Value("${neusoftcservice.url}")
+	private String url = null;
 	
 	@Override
 	public void add(CustomerModel customer) throws Exception {
@@ -44,8 +52,11 @@ public class CustomerServiceImpl implements ICustomerService {
 
 	@Override
 	public List<CustomerModel> getListByAll() throws Exception {
+		System.out.println(url);
+		List<CustomerModel> list=rest.getForObject(url+"customer/list/all", List.class);
 		
-		return customerMapper.selectListByAll();
+		return list;		
+		//return customerMapper.selectListByAll();
 	}
 
 	@Override
