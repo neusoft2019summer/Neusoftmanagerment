@@ -231,16 +231,16 @@ $(function(){
 		                }
 		            }]
 		        });
-				$("div#AreaDialogArea" ).dialog( "close" );
-				$("div#AreaDialogArea" ).dialog( "destroy" );
+				$("div#AreaDialogArea").dialog( "close" );
+				$("div#AreaDialogArea").dialog( "destroy" );
 				$("div#AreaDialogArea").html("");
 				
 			});
 			
 			//点击取消按钮处理
 			$("input[value='取消']").on("click",function(){
-				$("div#AreaDialogArea" ).dialog( "close" );
-				$("div#AreaDialogArea" ).dialog( "destroy" );
+				$("div#AreaDialogArea").dialog( "close" );
+				$("div#AreaDialogArea").dialog( "destroy" );
 				$("div#AreaDialogArea").html("");
 			});
 		});
@@ -302,8 +302,8 @@ $(function(){
 			                }
 			            }]
 			        });
-					$("div#AreaDialogArea" ).dialog( "close" );
-					$("div#AreaDialogArea" ).dialog( "destroy" );
+					$("div#AreaDialogArea").dialog( "close" );
+					$("div#AreaDialogArea").dialog( "destroy" );
 					$("div#AreaDialogArea").html("");
 					
 				});
@@ -311,8 +311,8 @@ $(function(){
 				
 				//点击取消按钮处理
 				$("input[value='取消']").on("click",function(){
-					$("div#AreaDialogArea" ).dialog( "close" );
-					$("div#AreaDialogArea" ).dialog( "destroy" );
+					$("div#AreaDialogArea").dialog( "close" );
+					$("div#AreaDialogArea").dialog( "destroy" );
 					$("div#AreaDialogArea").html("");
 				});
 

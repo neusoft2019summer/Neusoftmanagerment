@@ -124,7 +124,7 @@ public class BuildingController {
 			@RequestParam(required = false,defaultValue ="0") int maxhome,
 			@RequestParam(required = false,defaultValue ="0") int minhouse,
 			@RequestParam(required = false,defaultValue ="0") int maxhouse, 
-			@RequestParam(required = false,defaultValue ="5") int rows, 
+			@RequestParam(required = false,defaultValue ="10") int rows, 
 			@RequestParam(required = false,defaultValue ="1") int page) throws Exception {
 	
 		ResultMessage<BuildingModel> result=new ResultMessage<BuildingModel>("OK","取得员工列表分页成功");
