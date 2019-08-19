@@ -116,7 +116,7 @@ $(function(){
 	$("a#CustomerAddLink").off().on("click",function(){
 		$("div#CustomerDialog").load("customer/add.html",function(){
 			
-			//验证员工提交数据
+			//验证提交的数据
 			$("form#CustomerAddForm").validate({
 				  rules: {
 				  	  ccode:{
@@ -229,11 +229,66 @@ $(function(){
 		}
 		else{
 			$("div#CustomerDialog").load("customer/modify.html",function(){
+				
+				//验证修改的数据
+				$("form#CustomerModifyForm").validate({
+					  rules: {
+					  	  ccode:{
+					  		  required: true,
+					  		  ccode: true
+					  	  },
+						  cname:{
+						      required: true
+						  },
+						  cardcode:{
+						      required: true,
+						      cardcode: true
+						  },
+						  mobile:{
+						      required: true,
+						      mobile: true
+						  },
+						  feestartdate:{
+						      required: true
+						  },
+						  feeenddate:{
+						      required: true
+						  },
+						  cstatus:{
+						      required: true
+						  },
+					  },
+					  messages:{
+					      ccode:{
+					    	  required: "客户编码为空",
+					      },
+						  cname:{
+						      required: "客户姓名为空",
+						  },
+						  cardcode:{
+						      required: "身份证号为空",
+						  },
+						  mobile:{
+						      required: "手机号码为空",
+						  },
+						  feestartdate:{
+						      required: "收费开始日期为空",
+						  },
+						  feeenddate:{
+						      required: "收费截止日期为空",
+						  },
+						  cstatus:{
+						      required: "客户状态为空",
+						  },
+
+					 }
+				});
+				
 				//取得指定的员工信息
 				$.getJSON("customer/get",{customerno:customerno},function(em){
 					if(em){
 						$("input[name='customerno']").val(customerno);
-						$("input[name='typeno']:checked").val(em.typeno);
+						$("input[name='typeno']").val(em.customertype.typeno);
 						$("input[name='ccode']").val(em.ccode);
 						$("input[name='cname']").val(em.cname);
 						$("input[name='cardcode']").val(em.cardcode);
@@ -244,6 +299,9 @@ $(function(){
 	
 					}
 				});
+				
+				
+				
 				
 				//弹出Dialog
 				$("div#CustomerDialog" ).dialog({

@@ -23,5 +23,6 @@ logging:
   level:
     com.neusoft.managerment.*: debug
     
-
+neusoftcservice: 
+  url: http://localhost:8110/
  

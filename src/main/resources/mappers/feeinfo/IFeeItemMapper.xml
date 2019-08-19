@@ -23,8 +23,8 @@
  
  <!-- 增加收费项目 -->
  <insert id="create" keyProperty="no" keyColumn="ItemNo" useGeneratedKeys="true" flushCache="true">
- 	insert into FeeItem (ItemCode,ItemName,ItemUnit,FeeTypeNo,ItemDesc) 
- 	value (#{code},#{name},#{unit},#{feetype.no},#{desc})
+ 	insert into FeeItem (ItemCode,ItemName,ItemUnit,FeeTypeNo,FeeCycle,ItemStatus,ItemDesc) 
+ 	value (#{code},#{name},#{unit},#{feetype.no},#{cycle},#{status},#{desc})
  </insert>
  
  <!-- 修改收费项目 -->
@@ -67,7 +67,7 @@
  		<if test="cycle!=null and cycle!=''">
  		and a.FeeCycle=#{cycle}
  		</if>
- 		<if test="status!=null and cycle!=''">
+ 		<if test="status!=null and status!=''">
  		and a.ItemStatus=#{status}
  		</if>
  	</where>
@@ -87,7 +87,7 @@
  		<if test="cycle!=null and cycle!=''">
  		and FeeCycle=#{cycle}
  		</if>
- 		<if test="status!=null and cycle!=''">
+ 		<if test="status!=null and status!=''">
  		and ItemStatus=#{status}
  		</if>
  	</where>

@@ -15,7 +15,7 @@ import lombok.Data;
 @Data
 public class BuildingModel implements Serializable {
 	private int no=0; //序号
-	private AreaModel area=null; //小区序号
+	private AreaModel area=null; //小区号
 	private String code=null; //楼号
 	private String address=null; //楼宇地址
 	private BuildingTypeModel buildingtype=null; //楼宇结构编号
