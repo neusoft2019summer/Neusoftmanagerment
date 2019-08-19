@@ -3,6 +3,8 @@ package com.neusoft.managerment.communityinfo.service;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.neusoft.managerment.communityinfo.model.CommunityActiveModel;
 
 /*
@@ -26,6 +28,13 @@ public interface ICommunityService {
 	 */
 	//取得所有活动列表 
 	public List<CommunityActiveModel> getListByAll() throws Exception;
+	//根据索引取得社区活动个数
+	public int getCountByConditionWithpage(int activeno,String activeplace,String activetype,String activecontent,Date startActiveDate,Date endActiveDate)throws Exception;
+	//根据索引取得社区活动页数
+	public int getPageCountByConditionWithPage(int activeno,String activeplace,String activetype,String activecontent,Date startActiveDate,Date endActiveDate, int rows)throws Exception;
+	//根据索引取得列表
+	public List<CommunityActiveModel> getListByConditionWithPage(int activeno,String activeplace,String activetype,String activecontent,Date startActiveDate,Date endActiveDate, int rows, int page)throws Exception;
+	
 	
 
 }
