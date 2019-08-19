@@ -16,7 +16,7 @@
      <id property="activeno" column="ACTIVENO"/>
       <result property="activeplace" column="ACTIVEPLACE"/>
       <result property="activetime" column="ACTIVETIME"/>
-      <result property="activecontent" column="ACTIVECONENT"/> 
+      <result property="activecontent" column="ACTIVECONTENT"/> 
       <result property="activetype" column="ACTIVETYPE"/> 
   </resultMap>
   
@@ -62,7 +62,7 @@
      and ACTIVECONTENT=#{activecontent}
      </if>
      <if test="activetype!=null and activetype!=''">
-     and EMPSEX=#{activetype}
+     and ACTIVETYPE=#{activetype}
      </if>
      <if test="startActiveDate!=null">
      and ACTIVETIME  &gt;=#{startActiveDate}
@@ -86,7 +86,7 @@
      and ACTIVECONTENT=#{activecontent}
      </if>
      <if test="activetype!=null and activetype!=''">
-     and EMPSEX=#{activetype}
+     and ACTIVETYPE=#{activetype}
      </if>
      <if test="startActiveDate!=null">
      and ACTIVETIME  &gt;=#{startActiveDate}
@@ -95,7 +95,7 @@
      and ACTIVETIME &lt;=#{endActiveDate}
      </if>
   </where>
-    limit #{page},#{rows}
+    limit #{start},#{rows}
   </select>
   
   </mapper>

@@ -72,7 +72,11 @@ public class CommunityController {
 		result.setCount(communityservice.getCountByConditionWithpage(activeno, activeplace, activetype, activecontent, startActiveDate, endActiveDate));
 		result.setList(communityservice.getListByConditionWithPage(activeno, activeplace, activetype, activecontent, startActiveDate, endActiveDate, page, rows));
 		
+		result.setPage(communityservice.getPageCountByConditionWithPage(activeno, activeplace, activetype, activecontent, startActiveDate, endActiveDate, rows));
+		result.setRows(rows);
+		result.setPageCount(communityservice.getPageCountByConditionWithPage(activeno, activeplace, activetype, activecontent, startActiveDate, endActiveDate, rows));
 		return result;
+		
 		
 		
 	}

@@ -81,7 +81,7 @@ public class CommunityServiceimpl implements ICommunityService {
 	//根据索引查询，有分页
 	@Override
 	public List<CommunityActiveModel> getListByConditionWithPage(int activeno, String activeplace, String activetype,
-			String activecontent, Date startActiveDate, Date endActiveDate, int page,int rows) throws Exception {
+			String activecontent, Date startActiveDate, Date endActiveDate, int rows, int page) throws Exception {
 		
 		return communityMapper.selectListByConditionWithPage(activeno, activeplace, activetype, activecontent, startActiveDate, endActiveDate, rows*(page-1), rows);
 	}
