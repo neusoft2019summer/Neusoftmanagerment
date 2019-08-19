@@ -13,11 +13,12 @@ $(function(){
 	var minhouse=0;
 	var maxhouse=0;
 	var buildingNo=0;
+	
 	//设置系统页面标题
 	$("span#mainpagetille").html("楼宇管理");
 	
 	//显示楼宇列表
-	$("table#BuildingGrid").jqGrid({
+	$("table#BuildingGrid").jqGrid({	
 		url: 'building/list/condition/page',
 		datatype: "json",
 		colModel: [
@@ -35,13 +36,13 @@ $(function(){
 		height:300,
 		rowNum: 10,
 		rowList:[5,6,7,8,9,10],
-		jsonReader : {
-			root: "list", //列表的属性
-			page: "page", //页号的属性
-			total: "pageCount", //总页数属性
-			records: "count", //总个数属性
-			repeatitems: true,
-			id: "no" //主键对应的属性
+		jsonReader : {			
+			root: "list", 
+			page: "page", 
+			total: "pageCount", 
+			records: "count", 
+		    repeatitems: true, 
+			id: "no" 
 		},
 		pager: "#BuildingGridPager",//jqGrid分页样式
 		multiselect:false,
@@ -51,33 +52,33 @@ $(function(){
 		}		
 		
 	});
-	/*
+	
 	//取得小区列表，填充小区列表下拉框
-	$.getJSON("area/list/all",function(areaList) {
+	$.getJSON("area/list/all",function(areaList){
 		if(areaList){
-			$.each(areaList,function(index,area){
-				$("select#AreaNoSelection").append("<option value='"area.no"'>"+area.name+"</option>");
+			$.each(areaList,function(index,um){
+				$("select#AreaNoSelection").append("<option value='"+um.no+"'>"+um.name+"</option>");
 			});
 		}
 	});
-	
+		
 	//取得楼宇结构编号列表，填充楼宇结构编号列表下拉框
-	$.getJSON("buildingtype/list/all",function(buildingtypeList) {
-		if(buildingtypeList){
-			$.each(buildingtypeList,function(index,buildingtype){
-				$("select#BuildingTypeNoSelection").append("<option value='"buildingtype.no"'>"+buildingtype.name+"</option>");
-			});
-		}
-	});
-	//取得楼号列表，填充楼号列表下拉框
-	$.getJSON("building/list/all",function(codeList) {
-		if(codeList){
-			$.each(codeList,function(index,building){
-				$("select#CodeSelection").append("<option value='"building.code"'>"+building.code+"</option>");
+	$.getJSON("buildType/list/all",function(typeList){
+		if(typeList){
+			$.each(typeList,function(index,um){
+				$("select#BuildingTypeNoSelection").append("<option value='"+um.no+"'>"+um.name+"</option>");
 			});
 		}
 	});
 	
+	//取得楼号列表，填充楼号列表下拉框
+	$.getJSON("building/list/all",function(codeList){
+		if(codeList){
+			$.each(codeList,function(index,um){
+				$("select#CodeSelection").append("<option value='"+um.code+"'>"+um.code+"</option>");
+			});
+		}
+	});
 	//设置检索参数，更新jQGrid的列表显示
 	function reloadBuildingList()
 	{
@@ -125,7 +126,7 @@ $(function(){
 		maxhouse=$("input#maxhouse").val();
 		reloadBuildingList();
 	});	
-	*/
+	
 	/*
 	//===========================增加楼宇处理=================================
 	//点击楼宇增加链接处理，嵌入add.html
