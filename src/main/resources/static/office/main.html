@@ -5,6 +5,24 @@
       <div class="box">
         <div class="box-header">
           <div class="row">
+            <div class="col-md-9">
+	             <form class="form-inline" role="form">
+				  <div class="form-group">
+				    <label  for="name">类型</label>
+				    <select id="NewsSelection" class="form-control">
+				       <option value="0">所有</option>
+				    </select>
+				  </div>
+				  <div class="form-group">
+				    <label  for="name">新闻日期</label>
+				    从<input type="date" class="form-control" id="startJoinDate" size="10" />
+				    至<input type="date" class="form-control" id="endJoinDate" size="10" />
+				  </div>
+				  <div class="form-group">
+				   <a href="#" class="btn btn-default" id="NewsSearchButton">检索</a>
+				  </div>
+				</form>
+             </div>
              <div class="col-md-6"><h3 class="box-title">新闻管理</h3></div>
              <div class="col-md-6 text-right">
              	<a href="#" id="NewsModifyLink" class="btn btn-info">修改</a> 
@@ -16,29 +34,8 @@
         </div>
         <!-- /.box-header -->
       <div class="box-body" id="newscontent">
-       <table id="NewsTable" class="table table-bordered table-hover">
-  <thead>
-  <tr>
-    
-    <th>新闻类型</th>
-    <th>新闻内容</th>
-    <th>时间</th>
-  </tr>
-  </thead>
-  <tbody>
-         
-</table>
-<div class="row">
-   <div class="col-md-6 text-left">
-   新闻个数:<span id="count"></span>  页数:<span id="pagecount"></span>
-   </div>
-   <div class="col-md-6 text-right" id="page_nav">
-   <a href="top" class="btn btn-info">首页</a> 
-   <a href="pre" class="btn btn-info">上页</a>
-   <a href="next" class="btn btn-info">下页</a>
-   <a href="last" class="btn btn-info">末页</a>
-   </div>
-</div>
+       <table id="NewsTable" class="table table-bordered table-hover"></table>
+    <div class="row" id="Newspager" ></div>
        
       </div>
       <!-- /.box-body -->

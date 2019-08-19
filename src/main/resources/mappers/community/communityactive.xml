@@ -16,12 +16,13 @@
      <id property="activeno" column="ACTIVENO"/>
       <result property="activeplace" column="ACTIVEPLACE"/>
       <result property="activetime" column="ACTIVETIME"/>
-      <result property="activecontent" column="ACTIVECONENT"/> 
+      <result property="activecontent" column="ACTIVECONTENT"/> 
+      <result property="activetype" column="ACTIVETYPE"/> 
   </resultMap>
   
   <insert id="create"  parameterType="Active" flushCache="true">
    insert into community (ACTIVENO,ACTIVEPLACE,ACTIVETIME,ACTIVECONTENT)
-   values (#{activeno},#{activeplace},#{activetime},#{activecontent})
+   values (#{activeno},#{activeplace},#{activetime},#{activecontent},#{activetype})
   
   </insert>
   
@@ -47,6 +48,54 @@
     select * from community where ACTIVETIME=#{activetime}
   </select>-->
   <update id="update" flushCache="true">
-   update community set ACTIVETIME=#{activetime},ACTIVEPLACE=#{activeplace},ACTIVECONTENT=#{activecontent} where ACTIVENO=#{activeno}
+   update community set ACTIVETIME=#{activetime},ACTIVEPLACE=#{activeplace},ACTIVECONTENT=#{activecontent},ACTIVETYPE=#{activetype} where ACTIVENO=#{activeno}
   </update>
+  
+   <!-- 根据综合检索条件取得社区活动个数-->
+  <select id="selectCountByConditionWithpage" resultType="int">
+  select IFNULL(count(ACTIVENO), 0) from community 
+  <where>
+     <if test="activeplace!=null and activeplace!=''">
+      and ACTIVEPLACE=#{activeplace}
+     </if>
+     <if test="activecontent!=null and activecontent!=''">
+     and ACTIVECONTENT=#{activecontent}
+     </if>
+     <if test="activetype!=null and activetype!=''">
+     and ACTIVETYPE=#{activetype}
+     </if>
+     <if test="startActiveDate!=null">
+     and ACTIVETIME  &gt;=#{startActiveDate}
+     </if>
+     <if test="endActiveDate!=null">
+     and ACTIVETIME &lt;=#{endActiveDate}
+     </if>
+  </where>
+   
+  </select>
+  
+  
+  <!-- 根据综合检索条件取得社区活动列表，分页模式 -->
+  <select id="selectListByConditionWithPage" resultMap="ActResultMap">
+  select * from community
+  <where>
+    <if test="activeplace!=null and activeplace!=''">
+      and ACTIVEPLACE=#{activeplace}
+     </if>
+     <if test="activecontent!=null and activecontent!=''">
+     and ACTIVECONTENT=#{activecontent}
+     </if>
+     <if test="activetype!=null and activetype!=''">
+     and ACTIVETYPE=#{activetype}
+     </if>
+     <if test="startActiveDate!=null">
+     and ACTIVETIME  &gt;=#{startActiveDate}
+     </if>
+     <if test="endActiveDate!=null">
+     and ACTIVETIME &lt;=#{endActiveDate}
+     </if>
+  </where>
+    limit #{start},#{rows}
+  </select>
+  
   </mapper>

@@ -56,6 +56,39 @@ public class CommunityServiceimpl implements ICommunityService {
 		return list;
 	}
 
+	
+	
+	@Override
+	public int getCountByConditionWithpage(int activeno, String activeplace, String activetype, String activecontent,
+			Date startActiveDate, Date endActiveDate) throws Exception {
+		
+		return communityMapper.selectCountByConditionWithpage(activeno, activeplace, activetype, activecontent, startActiveDate, endActiveDate);
+	}
+
+	@Override
+	public int getPageCountByConditionWithPage(int activeno, String activeplace, String activetype,
+			String activecontent, Date startActiveDate, Date endActiveDate, int rows) throws Exception {
+		int pageCount = 0;
+		int count = this.getCountByConditionWithpage(activeno, activeplace, activetype, activecontent, startActiveDate, endActiveDate);
+		if(count%rows==0) {
+			pageCount=count/rows;
+		}
+		else {
+			pageCount=count/rows+1;
+		}
+		return pageCount;
+	}
+	//根据索引查询，有分页
+	@Override
+	public List<CommunityActiveModel> getListByConditionWithPage(int activeno, String activeplace, String activetype,
+			String activecontent, Date startActiveDate, Date endActiveDate, int rows, int page) throws Exception {
+		
+		return communityMapper.selectListByConditionWithPage(activeno, activeplace, activetype, activecontent, startActiveDate, endActiveDate, rows*(page-1), rows);
+	}
+
+	
+	
+
 	/*
 	 * @Override public List<CommunityActiveModel> getListBytime(Date activetime)
 	 * throws Exception { List <CommunityActiveModel> list =

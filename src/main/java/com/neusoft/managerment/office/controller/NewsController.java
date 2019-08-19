@@ -70,7 +70,7 @@ public class NewsController {
 			
 		}
 		
-	//取得所有收费类型列表，有分页
+	//取得新聞列表，有分页
 	@GetMapping(value="/list/all/page")
 	public ResultMessage<NewsModel> getListByAllWitPage(@RequestParam(required = false,defaultValue ="10") int rows,@RequestParam(required = false,defaultValue = "1") int page) throws Exception{
 		ResultMessage<NewsModel> result=new ResultMessage<NewsModel>("OK","新闻列表分页模式成功");	
