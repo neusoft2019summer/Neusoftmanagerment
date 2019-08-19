@@ -80,4 +80,10 @@ public class FeeItemServiceImpl implements IFeeItemService {
 		return pageCount;
 	}
 
+	@Override
+	public List<FeeItemModel> getListByUnit() throws Exception {
+		
+		return feeItemMapper.selectListByUnit();
+	}
+
 }

@@ -4,7 +4,7 @@
  * 
  */
 $(function(){
-	var no=0;
+	var areano=0;
 	var name=null;
 	var developer=null;
 	var minbuildingarea=null;
@@ -48,7 +48,8 @@ $(function(){
 		pager: "#AreaGridPager",
 		multiselect:false,
 		onSelectRow:function(ano){
-			no=ano;
+			areano=ano;
+
 		}
 		
 	});
@@ -210,7 +211,7 @@ $(function(){
 			//增加小区的弹窗
 			$("div#AreaDialogArea").dialog({
 				title:"增加小区",
-				width:900
+				width:600
 			});
 			
 			//拦截增加提交表单
@@ -230,26 +231,25 @@ $(function(){
 		                }
 		            }]
 		        });
-				$("div#AreaDialogArea" ).dialog( "close" );
-				$("div#AreaDialogArea" ).dialog( "destroy" );
+				$("div#AreaDialogArea").dialog( "close" );
+				$("div#AreaDialogArea").dialog( "destroy" );
 				$("div#AreaDialogArea").html("");
 				
 			});
 			
 			//点击取消按钮处理
 			$("input[value='取消']").on("click",function(){
-				$("div#AreaDialogArea" ).dialog( "close" );
-				$("div#AreaDialogArea" ).dialog( "destroy" );
+				$("div#AreaDialogArea").dialog( "close" );
+				$("div#AreaDialogArea").dialog( "destroy" );
 				$("div#AreaDialogArea").html("");
 			});
 		});
 	});
 	
-	/*
 	//===============================修改小区处理=============================
 	$("a#AreaModifyLink").off().on("click",function(){
 		
-		if(no==0){
+		if(areano==0){
 			BootstrapDialog.show({
 	            title: '小区操作信息',
 	            message:"请选择要修改的小区",
@@ -263,26 +263,28 @@ $(function(){
 		}
 		else{
 			$("div#AreaDialogArea").load("area/modify.html",function(){
+				
 				//取得选择的小区
-				$.getJSON("area/get",{no:no},function(index,area){
+				$.getJSON("area/get",{no:areano},function(area){
+					//alert(areano);
 					if(area){
-						$("input[name='no']").val(areaNo);
-						$("input[name='name']").val(area.name);
-						$("input[name='address']").val(area.address);
-						$("input[name='developer']").val(area.developer);
-						$("input[name='buildingarea']").val(area.buildingarea);
-						$("input[name='usearea']").val(area.usearea);
-						$("input[name='parkarea']").val(area.parkarea);
-						$("input[name='home']").val(area.home);
-						$("input[name='house']").val(area.house);
-						$("input[name='park']").val(area.park);
+						$("input[name='no']").val(areano);
+						$("input[name='name']").val(area.model.name);
+						$("input[name='address']").val(area.model.address);
+						$("input[name='developer']").val(area.model.developer);
+						$("input[name='buildingarea']").val(area.model.buildingarea);
+						$("input[name='usearea']").val(area.model.usearea);
+						$("input[name='parkarea']").val(area.model.parkarea);
+						$("input[name='home']").val(area.model.home);
+						$("input[name='house']").val(area.model.house);
+						$("input[name='park']").val(area.model.park);
 						
 					}
 				});
 				//弹出Dialog
 				$("div#AreaDialogArea" ).dialog({
 					title:"小区修改",
-					width:800
+					width:600
 				});
 				$("form#AreaModifyForm").ajaxForm(function(result){
 					if(result.status=="OK"){
@@ -300,10 +302,18 @@ $(function(){
 			                }
 			            }]
 			        });
-					$("div#AreaDialogArea" ).dialog( "close" );
-					$("div#AreaDialogArea" ).dialog( "destroy" );
+					$("div#AreaDialogArea").dialog( "close" );
+					$("div#AreaDialogArea").dialog( "destroy" );
 					$("div#AreaDialogArea").html("");
 					
+				});
+				
+				
+				//点击取消按钮处理
+				$("input[value='取消']").on("click",function(){
+					$("div#AreaDialogArea").dialog( "close" );
+					$("div#AreaDialogArea").dialog( "destroy" );
+					$("div#AreaDialogArea").html("");
 				});
 
 			});
@@ -311,16 +321,53 @@ $(function(){
 		}
 	});
 
-*/
+
 	//===============================删除小区处理=====================================
 
-
+	$("a#AreaDeleteLink").off().on("click",function(){
+		
+		if(areano==0){
+			BootstrapDialog.show({
+	            title: '小区操作信息',
+	            message:"请选择要删除的小区",
+	            buttons: [{
+	                label: '确定',
+	                action: function(dialog) {
+	                    dialog.close();
+	                }
+	            }]
+	        });
+		}
+		else {
+			BootstrapDialog.confirm('确认删除此小区么?', function(result){
+	            if(result) {
+		            $.post("area/delete",{no:areano},function(result){
+		            	if(result.status=="OK"){
+		            		reloadAreaList(); //更新小区列表
+						}
+						BootstrapDialog.show({
+				            title: '小区操作信息',
+				            message:result.message,
+				            buttons: [{
+				                label: '确定',
+				                action: function(dialog) {
+				                    dialog.close();
+				                }
+				            }]
+				        });
+		            });
+	            }
+			});
+				
+		}
+	
+	});
 
 	//================================查看小区处理====================================
 
-	$("a#AreaViewLink").off().on("click",function(event){
+	$("a#AreaViewLink").off().on("click",function(){
 		
-		if(no==0){
+		if(areano==0){
 			BootstrapDialog.show({
 	            title: '小区操作信息',
 	            message:"请选择要查看的小区",
@@ -334,19 +381,20 @@ $(function(){
 		}
 		else{
 			$("div#AreaDialogArea").load("area/view.html",function(){
+				//alert(areano);
 				//取得选择的小区
-				$.getJSON("area/get",{no:no},function(area){
+				$.getJSON("area/get",{no:areano},function(area){
 					if(area){
-						$("span#no").html(no);
-						$("span#name").html(name);
-						$("span#address").html(area.address);
-						$("span#developer").html(area.developer);
-						$("span#buildingarea").html(area.buildingarea);
-						$("span#usearea").html(area.usearea);
-						$("span#parkarea").html(area.parkarea);
-						$("span#home").html(area.home);
-						$("span#house").html(area.house);
-						$("span#park").html(area.park);
+						$("span#no").html(areano);
+						$("span#name").html(area.model.name);
+						$("span#address").html(area.model.address);
+						$("span#developer").html(area.model.developer);
+						$("span#buildingarea").html(area.model.buildingarea);
+						$("span#usearea").html(area.model.usearea);
+						$("span#parkarea").html(area.model.parkarea);
+						$("span#home").html(area.model.home);
+						$("span#house").html(area.model.house);
+						$("span#park").html(area.model.park);
 						
 					}
 				});

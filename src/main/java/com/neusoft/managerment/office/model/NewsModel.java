@@ -18,7 +18,7 @@ import lombok.Data;
 @Alias("NewsModel")
 @Data
 public class NewsModel implements Serializable {
-	private String newsno = null;
+	private int newsno = 0;
 	private String newstype = null;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date newstime = null;

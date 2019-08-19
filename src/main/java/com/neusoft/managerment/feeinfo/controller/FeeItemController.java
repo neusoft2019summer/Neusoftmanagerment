@@ -52,7 +52,11 @@ public class FeeItemController {
 	public FeeItemModel getByNoWithFeeType(int no) throws Exception{
 		return feeItemService.getByNoWithFeeType(no);
 	}
-	
+	//取得所有收费项目列表
+	@GetMapping("/list/unit")
+	public List<FeeItemModel> getListByUnit() throws Exception{
+		return feeItemService.getListByUnit();
+	}
 	
 	//根据综合检索条件取得收费项目列表
 	@GetMapping(value="/list/condition/page")
@@ -61,7 +65,7 @@ public class FeeItemController {
 			@RequestParam(required = false,defaultValue = "0") int feetypeNo,
 			@RequestParam(required = false,defaultValue = "") String cycle,
 			@RequestParam(required = false,defaultValue = "") String status,
-			@RequestParam(required = false,defaultValue = "5") int rows,
+			@RequestParam(required = false,defaultValue = "10") int rows,
 			@RequestParam(required = false,defaultValue = "1") int page)throws Exception{
 		
 		ResultMessage<FeeItemModel> result=new ResultMessage<FeeItemModel>("OK","取得收费项目列表分页成功");

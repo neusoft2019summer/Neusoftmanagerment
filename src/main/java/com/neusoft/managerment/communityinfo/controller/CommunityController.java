@@ -3,8 +3,11 @@ package com.neusoft.managerment.communityinfo.controller;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.neusoft.managerment.communityinfo.model.CommunityActiveModel;
@@ -57,5 +60,21 @@ public class CommunityController {
 	 * listbytime(Date activetime) throws Exception{ return
 	 * communityservice.getListBytime(activetime); }
 	 */
+	
+	@RequestMapping(value="/list/condition/page")
+	public ResultMessage<CommunityActiveModel>  getListByConditionWitPage(@RequestParam(required = false,defaultValue ="1") int activeno,@RequestParam(required = false) String activeplace,
+																		 @RequestParam(required = false )String activetype,@RequestParam(required = false) String activecontent,
+			                                                              @DateTimeFormat(pattern = "yyyy-MM-dd") @RequestParam(required = false) Date startActiveDate,
+			                                                              @DateTimeFormat(pattern = "yyyy-MM-dd") @RequestParam(required = false) Date endActiveDate, 
+			                                                              @RequestParam(required = false,defaultValue ="1") int page,@RequestParam(required = false,defaultValue ="5") int rows) throws Exception{
+		
+		ResultMessage<CommunityActiveModel> result = new ResultMessage<CommunityActiveModel>("ok","分页查询成功");
+		result.setCount(communityservice.getCountByConditionWithpage(activeno, activeplace, activetype, activecontent, startActiveDate, endActiveDate));
+		result.setList(communityservice.getListByConditionWithPage(activeno, activeplace, activetype, activecontent, startActiveDate, endActiveDate, page, rows));
+		
+		return result;
+		
+		
+	}
 
 }

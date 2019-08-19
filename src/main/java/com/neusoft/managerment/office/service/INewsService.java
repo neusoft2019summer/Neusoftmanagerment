@@ -22,7 +22,13 @@ public interface INewsService {
 	public List<NewsModel> getnewsbytype(String newstype)throws Exception;
 	
 	//取得所有新闻列表,分页模式
-   public List<NewsModel> getListByAllWithPage(int rows,int page) throws Exception;
+     public List<NewsModel> getListByAllWithPage(int rows,int page) throws Exception;
+     //取得新闻个数
+     public int getcountbyall() throws Exception;
+    //取得新闻页数
+ 	public int getPageCountByAll(int rows) throws Exception;
+ 	//取得指定新闻
+ 	public NewsModel getByNo(int newsno)throws Exception;
 	 
 
 }

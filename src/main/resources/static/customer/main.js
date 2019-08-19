@@ -20,7 +20,6 @@ $(function(){
 	var host="http://localhost:8100";
 	//设置系统页面标题
 	$("span#mainpagetille").html("客户档案管理");
-	//设置日期的格式和选择
 	
 	//显示客户列表
 	$("table#CustomerGrid").jqGrid({
@@ -53,6 +52,7 @@ $(function(){
 		multiselect:false,
 		onSelectRow:function(cno){
 			customerno=cno;
+			//alert(customerno);
 		}
 	});
 	
@@ -62,32 +62,47 @@ $(function(){
 		$("table#CustomerGrid").jqGrid('setGridParam',{postData:{typeno:typeno,ccode:ccode,cname:cname,cardcode:cardcode,
 			mobile:mobile,feestartdate: feestartdate, feeenddate:feeenddate ,cstatus:cstatus}}).trigger("reloadGrid");
 		
-	}
+	};
 	
 	//定义选中客户类型单选按钮更新事件的处理
 	$("input[name='typeno']").off().on("change",function(){
 		typeno=$("input[name='typeno']:checked").val();
 		reloadCustomerList();
-	})
+	});
 	
 	//定义输入客户名称更新事件的处理
 	$("input#CnameSelection").off().on("change",function(){
 		cname=$("input#CnameSelection").val();
 		reloadCustomerList();
-	})
+	});
 	
 	//定义输入客户编码更新事件的处理
 	$("input#CcodeSelection").off().on("change",function(){
 		ccode=$("input#CcodeSelection").val();
 		reloadCustomerList();
-	})
+	});
+	
+	//定义输入开始收费日期更新事件的处理
+	$("input#feeStartDate").off().on("change",function(){
+		feestartdate=$("input#feeStartDate").val();
+		reloadCustomerList();
+	});
+	
 	
 	//点击检索事件处理
 	$("a#CustomerSearchButton").on("click",function(){
 		typeno=$("input[name='typeno']:checked").val();
 		cname=$("input#CnameSelection").val();
 		ccode=$("input#CcodeSelection").val();
-
+		
+//		feestartdate=$("input#feeStartDate").val();
+//		feeendate=$("input#feeEndDate").val();
+////		if(feeStartDate==""){
+////			feeStartDate=null;
+////		}
+////		if(feeEndDate==""){
+////			feeEndDate=null;
+////		}
      	reloadCustomerList();
 		
 	});
@@ -100,36 +115,67 @@ $(function(){
 	
 	$("a#CustomerAddLink").off().on("click",function(){
 		$("div#CustomerDialog").load("customer/add.html",function(){
-			//取得客户类型列表，生成客户类型选择下拉框
-//			$.getJSON(host+"customertype/list/all",function(typeList){
-//				if(typeList){
-//					$.each(typeList,function(index,ctypeno){
-//						$("div#TypeSelection").append("<input type='checkbox' name='Customertypes' value='"+ctypeno.typeno+"' />"+ctypeno.typename);
-//					});
-//				}
-//			});
-//			dialogCustomer=$("div#CustomerDialog");
 			
-//			//验证员工提交数据
-//			$("form#CustomerAddForm").validate({
-//				  rules: {
-//					  cname:{
-//					      required: true
-//					        },
-//				  	  ccode:{
-//				  		  required: true
-//				  	  }
-//				  },
-//				  messages:{
-//					  cname:{
-//					      required: "请输入姓名",
-//					      remote:"该客户已经存在"
-//					  },
-//				      ccode:{
-//				    	  required: "客户编码为空",
-//				      }
-//				 }
-//			});
+			//验证提交的数据
+			$("form#CustomerAddForm").validate({
+				  rules: {
+				  	  ccode:{
+				  		  required: true,
+				  		  ccode: true
+				  	  },
+					  cname:{
+					      required: true
+					  },
+					  cardcode:{
+					      required: true,
+					      cardcode: true
+					  },
+					  mobile:{
+					      required: true,
+					      mobile: true
+					  },
+					  feestartdate:{
+					      required: true
+					  },
+					  feeenddate:{
+					      required: true
+					  },
+					  cstatus:{
+					      required: true
+					  },
+				  },
+				  messages:{
+				      ccode:{
+				    	  required: "客户编码为空",
+				      },
+					  cname:{
+					      required: "客户姓名为空",
+					  },
+					  cardcode:{
+					      required: "身份证号为空",
+					  },
+					  mobile:{
+					      required: "手机号码为空",
+					  },
+					  feestartdate:{
+					      required: "收费开始日期为空",
+					  },
+					  feeenddate:{
+					      required: "收费截止日期为空",
+					  },
+					  cstatus:{
+					      required: "客户状态为空",
+					  },
+
+				 }
+			});
+			
+			
+			//添加客户弹窗
+			$("div#CustomerDialog").dialog({
+				title:"客户增加",
+				width:950
+			});
 			
 			//拦截增加提交表单
 			$("form#CustomerAddForm").ajaxForm(function(result){
@@ -140,17 +186,20 @@ $(function(){
 				//BootstrapDialog.alert(result.message);
 				BootstrapDialog.show({
 		            title: '客户操作信息',
-		            message:result.message
+		            message:result.message,
+		            buttons: [{
+		                label: '确定',
+		                action: function(dialog) {
+		                    dialog.close();
+		                }
+		            }]
 		        });
 				$("div#CustomerDialog").dialog( "close" );
 				$("div#CustomerDialog").dialog( "destroy" );
 				$("div#CustomerDialog").html("");
 				
 			});
-			$("div#CustomerDialog").dialog({
-				title:"客户增加",
-				width:950
-			});
+
 			
 			//点击取消按钮，管理弹出窗口
 			$("input[value='取消']").off().on("click",function(){
@@ -162,11 +211,11 @@ $(function(){
 		});
 	});
 
-	//===============================修改员工处理===============================================================
+	//===============================修改客户处理===============================================================
 	
 	$("a#CustomerModifyLink").off().on("click",function(){
-		alert(customerno);
-		if(customerno==null){
+		//alert(customerno);
+		if(customerno==0){
 			BootstrapDialog.show({
 	            title: '客户信息',
 	            message:"请选择要修改的客户",
@@ -180,23 +229,110 @@ $(function(){
 		}
 		else{
 			$("div#CustomerDialog").load("customer/modify.html",function(){
+				
+				//验证修改的数据
+				$("form#CustomerModifyForm").validate({
+					  rules: {
+					  	  ccode:{
+					  		  required: true,
+					  		  ccode: true
+					  	  },
+						  cname:{
+						      required: true
+						  },
+						  cardcode:{
+						      required: true,
+						      cardcode: true
+						  },
+						  mobile:{
+						      required: true,
+						      mobile: true
+						  },
+						  feestartdate:{
+						      required: true
+						  },
+						  feeenddate:{
+						      required: true
+						  },
+						  cstatus:{
+						      required: true
+						  },
+					  },
+					  messages:{
+					      ccode:{
+					    	  required: "客户编码为空",
+					      },
+						  cname:{
+						      required: "客户姓名为空",
+						  },
+						  cardcode:{
+						      required: "身份证号为空",
+						  },
+						  mobile:{
+						      required: "手机号码为空",
+						  },
+						  feestartdate:{
+						      required: "收费开始日期为空",
+						  },
+						  feeenddate:{
+						      required: "收费截止日期为空",
+						  },
+						  cstatus:{
+						      required: "客户状态为空",
+						  },
+
+					 }
+				});
+				
 				//取得指定的员工信息
-				$.getJSON(host+"/customer/get",{customerno:customerno},function(em){
+				$.getJSON("customer/get",{customerno:customerno},function(em){
 					if(em){
-						$("input[name='typename']").html(em.customertype.typeno);
-						$("input#cname").html(em.cname);
-						$("input#cardcode").html(em.cardcode);
-						$("input#mobile").html(em.mobile);
-						$("input#feestartdate").html(em.feeStartDate);
-						$("input#feeenddate").html(em.feeEndDate);
-						$("input#cstatus").html(em.cstatus);
+						$("input[name='customerno']").val(customerno);
+						$("input[name='typeno']").val(em.customertype.typeno);
+						$("input[name='ccode']").val(em.ccode);
+						$("input[name='cname']").val(em.cname);
+						$("input[name='cardcode']").val(em.cardcode);
+						$("input[name='mobile']").val(em.mobile);
+						$("input[name='feestartdate']").val(em.feestartdate);
+						$("input[name='feeenddate']").val(em.feeenddate);
+						$("input[name='cstatus']").val(em.cstatus);
 	
 					}
 				});
-				$("div#CustomerDialog").dialog({
-					title:"客户修改",
+				
+				
+				
+				
+				//弹出Dialog
+				$("div#CustomerDialog" ).dialog({
+					title:"客户信息修改",
 					width:800
 				});
+				
+				//拦截修改提交表单
+				$("form#CustomerModifyForm").ajaxForm(function(result){
+					if(result.status=="OK"){
+						reloadCustomerList();  //更新客户列表
+					}
+					//alert(result.message);
+					//BootstrapDialog.alert(result.message);
+					BootstrapDialog.show({
+			            title: '客户操作信息',
+			            message:result.message,
+			            buttons: [{
+			                label: '确定',
+			                action: function(dialog) {
+			                    dialog.close();
+			                }
+			            }]
+			        });
+					$("div#CustomerDialog").dialog( "close" );
+					$("div#CustomerDialog").dialog( "destroy" );
+					$("div#CustomerDialog").html("");
+					
+				});
+	
+				
 				//点击取消按钮，管理弹出窗口
 				$("input[value='取消']").off().on("click",function(){
 					$("div#CustomerDialog").dialog("close");
@@ -209,7 +345,96 @@ $(function(){
 		}
 	});	
 	
+	//===============================删除客户处理=====================================
+
+	$("a#CustomerDeleteLink").off().on("click",function(){
+		
+		if(customerno==0){
+			BootstrapDialog.show({
+	            title: '客户操作信息',
+	            message:"请选择要删除的客户",
+	            buttons: [{
+	                label: '确定',
+	                action: function(dialog) {
+	                    dialog.close();
+	                }
+	            }]
+	        });
+		}
+		else {
+			BootstrapDialog.confirm('确认删除此客户?', function(result){
+	            if(result) {
+		            $.post("customer/delete",{customerno:customerno},function(result){
+		            	if(result.status=="OK"){
+		            		reloadCustomerList(); 
+						}
+						BootstrapDialog.show({
+				            title: '客户操作信息',
+				            message:result.message,
+				            buttons: [{
+				                label: '确定',
+				                action: function(dialog) {
+				                    dialog.close();
+				                }
+				            }]
+				        });
+		            });
+	            }
+			});
+				
+		}
 	
+	});
+
+	//================================查看客户详细信息===================================
+
+	$("a#CustomerViewLink").off().on("click",function(){
+		
+		if(customerno==0){
+			BootstrapDialog.show({
+	            title: '客户操作信息',
+	            message:"请选择要查看的客户",
+            	buttons: [{
+	                label: '确定',
+	                action: function(dialog) {
+	                    dialog.close();
+	                }
+	            }]
+	        });
+		}
+		else{
+			$("div#CustomerDialog").load("customer/view.html",function(){
+				//alert(customerno);
+				//取得选择的客户
+				$.getJSON("customer/get",{customerno:customerno},function(data){
+					if(data){
+						$("span#customerno").html(customerno);
+						$("span#typename").html(data.customertype.typename);
+						$("span#ccode").html(data.ccode);
+						$("span#cname").html(data.cname);
+						$("span#cardcode").html(data.cardcode);
+						$("span#mobile").html(data.mobile);
+						$("span#feestartdate").html(data.feestartdate);
+						$("span#feeenddate").html(data.feeenddate);
+						$("span#cstatus").html(data.cstatus);
+					}
+				});
+				//弹出Dialog
+				$("div#CustomerDialog" ).dialog({
+					title:"客户详细信息",
+					width:800
+				});
+				//点击取消按钮处理
+				$("input[value='关闭']").on("click",function(){
+					$("div#CustomerDialog" ).dialog( "close" );
+					$("div#CustomerDialog" ).dialog( "destroy" );
+					$("div#CustomerDialog").html("");
+				});
+
+			});
+			
+		}
+	});
 	
 	
 	

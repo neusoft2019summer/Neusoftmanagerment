@@ -4,134 +4,253 @@
  * 
  */
 $(function(){
-	var rows=10;
-	var page=1;
-	var pageCount=0;
-	var buildingNo=0;//选择的楼宇编号
-	
+	var areaNo=0;
+	var buildingtypeNo=0;
+	var code=null;
+	var direction=null;
+	var minhome=0;
+	var maxhome=0;
+	var minhouse=0;
+	var maxhouse=0;
+	var buildingNo=0;
 	//设置系统页面标题
 	$("span#mainpagetille").html("楼宇管理");
-	//操作列表的方法
-	//取得楼宇的列表，分页模式
-	function getListInfo(){
-		$.getJSON("building/list/all/page",{page:page,rows:rows},function(data){
-			//显示个数和页数
-			$("span#count").html(data.count);
-			$("span#pagecount").html(data.page+"/"+data.pageCount);
-			pageCount=data.pageCount;
-			//显示列表
-			$("table#BuildingTable tbody").html("");
-			for(var i=0;i<data.list.length;i++){
-				var tr="<tr id='"+data.list[i].no+"'><td>"+data.list[i].area.no
-				+"</td><td>"+data.list[i].code
-				+"</td><td>"+data.list[i].address
-				+"</td><td>"+data.list[i].buildingtype.no
-				+"</td><td>"+data.list[i].direction
-				+"</td><td>"+data.list[i].home
-				+"</td><td>"+data.list[i].house+"</td></tr>";
-				$("table#BuildingTable tbody").append(tr);
-			}
-			//定义表格行的点击时间，取得选择的楼宇编号
-			$("table#BuildingTable tbody tr").on("click",function(){
-				buildingNo=$(this).attr("id");
-				$("table#BuildingTable tbody tr").css("background-color","#FFFFFF");
-				$(this).css("background-color","#CDCD9A");
-			});
 	
-		});
-	}
-		
-	//定义分页导航链接处理事件
-	$("div#page_nav a").on("click",function(event){
-		  var action=$(this).attr("href");
-		  event.preventDefault();
-		  switch(action){
-		  	case "top":
-		  		page=1;
-		  		getListInfo();
-		  		break;
-		  	case "pre":
-		  		if(page>1){
-		  			page=page-1;
-		  			getListInfo();
-		  		}
-		  		break;
-		  	case "next":
-		  		if(page<pageCount){
-		  			page=page+1;
-		  			getListInfo();
-		  		}
-		  		break;
-		  	case "last":
-		  		page=pageCount;
-		  		getListInfo();
-		  		break;
-		  }
-		  
+	//显示楼宇列表
+	$("table#BuildingGrid").jqGrid({
+		url: 'building/list/condition/page',
+		datatype: "json",
+		colModel: [
+			{ label: '小区号', name: 'area.no', width: 50},
+			{ label: '楼号', name: 'code', width: 50},
+			{ label: '楼宇地址', name: 'address', width: 50},
+			{ label: '楼宇结构编号', name: 'buildingtype.no', width: 50},
+			{ label: '楼宇朝向', name: 'direction', width: 50},
+			{ label: '居民数', name: 'home', width: 50},
+			{ label: '公建数', name: 'house', width: 50}
+		],
+		caption:"楼宇列表",
+		viewrecords: true,
+		autowidth: true,
+		height:300,
+		rowNum: 10,
+		rowList:[5,6,7,8,9,10],
+		jsonReader : {
+			root: "list", //列表的属性
+			page: "page", //页号的属性
+			total: "pageCount", //总页数属性
+			records: "count", //总个数属性
+			repeatitems: true,
+			id: "no" //主键对应的属性
+		},
+		pager: "#BuildingGridPager",//jqGrid分页样式
+		multiselect:false,
+		onSelectRow:function(bno){
+			buildingNo=bno;
+
+		}		
 		
 	});
-	//初始调用取得分页列表数据
-	getListInfo();
+	/*
+	//取得小区列表，填充小区列表下拉框
+	$.getJSON("area/list/all",function(areaList) {
+		if(areaList){
+			$.each(areaList,function(index,area){
+				$("select#AreaNoSelection").append("<option value='"area.no"'>"+area.name+"</option>");
+			});
+		}
+	});
 	
+	//取得楼宇结构编号列表，填充楼宇结构编号列表下拉框
+	$.getJSON("buildingtype/list/all",function(buildingtypeList) {
+		if(buildingtypeList){
+			$.each(buildingtypeList,function(index,buildingtype){
+				$("select#BuildingTypeNoSelection").append("<option value='"buildingtype.no"'>"+buildingtype.name+"</option>");
+			});
+		}
+	});
+	//取得楼号列表，填充楼号列表下拉框
+	$.getJSON("building/list/all",function(codeList) {
+		if(codeList){
+			$.each(codeList,function(index,building){
+				$("select#CodeSelection").append("<option value='"building.code"'>"+building.code+"</option>");
+			});
+		}
+	});
+	
+	//设置检索参数，更新jQGrid的列表显示
+	function reloadBuildingList()
+	{
+		$("table#BuildingGrid").jqGrid('setGridParam',{postData:{areaNo:areaNo,
+			buildingtypeNo:buildingtypeNo,code:code,
+			direction:direction,minhome:minhome,
+			maxhome:maxhome,minhouse:minhouse,maxhouse:maxhouse}}).trigger("reloadGrid");
+	}	
+	
+	//定义小区下拉框的更新事件的处理
+	$("select#AreaNoSelection").off().on("change",function(){
+		areaNo=$("select#AreaNoSelection").val();
+		reloadBuildingList();
+	});
+	//定义楼宇结构编号下拉框的更新事件的处理
+	$("select#BuildingTypeNoSelection").off().on("change",function(){
+		buildingtypeNo=$("select#BuildingTypeNoSelection").val();
+		reloadBuildingList();
+	});
+	//定义楼号下拉框的更新事件的处理
+	$("select#CodeSelection").off().on("change",function(){
+		code=$("select#CodeSelection").val();
+		reloadBuildingList();
+	});
+	//定义朝向下拉框的更新事件的处理
+	$("select#DirectionSelection").off().on("change",function(){
+		direction=$("select#DirectionSelection").val();
+		reloadBuildingList();
+	});
+	//定义总居民数的更新事件的处理
+	$("input#minhome").off().on("change",function(){
+		minhome=$("input#minhome").val();
+		reloadBuildingList();
+	});
+	$("input#maxhome").off().on("change",function(){
+		maxhome=$("input#maxhome").val();
+		reloadBuildingList();
+	});
+	//定义总公建数的更新事件的处理
+	$("input#minhouse").off().on("change",function(){
+		minhouse=$("input#minhouse").val();
+		reloadBuildingList();
+	});
+	$("input#maxhouse").off().on("change",function(){
+		maxhouse=$("input#maxhouse").val();
+		reloadBuildingList();
+	});	
+	*/
+	/*
+	//===========================增加楼宇处理=================================
 	//点击楼宇增加链接处理，嵌入add.html
-	$("a#BuildingAddLink").off().on("click",function(event){
-				
+	$("a#BuildingAddLink").off().on("click",function(){
 		$("div#BuildingDialogArea").load("building/add.html",function(){
+				//验证提交数据
+			$("form#BuildingAddForm").validate({
+				rules: {
+					area: {
+						required: true
+					},
+					code: {
+						required: true
+					},
+					address: {
+						required: true
+					},
+					buildingtype: {
+						required: true
+					},
+					direction: {
+						required: true
+					},
+					home: {
+						required: true
+					},
+					house: {
+						required: true
+					}
+				},
+				message:{
+					area: {
+						number: "小区号必须是正整数",
+						required: "小区号为空",
+						range: "大于等于0"
+					},
+					code: {
+						required: "楼号为空"
+					},
+					address: {
+						required: "楼宇地址为空"
+					},
+					buildingtype: {
+						number: "楼宇结构编号必须是正整数",
+						required: "楼宇结构编号为空",
+				    	range: "大于等于0"
+					},
+					direction: {
+						required: "楼宇朝向为空"
+					},
+					home: {
+						number: "居民数必须是正整数",
+				    	range: "大于等于0"
+					},
+					house: {
+						number: "公建数必须是正整数",
+				    	range: "大于等于0"
+					}
+				}
+			});
+			//增加楼宇的弹窗
 			$("div#BuildingDialogArea" ).dialog({
 				title:"增加楼宇",
 				width:600
 			});
-			
+			//拦截增加提交表单
 			$("form#BuildingAddForm").ajaxForm(function(result){
 				if(result.status=="OK"){
-					getListInfo(); 
+					reloadBuildingList(); //更新楼宇列表
 				}
 				//alert(result.message);
 				//BootstrapDialog.alert(result.message);
 				BootstrapDialog.show({
 		            title: '楼宇操作信息',
-		            message:result.message
+		            message:result.message,
+					buttons: [{
+		                label: '确定',
+		                action: function(dialog) {
+		                    dialog.close();
+		                }
+		            }]
 		        });
-				$("div#BuildingDialogArea" ).dialog( "close" );
-				$("div#BuildingDialogArea" ).dialog( "destroy" );
+				$("div#BuildingDialogArea").dialog( "close" );
+				$("div#BuildingDialogArea").dialog( "destroy" );
 				$("div#BuildingDialogArea").html("");
 				
 			});
 			
 			//点击取消按钮处理
 			$("input[value='取消']").on("click",function(){
-				$("div#BuildingDialogArea" ).dialog( "close" );
-				$("div#BuildingDialogArea" ).dialog( "destroy" );
+				$("div#BuildingDialogArea").dialog( "close" );
+				$("div#BuildingDialogArea").dialog( "destroy" );
 				$("div#BuildingDialogArea").html("");
-			});
-			
-			
-		});
-			
-		
+			});						
+		});		
 	});	
 	
-	//点击修改按钮事件处理
-	$("a#BuildingModifyLink").off().on("click",function(event){
+	//===========================修改楼宇处理=================================
+	$("a#BuildingModifyLink").off().on("click",function(){
 		if(buildingNo==0){
 			BootstrapDialog.show({
 	            title: '楼宇操作信息',
-	            message:"请选择要修改的楼宇"
+	            message:"请选择要修改的楼宇",
+				buttons: [{
+	                label: '确定',
+	                action: function(dialog) {
+	                    dialog.close();
+	                }
+	            }]
 	        });
 		}
 		else {
 			$("div#BuildingDialogArea").load("building/modify.html",function(){
 				//取得选择的楼宇
 				$.getJSON("building/get",{no:buildingNo},function(data){
-					if(data.status=="OK"){
+					//alert("afsaf");
+					if(data){
 						$("input[name='no']").val(buildingNo);
-						$("input[name='areaNo']").val(data.model.area.no);
-						$("input[name='code']").val(data.model.code);
-						$("input[name='address']").val(data.model.address);
-						$("input[name='buildingTypeNo']").val(data.model.buildingtype.no);
-						$("input[name='direction']").val(data.model.direction);
-						$("input[name='home']").val(data.model.home);
-						$("input[name='house']").val(data.model.house);
+						$("select[name='area']").val(data.area.no);
+						$("input[name='code']").val(data.code);
+						$("input[name='address']").val(data.address);
+						$("select[name='buildingtype']").val(data.buildingtype.no);
+						$("select[name='direction']").val(data.direction);
+						$("input[name='home']").val(data.home);
+						$("input[name='house']").val(data.house);
 					}
 				});
 				
@@ -142,41 +261,48 @@ $(function(){
 				//拦截表单提交
 				$("form#BuildingModifyForm").ajaxForm(function(result){
 					if(result.status=="OK"){
-						getListInfo(); 
+						reloadBuildingList(); //更新楼宇列表 
 					}
 					//alert(result.message);
 					//BootstrapDialog.alert(result.message);
 					BootstrapDialog.show({
 			            title: '楼宇操作信息',
-			            message:result.message
+			            message:result.message,
+						buttons: [{
+			                label: '确定',
+			                action: function(dialog) {
+			                    dialog.close();
+			                }
+			            }]
 			        });
-					$("div#BuildingDialogArea" ).dialog( "close" );
-					$("div#BuildingDialogArea" ).dialog( "destroy" );
+					$("div#BuildingDialogArea").dialog( "close" );
+					$("div#BuildingDialogArea").dialog( "destroy" );
 					$("div#BuildingDialogArea").html("");
 					
 				});
-				
-				
+					
 				//点击取消按钮处理
 				$("input[value='取消']").on("click",function(){
-					$( "div#BuildingDialogArea" ).dialog( "close" );
-					$( "div#BuildingDialogArea" ).dialog( "destroy" );
+					$( "div#BuildingDialogArea").dialog( "close" );
+					$( "div#BuildingDialogArea").dialog( "destroy" );
 					$("div#BuildingDialogArea").html("");
 				});
-			});
-			
-		}
-		
-		
+			});			
+		}			
 	});
 	
-	//点击删除按钮事件处理
-	$("a#BuildingDeleteLink").off().on("click",function(event){
-		
+	//===========================删除楼宇处理=================================
+	$("a#BuildingDeleteLink").off().on("click",function(){	
 		if(buildingNo==0){
 			BootstrapDialog.show({
 	            title: '楼宇操作信息',
-	            message:"请选择要删除的楼宇"
+	            message:"请选择要删除的楼宇",
+				buttons: [{
+	                label: '确定',
+	                action: function(dialog) {
+	                    dialog.close();
+	                }
+	            }]
 	        });
 		}
 		else {
@@ -184,42 +310,51 @@ $(function(){
 	            if(result) {
 		            $.post("building/delete",{no:buildingNo},function(result){
 		            	if(result.status=="OK"){
-							getListInfo(); 
+							reloadBuildingList(); //更新楼宇列表 
 						}
 						BootstrapDialog.show({
 				            title: '楼宇操作信息',
-				            message:result.message
+				            message:result.message,
+							buttons: [{
+				                label: '确定',
+				                action: function(dialog) {
+				                    dialog.close();
+				                }
+				            }]
 				        });
 		            });
 	            }
-			});
-				
-		}
-	
+			});			
+		}	
 	});
 	
-	//点击查看详细按钮事件处理
-	$("a#BuildingViewLink").off().on("click",function(event){
-		
+	//===========================查看楼宇处理=================================
+	$("a#BuildingViewLink").off().on("click",function(){		
 		if(buildingNo==0){
 			BootstrapDialog.show({
 	            title: '楼宇操作信息',
-	            message:"请选择要查看的楼宇"
+	            message:"请选择要查看的楼宇",
+				buttons: [{
+	                label: '确定',
+	                action: function(dialog) {
+	                    dialog.close();
+	                }
+	            }]
 	        });
 		}
 		else{
 			$("div#BuildingDialogArea").load("building/view.html",function(){
 				//取得选择的楼宇
 				$.getJSON("building/get",{no:buildingNo},function(data){
-					if(data.status=="OK"){
-						$("span#no").html(data.model.no);
-						$("span#areaNo").html(data.model.area.no);
-						$("span#code").html(data.model.code);
-						$("span#address").html(data.model.address);
-						$("span#buildingTypeNo").html(data.model.buildingtype.no);
-						$("span#direction").html(data.model.direction);
-						$("span#home").html(data.model.home);
-						$("span#house").html(data.model.house);	
+					if(data){
+						$("span#no").html(data.no);
+						$("span#areaNo").html(data.area.no);
+						$("span#code").html(data.code);
+						$("span#address").html(data.address);
+						$("span#buildingTypeNo").html(data.buildingtype.no);
+						$("span#direction").html(data.direction);
+						$("span#home").html(data.home);
+						$("span#house").html(data.house);	
 					}
 				});
 				//弹出Dialog
@@ -229,13 +364,13 @@ $(function(){
 				});
 				//点击取消按钮处理
 				$("input[value='返回']").on("click",function(){
-					$( "div#BuildingDialogArea" ).dialog( "close" );
-					$( "div#BuildingDialogArea" ).dialog( "destroy" );
+					$( "div#BuildingDialogArea").dialog( "close" );
+					$( "div#BuildingDialogArea").dialog( "destroy" );
 					$("div#BuildingDialogArea").html("");
 				});
 			});
 			
 		}
 	});
-	
+	*/
 });

@@ -55,6 +55,8 @@
   <script src="dist/jqueryvalidate/additional-methods.min.js"></script>
   <script src="dist/jqueryvalidate/localization/messages_zh.min.js"></script>
   <script src="dist/jqueryvalidate/customer_validation.js"></script>
+  <!-- 引入自己定义的验证规则 -->
+  <script type="text/javascript" src="js/customer_validation.js"></script>
   <script type="text/javascript" src="js/index.js"></script>
   
  </head>
@@ -122,9 +124,9 @@
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">主功能选择</li>
        
-        <li class="active treeview menu-open">
+        <li class="treeview menu-open">
           <a href="#">
-            <i class="fa fa-dashboard"></i> <span>房产管理</span>
+            <i class="fa fa-home"></i> <span>房产管理</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -155,14 +157,14 @@
         
         <li class="treeview menu-open">
           <a href="#">
-            <i class="fa fa-dashboard"></i> <span>文档管理</span>
+            <i class="fa fa-money"></i> <span>收费管理</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="area/main.html"><i class="fa fa-circle-o"></i>起草文档</a></li>
-          	<li><a href="building/main.html"><i class="fa fa-circle-o"></i>发布文档</a></li>
+            <li><a href="feeType/main.html"><i class="fa fa-circle-o"></i>收费类型管理</a></li>
+          	<li><a href="feeItem/main.html"><i class="fa fa-circle-o"></i>收费项目管理</a></li>
             <li><a href="buildingType/main.html"><i class="fa fa-circle-o"></i>接收文档员工管理</a></li>
           </ul>
         </li>
@@ -203,10 +205,28 @@
           </a>
           <ul class="treeview-menu">
             <li><a href="office/main.html"><i class="fa fa-circle-o"></i>新闻管理</a></li>
+            <li><a href="officecommunity/main.html"><i class="fa fa-circle-o"></i>社区活动管理</a></li>
+          	
+          </ul>
+        </li>
+
+         <li class="treeview menu-open">
+          <a href="#">
+            <i class="fa fa-dashboard"></i> <span>客户服务</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="maintainrecord/main.html"><i class="fa fa-circle-o"></i>维修底单查询</a></li>
+            
           	
           </ul>
         </li>
         
+
+        
+
       </ul>
     </section>
     <!-- /.sidebar -->

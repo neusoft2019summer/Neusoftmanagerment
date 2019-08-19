@@ -1,8 +1,10 @@
 package com.neusoft.managerment.feeinfo.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import org.springframework.transaction.annotation.Transactional;
 
 import com.neusoft.managerment.feeinfo.mapper.IMaintainRecordMapper;
 import com.neusoft.managerment.feeinfo.model.MaintainRecordModel;
@@ -37,7 +39,35 @@ public class MaintainRecordServiceImpl implements IMaintainRecordService{
 		maintainrecordmapper.delete(maintainrecord);
 		
 	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<MaintainRecordModel> getListByAllWithPage(int rows, int page) throws Exception {
+		// TODO Auto-generated method stub
+		return maintainrecordmapper.selectListByAllWithPage(rows*(page-1), rows);
+	}
+
+	@Override
+	public int getcountbyall() throws Exception {
+		
+		return maintainrecordmapper.selectcountbyall();
+	}
+
+	@Override
+	public int getPageCountByAll(int rows) throws Exception {
+		
+		int pageCount=0;
+		int count=this.getcountbyall();
+		if(count%rows==0) {
+			pageCount=count/rows;
+		}
+		else {
+			pageCount=count/rows+1;
+		}
+		return pageCount;
+	}
+	}
 	
 
 
-}
+

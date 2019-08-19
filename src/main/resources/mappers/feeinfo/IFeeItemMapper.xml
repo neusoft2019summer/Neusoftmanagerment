@@ -23,8 +23,8 @@
  
  <!-- 增加收费项目 -->
  <insert id="create" keyProperty="no" keyColumn="ItemNo" useGeneratedKeys="true" flushCache="true">
- 	insert into FeeItem (ItemCode,ItemName,ItemUnit,FeeTypeNo,ItemDesc) 
- 	value (#{code},#{name},#{unit},#{feetype.no},#{desc})
+ 	insert into FeeItem (ItemCode,ItemName,ItemUnit,FeeTypeNo,FeeCycle,ItemStatus,ItemDesc) 
+ 	value (#{code},#{name},#{unit},#{feetype.no},#{cycle},#{status},#{desc})
  </insert>
  
  <!-- 修改收费项目 -->
@@ -38,11 +38,11 @@
   	delete from FeeItem where ItemNo=#{no}
  </delete>
  
- <!-- 取得所有收费项目列表 
- <select id="selectListByAll" resultMap="FeeItemResultMapWithFeeType">
- 	select * from FeeItem
+ 
+ <select id="selectListByUnit" resultMap="FeeItemResultMap">
+ 	select distinct ItemUnit from FeeItem 
  </select>
- -->
+ 
  
  <!-- 取得指定收费项目的信息 -->
  <select id="selectByNoWithFeeType" resultMap="FeeItemResultMapWithFeeType">
@@ -59,16 +59,16 @@
  	select a.*,b.* from FeeItem a inner join FeeType b on a.FeeTypeNo=b.TYPENO 
  	<where>
  		<if test="unit!=null and unit!=''">
- 		and a.ItemUnit={unit}
+ 		and a.ItemUnit=#{unit}
  		</if>
  		<if test="feetypeNo!=0">
- 		and a.FeeTypeNo={feetypeNo}
+ 		and a.FeeTypeNo=#{feetypeNo}
  		</if>
  		<if test="cycle!=null and cycle!=''">
- 		and a.FeeCycle={cycle}
+ 		and a.FeeCycle=#{cycle}
  		</if>
- 		<if test="status!=null and cycle!=''">
- 		and a.ItemStatus={status}
+ 		<if test="status!=null and status!=''">
+ 		and a.ItemStatus=#{status}
  		</if>
  	</where>
  	limit #{start},#{rows}
@@ -79,16 +79,16 @@
    	select IFNULL(count(ItemNo), 0) from FeeItem 
    	<where>
  		<if test="unit!=null and unit!=''">
- 		and aItemUnit={unit}
+ 		and ItemUnit=#{unit}
  		</if>
  		<if test="feetypeNo!=0">
- 		and aFeeTypeNo={feetypeNo}
+ 		and FeeTypeNo=#{feetypeNo}
  		</if>
  		<if test="cycle!=null and cycle!=''">
- 		and aFeeCycle={cycle}
+ 		and FeeCycle=#{cycle}
  		</if>
- 		<if test="status!=null and cycle!=''">
- 		and ItemStatus={status}
+ 		<if test="status!=null and status!=''">
+ 		and ItemStatus=#{status}
  		</if>
  	</where>
  </select>

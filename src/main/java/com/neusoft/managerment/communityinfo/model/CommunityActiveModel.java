@@ -20,5 +20,6 @@ public class CommunityActiveModel implements Serializable {
 	private String activecontent = null;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date activetime = null;
+	private String activetype = null;
 
 }

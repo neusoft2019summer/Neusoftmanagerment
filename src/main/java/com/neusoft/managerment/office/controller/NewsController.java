@@ -16,6 +16,7 @@ import com.neusoft.managerment.message.ResultMessage;
 import com.neusoft.managerment.office.model.NewsModel;
 import com.neusoft.managerment.office.service.INewsService;
 
+
 @RestController
 @RequestMapping(value="/news")
 public class NewsController {
@@ -60,11 +61,24 @@ public class NewsController {
 			return new ResultMessage<NewsModel>("OK","修改新闻成功");		
 		}
 		
-	//取得所有收费类型列表，有分页
+	//取得新闻编号
+		@RequestMapping(value="/get")
+		public ResultMessage<NewsModel> get(int newsno) throws Exception{
+			ResultMessage<NewsModel> result=new ResultMessage<NewsModel>("OK","取得新闻成功");
+			result.setModel(newservice.getByNo(newsno));
+			return result;
+			
+		}
+		
+	//取得新聞列表，有分页
 	@GetMapping(value="/list/all/page")
-	public ResultMessage<NewsModel> getListByAllWitPage(@RequestParam(required = false,defaultValue ="4") int rows,@RequestParam(required = false,defaultValue = "1") int page) throws Exception{
+	public ResultMessage<NewsModel> getListByAllWitPage(@RequestParam(required = false,defaultValue ="10") int rows,@RequestParam(required = false,defaultValue = "1") int page) throws Exception{
 		ResultMessage<NewsModel> result=new ResultMessage<NewsModel>("OK","新闻列表分页模式成功");	
 		result.setList(newservice.getListByAllWithPage(rows, page));
+		result.setCount(newservice.getcountbyall());
+		result.setPageCount(newservice.getPageCountByAll(rows));
+		result.setPage(page);
+		result.setRows(rows);
 		return result;
 		}
 
