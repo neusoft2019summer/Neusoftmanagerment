@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.neusoft.managerment.communityinfo.model.CommunityActiveModel;
 import com.neusoft.managerment.communityinfo.service.ICommunityService;
 import com.neusoft.managerment.message.ResultMessage;
+import com.neusoft.managerment.office.model.NewsModel;
 
 @RestController
 @RequestMapping(value="/community")
@@ -26,6 +27,7 @@ public class CommunityController {
 	public ResultMessage<CommunityActiveModel> add(CommunityActiveModel com) throws Exception{
 		
 		communityservice.add(com);
+		System.out.println(com);
 		return new ResultMessage<CommunityActiveModel>("ok","增加成功");
 	}
 	
@@ -60,19 +62,27 @@ public class CommunityController {
 	 * listbytime(Date activetime) throws Exception{ return
 	 * communityservice.getListBytime(activetime); }
 	 */
-	
+	//取得指定的活动
+		@RequestMapping(value="/get")
+		public ResultMessage<CommunityActiveModel> get(int activeno) throws Exception{
+			ResultMessage<CommunityActiveModel> result=new ResultMessage<CommunityActiveModel>("OK","取得活动成功");
+			result.setModel(communityservice.getByNo(activeno));
+			return result;
+			
+		}
 	@RequestMapping(value="/list/condition/page")
-	public ResultMessage<CommunityActiveModel>  getListByConditionWitPage(@RequestParam(required = false,defaultValue ="1") int activeno,@RequestParam(required = false) String activeplace,
-																		 @RequestParam(required = false )String activetype,@RequestParam(required = false) String activecontent,
+	public ResultMessage<CommunityActiveModel>  getListByConditionWitPage(@RequestParam(required = false,defaultValue ="1") int activeno,@RequestParam(required = false,defaultValue="") String activeplace,
+																		 @RequestParam(required = false ,defaultValue="")String activetype,@RequestParam(required = false,defaultValue="") String activecontent,
 			                                                              @DateTimeFormat(pattern = "yyyy-MM-dd") @RequestParam(required = false) Date startActiveDate,
 			                                                              @DateTimeFormat(pattern = "yyyy-MM-dd") @RequestParam(required = false) Date endActiveDate, 
-			                                                              @RequestParam(required = false,defaultValue ="1") int page,@RequestParam(required = false,defaultValue ="5") int rows) throws Exception{
+			                                                              @RequestParam(required = false,defaultValue ="5") int rows,@RequestParam(required = false,defaultValue ="1") int page) throws Exception{
+		System.out.println(rows+":"+page);
 		
 		ResultMessage<CommunityActiveModel> result = new ResultMessage<CommunityActiveModel>("ok","分页查询成功");
 		result.setCount(communityservice.getCountByConditionWithpage(activeno, activeplace, activetype, activecontent, startActiveDate, endActiveDate));
-		result.setList(communityservice.getListByConditionWithPage(activeno, activeplace, activetype, activecontent, startActiveDate, endActiveDate, page, rows));
+		result.setList(communityservice.getListByConditionWithPage(activeno, activeplace, activetype, activecontent, startActiveDate, endActiveDate, rows, page));
 		
-		result.setPage(communityservice.getPageCountByConditionWithPage(activeno, activeplace, activetype, activecontent, startActiveDate, endActiveDate, rows));
+		result.setPage(page);
 		result.setRows(rows);
 		result.setPageCount(communityservice.getPageCountByConditionWithPage(activeno, activeplace, activetype, activecontent, startActiveDate, endActiveDate, rows));
 		return result;

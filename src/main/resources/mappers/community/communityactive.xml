@@ -21,8 +21,8 @@
   </resultMap>
   
   <insert id="create"  parameterType="Active" flushCache="true">
-   insert into community (ACTIVENO,ACTIVEPLACE,ACTIVETIME,ACTIVECONTENT)
-   values (#{activeno},#{activeplace},#{activetime},#{activecontent},#{activetype})
+   insert into community (ACTIVEPLACE,ACTIVETIME,ACTIVECONTENT,ACTIVETYPE)
+   values (#{activeplace},#{activetime},#{activecontent},#{activetype})
   
   </insert>
   
@@ -37,6 +37,11 @@
   <!--查询所有活动  -->
   <select id="selectListByAll" resultMap="ActResultMap">
    select * from community
+  
+  </select>
+  <!--根据编号取得指定的活动  -->
+  <select id="selectbyno" resultMap="ActResultMap">
+   select * from community where ACTIVENO=#{activeno}
   
   </select>
   <!--查询指定地点的活动  -->
@@ -74,6 +79,7 @@
    
   </select>
   
+
   
   <!-- 根据综合检索条件取得社区活动列表，分页模式 -->
   <select id="selectListByConditionWithPage" resultMap="ActResultMap">

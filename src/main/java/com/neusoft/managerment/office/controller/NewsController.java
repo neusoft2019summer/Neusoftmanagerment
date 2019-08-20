@@ -2,9 +2,11 @@ package com.neusoft.managerment.office.controller;
 
 
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -56,7 +58,7 @@ public class NewsController {
 	//修改
 		@RequestMapping(value="/modify")
 		public ResultMessage<NewsModel> modify(NewsModel newsmodel) throws Exception{
-			
+			System.out.println(newsmodel);
 			newservice.modifynews(newsmodel);
 			return new ResultMessage<NewsModel>("OK","修改新闻成功");		
 		}
@@ -81,5 +83,23 @@ public class NewsController {
 		result.setRows(rows);
 		return result;
 		}
+	
+	//检索新闻列表，分页
+	@GetMapping(value="/list/condition/page")
+	public ResultMessage<NewsModel> getListByConditionWithPage(
+			@RequestParam(required = false,defaultValue ="") String newstype,
+			@DateTimeFormat(pattern = "yyyy-MM-dd") @RequestParam(required = false) Date startDate,
+            @DateTimeFormat(pattern = "yyyy-MM-dd") @RequestParam(required = false) Date endDate, 
+			@RequestParam(required = false,defaultValue ="10") int rows,
+			@RequestParam(required = false,defaultValue = "1") int page) throws Exception{
+		ResultMessage<NewsModel> result=new ResultMessage<NewsModel>("OK","新闻列表分页模式成功");	
+		result.setList(newservice.getListByConditionWithPage(newstype, startDate, endDate, rows, page));
+		result.setCount(newservice.getCountByCondition(newstype, startDate, endDate));
+		result.setPageCount(newservice.getPageByConditionWithPage(newstype, startDate, endDate, rows));
+		result.setPage(page);
+		result.setRows(rows);
+		return result;
+		}
+	
 
 }

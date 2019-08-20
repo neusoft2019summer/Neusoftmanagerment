@@ -1,11 +1,12 @@
 package com.neusoft.managerment.office.mapper;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-
+import com.neusoft.managerment.baseinfo.model.BuildingModel;
 import com.neusoft.managerment.office.model.NewsModel;
 
 //新闻的Mapper层接口
@@ -29,6 +30,21 @@ public interface INewsMapper {
    public int selectcountbyall() throws Exception;
    //取得指定新闻
    public NewsModel selectbyno(int newsno) throws Exception;
+   
+ //根据综合检索条件取得新闻列表,分页
+ 	public List<NewsModel> selectListByConditionWithPage(
+ 			@Param("newstype") String areaNo,
+ 			@Param("startDate") Date startDate,
+ 			@Param("endDate") Date endDate,
+ 			@Param("start") int start,
+ 			@Param("rows") int rows) throws Exception;
+ 	
+ 	//根据综合检索条件取得新闻个数
+ 	public int selectCountByCondition(
+ 			@Param("newstype") String newstype,
+ 			@Param("startDate") Date startDate,
+ 			@Param("endDate") Date endDate) throws Exception;
+
    
 	
 

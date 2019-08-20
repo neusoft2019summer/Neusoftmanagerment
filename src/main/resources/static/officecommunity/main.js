@@ -49,7 +49,7 @@ $(function(){
 		//选中点击事件
 		onSelectRow:function(communityId){
 			officecommunityId = communityId;
-			alert(officecommunityId);
+			
 			
 		}
 	});
@@ -59,7 +59,7 @@ $(function(){
 	$.getJSON("community/tolist",function(CommunityList){
 		if(CommunityList){
 			$.each(CommunityList,function(index,tm){
-				$("select#TypeSelection").append("<option value='"+tm.activeno+"'>"+tm.activetype+"</option>");
+				$("select#TypeSelection").append("<option value='"+tm.activetype+"'>"+tm.activetype+"</option>");
 			});
 		}
 	});
@@ -67,7 +67,7 @@ $(function(){
 	$.getJSON("community/tolist",function(CommunityList){
 		if(CommunityList){
 			$.each(CommunityList,function(index,pm){
-				$("select#PlaceSelection").append("<option value='"+pm.activeno+"'>"+pm.activeplace+"</option>");
+				$("select#PlaceSelection").append("<option value='"+pm.activeplace+"'>"+pm.activeplace+"</option>");
 			});
 		}
 	});
@@ -78,7 +78,7 @@ $(function(){
 		
 		$("table#CommunityTable").jqGrid('setGridParam',{postData:{activeno:activeno,activeplace:activeplace,
 			                                                       activetype:activetype,activecontent:activecontent,
-			                                                       startActiveDate:startActiveDate,endActiveDate:endActiveDate}}).trigger("reloadGrid");
+			                                                       startActiveDate:startActiveDate,endActiveDate:endActiveDate,page:1}}).trigger("reloadGrid");
 		
 		
 	}
@@ -97,6 +97,192 @@ $(function(){
 		reloadCommunityList();
 	});
 	
+	
+	
+	
+	
+	//===========================增加活动处理================================================
+	
+	$("a#CommunityAddLink").off().on("click",function(){
+		$("div#CommunityDailogArea").load("officecommunity/add.html",function(){
+			//验证提交数据
+			$("form#CommunityAddForm").validate({
+				rules: {
+					activetype: {
+						required: true
+					},
+					activetime: {
+						required: true
+					},
+					activecontent: {
+						required: true
+					},
+					activeplace: {
+						required: true
+					},
+					
+				},
+				message:{
+					activetype: {
+						required: "活动类型为空"
+					},
+					activetime: {
+						required: "活动时间为空"
+					},
+					activecontent: {
+						required: "活动内容为空"
+					},
+					activeplace: {
+						required: "活动地点为空"
+					},
+					
+				}
+			});
+			//修改活动的弹窗
+			$("div#CommunityDailogArea").dialog({
+				title:"增加活动",
+				width:600
+			});
+			
+			//拦截增加提交表单
+			$("form#CommunityAddForm").ajaxForm(function(result){
+				if(result.status=="OK"){
+					reloadCommunityList(); //更新活动列表
+				}
+				
+				BootstrapDialog.show({
+		            title: '活动操作信息',
+		            message:result.message,
+		            buttons: [{
+		                label: '确定',
+		                action: function(dialog) {
+		                    dialog.close();
+		                }
+		            }]
+		        });
+				$("div#CommunityDailogArea").dialog( "close" );
+				$("div#CommunityDailogArea").dialog( "destroy" );
+				$("div#CommunityDailogArea").html("");
+				
+			});
+			
+			//点击取消按钮处理
+			$("input[value='取消']").on("click",function(){
+				$("div#CommunityDailogArea").dialog( "close" );
+				$("div#CommunityDailogArea").dialog( "destroy" );
+				$("div#CommunityDailogArea").html("");
+			});
+		});
+	});
+	
+	
+	//===============================修改活动处理=============================
+
+	$("a#CommunityModifyLink").off().on("click",function(){
+		//若无选中活动
+		if(officecommunityId==0){
+			BootstrapDialog.show({
+	            title: '活动信息',
+	            message:"请选择要修改的活动",
+	            buttons: [{
+	                label: '确定',
+	                action: function(dialog) {
+	                    dialog.close();
+	                }
+	            }]
+	        });
+		}else{
+			
+			$("div#CommunityDailogArea").load("officecommunity/modify.html",function(){
+				//验证提交数据
+				$("form#CommunityModifyForm").validate({
+					rules: {
+						
+						activeplace: {
+							required: true
+						},
+						activecontent: {
+							required: true
+						},
+						activetime: {
+							required: true
+						},
+						activetype: {
+							required: true
+						},
+						
+					},
+					message:{
+						
+						activeplace: {
+							required: "活动地点"
+						},
+						activecontent: {
+							required: "活动内容"
+						},
+						activetime: {
+							required: "活动时间"
+						},
+						activetype: {
+							required: "活动类型"
+						},
+						
+					}
+				});
+				
+				
+				//取得指定的新闻信息
+				$.getJSON("community/get",{activeno:officecommunityId},function(community){
+					
+					if(news){
+						$("input[name='activeno']").val(officecommunityId);
+						$("input[name='activetype']").val(community.model.activetype);
+						$("input[name='activeplace']").val(community.model.activeplace);
+						$("input[name='activetime']").val(community.model.activetime);
+						$("input[name='activecontent']").val(community.model.activecontent);
+						
+					}
+				});
+				
+				//修改新闻的弹窗
+				$("div#CommunityDailogArea").dialog({
+					title:"修改活动",
+					width:600
+				});
+				
+				//拦截修改提交表单
+				$("form#CommunityModifyForm").ajaxForm(function(result){
+					if(result.status=="OK"){
+						reloadCommunityList(); //更新活动列表
+					}
+					
+					BootstrapDialog.show({
+			            title: '活动操作信息',
+			            message:result.message,
+			            buttons: [{
+			                label: '确定',
+			                action: function(dialog) {
+			                    dialog.close();
+			                }
+			            }]
+			        });
+					$("div#CommunityDailogArea").dialog( "close" );
+					$("div#CommunityDailogArea").dialog( "destroy" );
+					$("div#CommunityDailogArea").html("");
+					
+				});
+				
+				//点击取消按钮处理
+				$("input[value='取消']").on("click",function(){
+					$("div#CommunityDailogArea").dialog( "close" );
+					$("div#CommunityDailogArea").dialog( "destroy" );
+					$("div#CommunityDailogArea").html("");
+				});
+			});
+		}
+		
+		
+	});
 	
 	
 	
