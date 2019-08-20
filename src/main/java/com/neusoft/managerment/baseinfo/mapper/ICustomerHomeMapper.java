@@ -33,13 +33,18 @@ public interface ICustomerHomeMapper {
 	//5 根据综合检索条件取得客户房间列表
 	public List<CustomerHomeModel> selectListByConditionWithPage(
 			@Param("customerno") int customerno, 
+			@Param("livedate") Date livedate, 
+			@Param("receivedate") Date receivedate, 
 			@Param("start") int start,
 			@Param("rows") int rows) throws Exception;
 	//6 根据综合检索条件取得客户房间个数 
 	public int selectCountByCondition(
-			@Param("customerno") int customerno) throws Exception;
+			@Param("customerno") int customerno, 
+			@Param("livedate") Date livedate, 
+			@Param("receivedate") Date receivedate
+			) throws Exception;
 	//7  取得客户房间的页数
 	public int selectPageCountByAll(int rows);
 	//8  根据综合检索条件取得客户房间页数 
-	public int selectPageCountByConditionWithPage(int customerno,  int rows) throws Exception;
+	public int selectPageCountByConditionWithPage(int customerno, Date livedate, Date receivedate, int rows) throws Exception;
 }
