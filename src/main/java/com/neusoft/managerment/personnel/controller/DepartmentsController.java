@@ -84,7 +84,7 @@ public class DepartmentsController {
 	public ResultMessage<DepartmentsModel> getListByAllWitPage(
 			@RequestParam(required = false,defaultValue ="0") int departmentNo,
 			@RequestParam(required = false,defaultValue ="") String departmentName, 
-			@RequestParam(required = false,defaultValue ="10") int rows,
+			@RequestParam(required = false,defaultValue ="5") int rows,
 			@RequestParam(required = false,defaultValue = "1") int page) throws Exception{
 		ResultMessage<DepartmentsModel> result=new ResultMessage<DepartmentsModel>("OK","取得部门列表分页成功");
 		result.setCount(departmentsService.getCountByCondition(departmentNo,departmentName));

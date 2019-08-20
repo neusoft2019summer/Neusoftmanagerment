@@ -33,9 +33,9 @@ public interface IDepartmentsMapper {
 	public DepartmentsModel selectDeptByNo(int deptno) throws Exception;
 	//取得个数
 	public int selectCountByAll() throws Exception;
-	//取得检索的个数
+	//取得检索后的个数
 	public int selectCountByCondition(@Param("departmentNo") int departmentNo,@Param("departmentName") String departmentName) throws Exception;
-	//取得检索的部门表
+	//取得检索后的部门表
 	public List<DepartmentsModel> selectDeptByCondition(@Param("departmentNo") int departmentNo,@Param("departmentName") String departmentName, @Param("start") int start,@Param("rows") int rows) throws Exception;
 	
 	
