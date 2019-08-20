@@ -37,6 +37,6 @@ public interface ICommunityMapper {
 	public int selectCountByConditionWithpage(@Param("activeno") int activeno,@Param("activeplace") String activeplace,@Param("activetype") String activetype,@Param("activecontent") String activecontent,@Param("startActiveDate") Date startActiveDate,@Param("endActiveDate") Date endActiveDate) throws Exception;
 
 	// 根据索引取得列表
-	public List<CommunityActiveModel> selectListByConditionWithPage(@Param("activeno") int activeno,@Param("activeplace") String activeplace,@Param("activetype") String activetype,@Param("activecontent") String activecontent,@Param("startActiveDate") Date startActiveDate,@Param("endActiveDate") Date endActiveDate, @Param("page") int page,@Param("rows") int rows) throws Exception;
+	public List<CommunityActiveModel> selectListByConditionWithPage(@Param("activeno") int activeno,@Param("activeplace") String activeplace,@Param("activetype") String activetype,@Param("activecontent") String activecontent,@Param("startActiveDate") Date startActiveDate,@Param("endActiveDate") Date endActiveDate, @Param("start") int start,@Param("rows") int rows) throws Exception;
 
 }

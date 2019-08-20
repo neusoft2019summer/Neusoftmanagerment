@@ -13,12 +13,13 @@ $(function(){
 	var minhouse=0;
 	var maxhouse=0;
 	var buildingNo=0;
+	
 	//设置系统页面标题
 	$("span#mainpagetille").html("楼宇管理");
 	
 	//显示楼宇列表
-	$("table#BuildingGrid").jqGrid({
-		url: 'building/list/condition/page',
+	$("table#BuildingGrid").jqGrid({	
+		url: host+'building/list/condition/page',
 		datatype: "json",
 		colModel: [
 			{ label: '小区号', name: 'area.no', width: 50},
@@ -35,13 +36,13 @@ $(function(){
 		height:300,
 		rowNum: 10,
 		rowList:[5,6,7,8,9,10],
-		jsonReader : {
-			root: "list", //列表的属性
-			page: "page", //页号的属性
-			total: "pageCount", //总页数属性
-			records: "count", //总个数属性
-			repeatitems: true,
-			id: "no" //主键对应的属性
+		jsonReader : {			
+			root: "list", 
+			page: "page", 
+			total: "pageCount", 
+			records: "count", 
+		    repeatitems: true, 
+			id: "no" 
 		},
 		pager: "#BuildingGridPager",//jqGrid分页样式
 		multiselect:false,
@@ -51,33 +52,33 @@ $(function(){
 		}		
 		
 	});
-	/*
+	
 	//取得小区列表，填充小区列表下拉框
-	$.getJSON("area/list/all",function(areaList) {
+	$.getJSON(host+"area/list/all",function(areaList){
 		if(areaList){
-			$.each(areaList,function(index,area){
-				$("select#AreaNoSelection").append("<option value='"area.no"'>"+area.name+"</option>");
+			$.each(areaList,function(index,um){
+				$("select#AreaNoSelection").append("<option value='"+um.no+"'>"+um.name+"</option>");
 			});
 		}
 	});
-	
+		
 	//取得楼宇结构编号列表，填充楼宇结构编号列表下拉框
-	$.getJSON("buildingtype/list/all",function(buildingtypeList) {
-		if(buildingtypeList){
-			$.each(buildingtypeList,function(index,buildingtype){
-				$("select#BuildingTypeNoSelection").append("<option value='"buildingtype.no"'>"+buildingtype.name+"</option>");
-			});
-		}
-	});
-	//取得楼号列表，填充楼号列表下拉框
-	$.getJSON("building/list/all",function(codeList) {
-		if(codeList){
-			$.each(codeList,function(index,building){
-				$("select#CodeSelection").append("<option value='"building.code"'>"+building.code+"</option>");
+	$.getJSON(host+"buildType/list/all",function(typeList){
+		if(typeList){
+			$.each(typeList,function(index,um){
+				$("select#BuildingTypeNoSelection").append("<option value='"+um.no+"'>"+um.name+"</option>");
 			});
 		}
 	});
 	
+	//取得楼号列表，填充楼号列表下拉框
+	$.getJSON(host+"building/list/all",function(codeList){
+		if(codeList){
+			$.each(codeList,function(index,um){
+				$("select#CodeSelection").append("<option value='"+um.code+"'>"+um.code+"</option>");
+			});
+		}
+	});
 	//设置检索参数，更新jQGrid的列表显示
 	function reloadBuildingList()
 	{
@@ -125,11 +126,28 @@ $(function(){
 		maxhouse=$("input#maxhouse").val();
 		reloadBuildingList();
 	});	
-	*/
-	/*
+	
+	
 	//===========================增加楼宇处理=================================
 	//点击楼宇增加链接处理，嵌入add.html
 	$("a#BuildingAddLink").off().on("click",function(){
+		//取得小区列表，填充小区列表下拉框
+		$.getJSON(host+"area/list/all",function(areaList){
+			if(areaList){
+				$.each(areaList,function(index,um){
+					$("select#AreaNoSelection").append("<option value='"+um.no+"'>"+um.name+"</option>");
+				});
+			}
+		});
+			
+		//取得楼宇结构编号列表，填充楼宇结构编号列表下拉框
+		$.getJSON(host+"buildType/list/all",function(typeList){
+			if(typeList){
+				$.each(typeList,function(index,um){
+					$("select#BuildingTypeNoSelection").append("<option value='"+um.no+"'>"+um.name+"</option>");
+				});
+			}
+		});
 		$("div#BuildingDialogArea").load("building/add.html",function(){
 				//验证提交数据
 			$("form#BuildingAddForm").validate({
@@ -225,6 +243,24 @@ $(function(){
 	
 	//===========================修改楼宇处理=================================
 	$("a#BuildingModifyLink").off().on("click",function(){
+		//取得小区列表，填充小区列表下拉框
+		$.getJSON(host+"area/list/all",function(areaList){
+			if(areaList){
+				$.each(areaList,function(index,um){
+					$("select#AreaNoSelection").append("<option value='"+um.no+"'>"+um.name+"</option>");
+				});
+			}
+		});
+			
+		//取得楼宇结构编号列表，填充楼宇结构编号列表下拉框
+		$.getJSON(host+"buildType/list/all",function(typeList){
+			if(typeList){
+				$.each(typeList,function(index,um){
+					$("select#BuildingTypeNoSelection").append("<option value='"+um.no+"'>"+um.name+"</option>");
+				});
+			}
+		});
+		
 		if(buildingNo==0){
 			BootstrapDialog.show({
 	            title: '楼宇操作信息',
@@ -240,14 +276,14 @@ $(function(){
 		else {
 			$("div#BuildingDialogArea").load("building/modify.html",function(){
 				//取得选择的楼宇
-				$.getJSON("building/get",{no:buildingNo},function(data){
-					//alert("afsaf");
+				$.getJSON(host+"building/get",{no:buildingNo},function(data){
+					//alert(buildingNo);
 					if(data){
 						$("input[name='no']").val(buildingNo);
-						$("select[name='area']").val(data.area.no);
+						$("select[name='area.no']").val(data.area.no);
 						$("input[name='code']").val(data.code);
 						$("input[name='address']").val(data.address);
-						$("select[name='buildingtype']").val(data.buildingtype.no);
+						$("select[name='buildingtype.no']").val(data.buildingtype.no);
 						$("select[name='direction']").val(data.direction);
 						$("input[name='home']").val(data.home);
 						$("input[name='house']").val(data.house);
@@ -308,7 +344,7 @@ $(function(){
 		else {
 			BootstrapDialog.confirm('确认删除此楼宇么?', function(result){
 	            if(result) {
-		            $.post("building/delete",{no:buildingNo},function(result){
+		            $.post(host+"building/delete",{no:buildingNo},function(result){
 		            	if(result.status=="OK"){
 							reloadBuildingList(); //更新楼宇列表 
 						}
@@ -345,13 +381,13 @@ $(function(){
 		else{
 			$("div#BuildingDialogArea").load("building/view.html",function(){
 				//取得选择的楼宇
-				$.getJSON("building/get",{no:buildingNo},function(data){
+				$.getJSON(host+"building/get",{no:buildingNo},function(data){
 					if(data){
 						$("span#no").html(data.no);
-						$("span#areaNo").html(data.area.no);
+						$("span#area").html(data.area.no);
 						$("span#code").html(data.code);
 						$("span#address").html(data.address);
-						$("span#buildingTypeNo").html(data.buildingtype.no);
+						$("span#buildingtype").html(data.buildingtype.no);
 						$("span#direction").html(data.direction);
 						$("span#home").html(data.home);
 						$("span#house").html(data.house);	
@@ -363,7 +399,7 @@ $(function(){
 					width:600
 				});
 				//点击取消按钮处理
-				$("input[value='返回']").on("click",function(){
+				$("input[value='关闭']").on("click",function(){
 					$( "div#BuildingDialogArea").dialog( "close" );
 					$( "div#BuildingDialogArea").dialog( "destroy" );
 					$("div#BuildingDialogArea").html("");
@@ -372,5 +408,5 @@ $(function(){
 			
 		}
 	});
-	*/
+	
 });
