@@ -2,6 +2,7 @@ package com.neusoft.managerment.baseinfo.controller;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.neusoft.managerment.baseinfo.model.BuildingModel;
 import com.neusoft.managerment.baseinfo.model.ParkModel;
 import com.neusoft.managerment.baseinfo.service.IParkService;
 import com.neusoft.managerment.message.ResultMessage;
@@ -97,5 +99,29 @@ public class ParkController {
 		return ps.getByNo(no);
 	}
 
+	//根据综合检索条件取得车位列表,关联ParkType和Building,分页
+	@GetMapping(value="/list/condition/page")
+	public ResultMessage<ParkModel> selectListByConditionWithParkTypeAndBuildingWithPage(
+			@RequestParam(required = false,defaultValue = "0") int parkTypeNo,
+			@RequestParam(required = false,defaultValue = "0") int buildingNo,
+			@RequestParam(required = false,defaultValue = "") String parkstatus,
+			@RequestParam(required = false,defaultValue = "") String rentunit,
+			@RequestParam(required = false,defaultValue = "") String feestatus,
+			@RequestParam(required = false,defaultValue = "") String mixarea,
+			@RequestParam(required = false,defaultValue = "") String maxarea,
+			@RequestParam(required = false,defaultValue = "") String minrentprice,
+			@RequestParam(required = false,defaultValue = "") String maxrentprice,
+			@RequestParam(required = false,defaultValue = "10") int rows,
+			@RequestParam(required = false,defaultValue = "1") int page) throws Exception {
+		
+		ResultMessage<ParkModel> result=new ResultMessage<ParkModel>("OK","取得员工列表分页成功");
+		result.setCount(ps.getCountByCondition(parkTypeNo, buildingNo, parkstatus, rentunit, feestatus, mixarea, maxarea, minrentprice, maxrentprice));
+		result.setPageCount(ps.getPageCountByCondition(parkTypeNo, buildingNo, parkstatus, rentunit, feestatus, mixarea, maxarea, minrentprice, maxrentprice, rows));
+		result.setList(ps.getListByConditionWithParkTypeAndBuildingWithPage(parkTypeNo, buildingNo, parkstatus, rentunit, feestatus, mixarea, maxarea, minrentprice, maxrentprice, rows, page));
+		result.setPage(page);
+		result.setRows(rows);
+		
+		return result;
+	}
 }
 

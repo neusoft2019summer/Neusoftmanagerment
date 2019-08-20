@@ -384,10 +384,10 @@ $(function(){
 				$.getJSON(host+"building/get",{no:buildingNo},function(data){
 					if(data){
 						$("span#no").html(data.no);
-						$("span#area").html(data.area.no);
+						$("span#area").html(data.area.no+"("+data.area.name+")");
 						$("span#code").html(data.code);
 						$("span#address").html(data.address);
-						$("span#buildingtype").html(data.buildingtype.no);
+						$("span#buildingtype").html(data.buildingtype.no+"("+data.buildingtype.name+")");
 						$("span#direction").html(data.direction);
 						$("span#home").html(data.home);
 						$("span#house").html(data.house);	

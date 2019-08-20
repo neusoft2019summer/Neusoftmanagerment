@@ -162,13 +162,16 @@ $(function(){
 						min:0
 					},
 					home: {
-						required: true
+						required: true,
+						isInteger: true
 					},
 					house: {
-						required: true
+						required: true,
+						isInteger: true
 					},
 					park: {
-						required: true
+						required: true,
+						isInteger: true
 					}
 				},
 				message:{
@@ -195,15 +198,15 @@ $(function(){
 				    	range: "小于总建筑面积"
 					},
 					home: {
-						number: "总居民数必须是数值",
+						number: "总居民数必须是整数值",
 				    	range: "大于等于0"
 					},
 					house: {
-						number: "总公建数必须是数值",
+						number: "总公建数必须是整数值",
 				    	range: "大于等于0"
 					},
 					park: {
-						number: "车位数必须是数值",
+						number: "车位数必须是整数值",
 				    	range: "大于等于0"
 					}
 				}
