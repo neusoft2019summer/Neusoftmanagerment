@@ -278,9 +278,9 @@ $(function(){
 	        });
 		}
 		else{
-			$("div#ParkDialogArea").load("Park/view.html",function(){
+			$("div#ParkDialogArea").load("park/view.html",function(){
 				//取得选择的车位
-				$.getJSON("Park/get",{no:Parkno},function(Park){
+				$.getJSON("park/get",{no:Parkno},function(Park){
 					if(Park){
 						$("input#no").val(Parkno);
 						
