@@ -29,7 +29,5 @@ public class CustomerHomeModel implements Serializable {
 	private Date feestartdate = null;
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date feeenddate = null;
-	private int humancount = 0;
-	private String chstatus = null;
-	
+	private int humancount = 0;	
 }

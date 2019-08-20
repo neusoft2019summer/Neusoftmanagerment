@@ -43,20 +43,66 @@ public class CustomerHomeServiceImpl implements ICustomerHomeService {
 
 	@Override
 	public List<CustomerHomeModel> getListByAll() throws Exception {
-		
+		// TODO Auto-generated method stub
 		return customerHomeMapper.selectListByAll();
 	}
 
 	@Override
+	public List<CustomerHomeModel> getListByAllWithFKWithPage(int rows, int page) throws Exception {
+		// TODO Auto-generated method stub
+		return customerHomeMapper.selectListByAllWithFKWithPage(rows*(page-1), rows);
+	}
+
+	@Override
 	public CustomerHomeModel getByCHNO(int chno) throws Exception {
-		
+		// TODO Auto-generated method stub
 		return customerHomeMapper.selectByCHNO(chno);
 	}
 
 	@Override
-	public List<CustomerHomeModel> getListByAllWithPage(int rows, int page) throws Exception {
-		
-		return customerHomeMapper.selectListByAllWithPage(rows*(page-1), rows);
+	public int getCountByAll() throws Exception {
+		// TODO Auto-generated method stub
+		return customerHomeMapper.selectCountByAll();
 	}
+
+	@Override
+	public List<CustomerHomeModel> getListByConditionWithPage(int customerno, int rows, int page) throws Exception {
+		// TODO Auto-generated method stub
+		return customerHomeMapper.selectListByConditionWithPage(customerno, rows*(page-1), rows);
+	}
+
+	@Override
+	public int getCountByCondition(int customerno) throws Exception {
+		// TODO Auto-generated method stub
+		return customerHomeMapper.selectCountByCondition(customerno);
+	}
+
+	@Override
+	public int getPageCountByAll(int rows) throws Exception {
+		int pageCount=0;
+		int count=this.getCountByAll();
+		if(count%rows==0) {
+			pageCount=count/rows;
+		}
+		else {
+			pageCount=count/rows+1;
+		}
+		return pageCount;
+	}
+
+	@Override
+	public int getPageCountByConditionWithPage(int customerno, int rows) throws Exception {
+		int pageCount=0;
+		int count=this.getCountByCondition(customerno);
+		if(count%rows==0) {
+			pageCount=count/rows;
+		}
+		else {
+			pageCount=count/rows+1;
+		}
+		return pageCount;
+	}
+
+
 
 }
