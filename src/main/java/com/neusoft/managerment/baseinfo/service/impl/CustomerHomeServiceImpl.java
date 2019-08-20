@@ -1,5 +1,6 @@
 package com.neusoft.managerment.baseinfo.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,15 +67,15 @@ public class CustomerHomeServiceImpl implements ICustomerHomeService {
 	}
 
 	@Override
-	public List<CustomerHomeModel> getListByConditionWithPage(int customerno, int rows, int page) throws Exception {
+	public List<CustomerHomeModel> getListByConditionWithPage(int customerno, Date livedate, Date receivedate, int rows, int page) throws Exception {
 		// TODO Auto-generated method stub
-		return customerHomeMapper.selectListByConditionWithPage(customerno, rows*(page-1), rows);
+		return customerHomeMapper.selectListByConditionWithPage(customerno, livedate, receivedate, rows*(page-1), rows);
 	}
 
 	@Override
-	public int getCountByCondition(int customerno) throws Exception {
+	public int getCountByCondition(int customerno,Date livedate, Date receivedate) throws Exception {
 		// TODO Auto-generated method stub
-		return customerHomeMapper.selectCountByCondition(customerno);
+		return customerHomeMapper.selectCountByCondition(customerno,livedate, receivedate);
 	}
 
 	@Override
@@ -91,9 +92,9 @@ public class CustomerHomeServiceImpl implements ICustomerHomeService {
 	}
 
 	@Override
-	public int getPageCountByConditionWithPage(int customerno, int rows) throws Exception {
+	public int getPageCountByConditionWithPage(int customerno, Date livedate, Date receivedate ,int rows) throws Exception {
 		int pageCount=0;
-		int count=this.getCountByCondition(customerno);
+		int count=this.getCountByCondition(customerno,livedate, receivedate);
 		if(count%rows==0) {
 			pageCount=count/rows;
 		}

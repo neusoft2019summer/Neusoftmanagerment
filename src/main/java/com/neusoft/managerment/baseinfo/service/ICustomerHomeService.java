@@ -28,11 +28,11 @@ public interface ICustomerHomeService {
 	//4 取得客户房间的个数
 	public int getCountByAll() throws Exception;
 	//5 根据综合检索条件取得客户房间列表
-	public List<CustomerHomeModel> getListByConditionWithPage(int customerno, int rows,int page) throws Exception;
+	public List<CustomerHomeModel> getListByConditionWithPage(int customerno, Date livedate, Date receivedate, int rows,int page) throws Exception;
 	//6 根据综合检索条件取得客户房间个数 
-	public int getCountByCondition(int customerno) throws Exception;
+	public int getCountByCondition(int customerno,Date livedate, Date receivedate) throws Exception;
 	//7 取得客户房间的页数
 	public int getPageCountByAll(int rows) throws Exception;
 	//8  根据综合检索条件取得客户房间页数 
-	public int getPageCountByConditionWithPage(int customerno, int rows) throws Exception;
+	public int getPageCountByConditionWithPage(int customerno, Date livedate, Date receivedate, int rows) throws Exception;
 }
