@@ -18,24 +18,27 @@
 				<form id="DepartmentsForm" role="form" action="departments/modify" method="post">
 				
 				  <div class="box-body">
-				    <div class="form-group">
-				      <label for="exampleInputPassword1">部门编号</label>
-				      <input type="text" class="form-control" name="deptno" placeholder="部门编号" readonly>
-				    </div>
-				    <div class="form-group">
-				      <label for="exampleInputPassword1">部门名称</label>
-				      <input type="text" class="form-control" name="deptname" placeholder="部门名称" >
-				    </div>
-				    <div class="form-group">
-				      <label for="exampleInputPassword1">部门职责</label>
-				      <input type="text" class="form-control" name="ddesc" placeholder="部门职责" >
-				    </div>
-				  </div>
+				   <div class="rows">
+				   		<div class="col-md-6">
+                		<div class="form-group">
+		                  <label for="exampleInputEmail1">部门编号</label>
+		                 <span id="deptNo"></span>
+		                </div>
+		                
+		                <div class="form-group">
+		                  <label for="exampleInputEmail1">部门编号</label>
+		                  	 <span id="deptName"></span>
+		                </div>
+		                <div class="form-group">
+		                  <label for="exampleInputEmail1">部门职责</label>
+		                  <span id="deptDesc"></span>
+		                </div>
+                	</div>
+				   
+				   </div>
 				
 				  <div class="box-footer">
-				    <input type="submit" class="btn btn-primary" value="提交"/>
-				    <input type="button" class="btn btn-primary" value="取消">
-				    <input type="hidden" name="deptno" readonly>
+				    <input type="button" class="btn btn-primary" value="关闭">
 				  </div>
 				
 				</form>

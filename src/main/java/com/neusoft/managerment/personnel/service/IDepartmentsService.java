@@ -23,13 +23,18 @@ public interface IDepartmentsService {
 	//查询部门信息
 	public List<DepartmentsModel> getDeptListByAll() throws Exception;
 	public List<DepartmentsModel> getDeptListByAllWithPage(@Param("start") int start,@Param("rows") int rows) throws Exception;
-	//返回指定部门的信息
+	//返回指定部门的详细信息
 	public DepartmentsModel getDeptByNo(int deptno) throws Exception;
 	//取得个数
 	public int getCountByAll() throws Exception;
-
+	//检索取得部门
+    public List<DepartmentsModel> getDeptByCondition(int departmentNo,String departmentName, int rows,int page)throws Exception;
 	//检查部门能否被删
-	public boolean checkCanDelete(int no)throws Exception;
+	public boolean checkCanDelete(int deptno)throws Exception;
 	//取得部门页数
 	public int getPageCountByAll(int rows) throws Exception;
+	//检索后的个数
+	public int getCountByCondition(int departmentNo, String departmentName)throws Exception;
+	//检索后的页数
+	public int getPageCountByCondition(int departmentNo, String departmentName, int rows)throws Exception;
 }
