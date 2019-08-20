@@ -24,52 +24,53 @@ public class DepartmentsServiceImpl implements IDepartmentsService {
 	private IDepartmentsMapper departmentsMapper=null;
 	@Autowired
 	private IEmployeesMapper employeesMapper=null;
+	//添加
 	@Override
 	public void add(DepartmentsModel departments) throws Exception {
 		// TODO Auto-generated method stub
 		departmentsMapper.create(departments);
 	}
-
+	//修改
 	@Override
 	public void modify(DepartmentsModel departments) throws Exception {
 		// TODO Auto-generated method stub
 		departmentsMapper.update(departments);
 	}
-
+	//删除
 	@Override
 	public void delete(DepartmentsModel departments) throws Exception {
 		// TODO Auto-generated method stub
 		departmentsMapper.delete(departments);
 	}
-
+    //获取全部部门
 	@Override
 	@Transactional(readOnly = true)
 	public List<DepartmentsModel> getDeptListByAll() throws Exception {
 		// TODO Auto-generated method stub
 		return departmentsMapper.selectDeptListByAll();
 	}
-
+    //分页模式获取全部部门
 	@Override
 	@Transactional(readOnly = true)
 	public List<DepartmentsModel> getDeptListByAllWithPage(int rows, int page) throws Exception {
 		// TODO Auto-generated method stub
 		return departmentsMapper.selectDeptListByAllWithPage(rows*(page-1), rows);
 	}
-
+	//取得选定部门的详细信息，包括员工
 	@Override
 	@Transactional(readOnly = true)
 	public DepartmentsModel getDeptByNo(int deptno) throws Exception {
 		// TODO Auto-generated method stub
 		return departmentsMapper.selectDeptByNo(deptno);
 	}
-
+	//取得部门个数
 	@Override
 	@Transactional(readOnly = true)
 	public int getCountByAll() throws Exception {
 		// TODO Auto-generated method stub
 		return departmentsMapper.selectCountByAll();
 	}
-
+	//取得获取全部门的页数
 	@Override
 	@Transactional(readOnly = true)
 	public int getPageCountByAll(int rows) throws Exception {
@@ -83,22 +84,42 @@ public class DepartmentsServiceImpl implements IDepartmentsService {
 		}
 		return pageCount;
 	}
-
+    //检查能否删除
 	@Override
-	public boolean checkCanDelete(int no) throws Exception {
+	public boolean checkCanDelete(int deptno) throws Exception {
 		// TODO Auto-generated method stub
 		boolean result=true;
-		if(employeesMapper.selectCountByCondition(no,"", null, null)>0) {
+		if(employeesMapper.selectCountByCondition(deptno,"", null, null)>0) {
 			result=false;
 		}
 		
 		return result;
 	}
-
+    //检索
 	@Override
-	public List<DepartmentsModel> getDeptByCondition(int deptNo, String deptName, int rows, int page) throws Exception {
+	public List<DepartmentsModel> getDeptByCondition(int departmentNo, String departmentName, int rows, int page) throws Exception {
 		// TODO Auto-generated method stub
-		return departmentsMapper.selectDeptByCondition(deptNo,deptName,rows*(page-1), rows);
+		return departmentsMapper.selectDeptByCondition(departmentNo,departmentName,rows*(page-1), rows);
+	}
+   //检索所得个数
+	@Override
+	public int getCountByCondition(int departmentNo, String departmentName) throws Exception {
+		// TODO Auto-generated method stub
+		return departmentsMapper.selectCountByCondition(departmentNo, departmentName);
+	}
+	//检索所得页数
+	@Override
+	public int getPageCountByCondition(int departmentNo, String departmentName, int rows) throws Exception {
+		// TODO Auto-generated method stub
+		int pageCount=0;
+		int count=this.getCountByCondition(departmentNo, departmentName);
+		if(count%rows==0) {
+			pageCount=count/rows;
+		}
+		else {
+			pageCount=count/rows+1;
+		}
+		return pageCount;
 	}
 
 }

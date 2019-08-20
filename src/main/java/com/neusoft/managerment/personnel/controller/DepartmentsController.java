@@ -80,12 +80,16 @@ public class DepartmentsController {
 		return result;
 	}
 	//取得检索部门列表，有分页
-	@GetMapping(value="/get/list")
-	public ResultMessage<DepartmentsModel> getListByAllWitPage(@RequestParam(required = false,defaultValue ="0") int departmentNo,@RequestParam(required = false,defaultValue ="") String sex,@DateTimeFormat(pattern = "yyyy-MM-dd") @RequestParam(required = false) Date startJoinDate,@DateTimeFormat(pattern = "yyyy-MM-dd") @RequestParam(required = false) Date endJoinDate, @RequestParam(required = false,defaultValue ="10") int rows,@RequestParam(required = false,defaultValue = "1") int page) throws Exception{
+	@GetMapping(value="/list/condition/page")
+	public ResultMessage<DepartmentsModel> getListByAllWitPage(
+			@RequestParam(required = false,defaultValue ="0") int departmentNo,
+			@RequestParam(required = false,defaultValue ="") String departmentName, 
+			@RequestParam(required = false,defaultValue ="10") int rows,
+			@RequestParam(required = false,defaultValue = "1") int page) throws Exception{
 		ResultMessage<DepartmentsModel> result=new ResultMessage<DepartmentsModel>("OK","取得部门列表分页成功");
-		result.setCount(departmentsService.getCountByConditionWithDepartments(departmentNo,sex, startJoinDate, endJoinDate));
-		result.setPageCount(departmentsService.getPageCountByConditionWithDepartments(departmentNo, sex, startJoinDate, endJoinDate, rows));
-		result.setList(departmentsService.getListByConditionWithDepartments(departmentNo, sex, startJoinDate, endJoinDate, rows, page));
+		result.setCount(departmentsService.getCountByCondition(departmentNo,departmentName));
+		result.setPageCount(departmentsService.getPageCountByCondition(departmentNo,departmentName,rows));
+		result.setList(departmentsService.getDeptByCondition(departmentNo, departmentName, rows, page));
 		result.setPage(page);
 		result.setRows(rows);
 		

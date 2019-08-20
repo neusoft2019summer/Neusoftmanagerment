@@ -39,8 +39,8 @@
    select * from Departments limit #{start},#{rows}
   </select>
   
-  <select id="selectDeptByNo" resultMap="DepartmentsResultMap">
-   select * from Departments where DEPTNO=#{deptno}
+  <select id="selectDeptByNo" resultMap="DepartmentsWithEmployeesResultMap">
+   select a.*,b.* from Departments a left outer join Employees b on a.DEPTNO=b.DEPTNO where a.DEPTNO=#{deptno}
   </select>
   
   <select id="selectCountByAll" resultType="int">
@@ -48,15 +48,27 @@
   </select>
   
    <select id="selectDeptByCondition" resultMap="DepartmentsResultMap">
-  select * from departments 
+  select * from Departments 
   <where>
-     <if test="deptNo!=0">
-      and DEPTNO=#{deptNo}
+     <if test="departmentNo!=0">
+      and DEPTNO=#{departmentNo}
      </if>
-     <if test="deptName!=null and deptName!=''">
-     and deptname=#{deptName}
+     <if test="departmentName!=null and departmentName!=''">
+     and DEPTNAME=#{departmentName}
      </if>
   </where>
     limit #{start},#{rows}
+  </select>
+  
+  <select id="selectCountByCondition" resultType="int">
+   select IFNULL(count(DEPTNO),0)from Departments
+   <where>
+     <if test="departmentNo!=0">
+      and DEPTNO=#{departmentNo}
+     </if>
+     <if test="departmentName!=null and departmentName!=''">
+     and DEPTNAME=#{departmentName}
+     </if>
+  </where>
   </select>
 </mapper> 
