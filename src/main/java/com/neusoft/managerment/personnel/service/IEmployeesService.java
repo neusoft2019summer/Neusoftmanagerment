@@ -21,17 +21,18 @@ public interface IEmployeesService {
 	public void modify(EmployeesModel employees) throws Exception;
 	//删除
 	public void delete(EmployeesModel employees) throws Exception;
-	//查询部门信息
+	//返回所有员工信息
 	public List<EmployeesModel> getEmpListByAll() throws Exception;
-	//分页
-	public List<EmployeesModel> getEmpListByAllWithPage(int rows,int pages) throws Exception;
 	//返回指定员工信息
 	public EmployeesModel getEmpByID(int id) throws Exception;
 	//检索
-	public List<EmployeesModel> getListByConditionWithDepartments(int departmentNo,String sex,Date startJoinDate,Date endJoinDate, int rows,int page) throws Exception;
+	public List<EmployeesModel> getListByConditionWithDepartments(int departmentNo,int id,String sex,
+			int age,String mobile,Date startJoinDate,Date endJoinDate, double minSal,double maxSal,int rows,int page) throws Exception;
 	//根据综合检索条件取得员工个数
-	public int getCountByConditionWithDepartments(int departmentNo,String sex,Date startJoinDate,Date endJoinDate) throws Exception;
+	public int getCountByConditionWithDepartments(int departmentNo,int id,String sex,
+			int age,String mobile,Date startJoinDate,Date endJoinDate, double minSal,double maxSal) throws Exception;
 	//根据综合检索条件取得员工显示的页数
-	public int getPageCountByConditionWithDepartments(int departmentNo,String sex,Date startJoinDate,Date endJoinDate,int rows) throws Exception;
+	public int getPageCountByConditionWithDepartments(int departmentNo,int id,String sex,
+			int age,String mobile,Date startJoinDate,Date endJoinDate, double minSal,double maxSal,int rows) throws Exception;
 
 }

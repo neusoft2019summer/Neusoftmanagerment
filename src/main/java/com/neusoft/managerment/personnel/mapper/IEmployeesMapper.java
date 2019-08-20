@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.neusoft.managerment.personnel.model.DepartmentsModel;
 import com.neusoft.managerment.personnel.model.EmployeesModel;
 
 /**
@@ -22,14 +23,34 @@ public interface IEmployeesMapper {
 	public void update(EmployeesModel empModel) throws Exception;
 	//删除
 	public void delete(EmployeesModel empModel) throws Exception;
-	//查询员工档案信息
-	public List<EmployeesModel> selectEmpListByAll() throws Exception;
-	//分页
-	public List<EmployeesModel> selectEmpListByAllWithPage(@Param("start") int start,@Param("rows") int rows) throws Exception;
 	//返回指定员工的信息
 	public EmployeesModel selectEmpByID(int id) throws Exception;
+	//返回所有员工信息
+	public List<EmployeesModel> selectEmpListByAll() throws Exception;
 	//检索
-	public List<EmployeesModel> selectListByConditionWithDepartments(@Param("departmentNo") int departmentNo,@Param("sex") String sex,@Param("startJoinDate") Date startJoinDate,@Param("endJoinDate") Date endJoinDate, @Param("start") int start,@Param("rows") int rows) throws Exception;
+	public List<EmployeesModel> selectListByConditionWithDepartments(
+			@Param("departmentNo") int departmentNo,
+			@Param("id") int id,
+			@Param("sex") String sex,
+			@Param("age") int age,
+			@Param("mobile") String mobile,
+			@Param("startJoinDate") Date startJoinDate,
+			@Param("endJoinDate") Date endJoinDate,
+			@Param("minSal") double minSal,
+			@Param("maxSal") double maxSal,
+			@Param("start") int start,
+			@Param("rows") int rows) throws Exception;
 	//检索的个数
-	public int selectCountByCondition(@Param("departmentNo") int departmentNo,@Param("sex") String sex,@Param("startJoinDate") Date startJoinDate,@Param("endJoinDate") Date endJoinDate) throws Exception;
+	public int selectCountByCondition(
+			@Param("departmentNo") int departmentNo,
+			@Param("id") int id,
+			@Param("sex") String sex,
+			@Param("age") int age,
+			@Param("mobile") String mobile,
+			@Param("startJoinDate") Date startJoinDate,
+			@Param("endJoinDate") Date endJoinDate,
+			@Param("minSal") double minSal,
+			@Param("maxSal") double maxSal,
+			@Param("start") int start,
+			@Param("rows") int rows) throws Exception;
 }

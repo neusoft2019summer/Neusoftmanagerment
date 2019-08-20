@@ -84,17 +84,7 @@ public class DepartmentsServiceImpl implements IDepartmentsService {
 		}
 		return pageCount;
 	}
-    //检查能否删除
-	@Override
-	public boolean checkCanDelete(int deptno) throws Exception {
-		// TODO Auto-generated method stub
-		boolean result=true;
-		if(employeesMapper.selectCountByCondition(deptno,"", null, null)>0) {
-			result=false;
-		}
-		
-		return result;
-	}
+
     //检索
 	@Override
 	public List<DepartmentsModel> getDeptByCondition(int departmentNo, String departmentName, int rows, int page) throws Exception {
@@ -121,5 +111,6 @@ public class DepartmentsServiceImpl implements IDepartmentsService {
 		}
 		return pageCount;
 	}
+
 
 }

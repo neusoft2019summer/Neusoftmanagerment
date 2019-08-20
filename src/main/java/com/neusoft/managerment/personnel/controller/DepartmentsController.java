@@ -44,7 +44,7 @@ public class DepartmentsController {
 		departmentsService.delete(departments);
 		return new ResultMessage<DepartmentsModel>("OK","删除部门信息成功");
 	}
-	//取得指定的
+	//取得指定的部门的编号
 	@GetMapping("/get")
 	public ResultMessage<DepartmentsModel> getDeptByNo(int deptno) throws Exception{
 		ResultMessage<DepartmentsModel> result=new ResultMessage<DepartmentsModel>("OK","取得部门成功");
@@ -69,16 +69,6 @@ public class DepartmentsController {
 	public List<DepartmentsModel> getListByAll() throws Exception{
 		return departmentsService.getDeptListByAll();
 	}
-	//检查此部门能否被删除
-	@GetMapping(value="/checkDelete")
-	public ResultMessage<DepartmentsModel> checkForDelete(int deptno) throws Exception{
-		ResultMessage<DepartmentsModel> result=new ResultMessage<DepartmentsModel>("OK","此部门可以删除");
-		if(!departmentsService.checkCanDelete(deptno)) {
-			result.setStatus("NO");
-			result.setMessage("此部门不能删除");
-		}
-		return result;
-	}
 	//取得检索部门列表，有分页
 	@GetMapping(value="/list/condition/page")
 	public ResultMessage<DepartmentsModel> getListByAllWitPage(
@@ -95,4 +85,5 @@ public class DepartmentsController {
 		
 		return result;
 	}
+	
 }

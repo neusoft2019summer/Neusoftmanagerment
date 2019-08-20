@@ -41,12 +41,7 @@ public class EmployeesServiceImpl implements IEmployeesService {
 	}
 
 	@Override
-	public List<EmployeesModel> getEmpListByAllWithPage(int rows, int page) throws Exception {
-		// TODO Auto-generated method stub
-		return employeesMapper.selectEmpListByAllWithPage(rows*(page-1), rows);
-	}
-
-	@Override
+	@Transactional(readOnly = true)
 	public EmployeesModel getEmpByID(int id) throws Exception {
 		// TODO Auto-generated method stub
 		return employeesMapper.selectEmpByID(id);
@@ -55,37 +50,33 @@ public class EmployeesServiceImpl implements IEmployeesService {
 
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<EmployeesModel> getEmpListByAll() throws Exception {
 		// TODO Auto-generated method stub
 		return employeesMapper.selectEmpListByAll();
 	}
 
-	@Override
-	public List<EmployeesModel> getListByConditionWithDepartments(int departmentNo, String sex, Date startJoinDate,
-			Date endJoinDate, int rows, int page) throws Exception {
-		// TODO Auto-generated method stub
-		return employeesMapper.selectListByConditionWithDepartments(departmentNo, sex, startJoinDate, endJoinDate, rows*(page-1), rows);
-	}
 
 	@Override
-	public int getCountByConditionWithDepartments(int departmentNo, String sex, Date startJoinDate, Date endJoinDate)
+	public List<EmployeesModel> getListByConditionWithDepartments(int departmentNo, int id, String sex, int age,
+			String mobile, Date startJoinDate, Date endJoinDate, double minSal, double maxSal, int rows, int page)
 			throws Exception {
 		// TODO Auto-generated method stub
-		return employeesMapper.selectCountByCondition(departmentNo, sex, startJoinDate, endJoinDate);
+		return employeesMapper.selectListByConditionWithDepartments(departmentNo, id, sex, age, mobile, startJoinDate, endJoinDate, minSal, maxSal, rows*(page-1), rows);
 	}
 
 	@Override
-	public int getPageCountByConditionWithDepartments(int departmentNo, String sex, Date startJoinDate,
-			Date endJoinDate, int rows) throws Exception {
-		int pageCount=0;
-		int count=this.getCountByConditionWithDepartments(departmentNo, sex, startJoinDate, endJoinDate);
-		if(count%rows==0) {
-			pageCount=count/rows;
-		}
-		else {
-			pageCount=count/rows+1;
-		}
-		return pageCount;
+	public int getCountByConditionWithDepartments(int departmentNo, int id, String sex, int age, String mobile,
+			Date startJoinDate, Date endJoinDate, double minSal, double maxSal) throws Exception {
+		// TODO Auto-generated method stub
+		return employeesMapper.selectCountByCondition(departmentNo, id, sex, age, mobile, startJoinDate, endJoinDate, minSal, maxSal, start, rows)
+	}
+
+	@Override
+	public int getPageCountByConditionWithDepartments(int departmentNo, int id, String sex, int age, String mobile,
+			Date startJoinDate, Date endJoinDate, double minSal, double maxSal, int rows) throws Exception {
+		// TODO Auto-generated method stub
+		return 0
 	}
 
 	}
