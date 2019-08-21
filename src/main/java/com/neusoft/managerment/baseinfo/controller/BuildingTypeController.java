@@ -63,8 +63,8 @@ public class BuildingTypeController {
 	}
 	//取得指定建筑类型的信息
 	@GetMapping("/get")
-	public BuildingTypeModel getBuildTypeByNo(int btNo) throws Exception{
-		return bts.getBuildTypeByNo(btNo);
+	public BuildingTypeModel getBuildTypeByNo(String no) throws Exception{
+		return bts.getBuildTypeByNo(no);
 	}
 	
 }

@@ -101,15 +101,10 @@ public class BuildingController {
 	public List<BuildingModel> getListByArea(int areaNo) throws Exception {
 		return bs.getListByArea(areaNo);
 	}
-	//取得指定建筑类型的楼宇列表,参数:buildTypeNo 
-	@GetMapping(value="/list/buildtype")
-	public List<BuildingModel> getListByBuildType(int buildTypeNo) throws Exception {
-		return bs.getListByBuildType(buildTypeNo);
-	}
 		
 	//取得指定楼宇的信息
 	@GetMapping("/get")
-	public BuildingModel getByNo(int no) throws Exception{
+	public BuildingModel getByNo(String no) throws Exception{
 		return bs.getByNo(no);
 	}
 
@@ -117,7 +112,7 @@ public class BuildingController {
 	@GetMapping(value="/list/condition/page")
 	public ResultMessage<BuildingModel> getListByConditionWithAreaAndBuildTypeWithPage(
 			@RequestParam(required = false,defaultValue ="0") int areaNo,
-			@RequestParam(required = false,defaultValue ="0") int buildingtypeNo,
+			@RequestParam(required = false,defaultValue ="") String buildingtypeNo,
 			@RequestParam(required = false,defaultValue ="") String code,
 			@RequestParam(required = false,defaultValue ="") String direction,
 			@RequestParam(required = false,defaultValue ="0") int minhome,

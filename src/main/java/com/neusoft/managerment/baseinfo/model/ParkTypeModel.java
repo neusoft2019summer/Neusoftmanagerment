@@ -18,6 +18,5 @@ public class ParkTypeModel implements Serializable {
 
 	private int no = 0; //类型编号
 	private String name = null; //类型名称
-	private BigDecimal price = null; //单价
-	private String unit = null; //单位(天/月/年)
+	
 }

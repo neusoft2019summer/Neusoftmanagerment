@@ -23,7 +23,7 @@ public interface IRoomMapper {
 	//取得房间的信息
 	public List<RoomModel> selectListByAll() throws Exception;
 	
-	public List<RoomModel> selectListByAllwithFK() throws Exception;
+	public List<RoomModel> selectListByAllWithFK() throws Exception;
 	
 	//取得单个房间的信息
 	public RoomModel selectByRoomNo(int roomno) throws Exception;

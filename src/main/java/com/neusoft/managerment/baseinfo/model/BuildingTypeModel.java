@@ -15,7 +15,7 @@ import lombok.Data;
 @Data
 public class BuildingTypeModel implements Serializable {
 
-	private int no=0; //类型编号
+	private String no=null; //类型编号
 	private String name=null; //类型名称
 	
 	

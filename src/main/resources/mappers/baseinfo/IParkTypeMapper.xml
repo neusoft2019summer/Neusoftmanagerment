@@ -9,16 +9,14 @@
   <resultMap id="ParkTypeResultMap" type="ParkType">
   	<id property="no" column="TYPENO" />
   	<result property="name" column="TYPENAME" />
-  	<result property="price" column="Price" />
-  	<result property="unit" column="Unit" />
   </resultMap>
   
   <insert id="create" keyProperty="no" keyColumn="TYPENO" useGeneratedKeys="true" flushCache="true">
-  	insert into ParkType (TYPENAME,Price,Unit) values (#{name},#{price},#{unit})
+  	insert into ParkType (TYPENAME) values (#{name})
   </insert>
   
   <update id="update" flushCache="true">
-  	update ParkType set TYPENAME=#{name},Price=#{price},Unit=#{unit} where TYPENO=#{no} 
+  	update ParkType set TYPENAME=#{name} where TYPENO=#{no} 
   </update>
   
   <delete id="delete" flushCache="true">

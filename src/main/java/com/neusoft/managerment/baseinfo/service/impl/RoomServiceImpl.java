@@ -49,7 +49,7 @@ public class RoomServiceImpl implements IRoomService {
 	@Override
 	public List<RoomModel> getListByAllWithFK() throws Exception {
 		
-		return roomMapper.selectListByAllwithFK();
+		return roomMapper.selectListByAllWithFK();
 	}
 
 	@Override

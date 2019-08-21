@@ -8,9 +8,9 @@ import org.apache.ibatis.type.Alias;
 import lombok.Data;
 
 /**
- *    author : 张梓琪
+ *    模块：基础信息   表：房间 Room
+ *    author : 陈思颖
  *    version: 1.0
- *    系统基础信息模块的房间Model
  */
 @Alias("room")
 @Data

@@ -5,14 +5,14 @@
  */
 $(function(){
 	var areaNo=0;
-	var buildingtypeNo=0;
+	var buildingtypeNo=null;
 	var code=null;
 	var direction=null;
 	var minhome=0;
 	var maxhome=0;
 	var minhouse=0;
 	var maxhouse=0;
-	var buildingNo=0;
+	var buildingNo=null;
 	
 	//设置系统页面标题
 	$("span#mainpagetille").html("楼宇管理");
@@ -33,7 +33,7 @@ $(function(){
 		caption:"楼宇列表",
 		viewrecords: true,
 		autowidth: true,
-		height:300,
+		height:400,
 		rowNum: 10,
 		rowList:[5,6,7,8,9,10],
 		jsonReader : {			
@@ -261,7 +261,7 @@ $(function(){
 			}
 		});
 		
-		if(buildingNo==0){
+		if(buildingNo==null){
 			BootstrapDialog.show({
 	            title: '楼宇操作信息',
 	            message:"请选择要修改的楼宇",
@@ -329,7 +329,7 @@ $(function(){
 	
 	//===========================删除楼宇处理=================================
 	$("a#BuildingDeleteLink").off().on("click",function(){	
-		if(buildingNo==0){
+		if(buildingNo==null){
 			BootstrapDialog.show({
 	            title: '楼宇操作信息',
 	            message:"请选择要删除的楼宇",
@@ -366,7 +366,7 @@ $(function(){
 	
 	//===========================查看楼宇处理=================================
 	$("a#BuildingViewLink").off().on("click",function(){		
-		if(buildingNo==0){
+		if(buildingNo==null){
 			BootstrapDialog.show({
 	            title: '楼宇操作信息',
 	            message:"请选择要查看的楼宇",
@@ -384,10 +384,10 @@ $(function(){
 				$.getJSON(host+"building/get",{no:buildingNo},function(data){
 					if(data){
 						$("span#no").html(data.no);
-						$("span#area").html(data.area.no);
+						$("span#area").html(data.area.no+"("+data.area.name+")");
 						$("span#code").html(data.code);
 						$("span#address").html(data.address);
-						$("span#buildingtype").html(data.buildingtype.no);
+						$("span#buildingtype").html(data.buildingtype.no+"("+data.buildingtype.name+")");
 						$("span#direction").html(data.direction);
 						$("span#home").html(data.home);
 						$("span#house").html(data.house);	

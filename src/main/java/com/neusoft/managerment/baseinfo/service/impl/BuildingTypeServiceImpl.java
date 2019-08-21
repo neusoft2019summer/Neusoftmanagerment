@@ -48,7 +48,7 @@ public class BuildingTypeServiceImpl implements IBuildingTypeService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public BuildingTypeModel getBuildTypeByNo(int no) throws Exception {
+	public BuildingTypeModel getBuildTypeByNo(String no) throws Exception {
 		
 		return buildTypeMapper.selectBuildTypeByNo(no);
 	}
