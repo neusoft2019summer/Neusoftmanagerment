@@ -73,7 +73,7 @@
                                           inner join BuildingType c on a.BuildingTypeNo=c.TypeNo 
                                           inner join HouseType d on a.HouseTypeNo=d.TypeNo 
                                           inner join Building e on a.BuildingNo=e.BuildingNo
-                                          where ROOMNO=#{roomno}
+  where ROOMNO=#{roomno}
   </select>
 
   <!-- 
@@ -83,7 +83,7 @@
    -->
    
   <!-- 3 取得所有房间列表,关联AreaNo,BuildingTypeNo,HouseTypeNo,BuildingNo-->
-  <select id="selectListByAllwithFK" resultMap="RoomWithFKResultMap">
+  <select id="selectListByAllWithFK" resultMap="RoomWithFKResultMap">
    select a.*,b.*,c.*,d.*,e.* from Room a inner join Area b on a.AreaNo=b.AREANO 
                                           inner join BuildingType c on a.BuildingTypeNo=c.TypeNo 
                                           inner join HouseType d on a.HouseTypeNo=d.TypeNo 
