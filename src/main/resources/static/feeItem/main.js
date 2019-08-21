@@ -345,7 +345,7 @@ $(function(){
 						$("span#code").html(FeeItem.code);
 						$("span#name").html(FeeItem.name);
 						$("span#unit").html(FeeItem.unit);
-						$("span#feetype").html(FeeItem.feetype.no);
+						$("span#feetype").html(FeeItem.feetype.no+"("+FeeItem.feetype.name+")");
 						$("span#cycle").html(FeeItem.cycle);
 						$("span#status").html(FeeItem.status);
 						$("span#desc").html(FeeItem.desc);

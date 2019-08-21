@@ -37,9 +37,9 @@ public interface IBuildingMapper {
 	//取得指定楼宇的楼宇列表,参数:areaNo 
 	public List<BuildingModel> selectListByArea(int areaNo) throws Exception;
 	//取得指定建筑类型的楼宇列表,参数:buildTypeNo 
-	public List<BuildingModel> selectListByBuildType(int buildTypeNo) throws Exception;
+	//public List<BuildingModel> selectListByBuildType(String buildTypeNo) throws Exception;
 	//取得指定楼宇的信息
-	public BuildingModel selectByNo(int no) throws Exception;
+	public BuildingModel selectByNo(String no) throws Exception;
 	//取得所有楼宇列表,分页模式
 	public List<BuildingModel> selectListByAllWithPage(@Param("start") int start,@Param("rows") int rows) throws Exception;
 	//取得楼宇的个数
@@ -47,7 +47,7 @@ public interface IBuildingMapper {
 	//根据综合检索条件取得楼宇列表,关联Area和BuildingType,分页
 	public List<BuildingModel> selectListByConditionWithAreaAndBuildTypeWithPage(
 			@Param("areaNo") int areaNo,
-			@Param("buildingtypeNo") int buildingtypeNo,
+			@Param("buildingtypeNo") String buildingtypeNo,
 			@Param("code") String code,
 			@Param("direction") String direction,
 			@Param("minhome") int minhome,
@@ -59,7 +59,7 @@ public interface IBuildingMapper {
 	//根据综合检索条件取得楼宇个数
 	public int selectCountByCondition(
 			@Param("areaNo") int areaNo,
-			@Param("buildingtypeNo") int buildingtypeNo,
+			@Param("buildingtypeNo") String buildingtypeNo,
 			@Param("code") String code,
 			@Param("direction") String direction,
 			@Param("minhome") int minhome,

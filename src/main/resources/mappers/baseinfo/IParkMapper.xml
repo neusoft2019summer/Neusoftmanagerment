@@ -81,7 +81,7 @@
   
    <!-- 取得指定车位的信息 -->
   <select id="selectByNo" resultMap="ParkResultMapWithParkTypeAndBuilding" >
-  	select * from Park where ParkNO=#{no} 	
+  	select a.*,b.*,c.* from Park a inner join ParkType b on a.TypeNO=b.TYPENO inner join Building c on a.BuildingNo=c.BuildingNo where ParkNO=#{no} 	
   </select>
   
   <!-- 取得所有车位列表,分页模式 -->
