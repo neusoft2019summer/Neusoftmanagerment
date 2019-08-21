@@ -21,7 +21,7 @@ public interface IBuildingTypeService {
 	//查询建筑类型的信息
 	public List<BuildingTypeModel> getBuildTypeListByAll() throws Exception;
 	//取得指定建筑类型的信息
-	public BuildingTypeModel getBuildTypeByNo(int no) throws Exception;
+	public BuildingTypeModel getBuildTypeByNo(String no) throws Exception;
 	//取得所有建筑类型列表,分页模式
 	public List<BuildingTypeModel> getListByAllWithPage(int rows,int page) throws Exception;
 	//取得建筑类型的个数

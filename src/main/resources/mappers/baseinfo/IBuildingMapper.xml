@@ -84,11 +84,11 @@
   	select * from Building where AreaNo=#{areaNo} 	
   </select>
   
-  <!-- 取得指定建筑类型的楼宇列表,参数:buildTypeNo -->
+  <!-- 取得指定建筑类型的楼宇列表,参数:buildTypeNo 
   <select id="selectListByBuilding" resultMap="BuildingResultMapWithAreaAndBuildingType" >
   	select * from Building where BuildingNo=#{buildingNo}
   </select>
-  
+  -->
    <!-- 取得指定楼宇的信息 -->
   <select id="selectByNo" resultMap="BuildingResultMapWithAreaAndBuildingType" >
   	select a.*,b.*,c.* from Building a inner join Area b on a.AreaNo=b.AREANO 
@@ -108,7 +108,7 @@
      <if test="areaNo!=0">
       and a.AreaNo=#{areaNo}
      </if>
-     <if test="buildingtypeNo!=0">
+     <if test="buildingtypeNo!=null and buildingtypeNo!=''">
      and a.BuildingTypeNo=#{buildingtypeNo}
      </if>
      <if test="code!=null and code!=''">
@@ -142,7 +142,7 @@
      <if test="areaNo!=0">
       and AreaNo=#{areaNo}
      </if>
-     <if test="buildingtypeNo!=0">
+     <if test="buildingtypeNo!=null and buildingtypeNo!=''">
      and BuildingTypeNo=#{buildingtypeNo}
      </if>
      <if test="code!=null and code!=''">

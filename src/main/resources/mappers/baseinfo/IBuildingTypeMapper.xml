@@ -11,8 +11,8 @@
   	<result property="name" column="TYPENAME" />
   </resultMap>
   
-  <insert id="create" keyProperty="no" keyColumn="TYPENO" useGeneratedKeys="true" flushCache="true">
-  	insert into BuildingType (TYPENAME) values (#{name})
+  <insert id="create" flushCache="true">
+  	insert into BuildingType (TYPENO,TYPENAME) values (#{no},#{name})
   </insert>
   
   <update id="update" flushCache="true">

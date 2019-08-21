@@ -9,9 +9,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 import lombok.Data;
 
 /**
- *    author : 张梓琪
+ *    模块：基础信息   表：客户 Customer
+ *    author : 陈思颖
  *    version: 1.0
- *    系统基础信息模块的客户Model
  */
 @Alias("customer")
 @Data

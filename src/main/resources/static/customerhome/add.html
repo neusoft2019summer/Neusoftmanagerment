@@ -4,46 +4,46 @@
     <div class="col-xs-12">
      
       <div class="box-body">
-        <!-- 增加客户 -->
+        <!-- 增加客户房间 -->
        	 <!-- form start -->
-            <form id="CustomerAddForm" role="form" action="customer/add" method="post" enctype="multipart/form-data">
+            <form id="CustomerHomeAddForm" role="form" action="customerhome/add" method="post" enctype="multipart/form-data">
               <div class="box-body">
                  <div class="rows">
                 	<div class="col-md-6">
 		                <div class="form-group">
-		                  <label for="exampleInputEmail1">客户类型</label>
-		                  <input type="radio"  name="customertype.typeno"  value="1"/>个人
-		                  <input type="radio"  name="customertype.typeno"  value="2"/>单位
+		                  <label for="exampleInputEmail1">客户序号</label>
+		                  <input type="text"  name="customer.customerno"  placeholder="客户序号"/>
 		                </div>
 		                <div class="form-group">
-		                  <label for="exampleInputEmail1">客户编码</label>
-		                  <input type="text" class="form-control" name="ccode"  placeholder="客户编码">
+		                  <label for="exampleInputEmail1">房间编号</label>
+		                  <input type="text" class="form-control" name="room.roomno"  placeholder="客户编码">
 		                </div>
 		                <div class="form-group">
-		                  <label for="exampleInputEmail1">客户名称</label>
-		                  <input type="text" class="form-control" name="cname"  placeholder="客户名称">
+		                  <label for="exampleInputEmail1">居住类型</label>
+		                  <input type="radio"  name="livingtype.typeno"  value="1"/>业主
+		                  <input type="radio"  name="livingtype.typeno"  value="2"/>租赁
 		                </div>
 		                <div class="form-group">
-		                  <label for="exampleInputEmail1">身份证号</label>
-		                  <input type="text" class="form-control" name="cardcode"  placeholder="身份证号">
+		                  <label for="exampleInputEmail1">入住日期</label>
+		                  <input type="date" class="form-control" name="livedate"  placeholder="入住日期">
 		                </div>
 		             </div>
 		             <div class="col-md-6">
 		                <div class="form-group">
-		                  <label for="exampleInputEmail1">手机号码</label>
-		                  <input type="text" class="form-control" name="mobile"  placeholder="手机号码">
+		                  <label for="exampleInputEmail1">收房日期</label>
+		                  <input type="date" class="form-control" name="receivedate"  placeholder="收房日期">
 		                </div>
 		                <div class="form-group">
-		                  <label for="exampleInputEmail1">收费开始日期</label>
-		                  <input type="date" class="form-control" name="feestartdate"  placeholder="收费开始日期">
+		                  <label for="exampleInputEmail1">缴费开始日期</label>
+		                  <input type="date" class="form-control" name="feestartdate"  placeholder="缴费开始日期">
 		                </div>
 		                <div class="form-group">
-		                  <label for="exampleInputEmail1">收费截止日期</label>
-		                  <input type="date" class="form-control" name="feeenddate"  placeholder="收费截止日期">
+		                  <label for="exampleInputEmail1">缴费截止日期</label>
+		                  <input type="date" class="form-control" name="feeenddate"  placeholder="缴费截止日期">
 		                </div>
 		                <div class="form-group">
-		                  <label for="exampleInputEmail1">客户状态</label>
-		                  <input type="text" class="form-control" name="cstatus"  placeholder="客户状态">
+		                  <label for="exampleInputEmail1">居住人数</label>
+		                  <input type="text" class="form-control" name="humancount"  placeholder="居住人数">
 		                </div>
                       </div> 
               </div>

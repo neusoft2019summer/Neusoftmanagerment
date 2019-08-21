@@ -70,7 +70,7 @@ public class CustomerHomeController {
 	
 	//3 取得指定客户房间对象
 	@GetMapping("/get")
-public CustomerHomeModel getByCHNO(int chno) throws Exception{
+	public CustomerHomeModel getByCHNO(int chno) throws Exception{
 		return customerHomeService.getByCHNO(chno);
 	}
 	

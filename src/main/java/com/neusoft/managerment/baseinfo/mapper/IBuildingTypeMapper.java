@@ -23,7 +23,7 @@ public interface IBuildingTypeMapper {
 	//查询建筑类型的信息
 	public List<BuildingTypeModel> selectBuildTypeListByAll() throws Exception;
 	//取得指定建筑类型的信息
-	public BuildingTypeModel selectBuildTypeByNo(int no) throws Exception;
+	public BuildingTypeModel selectBuildTypeByNo(String no) throws Exception;
 	//取得所有部门列表,分页模式，不取关联的员工列表
 	public List<BuildingTypeModel> selectListByAllWithPage(@Param("start") int start,@Param("rows") int rows) throws Exception;
 	//取得部门的个数

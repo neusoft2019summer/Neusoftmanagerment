@@ -34,9 +34,9 @@ public interface IBuildingService {
 	//取得指定小区的楼宇列表,参数:areaNo 
 	public List<BuildingModel> getListByArea(int areaNo) throws Exception;
 	//取得指定建筑类型的楼宇列表,参数:buildTypeNo 
-	public List<BuildingModel> getListByBuildType(int buildTypeNo) throws Exception;
+	//public List<BuildingModel> getListByBuildType(int buildTypeNo) throws Exception;
 	//取得指定楼宇的信息
-	public BuildingModel getByNo(int no) throws Exception;
+	public BuildingModel getByNo(String no) throws Exception;
 	//取得所有楼宇列表,分页模式
 	public List<BuildingModel> getListByAllWithPage(int rows,int page) throws Exception;
 	//取得楼宇的个数
@@ -47,7 +47,7 @@ public interface IBuildingService {
 	//根据综合检索条件取得楼宇列表,关联Area和BuildingType,分页
 	public List<BuildingModel> getListByConditionWithAreaAndBuildTypeWithPage(
 			int areaNo,
-			int buildingtypeNo,
+			String buildingtypeNo,
 			String code,
 			String direction,
 			int minhome,
@@ -59,7 +59,7 @@ public interface IBuildingService {
 	//根据综合检索条件取得楼宇个数
 	public int getCountByCondition(
 			int areaNo,
-			int buildingtypeNo,
+			String buildingtypeNo,
 			String code,
 			String direction,
 			int minhome,
@@ -70,7 +70,7 @@ public interface IBuildingService {
 	//根据综合检索条件取得楼宇显示的页数
 	public int getPageByConditionWithPage(
 			int areaNo,
-			int buildingtypeNo,
+			String buildingtypeNo,
 			String code,
 			String direction,
 			int minhome,

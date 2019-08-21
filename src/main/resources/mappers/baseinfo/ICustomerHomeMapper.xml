@@ -33,7 +33,7 @@
   <!-- 关联的CustomerNo,RoomNo,LivingTypeNo的ResultMap -->
   <resultMap  id="CustomerHomeWithFKResultMap" type="CustomerHome" extends="CustomerHomeResultMap">
     <association property="customer" resultMap="com.neusoft.managerment.baseinfo.mapper.ICustomerMapper.CustomerResultMap"></association>
-    <association property="room" resultMap="com.neusoft.managerment.baseinfo.mapper.IRoomMapper.RoomResultMap"></association>
+    <association property="room" resultMap="com.neusoft.managerment.baseinfo.mapper.IRoomMapper.RoomWithFKResultMap"></association>
   	<association property="livingtype" resultMap="com.neusoft.managerment.baseinfo.mapper.ILivingTypeMapper.LivingTypeResultMap"></association>
   </resultMap>
 
@@ -86,13 +86,13 @@
                                        inner join LivingType d on a.LivingTypeNo=d.TypeNo 
   <where>
      <if test="customerno!=0">
-      and b.CustomerNo=#{customerno})
+      and b.CustomerNo=#{customerno}
      </if>
      <if test="livedate!=null">
-      and LiveDate &gt;=#{mindate}
+      and LiveDate &gt;=#{livedate}
      </if>
      <if test="receivedate!=null">
-      and ReceiveDate &lt;=#{maxdate}
+      and ReceiveDate &lt;=#{receivedate}
      </if>
   </where> 
   limit #{start},#{rows}
@@ -105,13 +105,13 @@
                                        inner join LivingType d on a.LivingTypeNo=d.TypeNo 
   <where>
      <if test="customerno!=0">
-      and b.CustomerNo=#{customerno})
+      and b.CustomerNo=#{customerno}
      </if>
      <if test="livedate!=null">
-      and LiveDate &gt;=#{mindate}
+      and LiveDate &gt;=#{livedate}
      </if>
      <if test="receivedate!=null">
-      and ReceiveDate &lt;=#{maxdate}
+      and ReceiveDate &lt;=#{receivedate}
      </if>
   </where>  
   </select> 

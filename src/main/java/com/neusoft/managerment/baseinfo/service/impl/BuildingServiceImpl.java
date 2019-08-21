@@ -75,16 +75,18 @@ public class BuildingServiceImpl implements IBuildingService {
 		return buildMapper.selectListByArea(areaNo);
 	}
 
-	@Override
-	@Transactional(readOnly = true)
-	public List<BuildingModel> getListByBuildType(int buildTypeNo) throws Exception {
-		
-		return buildMapper.selectListByBuildType(buildTypeNo);
-	}
+	/*
+	 * @Override
+	 * 
+	 * @Transactional(readOnly = true) public List<BuildingModel>
+	 * getListByBuildType(int buildTypeNo) throws Exception {
+	 * 
+	 * return buildMapper.selectListByBuildType(buildTypeNo); }
+	 */
 
 	@Override
 	@Transactional(readOnly = true)
-	public BuildingModel getByNo(int no) throws Exception {
+	public BuildingModel getByNo(String no) throws Exception {
 		
 		return buildMapper.selectByNo(no);
 	}
@@ -124,7 +126,7 @@ public class BuildingServiceImpl implements IBuildingService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<BuildingModel> getListByConditionWithAreaAndBuildTypeWithPage(int areaNo, int buildingtypeNo,
+	public List<BuildingModel> getListByConditionWithAreaAndBuildTypeWithPage(int areaNo, String buildingtypeNo,
 			String code, String direction, int minhome, int maxhome, int minhouse, int maxhouse, int rows, int page)
 			throws Exception {
 		return buildMapper.selectListByConditionWithAreaAndBuildTypeWithPage(areaNo, buildingtypeNo, code, direction, minhome, maxhome, minhouse, maxhouse, rows*(page-1), rows);
@@ -132,13 +134,13 @@ public class BuildingServiceImpl implements IBuildingService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public int getCountByCondition(int areaNo, int buildingtypeNo, String code, String direction, int minhome,
+	public int getCountByCondition(int areaNo, String buildingtypeNo, String code, String direction, int minhome,
 			int maxhome, int minhouse, int maxhouse) throws Exception {
 		return buildMapper.selectCountByCondition(areaNo, buildingtypeNo, code, direction, minhome, maxhome, minhouse, maxhouse);
 	}
 
 	@Override
-	public int getPageByConditionWithPage(int areaNo, int buildingtypeNo, String code, String direction, int minhome,
+	public int getPageByConditionWithPage(int areaNo, String buildingtypeNo, String code, String direction, int minhome,
 			int maxhome, int minhouse, int maxhouse, int rows) throws Exception {
 		
 		int pageCount=0;

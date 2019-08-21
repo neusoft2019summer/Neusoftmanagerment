@@ -60,7 +60,7 @@ $(function(){
 			});
 		}
 	});
-	//取得楼宇列表，填充楼号下拉框
+	//取得车位列表，填充楼号下拉框
 	$.getJSON(host+"building/list/all",function(List){
 		if(List){
 			$.each(List,function(index,dm){
@@ -141,7 +141,7 @@ $(function(){
 				});
 			}
 		});
-		//取得楼宇列表，填充楼号下拉框
+		//取得车位列表，填充楼号下拉框
 		$.getJSON(host+"building/list/all",function(List){
 			if(List){
 				$.each(List,function(index,dm){
@@ -173,11 +173,11 @@ $(function(){
 						required: true
 					},
 					rentprice: {
-						required: true
-					},
-					rentunit: {
 						required: true,
 						min:0
+					},
+					rentunit: {
+						required: true
 					},
 					feestatus: {
 						required: true
@@ -255,12 +255,130 @@ $(function(){
 	
 	
 	//===============================修改车位处理=============================
-	
+	$("a#ParkModifyLink").off().on("click",function(){
+
+		if(parkno==0){
+			BootstrapDialog.show({
+	            title: '车位操作信息',
+	            message:"请选择要修改的车位",
+				buttons: [{
+	                label: '确定',
+	                action: function(dialog) {
+	                    dialog.close();
+	                }
+	            }]
+	        });
+		}
+		else {
+			//取得车位类型列表，填充类型编号下拉框
+			$.getJSON(host+"parkType/list/all",function(typeList){
+				if(typeList){
+					$.each(typeList,function(index,um){
+						$("select#ParkTypeSelection").append("<option value='"+um.no+"'>"+um.name+"</option>");
+					});
+				}
+			});
+			//取得车位列表，填充楼号下拉框
+			$.getJSON(host+"building/list/all",function(List){
+				if(List){
+					$.each(List,function(index,dm){
+						$("select#BuildingNoSelection").append("<option value='"+dm.no+"'>"+dm.code+"</option>");
+					});
+				}
+			});
+			$("div#ParkDialogArea").load("park/modify.html",function(){
+				//取得选择的车位
+				$.getJSON(host+"park/get",{no:parkno},function(data){
+					//alert(parkno);
+					if(data){
+						$("input[name='no']").val(parkno);
+						$("select[name='parkType.no']").val(data.parkType.no);
+						$("input[name='code']").val(data.code);
+						$("select[name='building.no']").val(data.building.no);
+						$("input[name='location']").val(data.location);
+						$("input[name='area']").val(data.area);
+						$("input[name='rentprice']").val(data.rentprice);
+						$("select[name='rentunit']").val(data.rentunit);
+						$("input[name='parkstatus']").val(data.parkstatus);
+						$("input[name='feestatus']").val(data.feestatus);
+					}
+				});
+				
+				$("div#ParkDialogArea" ).dialog({
+					title:"车位修改",
+					width:600
+				});
+				//拦截表单提交
+				$("form#ParkModifyForm").ajaxForm(function(result){
+					if(result.status=="OK"){
+						reloadParkList(); //更新车位列表
+					}
+					//alert(result.message);
+					//BootstrapDialog.alert(result.message);
+					BootstrapDialog.show({
+			            title: '车位操作信息',
+			            message:result.message,
+						buttons: [{
+			                label: '确定',
+			                action: function(dialog) {
+			                    dialog.close();
+			                }
+			            }]
+			        });
+					$("div#ParkDialogArea").dialog( "close" );
+					$("div#ParkDialogArea").dialog( "destroy" );
+					$("div#ParkDialogArea").html("");
+					
+				});
+					
+				//点击取消按钮处理
+				$("input[value='取消']").on("click",function(){
+					$( "div#ParkDialogArea").dialog( "close" );
+					$( "div#ParkDialogArea").dialog( "destroy" );
+					$("div#ParkDialogArea").html("");
+				});
+			});			
+		}			
+	});
 
 	//===============================删除车位处理=====================================
+	$("a#ParkDeleteLink").off().on("click",function(){	
+		if(parkno==0){
+			BootstrapDialog.show({
+	            title: '车位操作信息',
+	            message:"请选择要删除的车位",
+				buttons: [{
+	                label: '确定',
+	                action: function(dialog) {
+	                    dialog.close();
+	                }
+	            }]
+	        });
+		}
+		else {
+			BootstrapDialog.confirm('确认删除此车位么?', function(result){
+	            if(result) {
+		            $.post(host+"park/delete",{no:parkno},function(result){
+		            	if(result.status=="OK"){
+							reloadParkList(); //更新车位列表 
+						}
+						BootstrapDialog.show({
+				            title: '车位操作信息',
+				            message:result.message,
+							buttons: [{
+				                label: '确定',
+				                action: function(dialog) {
+				                    dialog.close();
+				                }
+				            }]
+				        });
+		            });
+	            }
+			});			
+		}	
+	});
 
 
-/*
 	//================================查看车位处理====================================
 
 	$("a#ParkViewLink").off().on("click",function(){
@@ -280,32 +398,29 @@ $(function(){
 		else{
 			$("div#ParkDialogArea").load("park/view.html",function(){
 				//取得选择的车位
-				$.getJSON("park/get",{no:Parkno},function(Park){
-					if(Park){
-						$("input#no").val(Parkno);
-						
-						alert(Park.name);
-						$("input#name").val(Park.name);
-						$("input#address").val(Park.address);
-						$("input#developer").val(Park.developer);
-						$("input#buildingPark").val(Park.buildingPark);
-						$("input#usePark").val(Park.usePark);
-						$("input#parkPark").val(Park.parkPark);
-						$("input#home").val(Park.home);
-						$("input#house").val(Park.house);
-						$("input#park").val(Park.park);
+				$.getJSON(host+"park/get",{no:parkno},function(data){
+					if(data){
+						$("span#parkType").html(data.parkType.no+"("+data.parkType.name+")");
+						$("span#code").html(data.code);
+						$("span#building").html(data.building.no+"("+data.building.code+")");
+						$("span#location").html(data.location);
+						$("span#area").html(data.area);
+						$("span#rentprice").html(data.rentprice);
+						$("span#rentunit").html(data.rentunit);
+						$("span#parkstatus").html(data.parkstatus);
+						$("span#feestatus").html(data.feestatus);
 						
 					}
 				});
 				//弹出Dialog
 				$("div#ParkDialogArea" ).dialog({
 					title:"车位详细",
-					width:800
+					width:600
 				});
 				//点击取消按钮处理
 				$("input[value='关闭']").on("click",function(){
-					$("div#ParkDialogArea" ).dialog( "close" );
-					$("div#ParkDialogArea" ).dialog( "destroy" );
+					$("div#ParkDialogArea").dialog( "close" );
+					$("div#ParkDialogArea").dialog( "destroy" );
 					$("div#ParkDialogArea").html("");
 				});
 
@@ -314,5 +429,5 @@ $(function(){
 		}
 	});
 	
-*/
+
 });
