@@ -50,7 +50,5 @@ public interface IEmployeesMapper {
 			@Param("startJoinDate") Date startJoinDate,
 			@Param("endJoinDate") Date endJoinDate,
 			@Param("minSal") double minSal,
-			@Param("maxSal") double maxSal,
-			@Param("start") int start,
-			@Param("rows") int rows) throws Exception;
+			@Param("maxSal") double maxSal) throws Exception;
 }

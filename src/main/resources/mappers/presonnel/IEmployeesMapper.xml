@@ -57,7 +57,7 @@
       and a.EMPID=#{id}
      </if>
      <if test="sex!=null and sex!=''">
-     and a.EMPSEX=#{sex}
+     and a.SEX=#{sex}
      </if>
      <if test="age!=0">
      and a.age=#{age}
@@ -72,10 +72,10 @@
      and a.JOINDATE &lt;=#{endJoinDate}
      </if>
      <if test="minSal!=0">
-     and a.salary &gt;=#{salary}
+     and a.salary &gt;=#{minSal}
      </if>
      <if test="maxSal!=0">
-     and a.salary &lt;=#{salary}
+     and a.salary &lt;=#{maxSal}
      </if>
   </where>
     limit #{start},#{rows}
@@ -90,31 +90,31 @@
    select IFNULL(count(EMPID), 0) from employees
     <where>
      <if test="departmentNo!=0">
-      and a.DEPTNO=#{departmentNo}
+      and DEPTNO=#{departmentNo}
      </if>
      <if test="id!=0">
-      and a.EMPID=#{id}
+      and EMPID=#{id}
      </if>
      <if test="sex!=null and sex!=''">
-     and a.EMPSEX=#{sex}
+     and SEX=#{sex}
      </if>
      <if test="age!=0">
-     and a.age=#{age}
+     and age=#{age}
      </if>
      <if test="mobile!=null and mobile!=''">
-     and a.mobile=#{mobile}
+     and mobile=#{mobile}
      </if>
      <if test="startJoinDate!=null">
-     and a.JOINDATE  &gt;=#{startJoinDate}
+     and JOINDATE  &gt;=#{startJoinDate}
      </if>
      <if test="endJoinDate!=null">
-     and a.JOINDATE &lt;=#{endJoinDate}
+     and JOINDATE &lt;=#{endJoinDate}
      </if>
      <if test="minSal!=0">
-     and a.salary &gt;=#{salary}
+     and salary &gt;=#{minSal}
      </if>
      <if test="maxSal!=0">
-     and a.salary &lt;=#{salary}
+     and salary &lt;=#{maxSal}
      </if>
   </where>
   </select>

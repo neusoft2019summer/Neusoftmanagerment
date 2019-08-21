@@ -69,15 +69,22 @@ public class EmployeesServiceImpl implements IEmployeesService {
 	public int getCountByConditionWithDepartments(int departmentNo, int id, String sex, int age, String mobile,
 			Date startJoinDate, Date endJoinDate, double minSal, double maxSal) throws Exception {
 		// TODO Auto-generated method stub
-		return employeesMapper.selectCountByCondition(departmentNo, id, sex, age, mobile, startJoinDate, endJoinDate, minSal, maxSal, start, rows)
+		return employeesMapper.selectCountByCondition(departmentNo, id, sex, age, mobile, startJoinDate, endJoinDate, minSal, maxSal);
 	}
 
 	@Override
 	public int getPageCountByConditionWithDepartments(int departmentNo, int id, String sex, int age, String mobile,
 			Date startJoinDate, Date endJoinDate, double minSal, double maxSal, int rows) throws Exception {
-		// TODO Auto-generated method stub
-		return 0
+		int pageCount=0;
+		int count=this.getCountByConditionWithDepartments(departmentNo, id, sex, pageCount, mobile, startJoinDate, endJoinDate, minSal, maxSal);
+		if(count%rows==0) {
+			pageCount=count/rows;
+		}
+		else {
+			pageCount=count/rows+1;
+		}
+		return pageCount;
 	}
+}
 
-	}
 

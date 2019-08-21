@@ -71,7 +71,7 @@ public class DepartmentsController {
 	}
 	//取得检索部门列表，有分页
 	@GetMapping(value="/list/condition/page")
-	public ResultMessage<DepartmentsModel> getListByAllWitPage(
+	public ResultMessage<DepartmentsModel> getListByAllWithPage(
 			@RequestParam(required = false,defaultValue ="0") int departmentNo,
 			@RequestParam(required = false,defaultValue ="") String departmentName, 
 			@RequestParam(required = false,defaultValue ="5") int rows,
