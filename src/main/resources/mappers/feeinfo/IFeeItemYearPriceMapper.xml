@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.managerment.feeinfo.mapper.IFeeItemYearPriceMapper">
+ <cache/>
+ 
+ <resultMap type="FeeItemYearPrice" id="FeeItemYearPriceResultMap">
+ 	<id property="feeyear" column="FeeYear" />	
+ 	<result property="unitprice" column="Unitprice" />
+ 	<result property="startDate" column="StartDate" />
+ 	<result property="endDate" column="EndDtae" />
+ 	<result property="pricedesc" column="PriceDesc" />	
+ </resultMap>
+ 
+ <!-- association 对多关系 -->
+ <!-- 使用内嵌式ResultMap的关联收费项目的结果映射 -->
+ <resultMap type="FeeItemYearPrice" id="FeeItemYearPriceResultMapWithFeeItem" extends="FeeItemYearPriceResultMap">
+ 	<collection property="item" resultMap="com.neusoft.managerment.feeinfo.mapper.IFeeItemMapper.FeeItemResultMap" />
+ </resultMap>
+ 
+ <!-- 增加收费项目 -->
+ <insert id="create" keyProperty="feeyear" keyColumn="FeeYear" useGeneratedKeys="true" flushCache="true">
+ 	insert into FeeItemYearPrice (FeeYear,ItemNo,Unitprice,StartDate,EndDtae,PriceDesc) 
+ 	value (#{feeyear},#{item.no},#{unitprice},#{startDate},#{endDate},#{pricedesc})
+ </insert>
+ 
+ <!-- 修改收费项目 -->
+ <update id="update" flushCache="true">
+ 	update FeeItemYearPrice set ItemNo=#{item.no},Unitprice=#{unitprice},
+ 	StartDate=#{startDate},EndDtae=#{endDate},PriceDesc=#{pricedesc} where FeeYear=#{feeyear}
+ </update>
+ 
+ <!-- 删除收费项目 -->
+ <delete id="delete" flushCache="true">
+  	delete from FeeItemYearPrice where FeeYear=#{feeyear}
+ </delete>
+ 
+ 
+ <select id="selectListByAllWithFeeItem" resultMap="FeeItemYearPriceResultMapWithFeeItem">
+ 	select a.*,b.* from FeeItemYearPrice a inner join FeeItem b on a.ItemNo=b.ItemNo 
+ </select>
+ 
+ 
+ <!-- 取得指定收费项目的信息 -->
+ <select id="selectByFeeYearWithFeeItem" resultMap="FeeItemYearPriceResultMapWithFeeItem">
+ 	select a.*,b.* from FeeItemYearPrice a inner join FeeItem b on a.ItemNo=b.ItemNo where FeeYear=#{feeyear}
+ </select>
+
+</mapper>
