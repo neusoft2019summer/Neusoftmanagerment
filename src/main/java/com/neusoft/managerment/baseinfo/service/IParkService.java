@@ -41,5 +41,40 @@ public interface IParkService {
 	public int getCountByAll() throws Exception;
 	//取得车位页数
 	public int getPagaCountByAll(int rows) throws Exception;
-	
+	//根据综合检索条件取得车位列表,关联ParkType和Building,分页	
+	public List<ParkModel> getListByConditionWithParkTypeAndBuildingWithPage(
+			int parkTypeNo,
+			int buildingNo,
+			String parkstatus,
+			String rentunit,
+			String feestatus,
+			String mixarea,
+			String maxarea,
+			String minrentprice,
+			String maxrentprice,
+			int rows,
+			int page) throws Exception;
+	//根据综合检索条件取得车位个数
+	public int getCountByCondition(
+			int parkTypeNo,
+			int buildingNo,
+			String parkstatus,
+			String rentunit,
+			String feestatus,
+			String mixarea,
+			String maxarea,
+			String minrentprice,
+			String maxrentprice) throws Exception;	
+	//根据综合检索条件取得车位页数
+	public int getPageCountByCondition(
+			int parkTypeNo,
+			int buildingNo,
+			String parkstatus,
+			String rentunit,
+			String feestatus,
+			String mixarea,
+			String maxarea,
+			String minrentprice,
+			String maxrentprice,
+			int rows) throws Exception;	
 }

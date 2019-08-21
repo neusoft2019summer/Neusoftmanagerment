@@ -117,4 +117,34 @@ public class ParkServiceImpl implements IParkService {
 		return pageCount;
 	}
 
+	@Override
+	public List<ParkModel> getListByConditionWithParkTypeAndBuildingWithPage(int parkTypeNo, int buildingNo,
+			String parkstatus, String rentunit, String feestatus, String mixarea, String maxarea, String minrentprice,
+			String maxrentprice, int rows, int page) throws Exception {
+		
+		return parkMapper.selectListByConditionWithParkTypeAndBuildingWithPage(parkTypeNo, buildingNo, parkstatus, rentunit, feestatus, mixarea, maxarea, minrentprice, maxrentprice, rows*(page-1), rows);
+	}
+
+	@Override
+	public int getCountByCondition(int parkTypeNo, int buildingNo, String parkstatus, String rentunit, String feestatus,
+			String mixarea, String maxarea, String minrentprice, String maxrentprice) throws Exception {
+		
+		return parkMapper.selectCountByCondition(parkTypeNo, buildingNo, parkstatus, rentunit, feestatus, mixarea, maxarea, minrentprice, maxrentprice);
+	}
+
+	@Override
+	public int getPageCountByCondition(int parkTypeNo, int buildingNo, String parkstatus, String rentunit,
+			String feestatus, String mixarea, String maxarea, String minrentprice, String maxrentprice, int rows)
+			throws Exception {
+		int pageCount=0;
+		int count=this.getCountByCondition(parkTypeNo, buildingNo, parkstatus, rentunit, feestatus, mixarea, maxarea, minrentprice, maxrentprice);
+		if(count%rows==0) {
+			pageCount=count/rows;
+		}
+		else {
+			pageCount=count/rows+1;
+		}
+		return pageCount;
+	}
+
 }

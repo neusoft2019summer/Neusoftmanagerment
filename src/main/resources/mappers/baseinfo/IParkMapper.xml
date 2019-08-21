@@ -94,4 +94,72 @@
    select IFNULL(count(parkNo), 0) from Park
   </select>
   
+  <!-- 根据综合检索条件取得车位列表,关联ParkType和Building,分页 -->
+  <select id="selectListByConditionWithParkTypeAndBuildingWithPage" resultMap="ParkResultMapWithParkTypeAndBuilding">
+  	select a.*,b.*,c.* from Park a inner join ParkType b on a.TypeNO=b.TYPENO inner join Building c on a.BuildingNo=c.BuildingNo
+   <where>
+  	<if test="parkTypeNo!=0">
+  	 and a.TypeNO=#{parkTypeNo}
+  	</if>
+  	<if test="buildingNo!=0">
+  	 and a.BuildingNo=#{buildingNo}
+  	</if>
+  	<if test="parkstatus!=null and parkstatus!=''">
+  	 and a.ParkStatus=#{parkstatus}
+  	</if>
+  	<if test="rentunit!=null and rentunit!=''">
+  	 and a.RentUnit=#{rentunit}
+  	</if>
+  	<if test="feestatus!=null and feestatus!=''">
+  	 and a.FeeStatus=#{feestatus}
+  	</if>
+  	<if test="mixarea!=null and mixarea!=''">
+  	 and a.Area &gt;=#{mixarea}
+  	</if>
+  	<if test="maxarea!=null and maxarea!=''">
+  	 and a.Area &lt;=#{maxarea}
+  	</if>
+  	<if test="minrentprice!=null and minrentprice!=''">
+  	 and a.Rentprice &gt;=#{minrentprice}
+  	</if>
+  	<if test="maxrentprice!=null and maxrentprice!=''">
+  	 and a.Rentprice &lt;=#{maxrentprice}
+  	</if>
+   </where>
+   limit #{start},#{rows}
+  </select>
+  
+  <!-- 根据综合检索条件取得车位个数 -->
+  <select id="selectCountByCondition" resultType="int">
+   select IFNULL(count(ParkNO),0) from Park
+   <where>
+  	<if test="parkTypeNo!=0">
+  	 and TypeNO=#{parkTypeNo}
+  	</if>
+  	<if test="buildingNo!=0">
+  	 and BuildingNo=#{buildingNo}
+  	</if>
+  	<if test="parkstatus!=null and parkstatus!=''">
+  	 and ParkStatus=#{parkstatus}
+  	</if>
+  	<if test="rentunit!=null and rentunit!=''">
+  	 and RentUnit=#{rentunit}
+  	</if>
+  	<if test="feestatus!=null and feestatus!=''">
+  	 and FeeStatus=#{feestatus}
+  	</if>
+  	<if test="mixarea!=null and mixarea!=''">
+  	 and Area &gt;=#{mixarea}
+  	</if>
+  	<if test="maxarea!=null and maxarea!=''">
+  	 and Area &lt;=#{maxarea}
+  	</if>
+  	<if test="minrentprice!=null and minrentprice!=''">
+  	 and Rentprice &gt;=#{minrentprice}
+  	</if>
+  	<if test="maxrentprice!=null and maxrentprice!=''">
+  	 and Rentprice &lt;=#{maxrentprice}
+  	</if>   
+   </where>
+  </select>
 </mapper>

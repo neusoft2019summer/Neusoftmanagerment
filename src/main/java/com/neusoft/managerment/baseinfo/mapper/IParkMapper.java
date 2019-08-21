@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.neusoft.managerment.baseinfo.model.ParkModel;
+import com.sun.org.glassfish.gmbal.ParameterNames;
 
 
 /**
@@ -40,5 +41,28 @@ public interface IParkMapper {
 	public List<ParkModel> selectListByAllWithPage(@Param("start") int start,@Param("rows") int rows) throws Exception;
 	//取得车位的个数
 	public int selectCountByAll() throws Exception;
-
+	//根据综合检索条件取得车位列表,关联ParkType和Building,分页
+	public List<ParkModel> selectListByConditionWithParkTypeAndBuildingWithPage(
+			@Param("parkTypeNo") int parkTypeNo,
+			@Param("buildingNo") int buildingNo,
+			@Param("parkstatus") String parkstatus,
+			@Param("rentunit") String rentunit,
+			@Param("feestatus") String feestatus,
+			@Param("mixarea") String mixarea,
+			@Param("maxarea") String maxarea,
+			@Param("minrentprice") String minrentprice,
+			@Param("maxrentprice") String maxrentprice,
+			@Param("start") int start,
+			@Param("rows") int rows) throws Exception;
+	//根据综合检索条件取得车位个数
+	public int selectCountByCondition(
+			@Param("parkTypeNo") int parkTypeNo,
+			@Param("buildingNo") int buildingNo,
+			@Param("parkstatus") String parkstatus,
+			@Param("rentunit") String rentunit,
+			@Param("feestatus") String feestatus,
+			@Param("mixarea") String mixarea,
+			@Param("maxarea") String maxarea,
+			@Param("minrentprice") String minrentprice,
+			@Param("maxrentprice") String maxrentprice) throws Exception;
 }
