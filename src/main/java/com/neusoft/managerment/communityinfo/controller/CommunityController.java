@@ -67,15 +67,19 @@ public class CommunityController {
 		public ResultMessage<CommunityActiveModel> get(int activeno) throws Exception{
 			ResultMessage<CommunityActiveModel> result=new ResultMessage<CommunityActiveModel>("OK","取得活动成功");
 			result.setModel(communityservice.getByNo(activeno));
+			System.out.println(result);
 			return result;
 			
 		}
 	@RequestMapping(value="/list/condition/page")
-	public ResultMessage<CommunityActiveModel>  getListByConditionWitPage(@RequestParam(required = false,defaultValue ="1") int activeno,@RequestParam(required = false,defaultValue="") String activeplace,
-																		 @RequestParam(required = false ,defaultValue="")String activetype,@RequestParam(required = false,defaultValue="") String activecontent,
+	public ResultMessage<CommunityActiveModel>  getListByConditionWitPage(@RequestParam(required = false,defaultValue ="1") int activeno,
+																		  @RequestParam(required = false,defaultValue="") String activeplace,
+																		  @RequestParam(required = false ,defaultValue="")String activetype,
+																		  @RequestParam(required = false,defaultValue="") String activecontent,
 			                                                              @DateTimeFormat(pattern = "yyyy-MM-dd") @RequestParam(required = false) Date startActiveDate,
 			                                                              @DateTimeFormat(pattern = "yyyy-MM-dd") @RequestParam(required = false) Date endActiveDate, 
-			                                                              @RequestParam(required = false,defaultValue ="5") int rows,@RequestParam(required = false,defaultValue ="1") int page) throws Exception{
+			                                                              @RequestParam(required = false,defaultValue ="5") int rows,
+			                                                              @RequestParam(required = false,defaultValue ="1") int page) throws Exception{
 		System.out.println(rows+":"+page);
 		
 		ResultMessage<CommunityActiveModel> result = new ResultMessage<CommunityActiveModel>("ok","分页查询成功");

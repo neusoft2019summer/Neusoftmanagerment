@@ -76,26 +76,36 @@ $(function(){
 	function reloadCommunityList()
 	{
 		
-		$("table#CommunityTable").jqGrid('setGridParam',{postData:{activeno:activeno,activeplace:activeplace,
-			                                                       activetype:activetype,activecontent:activecontent,
+		$("table#CommunityTable").jqGrid('setGridParam',{postData:{activeplace:activeplace,activetype:activetype,
 			                                                       startActiveDate:startActiveDate,endActiveDate:endActiveDate,page:1}}).trigger("reloadGrid");
 		
 		
 	}
 	
-	//定义部门下拉框的更新事件的处理
+	//定义类型下拉框的更新事件的处理
 	$("select#TypeSelection").off().on("change",function(){
 		activetype=$("select#TypeSelection").val();
 		
 		reloadCommunityList();
 	});
 	
-	//定义部门下拉框的更新事件的处理
+	//定义地点下拉框的更新事件的处理
 	$("select#PlaceSelection").off().on("change",function(){
 		activeplace=$("select#PlaceSelection").val;
 		
 		reloadCommunityList();
 	});
+	//定义社区活动时间的更新事件的处理
+	
+	$("input#startActiveDate").off().on("change",function(){
+		startActiveDate=$("input#startActiveDate").val();
+		reloadCommunityList();
+	});
+	$("input#endActiveDate").off().on("change",function(){
+		endActiveDate=$("input#endActiveDate").val();
+		reloadCommunityList();
+	});
+	
 	
 	
 	
@@ -234,7 +244,7 @@ $(function(){
 				//取得指定的新闻信息
 				$.getJSON("community/get",{activeno:officecommunityId},function(community){
 					
-					if(news){
+					if(community){
 						$("input[name='activeno']").val(officecommunityId);
 						$("input[name='activetype']").val(community.model.activetype);
 						$("input[name='activeplace']").val(community.model.activeplace);
@@ -252,7 +262,7 @@ $(function(){
 				
 				//拦截修改提交表单
 				$("form#CommunityModifyForm").ajaxForm(function(result){
-					if(result.status=="OK"){
+					if(result.status=="ok"){
 						reloadCommunityList(); //更新活动列表
 					}
 					
@@ -283,6 +293,50 @@ $(function(){
 		
 		
 	});
+	
+	//===============================删除新闻处理=====================================
+
+	$("a#CommunityDeleteLink").off().on("click",function(){
+		
+		if(officecommunityId==0){
+			BootstrapDialog.show({
+	            title: '社区操作信息',
+	            message:"请选择要删除的活动",
+	            buttons: [{
+	                label: '确定',
+	                action: function(dialog) {
+	                    dialog.close();
+	                }
+	            }]
+	        });
+		}
+		else {
+			BootstrapDialog.confirm('大哥真的确认删除此新闻吗?', function(result){
+	            if(result) {
+		            $.post("community/delete",{activeno:officecommunityId},function(result){
+		            	if(result.status=="ok"){
+		            		//alert("123");
+		            		reloadCommunityList(); //更新社区活动列表
+						}
+						BootstrapDialog.show({
+				            title: '社区活动操作信息',
+				            message:result.message,
+				            buttons: [{
+				                label: '确定',
+				                action: function(dialog) {
+				                    dialog.close();
+				                }
+				            }]
+				        });
+		            });
+	            }
+			});
+				
+		}
+	
+	});
+
+	
 	
 	
 	

@@ -33,7 +33,7 @@ public interface INewsMapper {
    
  //根据综合检索条件取得新闻列表,分页
  	public List<NewsModel> selectListByConditionWithPage(
- 			@Param("newstype") String areaNo,
+ 			@Param("newstype") String newstype,
  			@Param("startDate") Date startDate,
  			@Param("endDate") Date endDate,
  			@Param("start") int start,

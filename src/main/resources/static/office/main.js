@@ -76,6 +76,19 @@ $(function(){
 		reloadNewsList();
 	});
 	
+	
+//定义新闻时间的更新事件的处理
+	
+	$("input#startDate").off().on("change",function(){
+		startDate=$("input#startDate").val();
+		reloadNewsList();
+	});
+	$("input#endDate").off().on("change",function(){
+		endDate=$("input#endDate").val();
+		reloadNewsList();
+	});
+	
+	
 	//===========================增加新闻处理================================================
 	
 	$("a#NewsAddLink").off().on("click",function(){
@@ -266,7 +279,7 @@ $(function(){
 	            if(result) {
 		            $.post("news/delete",{newsno:officenewsId},function(result){
 		            	if(result.status=="OK"){
-		            		reloadNewsList(); //更新小区列表
+		            		reloadNewsList(); //更新新闻列表
 						}
 						BootstrapDialog.show({
 				            title: '新闻操作信息',
