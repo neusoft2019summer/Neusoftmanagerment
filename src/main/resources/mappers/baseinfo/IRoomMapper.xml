@@ -81,7 +81,7 @@
   select a.*,b.*,c.*,d.*,e.* from Room  a inner join Area b on a.AreaNo=b.AREANO 
                                           inner join BuildingType c on a.BuildingTypeNo=c.TypeNo 
                                           inner join HouseType d on a.HouseTypeNo=d.TypeNo 
-                                          inner join Building e on a.BuildingNo=e.BuildingNo
+                                          inner join Building e on a.BuildingNo=e.BuildingNo 
   where ROOMNO=#{roomno}
   </select>
 
