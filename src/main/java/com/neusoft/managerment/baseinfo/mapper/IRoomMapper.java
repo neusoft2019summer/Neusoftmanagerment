@@ -1,8 +1,11 @@
 package com.neusoft.managerment.baseinfo.mapper;
 
+import java.util.Date;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+
+import com.neusoft.managerment.baseinfo.model.CustomerHomeModel;
 import com.neusoft.managerment.baseinfo.model.RoomModel;
 
 
@@ -20,33 +23,33 @@ public interface IRoomMapper {
 	public void update(RoomModel roomModel) throws Exception;
 	//删除
 	public void delete(RoomModel roomModel) throws Exception;
-	//取得房间的信息
+	//1 取得房间的信息,无关联
 	public List<RoomModel> selectListByAll() throws Exception;
-	
-	public List<RoomModel> selectListByAllWithFK() throws Exception;
-	
-	//取得单个房间的信息
+	//2 取得所有房间列表,有关联,分页模式
+	public List<RoomModel> selectListByAllWithFKWithPage(@Param("start") int start,@Param("rows") int rows) throws Exception;	
+	//3 取得指定房间的信息
 	public RoomModel selectByRoomNo(int roomno) throws Exception;
-	//取得房间列表,有分页
-	public List<RoomModel> selectListByAllWithPage(@Param("start") int start,@Param("rows") int rows) throws Exception;
-	//取得房间的个数
+	//4 取得房间的个数
 	public int selectCountByAll() throws Exception;
-	//取得房间页数
-	public int selectPageCountByAll(int rows) throws Exception;
-	//取得所有房间列表,关联AreaNo
-	public List<RoomModel> selectListByAllWithAreaNo() throws Exception;
-	//取得所有房间列表,关联BuildingTypeNo
-	public List<RoomModel> selectListByAllWithBuildingTypeNo() throws Exception;
-	//取得所有房间列表,关联HouseTypeNo
-	public List<RoomModel> selectListByAllWithHouseTypeNo() throws Exception;
-	//取得所有房间列表,关联BuildingNo
-	public List<RoomModel> selectListByAllWithBuildingNo() throws Exception;
-	//取得所有房间列表,关联TypeNo和BuildingNo
-	//public List<RoomModel> selectListByAllWithTypeNoAndBuildingNo() throws Exception;
-	//根据类型编号取得此户型的房间
-	public RoomModel selectListByHouseTypeNo(int housetypeno) throws Exception;
-	//根据楼宇序号取得此序号的房间
-	public RoomModel selectListByBuildingNo(int buildingno) throws Exception;
+	//5 根据综合检索条件取得房间列表
+	public List<RoomModel> selectListByConditionWithPage(
+			@Param("areano") int areano, 
+			@Param("buildingtypeno") String buildingtypeno, 
+			@Param("housetypeno") int housetypeno, 
+			@Param("buildingno") int buildingno, 
+			@Param("start") int start,
+			@Param("rows") int rows) throws Exception;
+	//6 根据综合检索条件取得房间个数 
+	public int selectCountByCondition(
+			@Param("areano") int areano, 
+			@Param("buildingtypeno") String buildingtypeno, 
+			@Param("housetypeno") int housetypeno, 
+			@Param("buildingno") int buildingno
+			) throws Exception;
+	//7  取得房间的页数
+	public int selectPageCountByAll(int rows);
+	//8  根据综合检索条件取得房间页数 
+	public int selectPageCountByConditionWithPage(int areano, String buildingtypeno, int housetypeno, int buildingno, int rows) throws Exception;
 
 	
 }

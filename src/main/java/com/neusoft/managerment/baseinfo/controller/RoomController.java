@@ -1,7 +1,9 @@
 package com.neusoft.managerment.baseinfo.controller;
 
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,93 +31,70 @@ public class RoomController {
 		roomService.add(room);
 		return new ResultMessage<RoomModel>("OK","增加房间成功");
 	}
+	
 	//修改房间
 	@PostMapping("/modify")
 	public ResultMessage<RoomModel> modify(RoomModel room) throws Exception {
 		roomService.modify(room);
 		return new ResultMessage<RoomModel>("OK","修改房间成功");
 	}
+	
 	//删除房间
 	@PostMapping("/delete")
 	public ResultMessage<RoomModel> delete(RoomModel room) throws Exception {
 		roomService.delete(room);
 		return new ResultMessage<RoomModel>("OK","删除房间成功");
 	}
-	//取得指定的房间
-	@GetMapping("/get")
-	public RoomModel getByCustomerNo(int roomno) throws Exception{
-		return roomService.getByRoomNo(roomno);
+
+	//1 取得所有客户列表,无关联客户类型
+	@GetMapping(value="/list/all")
+	public List<RoomModel> getListByAll() throws Exception{
+		return roomService.getListByAll();
 	}
-	//取得所有房间列表，有分页
+	
+	//2 取得所有房间列表，有关联,分页模式
 	@GetMapping(value="/list/all/page")
-	public ResultMessage<RoomModel> getListByAllWitPage(@RequestParam(required = false,defaultValue ="10") int rows,@RequestParam(required = false,defaultValue = "1") int page) throws Exception{
+	public ResultMessage<RoomModel> getListByAllWithFKWithPage(@RequestParam(required = false,defaultValue ="10") int rows,@RequestParam(required = false,defaultValue = "1") int page) throws Exception{
 		ResultMessage<RoomModel> result=new ResultMessage<RoomModel>("OK","取得房间列表分页模式成功");
 		result.setCount(roomService.getCountByAll());
 		result.setPageCount(roomService.getPageCountByAll(rows));
-		result.setList(roomService.getListByAllWithPage(rows, page));
+		result.setList(roomService.getListByAllWithFKWithPage(rows, page));
 		result.setPage(page);
 		result.setRows(rows);
 		
 		return result;
 	}
 	
-	//取得所有房间列表，无分页
-	@GetMapping(value="/list/all")
-	public List<RoomModel> getListByAll() throws Exception{
-		return roomService.getListByAll();
+	//3 取得指定房间对象
+	@GetMapping("/get")
+	public RoomModel getByCustomerNo(int roomno) throws Exception{
+		return roomService.getByRoomNo(roomno);
 	}
 	
-	//取得所有房间列表,有外键，无分页
-	@GetMapping(value="/list/allfk")
-	public List<RoomModel> getListByAllWithFK() throws Exception{
-		return roomService.getListByAllWithFK();
+	//4 取得房间的个数
+	
+
+	//5 根据综合检索条件取得房间列表
+	@GetMapping(value="/list/condition/page")
+	public ResultMessage<RoomModel> getListByConditionWithPage(
+		@RequestParam(required = false,defaultValue ="0") int areano,
+		@RequestParam(required = false,defaultValue ="null") String buildingtypeno,
+		@RequestParam(required = false,defaultValue ="0") int housetypeno,
+		@RequestParam(required = false,defaultValue ="0") int buildingno,
+		@RequestParam(required = false,defaultValue ="20") int rows,
+		@RequestParam(required = false,defaultValue = "1") int page) 
+				throws Exception{
+	ResultMessage<RoomModel> result=new ResultMessage<RoomModel>("OK","检索取得房间列表分页成功");
+	result.setCount(roomService.getCountByCondition(areano, buildingtypeno, housetypeno, buildingno));
+	result.setPageCount(roomService.getPageCountByConditionWithPage(areano, buildingtypeno, housetypeno, buildingno, rows));
+	result.setList(roomService.getListByConditionWithPage(areano, buildingtypeno, housetypeno, buildingno, rows, page));
+	result.setPage(page);
+	result.setRows(rows);
+	
+	return result;
 	}
 	
-	//取得房间的个数
-	//取得房间页数
-	
-	
-	//取得所有房间列表,关联AreaNo
-	@GetMapping("/get/areano")
-	public List<RoomModel> getListByAllWithAreaNo() throws Exception{
-		return roomService.getListByAllWithAreaNo();
-	}
-	
-	//取得所有房间列表,关联BuildingTypeNo
-	@GetMapping("/get/buildingtypeno")
-	public List<RoomModel> getListByAllWithBuildingTypeNo() throws Exception{
-		return roomService.getListByAllWithBuildingTypeNo();
-	}
-	
-	//取得所有房间列表,关联TypeNo
-	@GetMapping("/get/housetypeno")
-	public List<RoomModel> getListByAllWithHouseTypeNo() throws Exception{
-		return roomService.getListByAllWithHouseTypeNo();
-	}
-	
-	//取得所有房间列表,关联BuildingNo
-	@GetMapping("/get/buildingno")
-	public List<RoomModel> getListByAllWithBuildingNo() throws Exception{
-		return roomService.getListByAllWithBuildingNo();
-	}
-	
-	//根据类型编号取得此户型的房间
-	@GetMapping("/get/byhousetypeno")
-	public RoomModel getListByHouseTypeNo(int housetypeno) throws Exception{
-		return roomService.getListByHouseTypeNo(housetypeno);
-	}
-	
-	//根据楼宇序号取得此序号的房间
-	@GetMapping("/get/bybuildingno")
-	public RoomModel getListByBuildingNo(int buildingno) throws Exception{
-		return roomService.getListByBuildingNo(buildingno);
-	}
-	
-	
-	
-	
-	
-	
+	//6 根据综合检索条件取得客户个数 
 	
 	
 	

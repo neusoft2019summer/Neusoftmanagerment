@@ -42,32 +42,39 @@ public class RoomServiceImpl implements IRoomService {
 
 	@Override
 	public List<RoomModel> getListByAll() throws Exception {
-		
+		// TODO Auto-generated method stub
 		return roomMapper.selectListByAll();
 	}
-	
+
 	@Override
-	public List<RoomModel> getListByAllWithFK() throws Exception {
-		
-		return roomMapper.selectListByAllWithFK();
+	public List<RoomModel> getListByAllWithFKWithPage(int rows, int page) throws Exception {
+		// TODO Auto-generated method stub
+		return roomMapper.selectListByAllWithFKWithPage(rows*(page-1), rows);
 	}
 
 	@Override
 	public RoomModel getByRoomNo(int roomno) throws Exception {
-		
+		// TODO Auto-generated method stub
 		return roomMapper.selectByRoomNo(roomno);
 	}
 
 	@Override
-	public List<RoomModel> getListByAllWithPage(int rows, int page) throws Exception {
-		
-		return roomMapper.selectListByAllWithPage(rows*(page-1), rows);
+	public int getCountByAll() throws Exception {
+		// TODO Auto-generated method stub
+		return roomMapper.selectCountByAll();
 	}
 
 	@Override
-	public int getCountByAll() throws Exception {
-		
-		return roomMapper.selectCountByAll();
+	public List<RoomModel> getListByConditionWithPage(int areano, String buildingtypeno, int housetypeno, int buildingno,
+			int rows, int page) throws Exception {
+		// TODO Auto-generated method stub
+		return roomMapper.selectListByConditionWithPage(areano, buildingtypeno, housetypeno, buildingno, rows*(page-1), rows);
+	}
+
+	@Override
+	public int getCountByCondition(int areano, String buildingtypeno, int housetypeno, int buildingno) throws Exception {
+		// TODO Auto-generated method stub
+		return roomMapper.selectCountByCondition(areano, buildingtypeno, housetypeno, buildingno);
 	}
 
 	@Override
@@ -84,49 +91,20 @@ public class RoomServiceImpl implements IRoomService {
 	}
 
 	@Override
-	public List<RoomModel> getListByAllWithAreaNo() throws Exception {
-		
-		return roomMapper.selectListByAllWithAreaNo();
+	public int getPageCountByConditionWithPage(int areano, String buildingtypeno, int housetypeno, int buildingno,
+			int rows) throws Exception {
+		int pageCount=0;
+		int count=this.getCountByCondition(areano, buildingtypeno, housetypeno, buildingno);
+		if(count%rows==0) {
+			pageCount=count/rows;
+		}
+		else {
+			pageCount=count/rows+1;
+		}
+		return pageCount;
 	}
 
-	@Override
-	public List<RoomModel> getListByAllWithBuildingTypeNo() throws Exception {
-		
-		return roomMapper.selectListByAllWithBuildingTypeNo();
-	}
-	
-	@Override
-	public List<RoomModel> getListByAllWithHouseTypeNo() throws Exception {
-		
-		return roomMapper.selectListByAllWithHouseTypeNo();
-	}
 
-	@Override
-	public List<RoomModel> getListByAllWithBuildingNo() throws Exception {
-		
-		return roomMapper.selectListByAllWithBuildingNo();
-	}
-	
-	/*
-	@Override
-	public List<RoomModel> getListByAllWithTypeNoAndBuildingNo() throws Exception {
-		
-		return roomMapper.selectListByAllWithTypeNoAndBuildingNo();
-	}
-	*/
-
-	
-	@Override
-	public RoomModel getListByHouseTypeNo(int housetypeno) throws Exception {
-		
-		return roomMapper.selectListByHouseTypeNo(housetypeno);
-	}
-
-	@Override
-	public RoomModel getListByBuildingNo(int buildingno) throws Exception {
-		
-		return roomMapper.selectListByBuildingNo(buildingno);
-	}
 
 
 

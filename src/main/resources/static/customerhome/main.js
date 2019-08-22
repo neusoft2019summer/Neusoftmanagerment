@@ -31,8 +31,8 @@ $(function(){
 		caption:"客户房间列表",
 		viewrecords: true, 
 		autowidth: true,
-		height: 300,
-		rowNum: 8,
+		height: 400,
+		rowNum: 10,
 		rowList:[10,20,30],
 		jsonReader : { 
 		      root: "list", 

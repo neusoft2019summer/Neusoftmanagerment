@@ -1,9 +1,11 @@
 package com.neusoft.managerment.baseinfo.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.neusoft.managerment.baseinfo.model.CustomerHomeModel;
 import com.neusoft.managerment.baseinfo.model.RoomModel;
 /**
  *    模块：基础信息   表：房间 Room
@@ -17,32 +19,22 @@ public interface IRoomService {
 	public void modify(RoomModel room) throws Exception;
 	//删除
 	public void delete(RoomModel room) throws Exception;
-	//取得所有房间列表
+	//1 取得所有房间列表,无关联
 	public List<RoomModel> getListByAll() throws Exception;
-	
-	public List<RoomModel> getListByAllWithFK() throws Exception;
-	
-	//取得房间单个对象，
+	//2 取得所有房间列表,有关联,分页模式
+	public List<RoomModel> getListByAllWithFKWithPage(int rows,int page) throws Exception;
+	//3 取得指定房间对象
 	public RoomModel getByRoomNo(int roomno) throws Exception;
-	//取得所有房间列表,分页模式
-	public List<RoomModel> getListByAllWithPage(@Param("start") int start,@Param("rows") int rows) throws Exception;
-	//取得房间的个数
+	//4 取得房间的个数
 	public int getCountByAll() throws Exception;
-	//取得房间页数
+	//5 根据综合检索条件取得房间列表
+	public List<RoomModel> getListByConditionWithPage(int areano, String buildingtypeno, int housetypeno, int buildingno, int rows,int page) throws Exception;
+	//6 根据综合检索条件取得房间个数 
+	public int getCountByCondition(int areano, String buildingtypeno, int housetypeno, int buildingno) throws Exception;
+	//7 取得房间的页数
 	public int getPageCountByAll(int rows) throws Exception;
-	//取得所有房间列表,关联AreaNo
-	public List<RoomModel> getListByAllWithAreaNo() throws Exception;
-	//取得所有房间列表,关联BuildingTypeNo
-	public List<RoomModel> getListByAllWithBuildingTypeNo() throws Exception;
-	//取得所有房间列表,关联HouseTypeNo
-	public List<RoomModel> getListByAllWithHouseTypeNo() throws Exception;
-	//取得所有房间列表,关联BuildingNo
-	public List<RoomModel> getListByAllWithBuildingNo() throws Exception;
-	//取得所有房间列表,关联TypeNo和BuildingNo
-	//public List<RoomModel> getListByAllWithTypeNoAndBuildingNo() throws Exception;
-	//根据类型编号取得此户型的房间
-	public RoomModel getListByHouseTypeNo(int housetypeno) throws Exception;
-	//根据楼宇序号取得此序号的房间
-	public RoomModel getListByBuildingNo(int buildingno) throws Exception;
+	//8  根据综合检索条件取得房间页数 
+	public int getPageCountByConditionWithPage(int areano, String buildingtypeno, int housetypeno, int buildingno, int rows) throws Exception;
+
 
 }
