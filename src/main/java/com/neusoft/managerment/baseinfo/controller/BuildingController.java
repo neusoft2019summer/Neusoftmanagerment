@@ -29,6 +29,7 @@ public class BuildingController {
 	@Autowired
 	private IBuildingService bs=null;
 	
+	
 	//增加楼宇
 	@PostMapping(value="/add")
 	public ResultMessage<BuildingModel> add(BuildingModel buildModel) throws Exception {
