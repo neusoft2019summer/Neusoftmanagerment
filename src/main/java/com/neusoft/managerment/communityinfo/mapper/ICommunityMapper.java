@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.neusoft.managerment.communityinfo.model.CommunityActiveModel;
 
+
 /*
  * 社区活动的DAO层Mapper接口
  * @Author: 张梓琪
@@ -39,4 +40,6 @@ public interface ICommunityMapper {
 	// 根据索引取得列表
 	public List<CommunityActiveModel> selectListByConditionWithPage(@Param("activeno") int activeno,@Param("activeplace") String activeplace,@Param("activetype") String activetype,@Param("activecontent") String activecontent,@Param("startActiveDate") Date startActiveDate,@Param("endActiveDate") Date endActiveDate, @Param("start") int start,@Param("rows") int rows) throws Exception;
 
+	//根据编号取得指定的活动
+	 public CommunityActiveModel selectbyno(int activeno) throws Exception;
 }

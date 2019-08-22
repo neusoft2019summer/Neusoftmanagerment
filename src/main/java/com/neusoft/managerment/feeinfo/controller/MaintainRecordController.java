@@ -1,6 +1,11 @@
 package com.neusoft.managerment.feeinfo.controller;
 
+import java.util.Date;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,6 +28,11 @@ public class MaintainRecordController {
 
 	@Autowired
 	public IMaintainRecordService imrr = null;
+	//查询所有维修单
+	@RequestMapping(value="/tolist")
+	public List<MaintainRecordModel> getlist(MaintainRecordModel maintainmodel)throws Exception{
+		return imrr.getListByALL();
+	}
 	//增加
 	@RequestMapping(value="/add")
 	public ResultMessage<MaintainRecordModel> add(MaintainRecordModel maintainmodel)throws Exception{
@@ -45,9 +55,20 @@ public class MaintainRecordController {
 		return new ResultMessage<MaintainRecordModel>("ok","删除成功");
 
 		}
+	//查询指定维修保单
+	@RequestMapping(value="/get")
+	public ResultMessage<MaintainRecordModel> get(int recordno)throws Exception{
+		imrr.getByNo(recordno);
+		ResultMessage<MaintainRecordModel> result = new ResultMessage<MaintainRecordModel>("ok","查询成功");
+		result.setModel(imrr.getByNo(recordno));
+		return result;
+
+		}
 	//查询所有维修保单 分页
 	@RequestMapping(value="/list/all/page")
-	public ResultMessage<MaintainRecordModel> list(@RequestParam(required = false,defaultValue ="4") int rows,@RequestParam(required = false,defaultValue = "1") int page)throws Exception{
+	public ResultMessage<MaintainRecordModel> list(
+			@RequestParam(required = false,defaultValue ="4") int rows,
+			@RequestParam(required = false,defaultValue = "1") int page)throws Exception{
 		ResultMessage<MaintainRecordModel> result = new ResultMessage<MaintainRecordModel>("ok","分页查询成功");
 		result.setList(imrr.getListByAllWithPage(rows, page));
 		result.setCount(imrr.getcountbyall());
@@ -57,6 +78,30 @@ public class MaintainRecordController {
 		return result;		
 
 		}
+	
+	//按条件查询维修保单 分页
+	@GetMapping(value="/list/condition/page")
+	public ResultMessage<MaintainRecordModel> getListByConditionWithPage(
+			@RequestParam(required = false,defaultValue ="1") int mtypeno,//外键维修类型
+			@RequestParam(required = false,defaultValue ="1") int roomno,//外键房间序号
+			@DateTimeFormat(pattern = "yyyy-MM-dd") @RequestParam(required = false) Date startDate,//报修时间
+            @DateTimeFormat(pattern = "yyyy-MM-dd") @RequestParam(required = false) Date endDate, 
+            @RequestParam(required = false,defaultValue="") String wstatus, //维修状态
+            @RequestParam(required = false,defaultValue ="1") int providerno,//外键维修公司序号
+			@RequestParam(required = false,defaultValue ="4") int rows,
+			@RequestParam(required = false,defaultValue = "1") int page) throws Exception{
+		ResultMessage<MaintainRecordModel> result = new ResultMessage<MaintainRecordModel>("ok","分页查询成功");
+		System.out.println(page+":"+rows);
+		System.out.println(result);
+		result.setCount(imrr.getCountByCondition(mtypeno, roomno, startDate, endDate, wstatus, providerno));
+		result.setList(imrr.getListByConditionWithPage(mtypeno, roomno, startDate, endDate, wstatus, providerno, rows, page));
+		result.setPageCount(imrr.getPageByConditionWithPage(mtypeno, roomno, startDate, endDate, wstatus, providerno, rows));
+		result.setPage(page);
+		result.setRows(rows);
+		return result;
+		
+		
+	}
 	
 		
 }

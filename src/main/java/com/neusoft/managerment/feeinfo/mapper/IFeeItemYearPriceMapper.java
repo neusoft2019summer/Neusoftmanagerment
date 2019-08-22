@@ -6,7 +6,6 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.neusoft.managerment.feeinfo.model.FeeItemYearPriceModel;
 
-
 /**
  *  模块：基础信息   表：收费项目年度价格  FeeItemYearPrice
  *收费项目年度价格的DAO层MyBatis Mapper接口
@@ -15,15 +14,15 @@ import com.neusoft.managerment.feeinfo.model.FeeItemYearPriceModel;
 
 @Mapper
 public interface IFeeItemYearPriceMapper {
-	//增加收费项目
+	//增加收费项目年度价格
 	public void create(FeeItemYearPriceModel feeItemYearPriceModel) throws Exception;
-	//修改收费项目
+	//修改收费项目年度价格
 	public void update(FeeItemYearPriceModel feeItemYearPriceModel) throws Exception;
-	//删除收费项目
+	//删除收费项目年度价格
 	public void delete(FeeItemYearPriceModel feeItemYearPriceModel) throws Exception;
 	//取得收费项目年度价格表，关联收费项目
 	public List<FeeItemYearPriceModel> selectListByAllWithFeeItem() throws Exception;
-	//取得指定收费项目年度价格的信息，关联收费项目
+	//取得指定收费项目年度价格的信息，关联收费项
 	public FeeItemYearPriceModel selectByFeeYearWithFeeItem(String feeyear) throws Exception;
 	
 }

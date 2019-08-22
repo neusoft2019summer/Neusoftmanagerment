@@ -4,21 +4,19 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.neusoft.managerment.feeinfo.mapper.IFeeItemYearPriceMapper">
  <cache/>
- 
- <resultMap type="FeeItemYearPriceYearPrice" id="FeeItemYearPriceYearPriceResultMap">
+
+ <resultMap type="FeeItemYearPrice" id="FeeItemYearPriceResultMap">
  	<id property="feeyear" column="FeeYear" />	
- 	<!--
  	<result property="unitprice" column="Unitprice" />
  	<result property="startDate" column="StartDate" />
  	<result property="endDate" column="EndDtae" />
  	<result property="pricedesc" column="PriceDesc" />	
- 	-->
  </resultMap>
  
- <!-- association 对一关系 -->
+ <!-- collection 对多关系 -->
  <!-- 使用内嵌式ResultMap的关联收费项目的结果映射 -->
- <resultMap type="FeeItemYearPriceYearPrice" id="FeeItemYearPriceYearPriceResultMapWithFeeItemYearPrice" extends="FeeItemYearPriceYearPriceResultMap">
- 	<association property="item" resultMap="com.neusoft.managerment.feeinfo.mapper.IFeeItemMapper.FeeItemResultMap" />
+ <resultMap type="FeeItemYearPrice" id="FeeItemYearPriceResultMapWithFeeItem" extends="FeeItemYearPriceResultMap">
+ 	<collection property="item" resultMap="com.neusoft.managerment.feeinfo.mapper.IFeeItemMapper.FeeItemResultMap" />
  </resultMap>
  
  <!-- 增加收费项目 -->
@@ -39,14 +37,14 @@
  </delete>
  
  
- <select id="selectListByAllWithFeeItem" resultMap="FeeItemYearPriceYearPriceResultMapWithFeeItemYearPrice">
- 	select a.*,b.* from FeeItemYearPrice a inner join FeeItem b on a.ItemNo=b.ItemNo where FeeYear=#{feeyear}
+ <select id="selectListByAllWithFeeItem" resultMap="FeeItemYearPriceResultMapWithFeeItem">
+ 	select a.*,b.* from FeeItemYearPrice a inner join FeeItem b on a.ItemNo=b.ItemNo 
  </select>
  
  
  <!-- 取得指定收费项目的信息 -->
- <select id="selectByFeeYearWithFeeItem" resultMap="FeeItemYearPriceYearPriceResultMapWithFeeItemYearPrice">
- 	select a.*,b.* from FeeItemYearPrice a inner join FeeItem b on a.ItemNo=b.ItemNo
+ <select id="selectByFeeYearWithFeeItem" resultMap="FeeItemYearPriceResultMapWithFeeItem">
+ 	select a.*,b.* from FeeItemYearPrice a inner join FeeItem b on a.ItemNo=b.ItemNo where FeeYear=#{feeyear}
  </select>
 
 </mapper>

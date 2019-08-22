@@ -1,5 +1,6 @@
 package com.neusoft.managerment.feeinfo.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.neusoft.managerment.feeinfo.mapper.IMaintainRecordMapper;
 import com.neusoft.managerment.feeinfo.model.MaintainRecordModel;
 import com.neusoft.managerment.feeinfo.service.IMaintainRecordService;
+import com.neusoft.managerment.message.ResultMessage;
 /*
  * 
  * 维护维修业务层接口的实现类
@@ -65,6 +67,58 @@ public class MaintainRecordServiceImpl implements IMaintainRecordService{
 			pageCount=count/rows+1;
 		}
 		return pageCount;
+	}
+	
+//综合检索部分
+	@Override
+	public int getCountByCondition(int mtypeno, int roomno, Date startDate, Date endDate, String wstatus,
+			int providerno) throws Exception {
+		
+		return maintainrecordmapper.selectCountByCondition(mtypeno, roomno, startDate, endDate, wstatus, providerno);
+	}
+//查询页数
+	@Override
+	public int getPageByConditionWithPage(
+							int mtypeno, 
+							int roomno,
+							Date startDate, 
+							Date endDate,
+							String wstatus,
+							int providerno, 
+							int rows) throws Exception {
+		int pageCount=0;
+		int count=this.getCountByCondition(mtypeno, roomno, startDate, endDate, wstatus, providerno);
+				
+		if(count%rows==0) {
+			pageCount=count/rows;
+		}
+		else {
+			pageCount=count/rows+1;
+		}
+		return pageCount;
+	}
+		
+	
+
+	@Override
+	public List<MaintainRecordModel> getListByConditionWithPage(int mtypeno, int roomno, Date startDate, Date endDate,
+			String wstatus, int providerno, int rows, int page) throws Exception {
+		
+		return maintainrecordmapper.selectListByConditionWithPage(mtypeno, roomno, startDate, endDate, wstatus, providerno, rows*(page-1), rows);
+	}
+
+	//取得指定的维修保单
+	@Override
+	public MaintainRecordModel getByNo(int recordno) throws Exception {
+		
+		return maintainrecordmapper.selectByNo(recordno);
+	}
+
+	//查询所有维修表单
+	@Override
+	public List<MaintainRecordModel> getListByALL() throws Exception {
+		
+		return maintainrecordmapper.selectListByAll();
 	}
 	}
 	

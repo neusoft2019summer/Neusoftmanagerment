@@ -1,69 +1,326 @@
-
+/**
+ * 维修表单管理前端主管理JS
+ * 模块：收费
+ * 业务对象：收费管理
+ * 作者:张梓琪
+ * 
+ */
 $(function(){
-	var rows=2;
-	var page=1;
-	var pageCount=0; 
-	function getListInfo(){
-	//嵌入列表页面
-	$("div#maintainrecordcontent").load("maintainrecord/list.html",function(){
-		//操作列表的方法 
-		//取得保修单的列表，分页模式
-		
-			$.getJSON("maintainrecord/list/all/page",{page:page,rows:rows},function(data){
-				//显示个数和页数
-				$("span#count").html(data.count);
-				$("span#pagecount").html(data.page+"/"+data.pageCount);
-				pageCount=data.pageCount;
-				//显示列表
-				$("table#MaintainRecordTypeTable tbody").html("");
-				for(var i=0;i<data.list.length;i++){
-					var tr="<tr><td>"+data.list[i].recordno+"</td><td>"+data.list[i].mtype.mtypeno+"</td>" +
-							"<td>"+data.list[i].room.roomno+"</td><td>"+data.list[i].contactname+"</td>" +
-									"<td>"+data.list[i].mobile+"</td><td>"+data.list[i].tel+"</td>" +
-											"<td>"+data.list[i].mdate+"</td><td>"+data.list[i].mdesc+"</td>" +
-													"<td>"+data.list[i].wemp.wempid+"</td><td>"+data.list[i].wdate+"</td>" +
-															"<td>"+data.list[i].wtask+"</td><td>"+data.list[i].wresult+"</td>" +
-																	"<td>"+data.list[i].wstatus+"</td><td>"+data.list[i].wfee+"</td>" +
-																			"<td>"+data.list[i].provider.providerno+"</td><td>"+data.list[i].clientfeeback+"</td></tr>";
-					$("table#MaintainRecordTypeTable tbody").append(tr);
-				}
-		
-			});
-		});
-	}
-		
-		//定义分页导航链接处理事件
-		$("div#page_nav a").on("click",function(event){
-			  var action=$(this).attr("href");
-			  event.preventDefault();
-			  switch(action){
-			  	case "top":
-			  		page=1;
-			  		getListInfo();
-			  		break;
-			  	case "pre":
-			  		if(page>1){
-			  			page=page-1;
-			  			getListInfo();
-			  		}
-			  		break;
-			  	case "next":
-			  		if(page<pageCount){
-			  			page=page+1;
-			  			getListInfo();
-			  		}
-			  		break;
-			  	case "last":
-			  		page=pageCount;
-			  		getListInfo();
-			  		break;
-			  }
-			  
+	var recordId = 0;
+	
+	
+	//设置系统页面标题
+	$("span#mainpagetille").html("维修表单管理");
+	//设置日期的格式和选择
+	
+	//显示员工列表
+	$("table#MaintainrecordTable").jqGrid({
+		url: 'maintainrecord/list/condition/page',
+		datatype: "json",
+		colModel: [
+			{ label: '报修序号', name: 'recordno', width: 20 },
+			{ label: '维修类型', name: 'mtype.mtypeno', width: 50 },
+			{ label: '报修日期', name: 'newstime', width: 50 },
+			{ label: '维修状态', name: 'mdate', width: 100 },
+			{ label: 'Room序号', name: 'room.roomno', width: 100 },
+		],
+		caption:"维修表单列表",
+		viewrecords: true, 
+		autowidth: true,
+		height: 400,
+		rowNum: 2,
+		rowList:[10,20,30],
+		jsonReader : { 
+		      root: "list", 
+		      page: "page", 
+		      total: "pageCount", 
+		      records: "count", 
+		      repeatitems: true, 
+		      id: "recordno"},
+		pager: "#Maintainrecordpager",
+		multiselect:false,
+		//选中点击事件
+		onSelectRow:function(m){
+			recordId = m;
 			
-		});
+			
+		}
+		
+	});
+	
+	//取得类型列表，填充类型下拉框
+	$.getJSON("maintainrecord/tolist",function(MaintainrecordList){
+		if(MaintainrecordList){
+			$.each(MaintainrecordList,function(index,nm){
+				$("select#TypeSelection").append("<option value='"+nm.mtype.mtypeno+"'>"+nm.mtype.mtypeno+"</option>");
+			});
+		}
+	});
+	//取得room序号列表，填充类型下拉框
+	$.getJSON("maintainrecord/tolist",function(MaintainrecordList){
+		if(MaintainrecordList){
+			$.each(MaintainrecordList,function(index,nm){
+				$("select#RoomNoSelection").append("<option value='"+nm.room.roomno+"'>"+nm.room.roomno+"</option>");
+			});
+		}
+	});
+	//取得状态列表，填充类型下拉框
+	$.getJSON("maintainrecord/tolist",function(MaintainrecordList){
+		if(MaintainrecordList){
+			$.each(MaintainrecordList,function(index,sm){
+				$("select#WStatusSelection").append("<option value='"+sm.wstatus+"'>"+sm.wstatus+"</option>");
+			});
+		}
+	});
+	//取得状态列表，填充类型下拉框
+	$.getJSON("maintainrecord/tolist",function(MaintainrecordList){
+		if(MaintainrecordList){
+			$.each(MaintainrecordList,function(index,pm){
+				$("select#ProviderNoSelection").append("<option value='"+pm.provider.providerno+"'>"+pm.provider.providerno+"</option>");
+			});
+		}
+	});
+	
+		//设置检索参数，更新jQGrid的列表显示
+	function reloadMaintainrecordList()
+	{
+		
+		$("table#MaintainrecordTable").jqGrid('setGridParam',{postData:{mtype.mtypeno:mtype.mtypeno,room.roomno:room.roomno,
+																		wstatus:wstatus,provider.providerno,
+																		startDate:startDate,endDate:endDate,page:1}}).trigger("reloadGrid");
+	}
+	/*
+	//定义部门下拉框的更新事件的处理
+	$("select#TypeSelection").off().on("change",function(){
+		newstype=$("select#TypeSelection").val();
+		
+		reloadMaintainrecordList();
+	});
 		
 	
-       //初始调用取得分页列表数据
-           getListInfo(); 
+//定义新闻时间的更新事件的处理
+	
+	$("input#startDate").off().on("change",function(){
+		startDate=$("input#startDate").val();
+		reloadNewsList();
+	});
+	$("input#endDate").off().on("change",function(){
+		endDate=$("input#endDate").val();
+		reloadNewsList();
+	});
+	
+	
+	//===========================增加新闻处理================================================
+	
+	$("a#NewsAddLink").off().on("click",function(){
+		$("div#NewsDailogArea").load("office/add.html",function(){
+			//验证提交数据
+			$("form#NewsAddForm").validate({
+				rules: {
+					newstype: {
+						required: true
+					},
+					newstime: {
+						required: true
+					},
+					newscontent: {
+						required: true
+					},
+					
+				},
+				message:{
+					newstype: {
+						required: "新闻类型为空"
+					},
+					newstime: {
+						required: "新闻时间为空"
+					},
+					newscontent: {
+						required: "新闻内容为空"
+					},
+					
+				}
+			});
+			//修改新闻的弹窗
+			$("div#NewsDailogArea").dialog({
+				title:"增加新闻",
+				width:600
+			});
+			
+			//拦截增加提交表单
+			$("form#NewsAddForm").ajaxForm(function(result){
+				if(result.status=="OK"){
+					reloadNewsList(); //更新新闻列表
+				}
+				
+				BootstrapDialog.show({
+		            title: '新闻操作信息',
+		            message:result.message,
+		            buttons: [{
+		                label: '确定',
+		                action: function(dialog) {
+		                    dialog.close();
+		                }
+		            }]
+		        });
+				$("div#NewsDailogArea").dialog( "close" );
+				$("div#NewsDailogArea").dialog( "destroy" );
+				$("div#NewsDailogArea").html("");
+				
+			});
+			
+			//点击取消按钮处理
+			$("input[value='取消']").on("click",function(){
+				$("div#NewsDailogArea").dialog( "close" );
+				$("div#NewsDailogArea").dialog( "destroy" );
+				$("div#NewsDailogArea").html("");
+			});
+		});
+	});
+	
+	//===============================修改新闻处理=============================
+
+	$("a#NewsModifyLink").off().on("click",function(){
+		//若无选中新闻
+		if(officenewsId==0){
+			BootstrapDialog.show({
+	            title: '新闻信息',
+	            message:"请选择要修改的信息",
+	            buttons: [{
+	                label: '确定',
+	                action: function(dialog) {
+	                    dialog.close();
+	                }
+	            }]
+	        });
+		}else{
+			
+			$("div#NewsDailogArea").load("office/modify.html",function(){
+				//验证提交数据
+				$("form#NewsModifyForm").validate({
+					rules: {
+						newstype: {
+							required: true
+						},
+						newstime: {
+							required: true
+						},
+						newscontent: {
+							required: true
+						},
+						
+					},
+					message:{
+						newstype: {
+							required: "新闻类型为空"
+						},
+						newstime: {
+							required: "新闻时间为空"
+						},
+						newscontent: {
+							required: "新闻内容为空"
+						},
+						
+					}
+				});
+				
+				
+				//取得指定的新闻信息
+				$.getJSON("news/get",{newsno:officenewsId},function(news){
+					
+					if(news){
+						$("input[name='newsno']").val(officenewsId);
+						$("input[name='newscontent']").val(news.model.newscontent);
+						$("input[name='newstime']").val(news.model.newstime);
+						$("input[name='newstype']").val(news.model.newstype);
+						
+					}
+				});
+				
+				//修改新闻的弹窗
+				$("div#NewsDailogArea").dialog({
+					title:"修改新闻",
+					width:600
+				});
+				
+				//拦截修改提交表单
+				$("form#NewsModifyForm").ajaxForm(function(result){
+					if(result.status=="OK"){
+						reloadNewsList(); //更新新闻列表
+					}
+					
+					BootstrapDialog.show({
+			            title: '新闻操作信息',
+			            message:result.message,
+			            buttons: [{
+			                label: '确定',
+			                action: function(dialog) {
+			                    dialog.close();
+			                }
+			            }]
+			        });
+					$("div#NewsDailogArea").dialog( "close" );
+					$("div#NewsDailogArea").dialog( "destroy" );
+					$("div#NewsDailogArea").html("");
+					
+				});
+				
+				//点击取消按钮处理
+				$("input[value='取消']").on("click",function(){
+					$("div#NewsDailogArea").dialog( "close" );
+					$("div#NewsDailogArea").dialog( "destroy" );
+					$("div#NewsDailogArea").html("");
+				});
+			});
+		}
+		
+		
+	});
+	
+	
+	
+	//===============================删除新闻处理=====================================
+
+	$("a#NewsDeleteLink").off().on("click",function(){
+		
+		if(officenewsId==0){
+			BootstrapDialog.show({
+	            title: '新闻操作信息',
+	            message:"请选择要删除的新闻",
+	            buttons: [{
+	                label: '确定',
+	                action: function(dialog) {
+	                    dialog.close();
+	                }
+	            }]
+	        });
+		}
+		else {
+			BootstrapDialog.confirm('大哥真的确认删除此新闻吗?', function(result){
+	            if(result) {
+		            $.post("news/delete",{newsno:officenewsId},function(result){
+		            	if(result.status=="OK"){
+		            		reloadNewsList(); //更新新闻列表
+						}
+						BootstrapDialog.show({
+				            title: '新闻操作信息',
+				            message:result.message,
+				            buttons: [{
+				                label: '确定',
+				                action: function(dialog) {
+				                    dialog.close();
+				                }
+				            }]
+				        });
+		            });
+	            }
+			});
+				
+		}
+	
+	});*/
+
+	
+	
 	
 });
