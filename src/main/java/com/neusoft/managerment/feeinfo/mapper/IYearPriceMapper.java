@@ -23,6 +23,8 @@ public interface IYearPriceMapper {
 	//删除年度价格
 	public void delete(YearPriceModel yearPriceModel) throws Exception;
 	//取得年度价格表，关联收费项目
+	//public List<YearPriceModel> selectListByAllWithFeeItem() throws Exception;
+	//取得年度价格表，关联收费项目
 	public List<YearPriceModel> selectListByAllWithFeeItem() throws Exception;
 	//取得指定年度价格的信息，关联收费项目
 	public YearPriceModel selectByFeeYearWithFeeItem(String feeyear) throws Exception;

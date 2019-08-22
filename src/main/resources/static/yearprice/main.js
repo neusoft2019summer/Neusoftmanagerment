@@ -19,7 +19,7 @@ $(function(){
 		datatype: "json",
 		colModel: [
 			{ label: '收费年度', name: 'feeyear', width: 50 },
-			{ label: '收费项目', name: 'item', width: 50 },
+			//{ label: '收费项目', name: 'item', width: 50 },
 			{ label: '单价', name: 'unitprice', width: 50 },
 			{ label: '开始日期', name: 'startDate', width: 50 },
 			{ label: '结束日期', name: 'endDate', width: 50},
@@ -46,10 +46,10 @@ $(function(){
 		
 	});
 	//取得年度价格列表，填充收费项目下拉框
-	$.getJSON("feeItem/list/condition/page",function(List){
+	$.getJSON(host+"feeItem/list/all",function(List){
 		if(List){
-			$.each(List,function(index,um){
-				$("select#FeeitemSelection").append("<option value='"+um.no+"'>"+um.name+"</option>");
+			$.each(List,function(index,item){
+				$("select#FeeitemSelection").append("<option value='"+item.no+"'>"+item.name+"</option>");
 			});
 		}
 	});

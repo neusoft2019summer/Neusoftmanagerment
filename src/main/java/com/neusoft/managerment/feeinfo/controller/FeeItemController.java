@@ -57,7 +57,11 @@ public class FeeItemController {
 	public List<FeeItemModel> getListByUnit() throws Exception{
 		return feeItemService.getListByUnit();
 	}
-	
+	//取得收费项目列表
+	@GetMapping("/list/all")
+	public List<FeeItemModel> getListByAll() throws Exception{
+		return feeItemService.getListByAll();
+	}
 	//根据综合检索条件取得收费项目列表
 	@GetMapping(value="/list/condition/page")
 	public ResultMessage<FeeItemModel> getListByConditionWithPage(

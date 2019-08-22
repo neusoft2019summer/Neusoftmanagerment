@@ -25,6 +25,8 @@ public interface IFeeItemMapper {
 	public void delete(FeeItemModel feeItemModel) throws Exception;
 	//取得单位列表
 	public List<FeeItemModel> selectListByUnit() throws Exception;
+	//取得收费项目列表
+	public List<FeeItemModel> selectListByAll() throws Exception;
 	//取得指定收费项目的信息
 	public FeeItemModel selectByNoWithFeeType(int no) throws Exception;
 	//取得所有收费项目列表,分页模式

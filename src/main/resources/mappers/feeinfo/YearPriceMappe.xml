@@ -9,7 +9,7 @@
  	<id property="feeyear" column="FeeYear" />	
  	<result property="unitprice" column="Unitprice" />
  	<result property="startDate" column="StartDate" />
- 	<result property="endDate" column="EndDtae" />
+ 	<result property="endDate" column="EndDate" />
  	<result property="pricedesc" column="PriceDesc" />	
  </resultMap>
  
@@ -21,14 +21,14 @@
  
  <!-- 增加年度价格 -->
  <insert id="create" flushCache="true">
- 	insert into YearPrice (FeeYear,Unitprice,StartDate,EndDtae,PriceDesc) 
+ 	insert into YearPrice (FeeYear,Unitprice,StartDate,EndDate,PriceDesc) 
  	values (#{feeyear},#{unitprice},#{startDate},#{endDate},#{pricedesc})
  </insert>
  
  <!-- 修改年度价格 -->
  <update id="update" flushCache="true">
  	update YearPrice set Unitprice=#{unitprice},StartDate=#{startDate},
- 	EndDtae=#{endDate},PriceDesc=#{pricedesc} where FeeYear=#{feeyear}
+ 	EndDate=#{endDate},PriceDesc=#{pricedesc} where FeeYear=#{feeyear}
  </update>
  
  <!-- 删除年度价格 -->
@@ -51,7 +51,7 @@
   <!-- 为年度价格一次增加多个收费项目 -->
   <insert id="addFeeItem">
     insert into FeeItemYearPrice (FeeYear,ItemNo) values 
-    <foreach  item="itemNo" collection="itemno"   separator="," >
+    <foreach  item="itemNo" collection="itemno" separator="," >
           (#{feeyear},#{itemNo})
     </foreach>
    </insert>

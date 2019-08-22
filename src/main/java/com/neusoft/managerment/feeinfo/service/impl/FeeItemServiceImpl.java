@@ -86,4 +86,10 @@ public class FeeItemServiceImpl implements IFeeItemService {
 		return feeItemMapper.selectListByUnit();
 	}
 
+	@Override
+	public List<FeeItemModel> getListByAll() throws Exception {
+		
+		return feeItemMapper.selectListByAll();
+	}
+
 }
