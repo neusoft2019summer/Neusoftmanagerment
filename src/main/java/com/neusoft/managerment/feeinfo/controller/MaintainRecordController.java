@@ -44,6 +44,7 @@ public class MaintainRecordController {
 	//修改
 	@RequestMapping(value="/modify")
 	public ResultMessage<MaintainRecordModel> modify(MaintainRecordModel maintainmodel)throws Exception{
+		System.out.println(maintainmodel.getWstatus());
 		imrr.modify(maintainmodel);
 		return new ResultMessage<MaintainRecordModel>("ok","修改成功");
 
@@ -82,17 +83,15 @@ public class MaintainRecordController {
 	//按条件查询维修保单 分页
 	@GetMapping(value="/list/condition/page")
 	public ResultMessage<MaintainRecordModel> getListByConditionWithPage(
-			@RequestParam(required = false,defaultValue ="1") int mtypeno,//外键维修类型
-			@RequestParam(required = false,defaultValue ="1") int roomno,//外键房间序号
+			@RequestParam(required = false,defaultValue ="0") int mtypeno,//外键维修类型
+			@RequestParam(required = false,defaultValue ="0") int roomno,//外键房间序号
 			@DateTimeFormat(pattern = "yyyy-MM-dd") @RequestParam(required = false) Date startDate,//报修时间
             @DateTimeFormat(pattern = "yyyy-MM-dd") @RequestParam(required = false) Date endDate, 
             @RequestParam(required = false,defaultValue="") String wstatus, //维修状态
-            @RequestParam(required = false,defaultValue ="1") int providerno,//外键维修公司序号
+            @RequestParam(required = false,defaultValue ="0") int providerno,//外键维修公司序号
 			@RequestParam(required = false,defaultValue ="4") int rows,
 			@RequestParam(required = false,defaultValue = "1") int page) throws Exception{
 		ResultMessage<MaintainRecordModel> result = new ResultMessage<MaintainRecordModel>("ok","分页查询成功");
-		System.out.println(page+":"+rows);
-		System.out.println(result);
 		result.setCount(imrr.getCountByCondition(mtypeno, roomno, startDate, endDate, wstatus, providerno));
 		result.setList(imrr.getListByConditionWithPage(mtypeno, roomno, startDate, endDate, wstatus, providerno, rows, page));
 		result.setPageCount(imrr.getPageByConditionWithPage(mtypeno, roomno, startDate, endDate, wstatus, providerno, rows));

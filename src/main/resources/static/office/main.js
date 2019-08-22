@@ -120,7 +120,7 @@ $(function(){
 					
 				}
 			});
-			//修改新闻的弹窗
+			//增加新闻的弹窗
 			$("div#NewsDailogArea").dialog({
 				title:"增加新闻",
 				width:600
