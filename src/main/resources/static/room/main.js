@@ -79,7 +79,7 @@ $(function(){
 	});
 	
 	//取得楼宇编号列表，填充楼宇编号列表下拉框
-	$.getJSON(host+"building/list/all",function(typeList){
+	$.getJSON(host+"building/list/all",function(typeList){ 
 		if(typeList){
 			$.each(typeList,function(index,um){
 				$("select#BuildingNoSelection").append("<option value='"+um.no+"'>"+um.name+"</option>");
