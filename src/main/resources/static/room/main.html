@@ -1,4 +1,4 @@
-<script type="text/javascript" src="customer/main.js"></script>
+<script type="text/javascript" src="room/main.js"></script>
 <!-- Main row -->
 <div class="row">
     <div class="col-xs-12">
@@ -7,39 +7,41 @@
           <div class="row">
           	<div class="col-md-9">
           	  <form class="form-inline" role="form">
-
 			      <div class="form-group">
-			        <label  for="name">客户类型</label>
-			         <input type="radio" name="typeno" value="">全部
-			         <input type="radio" name="typeno" value="1">个人
-			         <input type="radio" name="typeno" value="2">单位   
+				    <label  for="name">小区编号</label>
+				    <select id="AreaNoSelection" class="form-control">
+				       <option value="">所有</option>
+				    </select>
 			      </div>
-
+			      <div class="form-group">
+				    <label  for="name">建筑类型编号</label>
+				    <select id="BuildingTypeNoSelection" class="form-control">
+				       <option value="">所有</option>
+				    </select>
+			      </div>
+			      <div class="form-group">
+				    <label  for="name">户型编号</label>
+				    <select id="HouseTypeNoSelection" class="form-control">
+				       <option value="">所有</option>
+				    </select>
+			      </div>
+			      <div class="form-group">
+				    <label  for="name">楼宇编号</label>
+				    <select id="BuildingNoSelection" class="form-control">
+				       <option value="">所有</option>
+				    </select>
+			      </div>			  
 				  <div class="form-group">
-				    <label  for="name">客户名称</label>
-				       <input type="text" class="form-control" id="CnameSelection" size="6" />
-				  </div>
-				  <div class="form-group">
-				    <label  for="name">客户编码</label>
-				    <input type="text" class="form-control"  id="CcodeSelection" size="6" />
-				  </div>
-				  <div class="form-group">
-        			<label  for="name">&emsp;收费日期</label>
-		     		  <input type="date" class="form-control" id="feeStartDate" size="8" />
-		  		      &emsp;-&emsp;<input type="date" class="form-control" id="feeEndDate" size="8" />
-    			  </div>
-				  
-				  <div class="form-group">
-				   <a href="#" class="btn btn-default" id="CustomerSearchButton">检索</a>
+				   <a href="#" class="btn btn-default" id="RoomSearchButton">检索</a>
 				  </div>
 				</form>
           	</div>
           
             <div class="col-md-3 text-right">
-             <a href="#" id="CustomerAddLink" class="btn btn-info">注册</a> 
-             <a href="#" id="CustomerModifyLink" class="btn btn-info">修改</a> 
-             <a href="#" id="CustomerDeleteLink" class="btn btn-info">删除</a>
-             <a href="#" id="CustomerViewLink" class="btn btn-info">详细</a>
+             <a href="#" id="RoomAddLink" class="btn btn-info">注册</a> 
+             <a href="#" id="RoomModifyLink" class="btn btn-info">修改</a> 
+             <a href="#" id="RoomDeleteLink" class="btn btn-info">删除</a>
+             <a href="#" id="RoomViewLink" class="btn btn-info">详细</a>
             </div>
              
           </div>
@@ -47,8 +49,8 @@
         </div>
         <!-- /.box-header -->
       <div class="box-body">
-        <table id="CustomerGrid"></table>
-		<div id="CustomerGridPager"></div>
+        <table id="RoomGrid"></table>
+		<div id="RoomGridPager"></div>
        
       </div>
       <!-- /.box-body -->
@@ -58,6 +60,6 @@
   <!-- /.col -->
 </div>
 <!-- /.row -->
-<div id="CustomerDialog">
+<div id="RoomDialog">
     
 </div>

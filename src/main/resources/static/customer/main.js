@@ -17,7 +17,7 @@ $(function(){
 	var feestartdate=null;
 	var feeenddate=null;
 	var cstatus=null;
-	var host="http://localhost:8100";
+	var host="http://localhost:8100/";
 	//设置系统页面标题
 	$("span#mainpagetille").html("客户档案管理");
 	

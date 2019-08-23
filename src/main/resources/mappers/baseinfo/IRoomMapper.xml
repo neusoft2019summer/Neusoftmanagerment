@@ -47,13 +47,13 @@
 
   <insert id="create"  keyProperty="roomno"   keyColumn="ROOMNO" useGeneratedKeys="true" flushCache="true">
    insert into Room (AREANO,BUILDINGTYPENO,HOUSETYPENO,BUILDINGNO,DEPARTMENTCODE,FLOOR,ROOMCODE,BUILDINGAREA,FEEAREA,ROOMSTATUS,ROOMTYPE)
-   values (#{area.areano},#{buildingtype.typeno},#{housetype.typeno},#{building.buildingno},#{departmentcode},#{floor},
+   values (#{area.no},#{buildingtype.no},#{housetype.typeno},#{building.no},#{departmentcode},#{floor},
    #{roomcode},#{buildingarea},#{feearea},#{roomstatus},#{roomtype})
   </insert>
   
   <update id="update" flushCache="true">
-   update Room set AREANO=#{area.areano},BUILDINGTYPENO=#{buildingtype.typeno},HOUSETYPENO=#{housetype.typeno},
-   BUILDINGNO=#{building.buildingno},DEPARTMENTCODE=#{departmentcode},FLOOR=#{floor},ROOMCODE=#{roomcode},
+   update Room set AREANO=#{area.no},BUILDINGTYPENO=#{buildingtype.no},HOUSETYPENO=#{housetype.typeno},
+   BUILDINGNO=#{building.no},DEPARTMENTCODE=#{departmentcode},FLOOR=#{floor},ROOMCODE=#{roomcode},
    BUILDINGAREA=#{buildingarea},FEEAREA=#{feearea},ROOMSTATUS=#{roomstatus},ROOMTYPE=#{roomtype}
    where ROOMNO=#{roomno}
   </update>
@@ -100,14 +100,14 @@
      <if test="areano!=0">
       and b.AreaNo=#{areano}
      </if>
-     <if test="buildingtypeno!=null">
-      and c.TypeNo=#{typeno}
+     <if test="buildingtypeno!=null and buildingtypeno!=''">
+      and c.TypeNo=#{buildingtypeno}
      </if>
      <if test="housetypeno!=0">
-      and c.TypeNo=#{typeno}
+      and d.TypeNo=#{housetypeno}
      </if>
      <if test="buildingno!=0">
-      and c.BuildingNo=#{buildingno}
+      and e.BuildingNo=#{buildingno}
      </if>
   </where> 
   limit #{start},#{rows}
@@ -123,14 +123,14 @@
      <if test="areano!=0">
       and b.AreaNo=#{areano}
      </if>
-     <if test="buildingtypeno!=null">
-      and c.TypeNo=#{typeno}
+     <if test="buildingtypeno!=null and buildingtypeno!=''">
+      and c.TypeNo=#{buildingtypeno}
      </if>
      <if test="housetypeno!=0">
-      and c.TypeNo=#{typeno}
+      and d.TypeNo=#{housetypeno}
      </if>
      <if test="buildingno!=0">
-      and c.BuildingNo=#{buildingno}
+      and e.BuildingNo=#{buildingno}
      </if>
   </where>  
   </select> 

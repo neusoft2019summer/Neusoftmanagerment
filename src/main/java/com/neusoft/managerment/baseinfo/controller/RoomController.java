@@ -78,7 +78,7 @@ public class RoomController {
 	@GetMapping(value="/list/condition/page")
 	public ResultMessage<RoomModel> getListByConditionWithPage(
 		@RequestParam(required = false,defaultValue ="0") int areano,
-		@RequestParam(required = false,defaultValue ="null") String buildingtypeno,
+		@RequestParam(required = false,defaultValue ="") String buildingtypeno,
 		@RequestParam(required = false,defaultValue ="0") int housetypeno,
 		@RequestParam(required = false,defaultValue ="0") int buildingno,
 		@RequestParam(required = false,defaultValue ="20") int rows,

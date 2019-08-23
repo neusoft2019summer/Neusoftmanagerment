@@ -18,14 +18,15 @@ import lombok.Data;
 @Data
 public class EmployeesModel implements Serializable {
 
-	private String empid = null;
+	private String id = null;
 	private DepartmentsModel departments = null;
 	private String empname = null;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date joindate = null;
 	private String sex = null;
 	private int age = 0;
 	private String mobile = null;
-	private String tel = null;
-	private String qq = null;
 	private String wx = null;
+	private String mail = null;
+	private double salary=0;
 }

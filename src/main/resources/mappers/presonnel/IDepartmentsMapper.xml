@@ -20,7 +20,7 @@
   </resultMap>
   <!--增加部门  -->
   <insert id="create"  keyProperty="deptno"   keyColumn="DEPTNO" useGeneratedKeys="true"  flushCache="true">
-   insert into Departments (DEPTNO,DEPTNAME,DDESC) values (#{deptno},#{deptname},#{ddesc})
+   insert into Departments (DEPTNAME,DDESC) values (#{deptname},#{ddesc})
   </insert>
   <!--修改部门 -->
   <update id="update"  flushCache="true">

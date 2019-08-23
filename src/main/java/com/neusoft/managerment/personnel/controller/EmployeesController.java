@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 import com.neusoft.managerment.message.ResultMessage;
+import com.neusoft.managerment.personnel.model.DepartmentsModel;
 import com.neusoft.managerment.personnel.model.EmployeesModel;
 import com.neusoft.managerment.personnel.service.IEmployeesService;
 /**
@@ -46,16 +47,30 @@ public class EmployeesController {
 	}
 	//取得指定的员工信息
 	@GetMapping("/get")
-	public EmployeesModel getEmpByID(int id) throws Exception{
-		return employeesService.getEmpByID(id);
+	public ResultMessage<EmployeesModel> getEmpByID(int id) throws Exception{
+		ResultMessage<EmployeesModel> result=new ResultMessage<EmployeesModel>("OK","取得员工信息成功");
+		result.setModel(employeesService.getEmpByID(id));
+		return result;
 	}
-	//取得检索客户列表，有分页
-	@GetMapping(value="/get/list")
-	public ResultMessage<EmployeesModel> getListByAllWitPage(@RequestParam(required = false,defaultValue ="0") int departmentNo,@RequestParam(required = false,defaultValue ="") String sex,@DateTimeFormat(pattern = "yyyy-MM-dd") @RequestParam(required = false) Date startJoinDate,@DateTimeFormat(pattern = "yyyy-MM-dd") @RequestParam(required = false) Date endJoinDate, @RequestParam(required = false,defaultValue ="10") int rows,@RequestParam(required = false,defaultValue = "1") int page) throws Exception{
+	
+	//
+	@GetMapping(value="/list/condition/page")
+	public ResultMessage<EmployeesModel> getListByAllWithPage(
+			@RequestParam(required = false,defaultValue ="0") int departmentNo,
+			@RequestParam(required = false,defaultValue ="0") int idd,
+			@RequestParam(required = false,defaultValue ="") String sex,
+			@RequestParam(required = false,defaultValue ="0") int age, 
+			@RequestParam(required = false,defaultValue ="") String mobile,
+			@DateTimeFormat(pattern = "yyyy-MM-dd") @RequestParam(required = false) Date startJoinDate,
+			@DateTimeFormat(pattern = "yyyy-MM-dd") @RequestParam(required = false) Date endJoinDate,
+			@RequestParam(required=false,defaultValue="0")double minSal,
+			@RequestParam(required=false,defaultValue="0")double maxSal,
+			@RequestParam(required = false,defaultValue ="10") int rows,
+			@RequestParam(required = false,defaultValue = "1") int page) throws Exception{
 		ResultMessage<EmployeesModel> result=new ResultMessage<EmployeesModel>("OK","取得员工列表分页成功");
-		result.setCount(employeesService.getCountByConditionWithDepartments(departmentNo,sex, startJoinDate, endJoinDate));
-		result.setPageCount(employeesService.getPageCountByConditionWithDepartments(departmentNo, sex, startJoinDate, endJoinDate, rows));
-		result.setList(employeesService.getListByConditionWithDepartments(departmentNo, sex, startJoinDate, endJoinDate, rows, page));
+		result.setCount(employeesService.getCountByConditionWithDepartments(departmentNo, idd, sex, age, mobile, startJoinDate, endJoinDate, minSal, maxSal));
+		result.setPageCount(employeesService.getPageCountByConditionWithDepartments(departmentNo, idd, sex, age, mobile, startJoinDate, endJoinDate, minSal, maxSal, rows));
+		result.setList(employeesService.getListByConditionWithDepartments(departmentNo, idd, sex, age, mobile, startJoinDate, endJoinDate, minSal, maxSal, rows, page));
 		result.setPage(page);
 		result.setRows(rows);
 		

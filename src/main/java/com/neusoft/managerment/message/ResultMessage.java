@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import com.neusoft.managerment.baseinfo.model.CustomerModel;
+import com.neusoft.managerment.personnel.model.EmployeesModel;
 
 import lombok.Data;
 /*
