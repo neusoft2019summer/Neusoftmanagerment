@@ -7,10 +7,11 @@ import org.apache.ibatis.type.Alias;
 import lombok.Data;
 
 /**
- *    author : 张梓琪
+ *    模块：基础信息   表：居住类型 LivingType
+ *    author : 陈思颖
  *    version: 1.0
- *    系统基础信息模块的居住类型Model
  */
+
 @Alias("livingtype")
 @Data
 public class LivingTypeModel implements Serializable {

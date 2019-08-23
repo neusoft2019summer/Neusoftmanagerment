@@ -11,7 +11,7 @@ $(function(){
 	var buildingtypeno=null;
 	var housetypeno=0;
 	var buildingno=0;
-	var host="http://localhost:8100";
+	var host="http://localhost:8100/";
 	//设置系统页面标题
 	$("span#mainpagetille").html("房间管理");
 	
@@ -20,10 +20,10 @@ $(function(){
 		url: 'room/list/condition/page',
 		datatype: "json",
 		colModel: [
-			{ label: '小区编号', name: 'area.areano', width: 50 },
-			{ label: '建筑类型编号', name: 'buildingtype.typeno', width: 50 },
+			{ label: '小区编号', name: 'area.no', width: 50 },
+			{ label: '建筑类型编号', name: 'buildingtype.no', width: 70 },
 			{ label: '户型编号', name: 'housetype.typeno', width: 70 },
-			{ label: '楼宇编号', name: 'building.buildingno', width: 70 },
+			{ label: '楼宇编号', name: 'building.no', width: 70 },
 			{ label: '单元', name: 'departmentcode', width: 70},
 			{ label: '楼层', name: 'floor', width: 70 },
 			{ label: '房间号', name: 'roomcode', width: 70 }
@@ -61,7 +61,7 @@ $(function(){
 	});
 	
 	//取得建筑类型编号列表，填充建筑类型编号列表下拉框
-	$.getJSON(host+"buildingtype/list/all",function(typeList){
+	$.getJSON(host+"buildType/list/all",function(typeList){
 		if(typeList){
 			$.each(typeList,function(index,um){
 				$("select#BuildingTypeNoSelection").append("<option value='"+um.no+"'>"+um.name+"</option>");
@@ -73,7 +73,7 @@ $(function(){
 	$.getJSON(host+"housetype/list/all",function(typeList){
 		if(typeList){
 			$.each(typeList,function(index,um){
-				$("select#HouseTypeNoSelection").append("<option value='"+um.no+"'>"+um.name+"</option>");
+				$("select#HouseTypeNoSelection").append("<option value='"+um.typeno+"'>"+um.typename+"</option>");
 			});
 		}
 	});
@@ -82,7 +82,7 @@ $(function(){
 	$.getJSON(host+"building/list/all",function(typeList){ 
 		if(typeList){
 			$.each(typeList,function(index,um){
-				$("select#BuildingNoSelection").append("<option value='"+um.no+"'>"+um.name+"</option>");
+				$("select#BuildingNoSelection").append("<option value='"+um.no+"'>"+um.no+"</option>");
 			});
 		}
 	});
@@ -119,20 +119,12 @@ $(function(){
 		reloadRoomList();
 	});	
 	
-	
-	
-	
-	
-	
-	
-	
-	
 	//点击检索事件处理
 	$("a#RoomSearchButton").on("click",function(){
-		typeno=$("input[name='typeno']:checked").val();
-		cname=$("input#CnameSelection").val();
-		ccode=$("input#CcodeSelection").val();
-		
+		areano=$("select#AreaNoSelection").val();
+		buildingtypeno=$("select#BuildingTypeNoSelection").val();
+		housetypeno=$("select#HouseTypeNoSelection").val();
+		buildingno=$("select#BuildingNoSelection").val();
 
      	reloadRoomList();
 		
@@ -150,52 +142,74 @@ $(function(){
 			//验证提交的数据
 			$("form#RoomAddForm").validate({
 				  rules: {
-				  	  ccode:{
-				  		  required: true,
-				  		  ccode: true
+				  	  areano:{
+				  		  required: true
 				  	  },
-					  cname:{
+					  buildingtypeno:{
 					      required: true
 					  },
-					  cardcode:{
+					  housetypeno:{
 					      required: true,
-					      cardcode: true
 					  },
-					  mobile:{
+					  buildingno:{
 					      required: true,
-					      mobile: true
 					  },
-					  feestartdate:{
+					  departmentcode:{
 					      required: true
 					  },
-					  feeenddate:{
+					  floor:{
 					      required: true
 					  },
-					  cstatus:{
+					  roomcode:{
 					      required: true
 					  },
+					  buildingarea:{
+					      required: true
+					  },
+					  feearea:{
+					      required: true
+					  },
+					  roomstatus:{
+					      required: true
+					  },
+					  roomtype:{
+					      required: true
+					  },
+					  
 				  },
 				  messages:{
-				      ccode:{
-				    	  required: "客户编码为空",
-				      },
-					  cname:{
-					      required: "客户姓名为空",
+				  	  areano:{
+				  		  required: "小区编号为空"
+				  	  },
+					  buildingtypeno:{
+					      required: "建筑类型编号为空"
 					  },
-					  cardcode:{
-					      required: "身份证号为空",
+					  housetypeno:{
+					      required: "户型编号为空"
 					  },
-					  mobile:{
-					      required: "手机号码为空",
+					  buildingno:{
+					      required: "楼宇编号为空"
 					  },
-					  feestartdate:{
-					      required: "收费开始日期为空",
+					  departmentcode:{
+					      required: "单元为空"
 					  },
-					  feeenddate:{
-					      required: "收费截止日期为空",
+					  floor:{
+					      required: "楼层为空"
 					  },
-					  cstatus:{
-					      required: "客户状态为空",
+					  roomcode:{
+					      required: "房间号为空"
+					  },
+					  buildingarea:{
+					      required: "使用面积为空"
+					  },
+					  feearea:{
+					      required: "缴费面积为空"
+					  },
+					  roomstatus:{
+					      required: "房间状态为空"
+					  },
+					  roomtype:{
+					      required: "房间类型为空"
 					  },
 
 				 }
@@ -264,52 +278,74 @@ $(function(){
 				//验证修改的数据
 				$("form#RoomModifyForm").validate({
 					  rules: {
-					  	  ccode:{
-					  		  required: true,
-					  		  ccode: true
+					  	  areano:{
+					  		  required: true
 					  	  },
-						  cname:{
+						  buildingtypeno:{
 						      required: true
 						  },
-						  cardcode:{
+						  housetypeno:{
 						      required: true,
-						      cardcode: true
 						  },
-						  mobile:{
+						  buildingno:{
 						      required: true,
-						      mobile: true
 						  },
-						  feestartdate:{
+						  departmentcode:{
 						      required: true
 						  },
-						  feeenddate:{
+						  floor:{
 						      required: true
 						  },
-						  cstatus:{
+						  roomcode:{
 						      required: true
 						  },
+						  buildingarea:{
+						      required: true
+						  },
+						  feearea:{
+						      required: true
+						  },
+						  roomstatus:{
+						      required: true
+						  },
+						  roomtype:{
+						      required: true
+						  },
+						  
 					  },
 					  messages:{
-					      ccode:{
-					    	  required: "客户编码为空",
-					      },
-						  cname:{
-						      required: "客户姓名为空",
+					  	  areano:{
+					  		  required: "小区编号为空"
+					  	  },
+						  buildingtypeno:{
+						      required: "建筑类型编号为空"
 						  },
-						  cardcode:{
-						      required: "身份证号为空",
+						  housetypeno:{
+						      required: "户型编号为空"
 						  },
-						  mobile:{
-						      required: "手机号码为空",
+						  buildingno:{
+						      required: "楼宇编号为空"
 						  },
-						  feestartdate:{
-						      required: "收费开始日期为空",
+						  departmentcode:{
+						      required: "单元为空"
 						  },
-						  feeenddate:{
-						      required: "收费截止日期为空",
+						  floor:{
+						      required: "楼层为空"
 						  },
-						  cstatus:{
-						      required: "客户状态为空",
+						  roomcode:{
+						      required: "房间号为空"
+						  },
+						  buildingarea:{
+						      required: "使用面积为空"
+						  },
+						  feearea:{
+						      required: "缴费面积为空"
+						  },
+						  roomstatus:{
+						      required: "房间状态为空"
+						  },
+						  roomtype:{
+						      required: "房间类型为空"
 						  },
 
 					 }
@@ -318,15 +354,18 @@ $(function(){
 				//取得指定的房间信息
 				$.getJSON("room/get",{roomno:roomno},function(em){
 					if(em){
-						$("input[name='customerno']").val(customerno);
-						$("input[name='typeno']").val(em.customertype.typeno);
-						$("input[name='ccode']").val(em.ccode);
-						$("input[name='cname']").val(em.cname);
-						$("input[name='cardcode']").val(em.cardcode);
-						$("input[name='mobile']").val(em.mobile);
-						$("input[name='feestartdate']").val(em.feestartdate);
-						$("input[name='feeenddate']").val(em.feeenddate);
-						$("input[name='cstatus']").val(em.cstatus);
+						$("input[name='roomno']").val(roomno);
+						$("input[name='area.no']").val(em.area.no);
+						$("input[name='buildingtype.no']").val(em.buildingtype.no);
+						$("input[name='housetype.typeno']").val(em.housetype.typeno);
+						$("input[name='building.no']").val(em.building.no);
+						$("input[name='departmentcode']").val(em.departmentcode);
+						$("input[name='floor']").val(em.floor);
+						$("input[name='roomcode']").val(em.roomcode);
+						$("input[name='buildingarea']").val(em.buildingarea);
+						$("input[name='feearea']").val(em.feearea);
+						$("input[name='roomstatus']").val(em.roomstatus);
+						$("input[name='roomtype']").val(em.roomtype);
 	
 					}
 				});
@@ -343,7 +382,7 @@ $(function(){
 				//拦截修改提交表单
 				$("form#RoomModifyForm").ajaxForm(function(result){
 					if(result.status=="OK"){
-						reloadCustomerList();  //更新房间列表
+						reloadRoomList();  //更新房间列表
 					}
 					//alert(result.message);
 					//BootstrapDialog.alert(result.message);
@@ -437,17 +476,24 @@ $(function(){
 			$("div#RoomDialog").load("room/view.html",function(){
 				//alert(customerno);
 				//取得选择的房间
-				$.getJSON("customer/get",{roomno:roomno},function(data){
+				$.getJSON("room/get",{roomno:roomno},function(data){
 					if(data){
-						$("span#customerno").html(customerno);
-						$("span#typename").html(data.customertype.typename);
-						$("span#ccode").html(data.ccode);
-						$("span#cname").html(data.cname);
-						$("span#cardcode").html(data.cardcode);
-						$("span#mobile").html(data.mobile);
-						$("span#feestartdate").html(data.feestartdate);
-						$("span#feeenddate").html(data.feeenddate);
-						$("span#cstatus").html(data.cstatus);
+						$("span#roomno").html(roomno);
+						$("span#areano").html(data.area.no);
+						$("span#areaname").html(data.area.name);
+						$("span#buildingtypeno").html(data.buildingtype.no);
+						$("span#buildingtypename").html(data.buildingtype.name);
+						$("span#housetypeno").html(data.housetype.typeno);
+						$("span#housetypename").html(data.housetype.typename);
+						$("span#buildingno").html(data.building.no);
+						$("span#buildingaddress").html(data.building.address);
+						$("span#departmentcode").html(data.departmentcode);
+						$("span#floor").html(data.floor);
+						$("span#roomcode").html(data.roomcode);
+						$("span#buildingarea").html(data.buildingarea);
+						$("span#feearea").html(data.feearea);
+						$("span#roomstatus").html(data.roomstatus);
+						$("span#roomtype").html(data.roomtype);
 					}
 				});
 				//弹出Dialog

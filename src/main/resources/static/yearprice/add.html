@@ -5,47 +5,35 @@
       <div class="box-body">
         <!-- 增加收费项目表单 -->
        	 <!-- form start -->
-            <form id="FeeItemAddForm" role="form" action="feeItem/add" method="post">
+            <form id="YearPriceAddForm" role="form" action="yearPrice/add" method="post">
               <div class="box-body">
                 <div class="rows">
                   <div class="col-md-6">
-	                 <div class="form-group">
-	                   <label for="exampleInputPassword1">收费项目编码</label>
-	                   <input type="text" class="form-control" name="code"  placeholder="收费项目编码">
-	                 </div>
-	                 <div class="form-group">
-	                   <label for="exampleInputEmail1">收费项目名称</label>
-	                   <input type="text" class="form-control" name="name"  placeholder="收费类型">
-	                 </div>
-	                 
-	                 <div class="form-group">
-	                  <label for="exampleInputEmail1">收费类型</label>
-	                   <select id="FeeTypeNoSelection" name="feetype.no" class="form-control">
-				        </select>
-	                 </div>
-                  </div>	       
-                  <div class="col-md-6">   
                      <div class="form-group">
-	                   <label for="exampleInputPassword1">收费单位</label>
-	                   <input type="radio" name="unit" value="米" checked>米
-	                   <input type="radio" name="unit" value="户">户
-	                   <input type="radio" name="unit" value="人">人
-	                   <input type="radio" name="unit" value="车">车
-	                 </div>                        
+		                <label for="exampleInputEmail1">收费年度</label>
+		                <input type="text" class="form-control" name="feeyear"  placeholder="收费年度">
+		             </div>
+	                 <div class="form-group" id="FeeItemList">
+	                  <label for="exampleInputEmail1">收费项目</label><br/>
+	                 </div>                       
 	                 <div class="form-group">
-	                  <label for="exampleInputPassword1">周期性</label>
-	                   <input type="radio" name="cycle" value="Y" checked>Y
-	                   <input type="radio" name="cycle" value="N">N
-	                 </div>
+		                <label for="exampleInputEmail1">单价</label>
+		                <input type="text" class="form-control" name="unitprice"  placeholder="单价">
+		             </div>
+                  </div>	       
+                  <div class="col-md-6"> 		             
+	                <div class="form-group">
+		                <label for="exampleInputEmail1">开始日期</label>
+		                <input type="Date" class="form-control" name="startDate">
+		             </div>
 	                 <div class="form-group">
-	                  <label for="exampleInputEmail1">收费</label>
-	                   <input type="radio" name="status" value="Y" checked>Y
-	                   <input type="radio" name="status" value="N">N
-	                 </div>
-	                 <div class="form-group">
-	                  <label for="exampleInputEmail1">收费项目说明</label>
-	                  <input type="text" class="form-control" name="desc"  placeholder="收费项目说明">
-	                 </div>	                 
+		                <label for="exampleInputEmail1">结束日期</label>
+		                <input type="Date" class="form-control" name="endDate">
+		             </div>  
+		             <div class="form-group">
+		                <label for="exampleInputEmail1">描述</label>
+		                <input type="text" class="form-control" name="pricedesc"  placeholder="描述">
+		             </div>                   
                   </div>                
                 </div>
               <!-- /.box-body -->

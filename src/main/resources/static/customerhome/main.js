@@ -400,8 +400,8 @@ $(function(){
 						$("span#customerno").html(data.customer.customerno);
 						$("span#cname").html(data.customer.cname);
 						$("span#roomno").html(data.room.roomno);
-						$("span#areano").html(data.room.areano);
-						$("span#buildingno").html(data.room.buildingno);
+						$("span#areano").html(data.room.area.no);
+						$("span#buildingno").html(data.room.building.no);
 						$("span#typeno").html(data.livingtype.typeno);
 						$("span#livedate").html(data.livedate);
 						$("span#receivedate").html(data.receivedate);

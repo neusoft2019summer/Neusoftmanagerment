@@ -34,10 +34,8 @@ public class YearPriceController {
 	public ResultMessage<YearPriceModel> add(YearPriceModel yearPriceModel,
 			@RequestParam(required = false) int[] feeItems) throws Exception{
 		if(feeItems!=null) {
-			yearPriceService.addFeeItem(yearPriceModel.getFeeyear(), feeItems);
-		}
-		else {
 			yearPriceService.add(yearPriceModel);
+			yearPriceService.addFeeItem(yearPriceModel.getFeeyear(), feeItems);
 		}
 		
 		return new ResultMessage<YearPriceModel>("OK","增加收费项目年度价格成功");
@@ -52,8 +50,7 @@ public class YearPriceController {
 			yearPriceService.deleteFeeItem(yearPriceModel.getFeeyear());
 			//再增加的收费项目
 			yearPriceService.addFeeItem(yearPriceModel.getFeeyear(), feeItems);
-		}
-		else {
+		
 			yearPriceService.modify(yearPriceModel);
 		}
 		return new ResultMessage<YearPriceModel>("OK","修改收费项目年度价格成功");
