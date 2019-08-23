@@ -30,7 +30,7 @@ public interface IEmployeesMapper {
 	//检索
 	public List<EmployeesModel> selectListByConditionWithDepartments(
 			@Param("departmentNo") int departmentNo,
-			@Param("id") int id,
+			@Param("idd") int idd,
 			@Param("sex") String sex,
 			@Param("age") int age,
 			@Param("mobile") String mobile,
@@ -43,7 +43,7 @@ public interface IEmployeesMapper {
 	//检索的个数
 	public int selectCountByCondition(
 			@Param("departmentNo") int departmentNo,
-			@Param("id") int id,
+			@Param("idd") int idd,
 			@Param("sex") String sex,
 			@Param("age") int age,
 			@Param("mobile") String mobile,

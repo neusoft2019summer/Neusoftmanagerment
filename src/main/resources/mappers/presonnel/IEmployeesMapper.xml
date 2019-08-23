@@ -53,8 +53,8 @@
      <if test="departmentNo!=0">
       and a.DEPTNO=#{departmentNo}
      </if>
-     <if test="id!=0">
-      and a.EMPID=#{id}
+     <if test="idd!=0">
+      and a.EMPID=#{idd}
      </if>
      <if test="sex!=null and sex!=''">
      and a.SEX=#{sex}
@@ -92,8 +92,8 @@
      <if test="departmentNo!=0">
       and DEPTNO=#{departmentNo}
      </if>
-     <if test="id!=0">
-      and EMPID=#{id}
+     <if test="idd!=0">
+      and EMPID=#{idd}
      </if>
      <if test="sex!=null and sex!=''">
      and SEX=#{sex}

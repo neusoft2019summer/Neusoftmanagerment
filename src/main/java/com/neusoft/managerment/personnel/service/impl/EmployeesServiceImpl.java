@@ -21,25 +21,25 @@ import com.neusoft.managerment.personnel.service.IEmployeesService;
 public class EmployeesServiceImpl implements IEmployeesService {
 	@Autowired
 	private IEmployeesMapper employeesMapper=null;
-	
+	//添加
 	@Override
 	public void add(EmployeesModel employees) throws Exception {
 		// TODO Auto-generated method stub
 		employeesMapper.create(employees);
 	}
-
+	//修改
 	@Override
 	public void modify(EmployeesModel employees) throws Exception {
 		// TODO Auto-generated method stub
 		employeesMapper.update(employees);
 	}
-
+	//删除
 	@Override
 	public void delete(EmployeesModel employees) throws Exception {
 		// TODO Auto-generated method stub
 		employeesMapper.delete(employees);
 	}
-
+	//获取指定的员工信息
 	@Override
 	@Transactional(readOnly = true)
 	public EmployeesModel getEmpByID(int id) throws Exception {
@@ -48,7 +48,7 @@ public class EmployeesServiceImpl implements IEmployeesService {
 	}
 
 
-
+	//获取全部员工信息
 	@Override
 	@Transactional(readOnly = true)
 	public List<EmployeesModel> getEmpListByAll() throws Exception {
@@ -56,27 +56,27 @@ public class EmployeesServiceImpl implements IEmployeesService {
 		return employeesMapper.selectEmpListByAll();
 	}
 
-
+	//检索条件
 	@Override
-	public List<EmployeesModel> getListByConditionWithDepartments(int departmentNo, int id, String sex, int age,
+	public List<EmployeesModel> getListByConditionWithDepartments(int departmentNo, int idd, String sex, int age,
 			String mobile, Date startJoinDate, Date endJoinDate, double minSal, double maxSal, int rows, int page)
 			throws Exception {
 		// TODO Auto-generated method stub
-		return employeesMapper.selectListByConditionWithDepartments(departmentNo, id, sex, age, mobile, startJoinDate, endJoinDate, minSal, maxSal, rows*(page-1), rows);
+		return employeesMapper.selectListByConditionWithDepartments(departmentNo, idd, sex, age, mobile, startJoinDate, endJoinDate, minSal, maxSal, rows*(page-1), rows);
 	}
-
+	//检索个数
 	@Override
-	public int getCountByConditionWithDepartments(int departmentNo, int id, String sex, int age, String mobile,
+	public int getCountByConditionWithDepartments(int departmentNo, int idd, String sex, int age, String mobile,
 			Date startJoinDate, Date endJoinDate, double minSal, double maxSal) throws Exception {
 		// TODO Auto-generated method stub
-		return employeesMapper.selectCountByCondition(departmentNo, id, sex, age, mobile, startJoinDate, endJoinDate, minSal, maxSal);
+		return employeesMapper.selectCountByCondition(departmentNo, idd, sex, age, mobile, startJoinDate, endJoinDate, minSal, maxSal);
 	}
-
+	//检索页数
 	@Override
-	public int getPageCountByConditionWithDepartments(int departmentNo, int id, String sex, int age, String mobile,
+	public int getPageCountByConditionWithDepartments(int departmentNo, int idd, String sex, int age, String mobile,
 			Date startJoinDate, Date endJoinDate, double minSal, double maxSal, int rows) throws Exception {
 		int pageCount=0;
-		int count=this.getCountByConditionWithDepartments(departmentNo, id, sex, pageCount, mobile, startJoinDate, endJoinDate, minSal, maxSal);
+		int count=this.getCountByConditionWithDepartments(departmentNo, idd, sex, pageCount, mobile, startJoinDate, endJoinDate, minSal, maxSal);
 		if(count%rows==0) {
 			pageCount=count/rows;
 		}

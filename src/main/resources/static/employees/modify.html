@@ -14,14 +14,14 @@
 	       	 <!-- form start -->
 	            <form id="EmployeesModifyForm" role="form" action="employees/modify" method="post">
 	              <div class="box-body">
+	               <div class="col-md-6">
 	                <div class="form-group">
 	                  <label for="exampleInputPassword1">员工编号</label>
 	                  <input type="text" class="form-control" name="id"  readonly>
 	                </div>
 	                <div class="form-group">
 					    <label  for="exampleInputPassword1">所属部门名称</label>
-					    <select id="DeptnoSelection" class="form-control">
-					       <option value=""></option>
+					    <select id="DeptnoSelection" name="departments.deptno" class="form-control">
 					    </select>
 					  </div>
 	                <div class="form-group">
@@ -30,14 +30,15 @@
 	                </div>
 	                <div class="form-group">
 	                  <label for="exampleInputPassword1">入职日期</label>
-	                  <input type="date" class="form-control" name="ddesc"  placeholder="入职日期">
+	                  <input type="date" class="form-control" name="joindate"  placeholder="入职日期">
 	                </div>
 					<div class="form-group">
 					    <label  for="exampleInputPassword1">性别</label>
 					     <input type="radio" name="sex" value="男">男
 					     <input type="radio" name="sex" value="女">女   
 					</div>
-	              
+	                </div>
+	                <div class="col-md-6">
 	                <div class="form-group">
 	                  <label for="exampleInputPassword1">员工年龄</label>
 	                  <input type="text" class="form-control" name="age"  placeholder="员工年龄">
@@ -57,6 +58,7 @@
 	                <div class="form-group">
 	                  <label for="exampleInputPassword1">薪水</label>
 	                  <input type="text" class="form-control" name="salary"  placeholder="薪水">
+	                </div>
 	                </div>
 	              </div>
 	              <!-- /.box-body -->
