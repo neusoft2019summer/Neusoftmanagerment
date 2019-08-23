@@ -68,9 +68,10 @@
   
   <!-- 3 取得指定客户房间的信息 -->
   <select id="selectByCHNO" resultMap="CustomerHomeWithFKResultMap" >
-    select a.*,b.*,c.*,d.* from CustomerHome a inner join Customer b on a.CustomerNo=b.CustomerNo 
+    select a.*,b.*,c.*,d.*,e.* from CustomerHome a inner join Customer b on a.CustomerNo=b.CustomerNo 
                                        inner join Room c on a.RoomNo=c.RoomNo 
                                        inner join LivingType d on a.LivingTypeNo=d.TypeNo 
+                                       inner join Area e on e.areano= c.areano
     where CHNO=#{chno}
   </select>
 
@@ -81,9 +82,10 @@
   
   <!-- 5 根据综合检索条件取得客户房间列表-->
   <select id="selectListByConditionWithPage" resultMap="CustomerHomeWithFKResultMap">
-    select a.*,b.*,c.*,d.* from CustomerHome a inner join Customer b on a.CustomerNo=b.CustomerNo 
+    select a.*,b.*,c.*,d.*,e.*  from CustomerHome a inner join Customer b on a.CustomerNo=b.CustomerNo 
                                        inner join Room c on a.RoomNo=c.RoomNo 
-                                       inner join LivingType d on a.LivingTypeNo=d.TypeNo 
+                                       inner join LivingType d on a.LivingTypeNo=d.TypeNo
+                                       inner join Area e on e.areano= c.areano
   <where>
      <if test="customerno!=0">
       and b.CustomerNo=#{customerno}
