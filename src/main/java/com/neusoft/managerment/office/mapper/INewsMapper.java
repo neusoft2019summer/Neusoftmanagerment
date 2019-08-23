@@ -22,6 +22,8 @@ public interface INewsMapper {
 	//R  查询 取得列表 只取的新闻
 	public List<NewsModel> selectListByAll() throws Exception;
 	public List<NewsModel> selectListType(String newstype) throws Exception;
+	//查询新闻类型
+	public List<NewsModel>selecttype()throws Exception;
 	
 	//取得所有新聞列表,分页模式
    public List<NewsModel> selectListByAllWithPage(@Param("start") int start,@Param("rows") int rows) throws Exception;

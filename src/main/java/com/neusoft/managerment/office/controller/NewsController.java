@@ -34,11 +34,14 @@ public class NewsController {
 	//选择新闻类型
 	@RequestMapping(value="/tolistbytype")
 	public List<NewsModel> tolistbytype(String newstype) throws Exception{
-		
 		return newservice.getnewsbytype(newstype);
-		
-		
 	}
+	//选择新闻列表
+	@RequestMapping(value="/list/type")
+	public List<NewsModel>gettype()throws Exception{
+		return newservice.gettype();
+	}
+	
 	//删除新闻
 	@RequestMapping(value="/delete")
 	public ResultMessage<NewsModel> delete(NewsModel newsmodel) throws Exception{

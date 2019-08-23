@@ -33,8 +33,21 @@
 	   <association property="room" resultMap="com.neusoft.managerment.baseinfo.mapper.IRoomMapper.RoomResultMap"></association>
 	   <association property="wemp" resultMap="com.neusoft.managerment.feeinfo.mapper.IWempMapper.WempResultMap"></association>
 	   <association property="provider" resultMap="com.neusoft.managerment.baseinfo.mapper.IMaintainProviderMapper.MaintainproviderResultMap"></association>
-	   
 	</resultMap>
+	
+	<resultMap id="MaintainrecordResultMapWithRelationWithMtype" type="MaintainRecord" extends="MaintainrecordResultMap">
+	   <association property="mtype" resultMap="com.neusoft.managerment.feeinfo.mapper.IM_typeMapper.M_typeResultMap"></association>
+	</resultMap>
+	<resultMap id="MaintainrecordResultMapWithRelationWithRoom" type="MaintainRecord" extends="MaintainrecordResultMap">
+	   <association property="room" resultMap="com.neusoft.managerment.baseinfo.mapper.IRoomMapper.RoomResultMap"></association>
+	</resultMap>
+	<resultMap id="MaintainrecordResultMapWithRelationWithWemp" type="MaintainRecord" extends="MaintainrecordResultMap">
+	   <association property="wemp" resultMap="com.neusoft.managerment.feeinfo.mapper.IWempMapper.WempResultMap"></association>
+	</resultMap>
+	<resultMap id="MaintainrecordResultMapWithRelationWithProvider" type="MaintainRecord" extends="MaintainrecordResultMap">
+	   <association property="provider" resultMap="com.neusoft.managerment.baseinfo.mapper.IMaintainProviderMapper.MaintainproviderResultMap"></association>
+	</resultMap>
+	
 
 	 <insert id="insert" keyProperty="recordno"   keyColumn="RECORDNO" useGeneratedKeys="true" flushCache="true">
 		insert into maintainrecord (MTYPENO,ROOMNO,CONTACTNAME,MOBILE,TEL,MDATE,MDESC,WEMPID,WDATE,WTASK,WRESULT,WSTATUS,WFEE,PROVIDERNO,CLIENTFEEBACK)
@@ -123,8 +136,23 @@
 		  	</where>
 		limit #{start},#{rows}
 	</select>
-   
-  
-
+   <!--外键表  -->
+     <!--选择维修类型  -->
+     <select id="selecttype" resultType="mtype">
+     	select mtypeno,mtypename from m_type
+     </select>
+    <!-- 选择维修工人id   -->
+     <select id="selectwemp" resultType="wemp">
+        select wempid,wempname from wemp  
+     </select>
+     <!--选择房间号  -->
+     <select id="selectroom" resultType="room">
+        select roomno from room  
+     </select>
+     <!--选择维修公司  -->
+     <select id="selectprovider" resultType="MaintainProvider">
+     	select providerno,pname from maintainprovider
+     </select>
+     
 	
 </mapper>

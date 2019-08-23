@@ -56,7 +56,7 @@ $(function(){
 	
 	
 	//取得类型列表，填充类型下拉框
-	$.getJSON("community/tolist",function(CommunityList){
+	$.getJSON("community/list/type",function(CommunityList){
 		if(CommunityList){
 			$.each(CommunityList,function(index,tm){
 				$("select#TypeSelection").append("<option value='"+tm.activetype+"'>"+tm.activetype+"</option>");
@@ -64,7 +64,7 @@ $(function(){
 		}
 	});
 	//取得地点列表，填充类型下拉框
-	$.getJSON("community/tolist",function(CommunityList){
+	$.getJSON("community/list/place",function(CommunityList){
 		if(CommunityList){
 			$.each(CommunityList,function(index,pm){
 				$("select#PlaceSelection").append("<option value='"+pm.activeplace+"'>"+pm.activeplace+"</option>");
@@ -91,7 +91,7 @@ $(function(){
 	
 	//定义地点下拉框的更新事件的处理
 	$("select#PlaceSelection").off().on("change",function(){
-		activeplace=$("select#PlaceSelection").val;
+		activeplace=$("select#PlaceSelection").val();
 		
 		reloadCommunityList();
 	});

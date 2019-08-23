@@ -42,4 +42,9 @@ public interface ICommunityMapper {
 
 	//根据编号取得指定的活动
 	 public CommunityActiveModel selectbyno(int activeno) throws Exception;
+	 //取得活动类型列表
+	 public List<CommunityActiveModel> selecttype()throws Exception;
+	 //取得活动地方列表
+	 public List<CommunityActiveModel>selectplace()throws Exception;
+	 
 }

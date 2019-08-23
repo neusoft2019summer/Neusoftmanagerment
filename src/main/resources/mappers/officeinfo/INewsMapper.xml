@@ -40,6 +40,9 @@
   <select id="selectListType" resultMap="NewsResultMap">
    select * from officenews where NEWSTYPE=#{newstype}
   </select>
+  <select id="selecttype" resultMap="NewsResultMap">
+  	select distinct newstype from officenews 
+  </select>
   
   <!-- 取得所有新闻列表,分页模式 -->
   <select id="selectListByAllWithPage" resultMap="NewsResultMap">
@@ -91,7 +94,6 @@ select * from officenews where NEWSNO=#{newsno}
      </if>
      
   </where>
-   
   </select>
 
   </mapper>

@@ -37,7 +37,7 @@ $(function(){
 		viewrecords: true, 
 		autowidth: true,
 		height: 400,
-		rowNum: 2,
+		rowNum: 5,
 		rowList:[10,20,30],
 		jsonReader : { 
 		      root: "list", 
@@ -58,34 +58,27 @@ $(function(){
 	});
 	
 	//取得类型列表，填充类型下拉框
-	$.getJSON("maintainrecord/tolist",function(MaintainrecordList){
+	$.getJSON("maintainrecord/list/type",function(MaintainrecordList){
 		if(MaintainrecordList){
 			$.each(MaintainrecordList,function(index,nm){
-				$("select#TypeSelection").append("<option value='"+nm.mtype.mtypeno+"'>"+nm.mtype.mtypeno+"</option>");
+				$("select#TypeSelection").append("<option value='"+nm.mtypeno+"'>"+nm.mtypename+"</option>");
 			});
 		}
 	});
 	//取得room序号列表，填充类型下拉框
-	$.getJSON("maintainrecord/tolist",function(MaintainrecordList){
+	$.getJSON("maintainrecord/list/room",function(MaintainrecordList){
 		if(MaintainrecordList){
 			$.each(MaintainrecordList,function(index,nm){
-				$("select#RoomNoSelection").append("<option value='"+nm.room.roomno+"'>"+nm.room.roomno+"</option>");
+				$("select#RoomNoSelection").append("<option value='"+nm.roomno+"'>"+nm.roomno+"</option>");
 			});
 		}
 	});
-	//取得状态列表，填充类型下拉框
-	$.getJSON("maintainrecord/tolist",function(MaintainrecordList){
-		if(MaintainrecordList){
-			$.each(MaintainrecordList,function(index,sm){
-				$("select#WStatusSelection").append("<option value='"+sm.wstatus+"'>"+sm.wstatus+"</option>");
-			});
-		}
-	});
-	//取得状态列表，填充类型下拉框
-	$.getJSON("maintainrecord/tolist",function(MaintainrecordList){
+	
+	//取得维修公司列表，填充维修下拉框
+	$.getJSON("maintainrecord/list/provider",function(MaintainrecordList){
 		if(MaintainrecordList){
 			$.each(MaintainrecordList,function(index,pm){
-				$("select#ProviderNoSelection").append("<option value='"+pm.provider.providerno+"'>"+pm.provider.providerno+"</option>");
+				$("select#ProviderNoSelection").append("<option value='"+pm.providerno+"'>"+pm.pname+"</option>");
 				
 			});
 		}
@@ -151,6 +144,7 @@ $(function(){
 				title:"增加新闻",
 				width:800
 			});
+			
 			//验证提交数据
 			/*$("form#MaintainrecordAddForm").validate({
 				rules: {
@@ -180,7 +174,40 @@ $(function(){
 			});
 			//增加新闻的弹窗
 			*/
-			
+			//取得类型列表，填充类型下拉框
+			$.getJSON("maintainrecord/list/type",function(MaintainrecordList){
+				if(MaintainrecordList){
+					$.each(MaintainrecordList,function(index,nm){
+						$("select#AddTypeSelection").append("<option value='"+nm.mtypeno+"'>"+nm.mtypename+"</option>");
+					});
+				}
+			});
+			//取得维修工人列表，填充维修工人下拉框
+			$.getJSON("maintainrecord/list/wemp",function(MaintainrecordList){
+				if(MaintainrecordList){
+					$.each(MaintainrecordList,function(index,pm){
+						$("select#AddWempidSelection").append("<option value='"+pm.wempid+"'>"+pm.wempname+"</option>");
+						
+					});
+				}
+			});
+			//取得维修公司列表，填充维修公司下拉框
+			$.getJSON("maintainrecord/list/provider",function(MaintainrecordList){
+				if(MaintainrecordList){
+					$.each(MaintainrecordList,function(index,pm){
+						$("select#AddProviderNoSelection").append("<option value='"+pm.providerno+"'>"+pm.pname+"</option>");
+						
+					});
+				}
+			});
+			//取得room序号列表，填充room下拉框
+			$.getJSON("maintainrecord/list/room",function(MaintainrecordList){
+				if(MaintainrecordList){
+					$.each(MaintainrecordList,function(index,nm){
+						$("select#AddRoomNoSelection").append("<option value='"+nm.roomno+"'>"+nm.roomno+"</option>");
+					});
+				}
+			});
 			//拦截增加提交表单
 			$("form#MaintainrecordAddForm").ajaxForm(function(result){
 				if(result.status=="OK"){
@@ -256,36 +283,36 @@ $(function(){
 				});
 				
 				//取得类型列表，填充类型下拉框
-				$.getJSON("maintainrecord/tolist",function(MaintainrecordList){
+				$.getJSON("maintainrecord/list/type",function(MaintainrecordList){
 					if(MaintainrecordList){
 						$.each(MaintainrecordList,function(index,nm){
-							$("select#TypeSelection").append("<option value='"+nm.mtype.mtypeno+"'>"+nm.mtype.mtypeno+"</option>");
+							$("select#ModifyTypeSelection").append("<option value='"+nm.mtypeno+"'>"+nm.mtypename+"</option>");
 						});
 					}
 				});
-				//取得room序号列表，填充类型下拉框
-				$.getJSON("maintainrecord/tolist",function(MaintainrecordList){
+				//取得room序号列表，填充room下拉框
+				$.getJSON("maintainrecord/list/room",function(MaintainrecordList){
 					if(MaintainrecordList){
 						$.each(MaintainrecordList,function(index,nm){
-							$("select#RoomNoSelection").append("<option value='"+nm.room.roomno+"'>"+nm.room.roomno+"</option>");
+							$("select#ModifyRoomNoSelection").append("<option value='"+nm.roomno+"'>"+nm.roomno+"</option>");
 						});
 					}
 				});
 				
-				//取得状态列表，填充维修公司下拉框
-				$.getJSON("maintainrecord/tolist",function(MaintainrecordList){
+				//取得维修公司列表，填充维修公司下拉框
+				$.getJSON("maintainrecord/list/provider",function(MaintainrecordList){
 					if(MaintainrecordList){
 						$.each(MaintainrecordList,function(index,pm){
-							$("select#ProviderNoSelection").append("<option value='"+pm.provider.providerno+"'>"+pm.provider.providerno+"</option>");
+							$("select#ModifyProviderNoSelection").append("<option value='"+pm.providerno+"'>"+pm.pname+"</option>");
 							
 						});
 					}
 				});
-				//取得状态列表，填充维修公司下拉框
-				$.getJSON("maintainrecord/tolist",function(MaintainrecordList){
+				//取得维修工人列表，填充维修工人下拉框
+				$.getJSON("maintainrecord/list/wemp",function(MaintainrecordList){
 					if(MaintainrecordList){
 						$.each(MaintainrecordList,function(index,pm){
-							$("select#WempidSelection").append("<option value='"+pm.wemp.wempid+"'>"+pm.wemp.wempid+"</option>");
+							$("select#ModifyWempidSelection").append("<option value='"+pm.wempid+"'>"+pm.wempname+"</option>");
 							
 						});
 					}
@@ -396,7 +423,7 @@ $(function(){
 				
 				//取得指定的新闻信息
 				$.getJSON("maintainrecord/get",{recordno:recordId},function(maintainrecord){
-					alert(recordId)
+					//alert(recordId)
 					
 					if(maintainrecord){
 						$("span[name='recordno']").html(recordId);

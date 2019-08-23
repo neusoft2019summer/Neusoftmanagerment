@@ -92,6 +92,18 @@ public class CommunityServiceimpl implements ICommunityService {
 		return communityMapper.selectbyno(activeno);
 	}
 
+	@Override
+	public List<CommunityActiveModel> gettype() throws Exception {
+		// TODO Auto-generated method stub
+		return communityMapper.selecttype();
+	}
+
+	@Override
+	public List<CommunityActiveModel> getplace() throws Exception {
+		
+		return communityMapper.selectplace();
+	}
+
 	
 	
 

@@ -1,5 +1,7 @@
 package com.neusoft.managerment.baseinfo.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,6 +38,40 @@ public class MaintainproviderServiceImpl implements IMaintainproviderService{
 	public void update(MaintainProviderModel maintainmodel) throws Exception {
 		maintainmapper.update(maintainmodel);
 		
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<MaintainProviderModel> getListByConditionWithPage(String pname, String paddress, int rows, int page)
+			throws Exception {
+		
+		return maintainmapper.selectListByConditionWithPage(pname, paddress, rows*(page-1), rows);
+				
+	}
+
+	@Override
+	public int getCountByCondition(String pname, String paddress) throws Exception {
+		
+		return maintainmapper.selectCountByCondition(pname, paddress);
+	}
+
+	@Override
+	public int getPageByConditionWithPage(String pname, String paddress, int rows) throws Exception {
+		int pageCount=0;
+		int count=this.getCountByCondition(pname, paddress);
+		if(count%rows==0) {
+			pageCount=count/rows;
+		}
+		else {
+			pageCount=count/rows+1;
+		}
+		return pageCount;
+	}
+
+	@Override
+	public List<MaintainProviderModel> getall() throws Exception {
+		
+		return maintainmapper.selectall();
 	}
 
 }

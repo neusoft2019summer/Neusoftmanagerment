@@ -7,8 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.neusoft.managerment.baseinfo.model.MaintainProviderModel;
+import com.neusoft.managerment.baseinfo.model.RoomModel;
 import com.neusoft.managerment.feeinfo.mapper.IMaintainRecordMapper;
+import com.neusoft.managerment.feeinfo.model.M_typeModel;
 import com.neusoft.managerment.feeinfo.model.MaintainRecordModel;
+import com.neusoft.managerment.feeinfo.model.WempModel;
 import com.neusoft.managerment.feeinfo.service.IMaintainRecordService;
 import com.neusoft.managerment.message.ResultMessage;
 /*
@@ -119,6 +123,31 @@ public class MaintainRecordServiceImpl implements IMaintainRecordService{
 	public List<MaintainRecordModel> getListByALL() throws Exception {
 		
 		return maintainrecordmapper.selectListByAll();
+	}
+
+	//查询所有维修类型
+	@Override
+	public List<M_typeModel> gettype() throws Exception {
+		
+		return maintainrecordmapper.selecttype();
+	}
+
+	@Override
+	public List<WempModel> getwemp() throws Exception {
+		// TODO Auto-generated method stub
+		return maintainrecordmapper.selectwemp();
+	}
+
+	@Override
+	public List<RoomModel> getroom() throws Exception {
+		
+		return maintainrecordmapper.selectroom();
+	}
+
+	@Override
+	public List<MaintainProviderModel> getprovider() throws Exception {
+		// TODO Auto-generated method stub
+		return maintainrecordmapper.selectprovider();
 	}
 	}
 	

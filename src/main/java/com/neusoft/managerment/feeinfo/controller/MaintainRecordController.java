@@ -11,8 +11,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.neusoft.managerment.baseinfo.model.MaintainProviderModel;
+import com.neusoft.managerment.baseinfo.model.RoomModel;
 import com.neusoft.managerment.baseinfo.service.IMaintainproviderService;
+import com.neusoft.managerment.feeinfo.model.M_typeModel;
 import com.neusoft.managerment.feeinfo.model.MaintainRecordModel;
+import com.neusoft.managerment.feeinfo.model.WempModel;
 import com.neusoft.managerment.feeinfo.service.IMaintainRecordService;
 import com.neusoft.managerment.message.ResultMessage;
 
@@ -44,10 +47,8 @@ public class MaintainRecordController {
 	//修改
 	@RequestMapping(value="/modify")
 	public ResultMessage<MaintainRecordModel> modify(MaintainRecordModel maintainmodel)throws Exception{
-		System.out.println(maintainmodel.getWstatus());
 		imrr.modify(maintainmodel);
 		return new ResultMessage<MaintainRecordModel>("ok","修改成功");
-
 		}
 	//删除
 	@RequestMapping(value="/delete")
@@ -65,6 +66,28 @@ public class MaintainRecordController {
 		return result;
 
 		}
+	//查询维修类型
+	@RequestMapping(value="/list/type")
+	public List<M_typeModel> gettype()throws Exception{
+		return imrr.gettype();
+	}
+	//查询维修工人
+	@RequestMapping(value="/list/wemp")
+	public List<WempModel> getwemp()throws Exception{
+		return imrr.getwemp();
+		
+	}
+	//查询房间号
+	@RequestMapping(value="/list/room")
+	public List<RoomModel> getroom()throws Exception{
+		return imrr.getroom();
+		
+	}
+	//查询维修公司
+	@RequestMapping(value="/list/provider")
+	public List<MaintainProviderModel>getprovider()throws Exception{
+		return imrr.getprovider();
+	}
 	//查询所有维修保单 分页
 	@RequestMapping(value="/list/all/page")
 	public ResultMessage<MaintainRecordModel> list(

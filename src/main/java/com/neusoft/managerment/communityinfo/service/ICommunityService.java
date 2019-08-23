@@ -37,6 +37,10 @@ public interface ICommunityService {
 	public List<CommunityActiveModel> getListByConditionWithPage(int activeno,String activeplace,String activetype,String activecontent,Date startActiveDate,Date endActiveDate, int rows, int page)throws Exception;
 	//取得指定的活动
 	public CommunityActiveModel getByNo(int activeno)throws Exception;
+	//取得活动类型列表
+	 public List<CommunityActiveModel> gettype()throws Exception;
+	 //取得活动地方列表
+	 public List<CommunityActiveModel>getplace()throws Exception;
 	
 
 }

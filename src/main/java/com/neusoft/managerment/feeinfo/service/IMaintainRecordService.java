@@ -3,7 +3,11 @@ package com.neusoft.managerment.feeinfo.service;
 import java.util.Date;
 import java.util.List;
 
+import com.neusoft.managerment.baseinfo.model.MaintainProviderModel;
+import com.neusoft.managerment.baseinfo.model.RoomModel;
+import com.neusoft.managerment.feeinfo.model.M_typeModel;
 import com.neusoft.managerment.feeinfo.model.MaintainRecordModel;
+import com.neusoft.managerment.feeinfo.model.WempModel;
 import com.neusoft.managerment.message.ResultMessage;
 import com.neusoft.managerment.office.model.NewsModel;
 
@@ -19,9 +23,16 @@ public interface IMaintainRecordService {
 	public void modify(MaintainRecordModel maintainrecord) throws Exception;
 	//删除
 	public void delete(MaintainRecordModel maintainrecord) throws Exception;
-	
 	//取得所有维修保单列表,分页模式
     public List<MaintainRecordModel> getListByAllWithPage(int rows,int page) throws Exception;
+    //取得维修类型
+    public List<M_typeModel> gettype()throws Exception;
+    //取得维修工人
+    public List<WempModel> getwemp()throws Exception;
+    //取得房间
+    public List<RoomModel> getroom()throws Exception;
+    //取得维修公司
+    public List<MaintainProviderModel> getprovider()throws Exception;
     //取得维修保单个数
     public int getcountbyall() throws Exception;
     //取得指定的维修保单

@@ -112,6 +112,12 @@ public class NewsServiceImpl implements INewsService  {
 		return pageCount;
 	}
 
+	@Override
+	public List<NewsModel> gettype() throws Exception {
+		
+		return newsmapper.selecttype();
+	}
+
 
 }
 

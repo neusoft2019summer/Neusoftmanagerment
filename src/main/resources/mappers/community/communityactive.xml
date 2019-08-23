@@ -103,5 +103,20 @@
   </where>
     limit #{start},#{rows}
   </select>
+  <!--活动类型列表  -->
+  <select id="selecttype" resultMap="ActResultMap">
+  	select distinct activetype from community 
+  </select>
+  <!--活动地点列表  -->
+  <select id="selectplace" resultMap="ActResultMap">
+  	select distinct activeplace from community
+  </select>
+  
+  
+  
+  
+  
+  
+  
   
   </mapper>

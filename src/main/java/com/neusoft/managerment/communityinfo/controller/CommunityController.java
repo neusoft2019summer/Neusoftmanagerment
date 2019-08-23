@@ -55,6 +55,17 @@ public class CommunityController {
 		public List<CommunityActiveModel> listbyplace(String activeplace) throws Exception{
 			return communityservice.getListByplace(activeplace);
 		}
+		
+		//查询活动地方列表
+		@RequestMapping(value="/list/place")
+		public List<CommunityActiveModel>listplace()throws Exception{
+			return communityservice.getplace();
+		}
+		//查询活动类型列表
+		@RequestMapping(value="/list/type")
+		public List<CommunityActiveModel>listtype()throws Exception{
+			return communityservice.gettype();
+		}
 	/*
 	 * //查询指定时间類型活動
 	 * 

@@ -21,6 +21,8 @@ public interface INewsService {
 	//查询新闻
 	public List<NewsModel> getnewsbyall() throws Exception;
 	public List<NewsModel> getnewsbytype(String newstype)throws Exception;
+	//查询新闻类型
+	public List<NewsModel>gettype()throws Exception;
 	
 	//取得所有新闻列表,分页模式
      public List<NewsModel> getListByAllWithPage(int rows,int page) throws Exception;

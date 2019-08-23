@@ -30,7 +30,7 @@ $(function(){
 		viewrecords: true, 
 		autowidth: true,
 		height: 400,
-		rowNum: 2,
+		rowNum: 5,
 		rowList:[10,20,30],
 		jsonReader : { 
 		      root: "list", 
@@ -51,7 +51,7 @@ $(function(){
 	});
 	
 	//取得类型列表，填充类型下拉框
-	$.getJSON("news/tolist",function(NewsList){
+	$.getJSON("news/list/type",function(NewsList){
 		if(NewsList){
 			$.each(NewsList,function(index,nm){
 				$("select#NewsSelection").append("<option value='"+nm.newstype+"'>"+nm.newstype+"</option>");
@@ -125,6 +125,7 @@ $(function(){
 				title:"增加新闻",
 				width:600
 			});
+			
 			
 			//拦截增加提交表单
 			$("form#NewsAddForm").ajaxForm(function(result){
