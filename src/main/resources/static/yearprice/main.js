@@ -47,7 +47,7 @@ $(function(){
 	});
 	//取得年度价格列表，填充收费项目下拉框
 	$.getJSON(host+"feeItem/list/all",function(List){
-		if(List){
+		if(List){ 
 			$.each(List,function(index,item){
 				$("select#FeeitemSelection").append("<option value='"+item.no+"'>"+item.name+"</option>");
 			});
