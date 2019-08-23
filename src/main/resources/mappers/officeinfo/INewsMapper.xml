@@ -57,4 +57,41 @@ select * from officenews where NEWSNO=#{newsno}
 </select>
   
 
+<!-- 根据综合检索条件取得新闻列表,分页模式 -->
+  <select id="selectListByConditionWithPage" resultMap="NewsResultMap">
+   	select * from officenews
+  <where>
+      <if test="newstype!=null and newstype!=''">
+     and NEWSTYPE=#{newstype}
+     </if>
+      <if test="startDate!=null">
+     and NEWSTIME &gt;=#{startDate}
+     </if>
+      <if test="endDate!=null">
+     and NEWSTIME &lt;=#{endDate}
+     </if>
+     
+  </where>
+    limit #{start},#{rows}
+ 
+  </select>
+  
+  <!-- 根据综合检索条件取得新闻个数-->
+  <select id="selectCountByCondition" resultType="int">
+   select IFNULL(count(NEWSNO), 0) from officenews
+  <where>
+     <if test="newstype!=null and newstype!=''">
+     and NEWSTYPE=#{newstype}
+     </if>
+      <if test="startDate!=null">
+     and NEWSTIME &gt;=#{startDate}
+     </if>
+      <if test="endDate!=null">
+     and NEWSTIME &lt;=#{endDate}
+     </if>
+     
+  </where>
+   
+  </select>
+
   </mapper>

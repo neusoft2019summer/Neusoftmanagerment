@@ -86,6 +86,12 @@ public class CommunityServiceimpl implements ICommunityService {
 		return communityMapper.selectListByConditionWithPage(activeno, activeplace, activetype, activecontent, startActiveDate, endActiveDate, rows*(page-1), rows);
 	}
 
+	@Override
+	public CommunityActiveModel getByNo(int activeno) throws Exception {
+		// TODO Auto-generated method stub
+		return communityMapper.selectbyno(activeno);
+	}
+
 	
 	
 

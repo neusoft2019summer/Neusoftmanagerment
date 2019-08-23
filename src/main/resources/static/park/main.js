@@ -299,8 +299,8 @@ $(function(){
 						$("input[name='area']").val(data.area);
 						$("input[name='rentprice']").val(data.rentprice);
 						$("select[name='rentunit']").val(data.rentunit);
-						$("input[name='parkstatus']").val(data.parkstatus);
-						$("input[name='feestatus']").val(data.feestatus);
+						$("input[name='parkstatus'][value='"+data.parkstatus+"']").attr("checked","true");
+						$("input[name='feestatus'][value='"+data.feestatus+"']").attr("checked","true");
 					}
 				});
 				

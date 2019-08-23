@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.neusoft.managerment.communityinfo.model.CommunityActiveModel;
 
+
 /*
   * 社区业务层接口 
  * @Author: 张梓琪
@@ -34,7 +35,8 @@ public interface ICommunityService {
 	public int getPageCountByConditionWithPage(int activeno,String activeplace,String activetype,String activecontent,Date startActiveDate,Date endActiveDate, int rows)throws Exception;
 	//根据索引取得列表
 	public List<CommunityActiveModel> getListByConditionWithPage(int activeno,String activeplace,String activetype,String activecontent,Date startActiveDate,Date endActiveDate, int rows, int page)throws Exception;
-	
+	//取得指定的活动
+	public CommunityActiveModel getByNo(int activeno)throws Exception;
 	
 
 }

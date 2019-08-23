@@ -19,9 +19,9 @@ public interface ICustomerHomeService {
 	public void modify(CustomerHomeModel customerhome) throws Exception;
 	//删除
 	public void delete(CustomerHomeModel customerhome) throws Exception;
-	//1 取得所有客户列表,无关联
+	//1 取得所有客户房间列表,无关联
 	public List<CustomerHomeModel> getListByAll() throws Exception;
-	//2 取得所有客户列表,有关联,分页模式
+	//2 取得所有客户房间列表,有关联,分页模式
 	public List<CustomerHomeModel> getListByAllWithFKWithPage(int rows,int page) throws Exception;
 	//3 取得指定客户房间对象
 	public CustomerHomeModel getByCHNO(int chno) throws Exception;

@@ -20,7 +20,7 @@ $(function(){
 			{ label: '收费项目编码', name: 'code', width: 50 },
 			{ label: '收费项目名称', name: 'name', width: 50 },
 			{ label: '收费单位', name: 'unit', width: 50 },
-			{ label: '收费类型', name: 'feetype.no', width: 50 },
+			{ label: '收费类型', name: 'feetype.name', width: 50 },
 			{ label: '周期性', name: 'cycle', width: 50},
 			{ label: '收费', name: 'status', width: 50 },
 			{ label: '收费项目说明', name: 'desc', width: 50 } 
@@ -227,10 +227,10 @@ $(function(){
 						$("input[name='no']").val(itemno);
 						$("input[name='code']").val(FeeItem.code);
 						$("input[name='name']").val(FeeItem.name);
-						$("input[name='unit']:checked").val(FeeItem.unit);
+						$("input[name='unit'][value='"+FeeItem.unit+"']").attr("checked","true");
 						$("select[name='feetype.no']").val(FeeItem.feetype.no);
-						$("input[name='cycle']:checked").val(FeeItem.cycle);
-						$("input[name='status']:checked").val(FeeItem.status);
+						$("input[name='cycle'][value='"+FeeItem.cycle+"']").attr("checked","true");
+						$("input[name='status'][value='"+FeeItem.status+"']").attr("checked","true");
 						$("input[name='desc']").val(FeeItem.desc);
 						
 					}

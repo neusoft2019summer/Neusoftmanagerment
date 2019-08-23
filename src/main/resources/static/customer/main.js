@@ -38,7 +38,7 @@ $(function(){
 		caption:"客户列表",
 		viewrecords: true, 
 		autowidth: true,
-		height: 300,
+		height: 400,
 		rowNum: 10,
 		rowList:[10,20,30],
 		jsonReader : { 
@@ -59,8 +59,8 @@ $(function(){
 	//更新jQGrid的列表显示
 	function reloadCustomerList()
 	{
-		$("table#CustomerGrid").jqGrid('setGridParam',{postData:{typeno:typeno,ccode:ccode,cname:cname,cardcode:cardcode,
-			mobile:mobile,feestartdate: feestartdate, feeenddate:feeenddate ,cstatus:cstatus}}).trigger("reloadGrid");
+		$("table#CustomerGrid").jqGrid('setGridParam',{postData:{typeno:typeno,ccode:ccode,cname:cname,
+		feestartdate: feestartdate, feeenddate:feeenddate}}).trigger("reloadGrid");
 		
 	};
 	
@@ -82,9 +82,13 @@ $(function(){
 		reloadCustomerList();
 	});
 	
-	//定义输入开始收费日期更新事件的处理
-	$("input#feeStartDate").off().on("change",function(){
-		feestartdate=$("input#feeStartDate").val();
+	//定义输入收费日期更新事件的处理
+	$("input#feestartdate").off().on("change",function(){
+		feestartdate=$("input#feestartdate").val();
+		reloadCustomerList();
+	});
+	$("input#feeenddate").off().on("change",function(){
+		feeenddate=$("input#feeenddate").val();
 		reloadCustomerList();
 	});
 	
@@ -95,14 +99,9 @@ $(function(){
 		cname=$("input#CnameSelection").val();
 		ccode=$("input#CcodeSelection").val();
 		
-//		feestartdate=$("input#feeStartDate").val();
-//		feeendate=$("input#feeEndDate").val();
-////		if(feeStartDate==""){
-////			feeStartDate=null;
-////		}
-////		if(feeEndDate==""){
-////			feeEndDate=null;
-////		}
+		feestartdate=$("input#feestartdate").val();
+		feeenddate=$("input#feeenddate").val();
+		
      	reloadCustomerList();
 		
 	});

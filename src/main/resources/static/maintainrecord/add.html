@@ -5,53 +5,85 @@
       <div class="box">
         <div class="box-header">
           <div class="row">
-             <div class="col-md-6"> <h3 class="box-title">增加小区</h3></div>
+             <div class="col-md-6"> <h3 class="box-title">增加维修单</h3></div>
              
           </div>
          
         </div>
         <!-- /.box-header -->
       <div class="box-body">
-        <!-- 增加小区表单 -->
+        <!-- 增加新闻表单 -->
        	 <!-- form start -->
-            <form id="AreaAddForm" role="form" action="area/add" method="post">
+            <form id="MaintainrecordAddForm" role="form" action="maintainrecord/add" method="post">
               <div class="box-body">
                 <div class="form-group">
-                  <label for="exampleInputEmail1">小区名称</label>
-                  <input type="text" class="form-control" name="name"  placeholder="小区名称">
+                  <label for="exampleInputPassword1">维修类型</label>
+                  <input type="text" class="form-control" name="mtype.mtypeno"  placeholder="维修类型">
                 </div>
                 <div class="form-group">
-                  <label for="exampleInputPassword1">小区地址</label>
-                  <input type="text" class="form-control" name="address"  placeholder="小区地址">
+                  <label for="exampleInputPassword1">联系人</label>
+                  <input type="text" class="form-control" name="contactname"  placeholder="联系人">
                 </div>
                 <div class="form-group">
-                  <label for="exampleInputEmail1">开发商</label>
-                  <input type="text" class="form-control" name="developer"  placeholder="开发商">
+                  <label for="exampleInputPassword1">房间号</label>
+                  <input type="text" class="form-control" name="room.roomno"  placeholder="房间号">
                 </div>
                 <div class="form-group">
-                  <label for="exampleInputEmail1">总建筑面积</label>
-                   <input type="text" class="form-control" name="buildingarea"  placeholder="总建筑面积">
+                  <label for="exampleInputPassword1">报修日期</label>
+                  <input type="date" class="form-control" name="mdate"  placeholder="报修日期">
                 </div>
                 <div class="form-group">
-                  <label for="exampleInputEmail1">总使用面积</label>
-                  <input type="text" class="form-control" name="usearea" placeholder="总使用面积">
+                  <label for="exampleInputPassword1">维修日期</label>
+                  <input type="date" class="form-control" name="wdate"  placeholder="维修日期">
                 </div>
                 <div class="form-group">
-                  <label for="exampleInputEmail1">车位面积</label>
-                  <input type="text" class="form-control" name="parkarea" placeholder="车位面积">
+                  <label for="exampleInputPassword1">移动电话</label>
+                  <input type="text" class="form-control" name="mobile"  placeholder="移动电话">
                 </div>
                 <div class="form-group">
-                  <label for="exampleInputEmail1">总居民数</label>
-                  <input type="text" class="form-control" name="home" placeholder="总居民数">
+                  <label for="exampleInputPassword1">固定电话</label>
+                  <input type="text" class="form-control" name="tel"  placeholder="固定电话">
                 </div>
                 <div class="form-group">
-                  <label for="exampleInputEmail1">总公建数</label>
-                  <input type="text" class="form-control" name="house" placeholder="总公建数">
+                  <label for="exampleInputPassword1">报修说明</label>
+                  <input type="text" class="form-control" name="mdesc"  placeholder="报修说明">
                 </div>
                 <div class="form-group">
-                  <label for="exampleInputEmail1">车位数</label>
-                  <input type="text" class="form-control" name="park" placeholder="车位数">
+                  <label for="exampleInputPassword1">维修内容</label>
+                  <input type="text" class="form-control" name="wtask"  placeholder="维修内容">
                 </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">维修结果</label>
+                  <input type="text" class="form-control" name="wresult"  placeholder="维修结果">
+                </div>
+                <div class="form-group">
+				   <label  for="name">维修状态:</label>
+				     <input type="radio" name="wstatus" value="Y">已维修
+				     <input type="radio" name="wstatus" value="N">未维修   
+			 	</div>
+                
+			 	<div class="form-group">
+                  <label for="exampleInputPassword1">维修费用</label>
+                  <input type="text" class="form-control" name="wfee"  placeholder="维修费用">
+                </div>
+                <div class="form-group">
+				   <label  for="name">维修服务公司:</label>
+				     <input type="radio" name="provider.providerno" value="1">东软
+				     <input type="radio" name="provider.providerno" value="2">西软
+				     <input type="radio" name="provider.providerno" value="3">北软
+				     <input type="radio" name="provider.providerno" value="3">南软
+			 	</div>
+			 	<div class="form-group">
+				   <label  for="name">维修员工ID:</label>
+				     <input type="radio" name="wemp.wempid" value="1">小a
+				     <input type="radio" name="wemp.wempid" value="2">小b
+				     <input type="radio" name="wemp.wempid" value="3">小c
+			 	</div>
+			 	<div class="form-group">
+                  <label for="exampleInputPassword1">客户反馈</label>
+                  <input type="text" class="form-control" name="clientfeeback"  placeholder="客户反馈">
+                </div>
+			 	
               </div>
               <!-- /.box-body -->
 

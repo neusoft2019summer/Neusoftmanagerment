@@ -31,8 +31,8 @@ $(function(){
 		caption:"客户房间列表",
 		viewrecords: true, 
 		autowidth: true,
-		height: 300,
-		rowNum: 8,
+		height: 400,
+		rowNum: 10,
 		rowList:[10,20,30],
 		jsonReader : { 
 		      root: "list", 
@@ -278,7 +278,7 @@ $(function(){
 						$("input[name='customer.customerno']").val(em.customer.customerno);
 						//$("input[name='customer.cname']").val(em.customer.cname);
 						$("input[name='room.roomno']").val(em.room.roomno);
-						$("input[name='livingtype.typeno']").val(em.livingtype.typeno);
+						$("input[name='typeno']").val(em.livingtype.typeno);
 						$("input[name='livedate']").val(em.livedate);
 						$("input[name='receivedate']").val(em.receivedate);
 						$("input[name='feestartdate']").val(em.feestartdate);

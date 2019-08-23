@@ -71,10 +71,10 @@
      <if test="ccode!=null and ccode!=''" >
      and a.CCODE=#{ccode}
      </if>
-     <if test="feestartdate!=null and feestartdate!=''">
+     <if test="feestartdate!=null">
      and a.FEESTARTDATE &gt;=#{feestartdate}
      </if>
-     <if test="feeenddate!=null and feeenddate!=''" >
+     <if test="feeenddate!=null" >
      and a.FEEENDDATE &lt;=#{feeenddate}
      </if>
   </where> 

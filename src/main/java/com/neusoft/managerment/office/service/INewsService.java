@@ -1,8 +1,9 @@
 package com.neusoft.managerment.office.service;
 
+import java.util.Date;
 import java.util.List;
 
-
+import com.neusoft.managerment.baseinfo.model.BuildingModel;
 import com.neusoft.managerment.office.model.NewsModel;
 
 /*
@@ -29,6 +30,25 @@ public interface INewsService {
  	public int getPageCountByAll(int rows) throws Exception;
  	//取得指定新闻
  	public NewsModel getByNo(int newsno)throws Exception;
+ 	//根据综合检索条件取得新闻列表,分页
+    public List<NewsModel> getListByConditionWithPage(
+ 				String newstype,
+ 				Date startDate,
+ 				Date endDate,
+ 				int rows, int page) throws Exception;
+ 		
+ 	//根据综合检索条件取得新闻个数
+ 	public int getCountByCondition(
+ 				String newstype,
+ 				Date startDate,
+ 				Date endDate) throws Exception;
+ 		
+ 	//根据综合检索条件取得新闻显示的页数
+ 	public int getPageByConditionWithPage(
+ 				String newstype,
+ 				Date startDate,
+ 				Date endDate,
+ 				int rows) throws Exception;
 	 
 
 }

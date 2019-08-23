@@ -1,5 +1,6 @@
 package com.neusoft.managerment.office.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -85,6 +86,35 @@ public class NewsServiceImpl implements INewsService  {
 		return newsmapper.selectbyno(newsno);
 	}
 
-	
+	@Override
+	public List<NewsModel> getListByConditionWithPage(String newstype, Date startDate, Date endDate, int rows, int page)
+			throws Exception {
+		
+		return newsmapper.selectListByConditionWithPage(newstype, startDate, endDate, rows*(page-1), rows);
+	}
+
+	@Override
+	public int getCountByCondition(String newstype, Date startDate, Date endDate) throws Exception {
+		
+		return newsmapper.selectCountByCondition(newstype, startDate, endDate);
+	}
+
+	@Override
+	public int getPageByConditionWithPage(String newstype, Date startDate, Date endDate, int rows) throws Exception {
+		int pageCount=0;
+		int count=this.getCountByCondition(newstype, startDate, endDate);
+		if(count%rows==0) {
+			pageCount=count/rows;
+		}
+		else {
+			pageCount=count/rows+1;
+		}
+		return pageCount;
+	}
+
+
 }
+
+	
+
 
