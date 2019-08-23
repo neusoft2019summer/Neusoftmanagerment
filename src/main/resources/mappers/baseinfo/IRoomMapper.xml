@@ -104,10 +104,10 @@
       and c.TypeNo=#{typeno}
      </if>
      <if test="housetypeno!=0">
-      and c.TypeNo=#{typeno}
+      and d.TypeNo=#{typeno}
      </if>
      <if test="buildingno!=0">
-      and c.BuildingNo=#{buildingno}
+      and e.BuildingNo=#{buildingno}
      </if>
   </where> 
   limit #{start},#{rows}
@@ -127,10 +127,10 @@
       and c.TypeNo=#{typeno}
      </if>
      <if test="housetypeno!=0">
-      and c.TypeNo=#{typeno}
+      and d.TypeNo=#{typeno}
      </if>
      <if test="buildingno!=0">
-      and c.BuildingNo=#{buildingno}
+      and e.BuildingNo=#{buildingno}
      </if>
   </where>  
   </select> 
