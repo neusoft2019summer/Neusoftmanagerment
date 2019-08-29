@@ -35,7 +35,7 @@ $(function(){
 		caption:"小区列表",
 		viewrecords: true, //显示总记录数
 		autowidth: true,
-		height: 300,
+		height: 400,
 		rowNum: 5,
 		rowList:[5,6,7,8,9,10],
 		jsonReader : { 

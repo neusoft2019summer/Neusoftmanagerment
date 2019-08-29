@@ -34,8 +34,8 @@ $(function(){
 		viewrecords: true,
 		autowidth: true,
 		height:400,
-		rowNum: 10,
-		rowList:[5,6,7,8,9,10],
+		rowNum: 15,
+		rowList:[10,15,20,25],
 		jsonReader : {			
 			root: "list", 
 			page: "page", 

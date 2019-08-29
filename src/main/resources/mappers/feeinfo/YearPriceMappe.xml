@@ -63,7 +63,7 @@
    
    <!--根据综合检索条件取得年度价格列表  -->
    <select id="selectListByConditionWithFeeItemWithPage" resultMap="YearPriceResultMapWithFeeItem">
-    select a.*,b.* from YearPrice a left outer join FeeItemYearPrice b on a.FeeYear=b.FeeYear
+    select a.* from YearPrice a
  	 <where>
 	 	<if test="feeyear!=null and feeyear!=''">
 	 	and a.FeeYear=#{feeyear}

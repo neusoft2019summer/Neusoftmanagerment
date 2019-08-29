@@ -27,8 +27,8 @@ $(function(){
 		viewrecords: true, //显示总记录数
 		autowidth: true,
 		height: 400,
-		rowNum: 20,
-		rowList:[5,6,7,8,9,20],
+		rowNum: 10,
+		rowList:[10,15,20],
 		jsonReader : { 
 		      root: "list", 
 		      page: "page", 
